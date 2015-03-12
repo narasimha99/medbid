@@ -115,8 +115,24 @@ $templtpath= get_template_directory_uri();
 			//alert(k);
 			jQuery("#TABLEsessionday"+p).append(k);
 		}
+		
+		function calculatelocumrate(){
 
- 
+		 var start_actual_time  =  "01/17/2012 11:20";
+    		 var end_actual_time    =  "01/18/2012 12:25";
+
+		    start_actual_time = new Date(start_actual_time);
+		    end_actual_time = new Date(end_actual_time);
+
+		    var diff = end_actual_time - start_actual_time;
+		    var diffSeconds = diff/1000;
+    		   var HH = Math.floor(diffSeconds/3600);
+		    var MM = Math.floor(diffSeconds%3600)/60;
+
+		    var formatted = ((HH < 10)?("0" + HH):HH) + ":" + ((MM < 10)?("0" + MM):MM);
+		    alert(formatted);
+		}
+ 			calculatelocumrate();
 
 		</script>
 		

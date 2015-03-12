@@ -132,7 +132,7 @@ $templtpath= get_template_directory_uri();
 		    var formatted = ((HH < 10)?("0" + HH):HH) + ":" + ((MM < 10)?("0" + MM):MM);
 		    alert(formatted);
 		}
- 			calculatelocumrate();
+ 			//calculatelocumrate();
 
 		</script>
 		
