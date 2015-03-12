@@ -1,0 +1,260 @@
+<?php
+class ReceiptsController extends MvcPublicController {
+
+	
+	public function index() {
+		$this->set('mylayout', 'client');	
+  	}
+
+	public function createreceipt() {
+		$this->set('mylayout', 'client');
+
+	 	$this->load_model('Receipt');
+
+		 //echo "<pre>"; print_r($_POST);
+		if(isset($_POST['save'])){
+
+			$receipt_id = $_POST['receipt_id'];
+			$receipt_date = $_POST['receipt_date'];
+			$my_date = explode('-',$receipt_date);
+			$receipt_date = $my_date[2].'-'.$my_date[1].'-'.$my_date[0];
+			//echo $receipt_date;
+
+			$party_name = $_POST['party_name'];
+			$income_way = $_POST['income_way'];
+			$mod_of_payment = $_POST['mod_of_payment'];
+			$cheque_details = $_POST['cheqe_details'];
+			$remarks = $_POST['remarks'];
+			$amount = $_POST['amount'];
+
+			$type_of_voucher = 'receipt';
+			$trans_date = $receipt_date;
+			$ledger_id=29;
+			$debit = 0;
+			$credit = $amount;
+
+
+			 
+
+			global $wpdb;		
+			$p="INSERT INTO  wp_receipts
+			       ( `party_name`,ledger_id, `income_way`,`receipt_date`,  `mod_of_payment`, `cheque_details`, `amount`,remarks)
+			VALUES('$party_name',$ledger_id,'$income_way','$receipt_date', '$mod_of_payment','$cheque_details',$amount,'$remarks')";
+
+			//echo $p;
+ 			$wpdb->query($p);
+	
+			$receipt_id = mysql_insert_id(); 
+			$q="INSERT INTO wp_daybook(type_of_voucher, ledger_id, trans_date, debit,credit,receipt_id)
+					values('$type_of_voucher',$ledger_id, '$trans_date', $debit, $credit,$receipt_id)";
+			//echo $q;
+			 $wpdb->query($q);
+
+			$this->flash('success', 'Successfully Receipt Saved');
+		
+
+		}
+	 
+  
+		  
+   	}
+
+
+	public function listreceipt(){
+		$this->set('mylayout', 'client');
+		$this->load_model('Receipt');
+		
+		$arrReceipts =  $this->Receipt->find(); 
+		$this->set('arrReceipts', $arrReceipts);
+		$this->load_model('Receipt');
+        	$params       = $this->params;
+	      	$params['page']  = empty($this->params['page']) ? 1 : $this->params['page'];
+         
+		//print_r($_POST);
+ 		if( isset($_POST['Go'])  &&  isset($_POST['search_id'])  ) {
+		//	print_r($_POST);
+
+		$search_id = $_POST['search_id'];
+		$search_data = $_POST['search_data'];
+
+		if( $search_id == 'ledger_id' ){
+  			$params['conditions'] = array('Receipt.ledger_id' => $search_data);
+ 		}elseif($search_id == 'Income_way'){
+			$params['conditions'] = array('Receipt.Income_way LIKE ' => $search_data);
+	 	}elseif($search_id == 'receipt_date'){
+ 			$params['conditions'] = array('Receipt.receipt_date' => $search_data);
+		}elseif($search_id == 'cheque_details'){
+			$params['conditions'] = array('Receipt.cheque_details' => $search_data);
+ 		}
+		 
+	 	 
+	}
+  
+
+      
+	 $params['joins']      = array('ledger');
+        $params['includes']   = array('ledger');
+        $params['selects']    = array('Receipt.*', 'ledger.ledgername');		
+	//$params['order']      = 'Requestadvicesession.id DESC';
+	$collection = $this->Receipt->paginate($params);
+//	echo "<pre>";	print_r($collection);
+        $this->set('receiptData', $collection['objects']);
+        $this->set_pagination($collection);
+      
+
+	}
+
+
+
+
+	public function viewreceipt(){
+		$this->set('mylayout', 'empty');	
+		 
+		$this->load_model('Receipt');    
+		//print_r($this->params);
+		$arrParm = array( 
+		                'selects'    => array('Receipt.*'),
+		                'conditions' => array('Receipt.id' => $this->params['id'])
+		           );
+
+		$object = $this->Receipt->find($arrParm);
+		$this->set('receiptData', $object);
+ 
+		 
+	}
+
+		
+
+	public function editreceipt(){
+		$this->set('mylayout', 'client');
+		$this->load_model('Receipt');
+		
+		$arrParm = array('selects' => array('Receipt.*'),
+		          'conditions' => array('Receipt.id' => $this->params['id'])
+		);
+
+		$object = $this->Receipt->find($arrParm);
+		//echo "<pre>";	print_r($object);
+		$this->set('receiptData', $object);	
+				
+		//echo "<pre>"; print_r($_POST);
+		if(isset($_POST['save'])){
+
+		$receipt_id = $_POST['receipt_id'];
+		$receipt_date = $_POST['receipt_date'];
+		$my_date = explode('-',$receipt_date);
+		//print_r($my_date);
+		$receipt_date = $my_date[2].'-'.$my_date[1].'-'.$my_date[0];
+		//echo $receipt_date;
+
+		$party_name = $_POST['party_name'];
+		$income_way = $_POST['income_way'];
+		$mod_of_payment = $_POST['mod_of_payment'];
+		$cheque_details = $_POST['cheqe_details'];
+		$remarks = $_POST['remarks'];
+		$amount = $_POST['amount'];
+
+		$type_of_voucher = 'receipt';
+		$trans_date = $receipt_date;
+		$ledger_id=29;
+		$debit = 0;
+		$credit = $amount;
+
+
+		 
+		$this->load_model('Receipt');
+		$this->Receipt->update($this->params['id'],$_POST);
+ 			global $wpdb;		
+		
+ 		if ($receipt_id>0){
+				$p = "Update wp_receipts set party_name='$party_name', ledger_id = $ledger_id,
+				income_way = '$income_way',receipt_date = '$receipt_date',mod_of_payment = '$mod_of_payment',
+				cheque_details = '$cheque_details',amount = '$amount', remarks = '$remarks'
+				where id= $receipt_id";
+				$wpdb->query($p);
+				//echo $p;
+				$q = "Update wp_daybook set trans_date='$receipt_date', ledger_id = $ledger_id,
+				credit = '$amount' where receipt_id= $receipt_id";
+				//echo $p;
+ 				$wpdb->query($q);
+ 
+		}
+
+		$this->flash('success', 'Successfully Receipt Saved');
+		
+		 
+	
+		}
+		
+		
+
+	}
+
+	public function deletereceipt() {
+		$this->set('mylayout', 'client');
+ 		
+		$this->load_model('Receipt');
+		$this->Receipt->delete($this->params['id']);
+		$this->flash('notice', 'Successfully Receipt deleted!');
+		
+		$url= esc_url( home_url( '/' ) ).'receipts/listreceipt';
+		$this->redirect($url);
+ 	 }
+
+
+	public function bulkreceiptgeneration(){
+		$this->set('mylayout', 'client');
+
+		if(isset($_POST['save'])){
+	
+			$memberList = $_POST['memberList'];
+		 	$receipt_date = $_POST['receipt_date'];
+			$my_date = explode('-',$receipt_date);
+			print_r($my_date);
+			$receipt_date = $my_date[2].'-'.$my_date[1].'-'.$my_date[0];
+			//echo $receipt_date;
+
+			$party_name ='';  //$_POST['party_name'];
+			$income_way = $_POST['towards'];
+			$mod_of_payment = 'cash';
+			$cheque_details = ''; 
+			$remarks = $_POST['remarks'];
+			$amount = $_POST['amount'];
+
+			$type_of_voucher = 'receipt';
+			$trans_date = $receipt_date;
+			$ledger_id=0;
+			$debit = 0;
+			$credit = $amount;
+			global $wpdb;
+
+			if(count($memberList)>0){
+			foreach($memberList as $ledger_id){
+
+
+			$p="INSERT INTO wp_receipts
+			       ( `party_name`,ledger_id, `income_way`,`receipt_date`,  `mod_of_payment`, `cheque_details`, `amount`,remarks)
+			VALUES('$party_name',$ledger_id,'$income_way','$receipt_date', '$mod_of_payment','$cheque_details',$amount,'$remarks')";
+
+			//echo $p;
+			 $wpdb->query($p);
+			$receipt_id = mysql_insert_id(); 
+			$q=" INSERT INTO wp_daybooksl(type_of_voucher, ledger_id, trans_date, debit,credit,receipt_id)
+					values('$type_of_voucher',$ledger_id, '$trans_date', $debit, $credit,$receipt_id)";
+			
+			//echo $q;
+			 $wpdb->query($q);
+
+  			}}
+		}
+
+ 	}
+
+	public function receiptprint(){
+		
+		$this->set('mylayout', 'client');
+
+	}
+}
+
+?>	

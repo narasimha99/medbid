@@ -1,0 +1,5 @@
+<?php
+class Bookpublisher extends MvcModel {
+var $hasMany = array('Book' => array('foreign_key' => 'bookpublisher_id'));
+}
+?>

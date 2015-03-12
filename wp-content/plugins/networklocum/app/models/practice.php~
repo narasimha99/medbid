@@ -1,0 +1,5 @@
+<?php
+class Practice extends MvcModel {
+	var $belongs_to = array('Bookpublisher');
+}
+?>

@@ -1,0 +1,7 @@
+<?php
+class ledger extends MvcModel {
+var $belongs_to = array('group'); 
+var $hasMany = array('Receipt' => array('foreign_key' => 'ledger_id'));
+}
+
+?>

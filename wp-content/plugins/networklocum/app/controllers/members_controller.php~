@@ -1,0 +1,93 @@
+<?php
+class MembersController extends MvcPublicController {
+
+ 	public function index() {
+		$this->set('mylayout', 'client');	
+  	}
+
+	public function createmember(){
+		$this->set('mylayout', 'client');	
+
+		global $wpdb;
+		//echo "<pre>"; print_r($_POST);
+		if(isset($_POST['save'])){
+
+			$name = $_POST['mname'];
+			$address = $_POST['maddress'];
+			$contact = $_POST['contact'];
+			$remarks = $_POST['remarks'];
+$qry="SELECT max(id)+1 as ltid from wp_members";
+		 
+		$latestnumber=$wpdb->get_results($qry);
+		print_r($latestnumber);
+		
+		$testid =  'M'.$latestnumber[0]->ltid;
+		If ( $testid =='M')
+			$testid = 'M1';
+  
+			$p="INSERT INTO wp_members  ( `memberid` ,`name` ,`address` ,`contact` ,`remarks` ) VALUES('$testid','$name', '$address', '$contact', '$remarks')";
+			 // echo $p;
+			 $wpdb->query($p); 
+
+			$this->flash('success', 'Successfully member Saved');
+		}
+ 	}
+
+	public function editmember(){
+		$this->set('mylayout', 'client');
+		global $wpdb;	
+		//echo "<pre>"; print_r($_POST);
+		if(isset($_POST['save'])){
+
+			$member_id=$_POST['id'];
+			$name = $_POST['mname'];
+			$address = $_POST['maddress'];
+			$contact = $_POST['contact'];
+			$remarks = $_POST['remarks'];
+
+		if ($member_id>0){
+				$p = "Update wp_members set name='$name', address= '$address',
+				contact = '$contact',remarks = '$remarks'
+				where  id=$member_id";
+				//echo $p;
+				$wpdb->query($p); 
+				$this->flash('success', 'Successfully   Saved');
+		}}
+	}
+
+
+	public function viewmember(){
+		$this->set('mylayout', 'empty');	
+		 
+		$this->load_model('member');    
+		//print_r($this->params);
+		$arrParm = array( 
+		                'selects'    => array('member.*'),
+		                'conditions' => array('member.id' => $this->params['id'])
+		           );
+
+		$object = $this->member->find($arrParm);
+		$this->set('memberData', $object);
+  	}
+	
+	public function deletemember(){
+		
+		global $wpdb;
+	 	 //echo "<pre>"; 	print_r($_GET);
+		 $k =$this->params['id'];
+		 if( isset($this->params['id']) ){
+			
+			$l = "delete from wp_members   where  id =$k";
+			//echo $l;
+			$wpdb->query($l);
+			$this->flash('success', 'Your record deleted successfully'); 
+
+			$url= esc_url( home_url( '/' ) ).'members/createmember';
+			$this->redirect($url);
+		}			
+ 
+	}
+
+}
+
+?>	

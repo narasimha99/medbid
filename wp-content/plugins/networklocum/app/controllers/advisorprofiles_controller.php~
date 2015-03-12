@@ -1,0 +1,70 @@
+<?php
+ 
+class AdvisorprofilesController extends MvcPublicController {
+
+	// Overwrite the default index() method to include the 'is_public' => true condition
+	public function index() {
+	
+	$this->set('mylayout', 'advisor');	
+	
+		//$this->params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+		
+	//	$this->params['conditions'] = array('is_public' => true);
+		
+		//$collection = $this->model->paginate($this->params);
+		//$this->load_model('Advisorintro');
+		//$collection = $this->model->find();
+		//echo "<pre>";print_r($collection);
+		 
+		//$this->set('objects', $collection);
+	//	$this->set_pagination($collection);
+	
+	}
+	
+	public function intro() {
+	
+	$this->set('mylayout', 'advisor');	
+	$this->load_model('Advisorintro');
+	 
+	$_SESSION['user_id'] = 431;
+	$uid = $_SESSION['user_id'];
+	
+	$object = $this->Advisorintro->find(
+				array('conditions' => array('Advisorintro.user_id' => $uid)));
+				
+	$object[0]->user_id = $uid;
+	$this->set('advdata', $object);
+	//echo "<pre>"; print_r($object); echo "</pre>";
+
+		 
+	 $this->load_model('Advisorintro');
+		 if (!empty($_POST['data']['intro'])) {
+			 //echo "<pre>"; print_r($_POST);
+			$object = $_POST['data']['intro'];
+			$introId = $_POST['data']['intro']['id'];
+			if(!empty($introId))
+				$this->Advisorintro->update($introId,$object);
+			else
+				$this->Advisorintro->save($object);
+			
+				
+			$this->flash('notice', 'Successfully  saved!');
+				https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']
+			//$url = "http://localhost/wordpress-finance/advisorprofiles/introintro";
+			//$this->redirect($url);
+		}
+	}
+	
+	 
+	
+	 
+	 
+	  
+	 
+	 
+	 	
+ 
+	
+}
+
+?>

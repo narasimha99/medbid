@@ -1,0 +1,6 @@
+<?php
+class Receipt extends MvcModel {
+var $belongs_to = array('ledger');
+}
+
+?>
