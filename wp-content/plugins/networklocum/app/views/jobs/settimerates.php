@@ -1,3 +1,10 @@
+
+<script>
+$("#hourlyrate").blur(function(){
+    //alert("This input field has lost its focus.");
+calculatelocumrate();
+});
+</script>
 <div id="settimerates">
 <?php
 $daterangeList = explode(",",$dateranges);
@@ -16,7 +23,7 @@ foreach($daterangeList as $sessiondate) {
 		<input type='button' name="delete" id="<?php echo 'delete'.$i;?>" value="Delete day" onclick="deletedate(<?php echo $i;?>);"/>
 	</td> </tr>
 
-		<tr class='sessiontime' id='times1'> <td>Session 1 Enter session times using 24 hour notation (eg. 10:00, 18:00). <br/>  <span> Time</span> <input type="text" name="session_starttime[]"  placeholder='eg: 09:00'/>	<span>Till</span> <input type="text" name="session_endtime"  placeholder='eg: 17:00'  />  <span>Hourly rate £</span> <input type="text" name="Hourlyrate" placeholder='eg: 80.00'  />    <input type='button' class='deltimesession' name='delete'  class='deltimesession' id="1" value='delete' onclick="$(this).closest('tr').remove();"  /> </td> </tr>
+		<tr class='sessiontime' id='times1'> <td>Session 1 Enter session times using 24 hour notation (eg. 10:00, 18:00). <br/>  <span> Time</span> <input type="text" name="session_starttime[]"  placeholder='eg: 09:00'/>	<span>Till</span> <input type="text" name="session_endtime"  placeholder='eg: 17:00'  />  <span>Hourly rate £</span> <input type="text" name="Hourlyrate" id="hourlyrate" placeholder='eg: 80.00'  />    <input type='button' class='deltimesession' name='delete'  class='deltimesession' id="1" value='delete' onclick="$(this).closest('tr').remove();"  /> </td> </tr>
 </table>
 
 

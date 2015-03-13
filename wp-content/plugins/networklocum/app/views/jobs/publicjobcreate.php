@@ -13,7 +13,9 @@ $templtpath= get_template_directory_uri();
 		
 		<!-- mdp demo code -->
 		<script type="text/javascript">
-	
+	$( document ).ready(function() {
+ 
+	});
 		
 		<!--
 			var latestMDPver = $.ui.multiDatesPicker.version;
@@ -116,7 +118,8 @@ $templtpath= get_template_directory_uri();
 			jQuery("#TABLEsessionday"+p).append(k);
 		}
 		
-		function calculatelocumrate(){
+		
+		function calculatelocumrate(element){
 
 		 var start_actual_time  =  "01/17/2012 11:20";
     		 var end_actual_time    =  "01/18/2012 12:25";
@@ -134,6 +137,7 @@ $templtpath= get_template_directory_uri();
 		}
  			//calculatelocumrate();
 
+		
 		</script>
 		
 		<div id="datecalenderdiv">		
@@ -175,9 +179,7 @@ Select dates you need cover for above
 	<!--middle end here-->
 
 <script>
-$( document ).ready(function() {
- 
-});
+
 function generatesessionmaster(){
 		alert('hi genaratemasters');
 		var dateranges = jQuery("#session_date_range").val();
