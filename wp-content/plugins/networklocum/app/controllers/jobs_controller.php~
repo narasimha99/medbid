@@ -54,7 +54,7 @@ class JobsController extends MvcPublicController {
 	public function  settimerates(){
 
 	 	$this->set('mylayout', 'empty');
-		print_r($_GET);
+		//print_r($_GET);
 		$dateranges = $_GET['dateranges'];
 		$this->set('dateranges',$dateranges);
   	}

@@ -45,9 +45,7 @@ class JobsController extends MvcPublicController {
 		$howdidyouhearlist = $this->howdidyouhear->find();
 		$this->set('howdidyouhearlist',$howdidyouhearlist);
 		
-
-
-  	}
+   	}
  
 		
 	

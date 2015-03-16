@@ -565,3 +565,263 @@ background-color: #FFBABA;
 background-image: url('../images/error.png');
 }
 
+/******---------------------------******/
+.bitbox1{background:#eefaff; border:1px solid #d9f3fc; padding:30px;   overflow: auto; margin-bottom:25px;}
+.bitbox1 h2 {
+  font-size: 32px;
+  color: #036;
+}
+.bitbox1 h3 {
+  font-size: 24px;
+  color: #5CB5D5;
+}
+.bitbox1 p{ margin-bottom:20px;}
+.seticon {
+  font-size: 26px !important;
+  margin-right: 8px;
+}
+
+#no-more-tables table{  
+	margin-top:20px;
+	}
+	
+.aplbtn{margin:15px 0px 15px 15px;}
+
+
+
+	
+/******media queries******/
+
+@media(max-width:1366px){
+.carousel-indicators {
+  bottom: 75px;
+}	
+}
+
+@media(max-width:1024px){
+.footrow2 p {
+  font-size:12px;
+}	
+.midrow2 p {
+  font-size: 19px;
+}
+}
+
+@media only screen and (max-width: 800px) {
+    
+    /* Force table to not be like tables anymore */
+	#no-more-tables table, 
+	#no-more-tables thead, 
+	#no-more-tables tbody, 
+	#no-more-tables th, 
+	#no-more-tables td, 
+	#no-more-tables tr { 
+		display: block; 
+	}
+ 
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#no-more-tables thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	#no-more-tables tr { border: 1px solid #ccc; }
+ 
+	#no-more-tables td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	#no-more-tables td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	/*
+	Label the data
+	*/
+	#no-more-tables td:before { content: attr(data-title); }
+}
+
+@media (max-width: 800px) {
+
+.mtfont{font-size:19px;}
+
+.text1 {
+  font-size: 30px;
+}
+
+.testmb{margin:0px !important;}
+
+.sicons2{background:#1C1C1C !important;   float: left;
+  margin-left: -20px !important;}
+
+.testimonial p {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.carousel-indicators {
+  bottom: 20px;
+}
+.sicons {
+  margin: 0px;
+  padding: 20PX;
+  background: #72CFF0;
+}
+
+.mbpad{  margin: 0px;
+  padding: 0px;
+  width: 100%;}
+
+.tnav a {
+  padding: 10px !important;
+  color: #003366 !important;
+  margin: 0px;
+  background:#fff;
+  border-bottom:1px solid #eee;
+}
+
+.tnav a:hover {
+  padding: 10px !important;
+  color: #fff !important;
+  margin: 0px;
+  background:#5fbcde !important;
+}
+
+.carousel {
+  position: relative;
+  margin-top: 95px;
+}
+
+
+
+
+  .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+		  margin-top: 30px;
+		    margin-bottom: -5px;
+		  background: #fff !important;
+		  color:#50A0BD !important;
+		  border: 1px solid #50A0BD !important;
+    }
+	
+	.navbar-toggle:hover {
+		  background: #eee !important;
+    }
+	.navbar-collapse{
+		z-index:999;
+		margin-top:30px;
+		width:100%;
+	
+	}
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+    }
+    .navbar-nav>li {
+        float: none !important;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    /* since 3.1.0 */
+   .navbar-collapse.collapse.in {
+	display: block!important;
+	  margin-top: 37px;
+	  width: 107% !important;
+	  margin-left: -25px !important;
+}
+    .collapsing {
+        overflow: hidden!important;
+		  margin-top: 37px;
+	  width: 107% !important;
+	  margin-left: -25px !important;
+    }
+  }
+
+
+
+@media(max-width:640px){
+
+.logbody {
+  width: 96%;
+}
+
+.footrow2 img {
+  float: none;
+}
+
+.navbar-collapse.collapse.in {
+  width: 110% !important;
+  margin-left: -30px !important;
+}
+
+.collapsing{
+        width: 110% !important;
+  margin-left: -30px !important;
+    }
+}
+
+
+
+
+@media(max-width:480px){
+
+.logbody2 {
+  padding: 14px;
+}
+
+.navbar-collapse.collapse.in {
+  width: 114% !important;
+}
+
+.collapsing{
+        width: 114% !important;
+    }
+	
+	.carousel-indicators {
+  bottom: 5px;
+}
+
+}
+
+@media(max-width:400px){
+.navbar-collapse.collapse.in {
+  width: 121% !important;
+}
+
+.collapsing{
+        width: 121% !important;
+    }
+
+}
+
+
+
+
+
+
+
+
+

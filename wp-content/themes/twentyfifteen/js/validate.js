@@ -313,5 +313,32 @@ function gethourlyrate(i,j){
  		$('#paytolocum_'+i).val(Total_paytolocum);
 		$('#medbidfee_'+i).val(medbidfee);
 
- 
+
+
+		// bottom totals Cost breakdown
+ 		var z=1;
+		var grandtotallocumpay = 0;
+ 		$(".paytolocum").each(function() {
+ 	  		
+	 		grandtotallocumpay  = grandtotallocumpay + parseFloat($('#paytolocum_'+z).val());
+ 			$("#grandtotallocumpay").text(grandtotallocumpay);
+			z = z + 1;
+ 		});
+		
+
+		var grandmedbidfee	=  (grandtotallocumpay * 15)/100;
+		var estimatedsavingvat  =  (grandtotallocumpay * 15)/100;
+		var vatonmedbidfee	=  (grandtotallocumpay * 15)/100;
+
+		$("#grandmedbidfee").text(grandmedbidfee);
+		$("#estimatedsavingvat").text(estimatedsavingvat);
+		$("#vatonmedbidfee").text(vatonmedbidfee);
+		
+		var pmtotalcost = grandmedbidfee + estimatedsavingvat +  vatonmedbidfee;
+		pmtotalcost = parseFloat(pmtotalcost).toFixed(2);
+
+		$("#pmtotalcost").text(pmtotalcost);
+
+  
+
 	}
