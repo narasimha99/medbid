@@ -192,7 +192,7 @@ else
 			//$("#yourTableId tr").length
 
  			//	 rcount = rcount + 1;	
-  			var k = " <tr class='sessiontime' id='times"+rcount+"'> <td> Session "+rcount+" Enter session times using 24 hour notation (eg. 10:00, 18:00).  <br/> <span> Time</span> <input type='text' id='session_starttime_"+p+"_"+rcount+"' name='session_starttime[]' placeholder='eg: 09:00'/> <span>till</span> <input type='text' name='session_endtime[]' id='session_endtime_"+p+"_"+rcount+"'  placeholder='eg: 17:00' /> <span>Hourly rate £</span> <input type='text' name='hourlyrate[]' onblur='gethourlyrate("+p+","+rcount+")'  myid='_"+p+"_"+rcount+"'   class='hourlyrate' id='hourlyrate_"+p+"_"+rcount+"'  aceholder='eg: 80.00'/> <input type='button' class='deltimesession' id='"+rcount+"' onclick='deltimesession(this)'  name='delete' value='delete'/> </td> </tr>"; 
+  			var k = " <tr class='sessiontime' id='times"+rcount+"'> <td> Session "+rcount+" Enter session times using 24 hour notation (eg. 10:00, 18:00).  <br/> <span> Time</span> <input type='text' id='session_starttime_"+p+"_"+rcount+"' name='session_starttime["+p+"]["+rcount+"]' placeholder='eg: 09:00'/> <span>till</span> <input type='text' name='session_endtime["+p+"]["+rcount+"]' id='session_endtime_"+p+"_"+rcount+"'  placeholder='eg: 17:00' /> <span>Hourly rate £</span> <input type='text' name='hourlyrate["+p+"]["+rcount+"]' onblur='gethourlyrate("+p+","+rcount+")'  myid='_"+p+"_"+rcount+"'   class='hourlyrate' id='hourlyrate_"+p+"_"+rcount+"'  aceholder='eg: 80.00'/> <input type='button' class='deltimesession' id='"+rcount+"' onclick='deltimesession(this)'  name='delete' value='delete'/> </td> </tr>"; 
 			//alert(k);
 			jQuery("#TABLEsessionday"+p).append(k);
 		}

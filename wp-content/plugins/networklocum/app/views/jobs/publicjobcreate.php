@@ -7,7 +7,7 @@ jQuery( document ).ready(function() {
 
 	//console.log( "ready!" );
 	jQuery("#submit1").click(function () {
-	$("#calendarform").submit();
+		$("#calendarform").submit();
 	});
 
 });
@@ -39,7 +39,7 @@ jQuery( document ).ready(function() {
 					<p>Completely <b>free</b> to post! Takes just <b>3 minutes!</b> Collect applications just as fast!</p>
 					<br>
 				</div>
-				<form id="Form" name="" id="calendarform" method="POST">
+				<form id="Form" name="" id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate" method="POST">
 				<div class="col-md-8 col-md-offset-2 ">
  					<div class="bitbox1">
 						<div class="aligncenter">
@@ -50,7 +50,7 @@ jQuery( document ).ready(function() {
 						<div class="panel panel-default calendar">
  						<!-- its my code -->
 						<div id="datecalenderdiv">		
-						 <input type="hidden" id="session_date_range"  size="200"/>
+						 <input type="hidden" id="session_date_range" name="session_date_range"  size="200"/>
 						<div  id="datepickerdiv" class="demo"> 
 						<script>
 						 $('#datepickerdiv').multiDatesPicker({dateFormat: "yy-m-d",altField: '#session_date_range'});
