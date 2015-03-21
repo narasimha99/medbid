@@ -49,11 +49,12 @@ jQuery( document ).ready(function() {
 						</div>
 						<div class="panel panel-default calendar">
  						<!-- its my code -->
-						<div id="datecalenderdiv">		
-						 <input type="hidden" id="session_date_range" name="session_date_range"  size="200"/>
+						<div id="datecalenderdiv">	
+							<?php echo $_POST['session_date_range'];?>
+  	<input type="text" id="session_date_range" name="session_date_range" value="<?php echo $_POST['session_date_range'];?>" />
 						<div  id="datepickerdiv" class="demo"> 
 						<script>
-						 $('#datepickerdiv').multiDatesPicker({dateFormat: "yy-m-d",altField: '#session_date_range'});
+ 						 $('#datepickerdiv').multiDatesPicker({dateFormat: "yy-m-d",altField: '#session_date_range'});
 						 </script>
 				 	 	</div>
  						</div>
@@ -75,6 +76,11 @@ jQuery( document ).ready(function() {
 						<!-- its my code end here -->
 						<div id="settimerates">	</div>
 						
+						<?php 
+						if(isset($_POST['session_date_range'])){
+ 							include('settimerates.php');
+						 		}
+						?>
 						<!-- its my code end here -->					
 
 					</div>
@@ -111,7 +117,9 @@ jQuery( document ).ready(function() {
 									<p class="form-pay-locum">Pay to locum</p>
 								</div>
 								<div class="col-md-4 col-sm-4">
-									<p>£ <span class="locum-total-pay" id="grandtotallocumpay">0</span></p>
+									<p>£ <span class="locum-total-pay" name="grandtotallocumpay" id="grandtotallocumpayspan">0</span>
+	<input type="hidden" name="grandtotallocumpay" id="grandtotallocumpay" value="0"/> 
+</p>
 								</div>
 							</div>
 							<div class="row">
@@ -119,7 +127,9 @@ jQuery( document ).ready(function() {
 									<p class="form-pay-nl">Networklocum fees <span class="details-txt">(15% of locum fees)</span></p>
 								</div>
 								<div class="col-md-4 col-sm-4">
-									<p>£ <span class="nl-total-fee" id="grandmedbidfee">0</span></p>
+									<p>£ <span class="nl-total-fee" name="grandmedbidfee" id="grandmedbidfeespan">0</span>
+<input type="hidden" name="grandmedbidfee" id="grandmedbidfee" value="0"/>
+</p>
 								</div>
 							</div>
 							<div class="row">
@@ -127,7 +137,9 @@ jQuery( document ).ready(function() {
 									<p class="form-practice-saving" >Estimated saving (inc. VAT)</p>
 								</div>
 								<div class="col-md-4 col-sm-4">
-									<p class="form-practice-saving">£ <span class="pm-total-save" id="estimatedsavingvat" >0</span></p>
+									<p class="form-practice-saving">£ <span class="pm-total-save" id="estimatedsavingvatspan">0</span>
+<input type="hidden" name="estimatedsavingvat" id="estimatedsavingvat" value="0"/> 
+</p>
 								</div>
 							</div>
 							<div class="row">
@@ -135,7 +147,9 @@ jQuery( document ).ready(function() {
 									<p class="form-pay-nl">VAT <span class="details-txt">(only on Network Locum fees)</span></p>
 								</div>
 								<div class="col-md-4">
-									<p>£ <span class="nl-total-vat" id="vatonmedbidfee" >0</span></p>
+									<p>£ <span class="nl-total-vat" id="vatonmedbidfeespan">0</span>
+<input type="hidden" name="vatonmedbidfee" id="vatonmedbidfee" value="0"/>
+</p>
 								</div>
 							</div>
 							<div class="row">
@@ -146,7 +160,9 @@ jQuery( document ).ready(function() {
 									<p class="total-cost" >TOTAL COST</p>
 								</div>
 								<div class="col-md-4">
-									<p class="total-cost">£ <span class="pm-total-pay" id="pmtotalcost">0</span></p>
+									<p class="total-cost">£ <span class="pm-total-pay" id="pmtotalcostspan">0</span>
+<input type="hidden" name="pmtotalcost" id="pmtotalcost" value="0"/>
+</p>
 								</div>
 							</div>
 						</div>
@@ -175,7 +191,7 @@ jQuery( document ).ready(function() {
 						
 					  <div class="form-group">
 						  <label for="password" class="control-label">One job or multiple sessions</label><br>
-						  <input type="radio" name="sex" value="male" checked> Post as one job <input style="margin-left:20px;" type="radio" name="sex" value="female"> Post as individual sessions
+						  <input type="radio" name="onejobormultiplesessions" value="1" checked> Post as one job <input style="margin-left:20px;" type="radio" name="onejobormultiplesessions" value="2"> Post as individual sessions
 						  <span class="help-block"></span>
 					  </div>
 					  <div class="bitbox1" style="background:#D9F3FC;">
@@ -187,24 +203,34 @@ jQuery( document ).ready(function() {
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Required IT systems</label>
-						  <select id="id_ccg" name="ccg" class="form-control ff1">
+						  <select id="required_it_systems" name="required_it_systems" class="form-control ff1">
 							<option value=""> Select</option>
-							<option value=""> Select</option>
-						 </select>
+							<?php
+								foreach($itsystemlist as $itsys){
+							?>
+						 	  <option value="<?php echo $itsys->id;?>"><?php echo $itsys->itname;?></option>
+							<?php
+							}	
+							?>  
+ 						 </select>
 						 
 						  <span class="help-block"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Parking facilities</label>
-						  <select id="id_ccg" name="ccg" class="form-control ff1">
-							<option value=""> Select</option>
-							<option value=""> Select</option>
-						 </select>
+						  <select id="parking_facilities" name="parking_facilities" class="form-control ff1">
+  							<option value="">Choose parking conditions</option>
+							<option value="1">Free and near</option>
+							<option value="2">Free and onsite</option>
+							<option value="3">Pay and Display nearby</option>
+							<option value="4">Parking is difficult</option>
+							<option value="5"> Free and onsite</option>
+  						</select>
 						  <span class="help-block"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Additional information</label>
-						  <textarea class="form-control ff1" id="" name="" rows="5" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a"></textarea>
+						  <textarea class="form-control ff1" id="session_description" name="session_description" rows="5" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a"></textarea>
 						  <span class="help-block"></span>
 					  </div>
 					  <div align="center">
@@ -222,32 +248,32 @@ jQuery( document ).ready(function() {
 						<form id="Form" method="POST">
 					  <div class="form-group">
 						  <label for="password" class="control-label">Practice code</label><br>
-						  <input type="text" class="form-control ff1" id="" name="username" value="" required="" title="" placeholder="Practice code">
+						  <input type="text" class="form-control ff1" id="" name="practice_code" value="" required="" title="" placeholder="Practice code">
 						  <span class="help-block"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Practice name</label><br>
-						  <input type="text" class="form-control ff1" id="" name="username" value="" required="" title="" placeholder="Practice name">
+						  <input type="text" class="form-control ff1" id="" name="practicename" value="" required="" title="" placeholder="Practice name">
 						  <span class="help-block"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">First name</label><br>
-						  <input type="text" class="form-control ff1" id="" name="username" value="" required="" title="" placeholder="First name">
+						  <input type="text" class="form-control ff1" id="" name="firstname" value="" required="" title="" placeholder="First name">
 						  <span class="help-block"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Last name</label><br>
-						  <input type="text" class="form-control ff1" id="" name="username" value="" required="" title="" placeholder="Last name">
+						  <input type="text" class="form-control ff1" id="" name="lastname" value="" required="" title="" placeholder="Last name">
 						  <span class="help-block"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Email</label><br>
-						  <input type="text" class="form-control ff1" id="" name="username" value="" required="" title="" placeholder="me@example.com">
+						  <input type="text" class="form-control ff1" id="" name="email" value="" required="" title="" placeholder="me@example.com"/>
 						  <span class="help-block"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Phone number</label><br>
-						  <input type="text" class="form-control ff1" id="" name="username" value="" required="" title="" placeholder="XXXXXXXXXXX">
+						  <input type="text" class="form-control ff1" id="" name="phone_number" value="" required="" title="" placeholder="XXXXXXXXXXX">
 						  <span class="help-block"></span>
 					  </div>
 					  

@@ -321,7 +321,8 @@ function gethourlyrate(i,j){
  		$(".paytolocum").each(function() {
  	  		
 	 		grandtotallocumpay  = grandtotallocumpay + parseFloat($('#paytolocum_'+z).val());
- 			$("#grandtotallocumpay").text(grandtotallocumpay);
+ 			$("#grandtotallocumpayspan").text(grandtotallocumpay);
+			$("#grandtotallocumpay").val(grandtotallocumpay);
 			z = z + 1;
  		});
 		
@@ -330,14 +331,20 @@ function gethourlyrate(i,j){
 		var estimatedsavingvat  =  (grandtotallocumpay * 15)/100;
 		var vatonmedbidfee	=  (grandtotallocumpay * 15)/100;
 
-		$("#grandmedbidfee").text(grandmedbidfee);
-		$("#estimatedsavingvat").text(estimatedsavingvat);
-		$("#vatonmedbidfee").text(vatonmedbidfee);
+		$("#grandmedbidfee").val(grandmedbidfee);
+		$("#estimatedsavingvat").val(estimatedsavingvat);
+		$("#vatonmedbidfee").val(vatonmedbidfee);
+
+		$("#grandmedbidfeespan").text(grandmedbidfee);
+		$("#estimatedsavingvatspan").text(estimatedsavingvat);
+		$("#vatonmedbidfeespan").text(vatonmedbidfee);
 		
+
 		var pmtotalcost = grandmedbidfee + estimatedsavingvat +  vatonmedbidfee;
 		pmtotalcost = parseFloat(pmtotalcost).toFixed(2);
 
-		$("#pmtotalcost").text(pmtotalcost);
+		$("#pmtotalcost").val(pmtotalcost);
+		$("#pmtotalcostspan").text(pmtotalcost);
 
   
 
