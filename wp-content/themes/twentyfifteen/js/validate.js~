@@ -90,7 +90,7 @@ else
 
 function validatepracticesignup(){
     
-   jQuery("#errspan_email").text("");
+  jQuery("#errspan_email").text("");
   jQuery("#errspan_password").text("");
   jQuery("#errspan_password1").text("");
   jQuery("#errspan_firstname").text("");
@@ -192,7 +192,7 @@ else
 			//$("#yourTableId tr").length
 
  			//	 rcount = rcount + 1;	
-  			var k = " <tr class='sessiontime' id='times"+rcount+"'> <td> Session "+rcount+" Enter session times using 24 hour notation (eg. 10:00, 18:00).  <br/> <span> Time</span> <input type='text' id='session_starttime_"+p+"_"+rcount+"' name='session_starttime["+p+"]["+rcount+"]' placeholder='eg: 09:00'/> <span>till</span> <input type='text' name='session_endtime["+p+"]["+rcount+"]' id='session_endtime_"+p+"_"+rcount+"'  placeholder='eg: 17:00' /> <span>Hourly rate £</span> <input type='text' name='hourlyrate["+p+"]["+rcount+"]' onblur='gethourlyrate("+p+","+rcount+")'  myid='_"+p+"_"+rcount+"'   class='hourlyrate' id='hourlyrate_"+p+"_"+rcount+"'  aceholder='eg: 80.00'/> <input type='button' class='deltimesession' id='"+rcount+"' onclick='deltimesession(this)'  name='delete' value='delete'/> </td> </tr>"; 
+  			var k = " <tr class='sessiontime' id='times"+rcount+"'> <td> Session "+rcount+" Enter session times using 24 hour notation (eg. 10:00, 18:00).  <br/> <span> Time</span> <input type='text' id='session_starttime_"+p+"_"+rcount+"' value='0' name='session_starttime["+p+"]["+rcount+"]' placeholder='eg: 09:00' /> <span>till</span> <input type='text' name='session_endtime["+p+"]["+rcount+"]' id='session_endtime_"+p+"_"+rcount+"'  placeholder='eg: 17:00'  /> <span>Hourly rate £</span> <input type='text' name='hourlyrate["+p+"]["+rcount+"]' onblur='gethourlyrate("+p+","+rcount+")'  myid='_"+p+"_"+rcount+"'   class='hourlyrate' id='hourlyrate_"+p+"_"+rcount+"'  aceholder='eg: 80.00' /> <input type='button' class='deltimesession' id='"+rcount+"' onclick='deltimesession(this)'  name='delete' value='delete' /> </td> </tr>"; 
 			//alert(k);
 			jQuery("#TABLEsessionday"+p).append(k);
 		}
@@ -346,6 +346,51 @@ function gethourlyrate(i,j){
 		$("#pmtotalcost").val(pmtotalcost);
 		$("#pmtotalcostspan").text(pmtotalcost);
 
-  
+     }	
 
+
+	function validatepublicjobcreate(){
+		
+
+		jQuery("#errspan_email").text("");
+ 		jQuery("#errspan_firstname").text("");
+		jQuery("#errspan_lastname").text("");
+ 		jQuery("#errspan_practicename").text("");
+		jQuery("#errspan_practice_code").text("");
+ 		jQuery("#errspan_phone_number").text("");
+	 
+		var errstat=0;
+		if(jQuery("#email").val() == ""){
+		jQuery("#errspan_email").text("Please enter email");
+		errstat = 1;      
+		}
+ 	
+		if(jQuery("#firstname").val() == ""){
+		jQuery("#errspan_firstname").text("Please enter firstname");
+		errstat = 1;       
+		}
+
+		if(jQuery("#lastname").val() == ""){
+		jQuery("#errspan_lastname").text("Please enter Lastname");
+		errstat = 1;       
+		}
+		 
+ 		if(jQuery("#practicename").val() == ""){ 
+
+		jQuery("#errspan_practicename").text("Please enter practice name");
+		errstat = 1;       
+		}
+
+		if(jQuery("#practice_code").val() == ""){ 
+
+		jQuery("#errspan_practice_code").text("Please enter practice code");
+		errstat = 1;       
+		}
+		 
+		if(jQuery("#phone_number").val() == ""){
+		jQuery("#errspan_phone_number").text("Please enter phone number");
+		errstat = 1;       
+		}
+			alert('hi');
+		return true;
 	}

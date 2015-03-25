@@ -8,9 +8,13 @@ jQuery( document ).ready(function() {
 	//console.log( "ready!" );
 	jQuery("#submit1").click(function () {
 		$("#calendarform").submit();
+ 		
+	});
+	jQuery("#submit5").click(function () {
+		$("#savejob").val('savejob');
 	});
 
-});
+ });
 </script>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  		<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-1.11.1.js"></script>
@@ -39,7 +43,6 @@ jQuery( document ).ready(function() {
 					<p>Completely <b>free</b> to post! Takes just <b>3 minutes!</b> Collect applications just as fast!</p>
 					<br>
 				</div>
-				<form id="Form" name="" id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate" method="POST">
 				<div class="col-md-8 col-md-offset-2 ">
  					<div class="bitbox1">
 						<div class="aligncenter">
@@ -47,17 +50,49 @@ jQuery( document ).ready(function() {
 							<h3>It only takes 3 minutes to post a job.</h3>
 							<p>Select dates by clicking on the calendar.</p>
 						</div>
-						<div class="panel panel-default calendar">
+				<form    id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate"  method="POST">
+				 		<div class="panel panel-default calendar">
  						<!-- its my code -->
 						<div id="datecalenderdiv">	
-							<?php echo $_POST['session_date_range'];?>
-  	<input type="text" id="session_date_range" name="session_date_range" value="<?php echo $_POST['session_date_range'];?>" />
-						<div  id="datepickerdiv" class="demo"> 
-						<script>
- 						 $('#datepickerdiv').multiDatesPicker({dateFormat: "yy-m-d",altField: '#session_date_range'});
+							 
+  	<input type="hidden" id="session_date_range" name="session_date_range" value="<?php if(isset($_POST['session_date_range'])) { echo $_POST['session_date_range']; } ?>" />
+						<div  id="datepickerdiv" class="demo">
+			<?php 
+			//	echo "<pre>";		print_r($_POST);
+		if(isset($_POST['session_date_range'])){
+				$session_date_range =  $_POST['session_date_range'];	
+			
+//  session_date_range
+				$session_data_range_array = explode(',',$session_date_range);
+ 			  	//print_r($session_data_range_array);
+				for($t=0;$t<count($session_data_range_array);$t++){		
+					 	$session_date =trim($session_data_range_array[$t]);
+					 	$vt = $vt.",'".$session_date."'";
+					
+	 				 }
+					 
+				  	$selectdates = trim(substr ($vt, 1),' ');
+ 
+				
+				} 
+				 ?>
+ 						<script>
+						 
+ 					 
+ 
+  						$('#datepickerdiv').multiDatesPicker({
+							dateFormat: "yy-m-d",
+							altField: '#session_date_range'
+						<?php 
+						if(isset($_POST['session_date_range'])){
+						?>							
+						  , addDates: [<?php echo $selectdates;?>]
+						<?php } ?>
+ 						  });
 						 </script>
 				 	 	</div>
  						</div>
+					
 						<!-- its my code end here -->
 						</div>
  
@@ -65,8 +100,9 @@ jQuery( document ).ready(function() {
 							<button class="btn btn-info sbtn" id="submit1">Save and Continue</button>
 						</div>
 					</div>
-					</form>
+ 
 					<div class="bitbox1">
+					 
 						<div class="aligncenter">
 							<h2><i class="fa fa-clock-o seticon"></i>Set times and rates</h2>
 							<h3>We are not an agency - <b>set your own rates!</b></h3>
@@ -78,7 +114,7 @@ jQuery( document ).ready(function() {
 						
 						<?php 
 						if(isset($_POST['session_date_range'])){
-			 				include('settimerates.php');
+ 							include('settimerates.php');
 						 }
 						?>
 						<!-- its my code end here -->					
@@ -109,6 +145,14 @@ jQuery( document ).ready(function() {
 									<h5 class="total-cost-summary-title">Cost breakdown</h5>
 								</div>
 	 						</div>
+
+				<?php
+					$grandtotallocumpay = (isset($_POST['grandtotallocumpay']))?$_POST['grandtotallocumpay']:0;
+					$grandmedbidfee = (isset($_POST['grandmedbidfee']))?$_POST['grandmedbidfee']:0;
+					$estimatedsavingvat = (isset($_POST['estimatedsavingvat']))?$_POST['estimatedsavingvat']:0;
+					$vatonmedbidfee = (isset($_POST['vatonmedbidfee']))?$_POST['vatonmedbidfee']:0;
+					$pmtotalcost = (isset($_POST['pmtotalcost']))?$_POST['pmtotalcost']:0;
+				?>
 	 						<div class="row">
 								<div class="col-md-12"><hr></div>
 							</div>
@@ -117,8 +161,8 @@ jQuery( document ).ready(function() {
 									<p class="form-pay-locum">Pay to locum</p>
 								</div>
 								<div class="col-md-4 col-sm-4">
-									<p>£ <span class="locum-total-pay" name="grandtotallocumpay" id="grandtotallocumpayspan">0</span>
-	<input type="hidden" name="grandtotallocumpay" id="grandtotallocumpay" value="0"/> 
+									<p>£ <span class="locum-total-pay" name="grandtotallocumpay" id="grandtotallocumpayspan"><?php echo $grandtotallocumpay;?></span>
+	<input type="hidden" name="grandtotallocumpay" id="grandtotallocumpay" value="<?php echo $grandtotallocumpay;?>"/> 
 </p>
 								</div>
 							</div>
@@ -127,8 +171,8 @@ jQuery( document ).ready(function() {
 									<p class="form-pay-nl">Networklocum fees <span class="details-txt">(15% of locum fees)</span></p>
 								</div>
 								<div class="col-md-4 col-sm-4">
-									<p>£ <span class="nl-total-fee" name="grandmedbidfee" id="grandmedbidfeespan">0</span>
-<input type="hidden" name="grandmedbidfee" id="grandmedbidfee" value="0"/>
+									<p>£ <span class="nl-total-fee" name="grandmedbidfee" id="grandmedbidfeespan"><?php echo $grandmedbidfee;?></span>
+<input type="hidden" name="grandmedbidfee" id="grandmedbidfee" value="<?php echo $grandmedbidfee;?>"/>
 </p>
 								</div>
 							</div>
@@ -137,8 +181,8 @@ jQuery( document ).ready(function() {
 									<p class="form-practice-saving" >Estimated saving (inc. VAT)</p>
 								</div>
 								<div class="col-md-4 col-sm-4">
-									<p class="form-practice-saving">£ <span class="pm-total-save" id="estimatedsavingvatspan">0</span>
-<input type="hidden" name="estimatedsavingvat" id="estimatedsavingvat" value="0"/> 
+									<p class="form-practice-saving">£ <span class="pm-total-save" id="estimatedsavingvatspan"><?php echo $estimatedsavingvat;?></span>
+<input type="hidden" name="estimatedsavingvat" id="estimatedsavingvat" value="<?php echo $estimatedsavingvat;?>"/> 
 </p>
 								</div>
 							</div>
@@ -147,8 +191,8 @@ jQuery( document ).ready(function() {
 									<p class="form-pay-nl">VAT <span class="details-txt">(only on Network Locum fees)</span></p>
 								</div>
 								<div class="col-md-4">
-									<p>£ <span class="nl-total-vat" id="vatonmedbidfeespan">0</span>
-<input type="hidden" name="vatonmedbidfee" id="vatonmedbidfee" value="0"/>
+									<p>£ <span class="nl-total-vat" id="vatonmedbidfeespan"><?php echo $vatonmedbidfee;?></span>
+<input type="hidden" name="vatonmedbidfee" id="vatonmedbidfee"  value="<?php echo $vatonmedbidfee;?>"/>
 </p>
 								</div>
 							</div>
@@ -160,8 +204,8 @@ jQuery( document ).ready(function() {
 									<p class="total-cost" >TOTAL COST</p>
 								</div>
 								<div class="col-md-4">
-									<p class="total-cost">£ <span class="pm-total-pay" id="pmtotalcostspan">0</span>
-<input type="hidden" name="pmtotalcost" id="pmtotalcost" value="0"/>
+									<p class="total-cost">£ <span class="pm-total-pay" id="pmtotalcostspan"><?php echo $pmtotalcost;?></span>
+<input type="hidden" name="pmtotalcost" id="pmtotalcost" value="<?php echo $pmtotalcost;?>"/>
 </p>
 								</div>
 							</div>
@@ -173,16 +217,16 @@ jQuery( document ).ready(function() {
 					 <div align="center">
 							<button class="btn btn-info sbtn" id="submit2">Save and Continue</button>
 					</div>
-
-
-
-				</div>
+			
+ 				</div>
 			</div>
 		</div>
-	</div>
-
+ 
+</div>
+	
 					
 					<div class="bitbox1">
+					 
 						<div class="aligncenter">
 							<h2><i class="fa fa-list seticon"></i>Tell us about the job</h2>
 							<h3>Collect applications <b>in minutes</b></h3>
@@ -191,7 +235,7 @@ jQuery( document ).ready(function() {
 						
 					  <div class="form-group">
 						  <label for="password" class="control-label">One job or multiple sessions</label><br>
-						  <input type="radio" name="onejobormultiplesessions" value="1" checked> Post as one job <input style="margin-left:20px;" type="radio" name="onejobormultiplesessions" value="2"> Post as individual sessions
+						  <input type="radio" name="onejobormultiplesessions" value="1" <?php if ($_post['onejobormultiplesessions'] == 1) echo 'checked'; ?> > Post as one job <input style="margin-left:20px;" type="radio" name="onejobormultiplesessions" value="2" <?php if ($_post['onejobormultiplesessions'] == 2) echo 'checked'; ?> > Post as individual sessions
 						  <span class="help-block"></span>
 					  </div>
 					  <div class="bitbox1" style="background:#D9F3FC;">
@@ -208,7 +252,7 @@ jQuery( document ).ready(function() {
 							<?php
 								foreach($itsystemlist as $itsys){
 							?>
-						 	  <option value="<?php echo $itsys->id;?>"><?php echo $itsys->itname;?></option>
+						 	  <option value="<?php echo $itsys->id;?>"  <?php if($_POST['required_it_systems'] == $itsys->id) echo 'selected'?>><?php echo $itsys->itname;?></option>
 							<?php
 							}	
 							?>  
@@ -218,26 +262,39 @@ jQuery( document ).ready(function() {
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Parking facilities</label>
+<?php
+$parking_array = array(
+'1'=>'Free and near',
+'2'=>'Free and onsite',
+'3'=>'Pay and Display nearby',
+'4'=>'Parking is difficult',
+'5'=>'Free and onsite'
+);
+
+?>
 						  <select id="parking_facilities" name="parking_facilities" class="form-control ff1">
   							<option value="">Choose parking conditions</option>
-							<option value="1">Free and near</option>
-							<option value="2">Free and onsite</option>
-							<option value="3">Pay and Display nearby</option>
-							<option value="4">Parking is difficult</option>
-							<option value="5"> Free and onsite</option>
+<?php
+								for($mt=1;$mt<count($parking_array);$mt++){
+							?>
+						 	  <option value="<?php echo $mt;?>"  <?php if($_POST['parking_facilities'] == $mt) echo 'selected'?>><?php echo $parking_array[$mt];?></option>
+							<?php
+							}	
+							?>
+						 
   						</select>
 						  <span class="help-block"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Additional information</label>
-						  <textarea class="form-control ff1" id="session_description" name="session_description" rows="5" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a"></textarea>
+						  <textarea class="form-control ff1" id="session_description" name="session_description" rows="5" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a"><?php echo $_POST['session_description'];?></textarea>
 						  <span class="help-block"></span>
 					  </div>
 					  <div align="center">
 							<button class="btn btn-info sbtn" id="submit3">Save and Continue</button>
 						</div>
 					  
-				  </form>
+ 
 					</div>
 					
 					<div class="bitbox1">
@@ -245,48 +302,47 @@ jQuery( document ).ready(function() {
 							<h2><i class="fa fa-list seticon"></i>Tell us about your practice</h2>
 							<h3><b>Save up to 50%</b> with Medbid.</h3>
 						</div>
-						<form id="Form" method="POST">
+					 
 					  <div class="form-group">
 						  <label for="password" class="control-label">Practice code</label><br>
-						  <input type="text" class="form-control ff1" id="" name="practice_code" value="" required="" title="" placeholder="Practice code">
-						  <span class="help-block"></span>
+						  <input type="text" class="form-control ff1" id="practice_code" name="practice_code" value="<?php echo $_POST['practice_code'];?>"   title="" placeholder="Practice code">
+					
+						  <span id="errspan_practice_code" class="errorspan"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Practice name</label><br>
-						  <input type="text" class="form-control ff1" id="" name="practicename" value="" required="" title="" placeholder="Practice name">
-						  <span class="help-block"></span>
+						  <input type="text" class="form-control ff1" id="practicename" name="practicename" value="<?php echo $_POST['practicename'];?>"  title="" placeholder="Practice name">
+						   <span id="errspan_practicename" class="errorspan"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">First name</label><br>
-						  <input type="text" class="form-control ff1" id="" name="firstname" value="" required="" title="" placeholder="First name">
-						  <span class="help-block"></span>
+						  <input type="text" class="form-control ff1" id="firstname" name="firstname"  value="<?php echo $_POST['firstname'];?>" title="" placeholder="First name">
+						   <span id="errspan_firstname" class="errorspan"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Last name</label><br>
-						  <input type="text" class="form-control ff1" id="" name="lastname" value="" required="" title="" placeholder="Last name">
-						  <span class="help-block"></span>
+						  <input type="text" class="form-control ff1" id="lastname" name="lastname" value="<?php echo $_POST['lastname'];?>"  title="" placeholder="Last name">
+						  <span id="errspan_lastname" class="errorspan"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Email</label><br>
-						  <input type="text" class="form-control ff1" id="" name="email" value="" required="" title="" placeholder="me@example.com"/>
-						  <span class="help-block"></span>
+						  <input type="text" class="form-control ff1" id="email" name="email" value="<?php echo $_POST['email'];?>" placeholder="me@example.com"/>
+						  <span id="errspan_email" class="errorspan"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Phone number</label><br>
-						  <input type="text" class="form-control ff1" id="" name="phone_number" value="" required="" title="" placeholder="XXXXXXXXXXX">
-						  <span class="help-block"></span>
+						  <input type="text" class="form-control ff1" id="phone_number" name="phone_number" value="<?php echo $_POST['phone_number'];?>"   title="" placeholder="XXXXXXXXXXX">
+						   <span id="errspan_phone_number" class="errorspan"></span>
 					  </div>
-					  
-					 
-					 
-					  
-				  </form>
+					  <input type="text" id="savejob" name="savejob" value=""/>
+				 
 					</div>
 					
 					<p style="text-align:center;">I agree with the <a href="#" target="_blank">Terms and Conditions</a>  and <a href="#" target="_blank">Privacy Policy</a>  of Medbid</a></p>
 					
 					<br>
 					 <div align="center">
+						
 							<button class="btn btn-info sbtn" id="submit5" >Post Job</button>
 						</div>
 					
@@ -295,7 +351,7 @@ jQuery( document ).ready(function() {
 		</div>  
 	</div>
 	</div>
-	
+	</form>	
 	<!--middle end here-->
 	
  

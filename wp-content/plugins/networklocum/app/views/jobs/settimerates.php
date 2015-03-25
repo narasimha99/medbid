@@ -1,9 +1,8 @@
 <div id="settimerates">
 <?php
-//echo "<pre>"; print_r($_POST); echo "</pre>";
+echo "<pre>"; print_r($_POST); echo "</pre>";
 if (isset($_POST['session_date_range']))
 $dateranges  = $_POST['session_date_range'];
-
 $daterangeList = explode(",",$dateranges);
 ?>
 <?php 
@@ -20,7 +19,7 @@ foreach($daterangeList as $sessiondate) {
 		<input type='button' name="delete" id="<?php echo 'delete'.$i;?>" value="Delete day" onclick="deletedate(<?php echo $i;?>);"/>
 	</td> </tr>
 
-	<tr class='sessiontime' id='times1'> <td>Session 1 Enter session times using 24 hour notation (eg. 10:00, 18:00). <br/>  <span> Time</span> <input type="text" name="session_starttime[<?php echo $i;?>][1]" id="<?php echo 'session_starttime_'.$i.'_1';?>" value="<?php echo $_POST['session_starttime'][1][1];?>"  placeholder='eg: 09:00'/>	<span>Till</span> <input type="text" name="session_endtime[<?php echo $i;?>][1]" id="<?php echo 'session_endtime_'.$i.'_1';?>"  value="<?php echo $_POST['session_endtime'][1][1];?>" placeholder='eg: 17:00'  />  <span>Hourly rate £</span> 
+	<tr class='sessiontime' id='times1'> <td>Session 1 Enter session times using 24 hour notation (eg. 10:00, 18:00). <br/>  <span> Time</span> <input type="text" name="session_starttime[<?php echo $i;?>][1]" id="<?php echo 'session_starttime_'.$i.'_1';?>" value="<?php echo $_POST['session_starttime'][1][1];?>"  placeholder='eg: 09:00' />	<span>Till</span> <input type="text" name="session_endtime[<?php echo $i;?>][1]" id="<?php echo 'session_endtime_'.$i.'_1';?>"  value="<?php echo $_POST['session_endtime'][1][1];?>" placeholder='eg: 17:00'  />  <span>Hourly rate £</span> 
 <input type="text" name="hourlyrate[<?php echo $i;?>][1]" id="<?php echo 'hourlyrate_'.$i.'_1';?>" myid="<?php echo '_'.$i.'_1';?>" value="<?php echo $_POST['hourlyrate'][1][1];?>"   onblur="gethourlyrate(<?php echo $i;?>,1)"  placeholder='eg: 80.00' /> 
 <input type='button' class='deltimesession' name='delete'  class='deltimesession' id="1" value='delete' onclick="$(this).closest('tr').remove();"  /> 
 </td> </tr>
@@ -47,9 +46,13 @@ $j = $j + 1;
 
 
 <div>
-	<p> <span> Pay to locum</span>  <span id="paytolocumspan"></span> <input type="text" value="0" class="paytolocum" name="paytolocums[]" id="<?php echo 'paytolocum_'.$i;?>"/> </p>
+<?php 
+$paytolocums = (isset($_POST['paytolocums'][$i-1]))?$_POST['paytolocums'][$i-1]:0;
+$medbidfee = (isset($_POST['medbidfee'][$i-1]))?$_POST['medbidfee'][$i-1]:0;
+?>
+	<p> <span> Pay to locum</span>  <span id="paytolocumspan"></span> <input type="text" class="paytolocum" name="paytolocums[]" id="<?php echo 'paytolocum_'.$i;?>"  value="<?php echo $paytolocums;?>" /> </p>
 	<p> <span> Medbid Locum fees (15% of locum fees)</span> <span id="networklocumfee"></span> 
-		<input type="text" value="0" name="medbidfee[]" id="<?php echo 'medbidfee_'.$i;?>"/>  
+		<input type="text" value="<?php echo $medbidfee;?>" name="medbidfee[]" id="<?php echo 'medbidfee_'.$i;?>"  />  
 	</p>
 </div>
 

@@ -11,7 +11,10 @@ class JobsController extends MvcPublicController {
  		$this->set('mylayout', 'client');
 
 		$this->load_model('Job');
-   		//echo "<pre>"; print_r($_POST); echo "</pre>";
+ 	echo "<pre>"; print_r($_POST); echo "</pre>";
+ 							
+	 /*
+   		 
 
 
 		//$_SESSION['post_data'] = $_POST;
@@ -19,8 +22,8 @@ class JobsController extends MvcPublicController {
 		//echo "<pre>"; print_r($_SESSION); 
 	 
 		//echo "<pre>"; print_r($_POST); echo "</pre>";
-/*	
-	if(isset($_POST['session_date']) ){
+ 	
+	if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
 			$session_date_count_primary = count($_POST['session_date']);
 			$session_starttime_secondry = count($_POST['session_starttime']);
 			for($x=1;$x<=$session_date_count_primary; $x++ ){
@@ -104,12 +107,9 @@ $sqlPractice= "INSERT INTO `networklocum`.`wp_practices` (`id`, `user_id`, `emai
 
 		$wpdb->query($sqlPractice);
 
-
-
-
+ 
 		}
 
-*/
    
  	 	$this->load_model('cgcode');
 		$cgcodelist = $this->cgcode->find();
@@ -123,6 +123,7 @@ $sqlPractice= "INSERT INTO `networklocum`.`wp_practices` (`id`, `user_id`, `emai
 		$this->load_model('howdidyouhear');
 		$howdidyouhearlist = $this->howdidyouhear->find();
 		$this->set('howdidyouhearlist',$howdidyouhearlist);
+	*/
 		
    	}
  
