@@ -7,7 +7,7 @@ $("#locumsignupnext").submit();
 // Event setup using a convenience method
 });
 </script>
- <?php $url = esc_url( home_url( '/' )); ?>
+<?php $url = esc_url( home_url( '/' )); ?>
 <?php
 $templtpath= get_template_directory_uri(); 
 ?>

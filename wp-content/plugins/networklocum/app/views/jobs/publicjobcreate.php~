@@ -43,7 +43,8 @@ jQuery( document ).ready(function() {
 					<p>Completely <b>free</b> to post! Takes just <b>3 minutes!</b> Collect applications just as fast!</p>
 					<br>
 				</div>
-<form    id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate"  method="POST">
+<form    id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate"  onsubmit="javascript:return validatepublicjobcreate();"  method="POST">
+				 <?php $this->display_flash(); ?>				
 				<div class="col-md-8 col-md-offset-2 ">
  					<div class="bitbox1">
 						<div class="aligncenter">
@@ -57,6 +58,9 @@ jQuery( document ).ready(function() {
 						<div id="datecalenderdiv">	
 							 
   	<input type="hidden" id="session_date_range" name="session_date_range" value="<?php if(isset($_POST['session_date_range'])) { echo $_POST['session_date_range']; } ?>" />
+		 <span id="errspan_session_date_range" class="errorspan"></span>
+
+
 						<div  id="datepickerdiv" class="demo">
 			<?php 
 			//	echo "<pre>";		print_r($_POST);
@@ -85,7 +89,7 @@ jQuery( document ).ready(function() {
 							dateFormat: "yy-m-d",
 							altField: '#session_date_range'
 						<?php 
-						if(isset($_POST['session_date_range'])){
+						if(isset($_POST['session_date_range']) && strlen($_POST['session_date_range'])>0 ) {
 						?>							
 						  , addDates: [<?php echo $selectdates;?>]
 						<?php } ?>
@@ -237,7 +241,7 @@ jQuery( document ).ready(function() {
 					  <div class="form-group">
 						  <label for="password" class="control-label">One job or multiple sessions</label><br>
 						  <input type="radio" name="onejobormultiplesessions" value="1" <?php if ($_post['onejobormultiplesessions'] == 1) echo 'checked'; ?> > Post as one job <input style="margin-left:20px;" type="radio" name="onejobormultiplesessions" value="2" <?php if ($_post['onejobormultiplesessions'] == 2) echo 'checked'; ?> > Post as individual sessions
-						  <span class="help-block"></span>
+						     <span id="errspan_onejobormultiplesessions" class="errorspan"></span>
 					  </div>
 					  <div class="bitbox1" style="background:#D9F3FC;">
 						<h3>One locum or multiple locums?</h3>
@@ -259,7 +263,7 @@ jQuery( document ).ready(function() {
 							?>  
  						 </select>
 						 
-						  <span class="help-block"></span>
+						    <span id="errspan_required_it_systems" class="errorspan"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Parking facilities</label>
@@ -284,12 +288,13 @@ $parking_array = array(
 							?>
 						 
   						</select>
-						  <span class="help-block"></span>
+						  <span id="errspan_parking_facilities" class="errorspan"></span>
+ 
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Additional information</label>
 						  <textarea class="form-control ff1" id="session_description" name="session_description" rows="5" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a"><?php echo $_POST['session_description'];?></textarea>
-						  <span class="help-block"></span>
+						  <span id="errspan_session_description" class="errorspan"></span>
 					  </div>
 					  <div align="center">
 							<button class="btn btn-info sbtn" id="submit3">Save and Continue</button>
@@ -297,7 +302,12 @@ $parking_array = array(
 					  
  
 					</div>
+					<?php 
+						$user_id = get_current_user_id();
+						if ($user_id == 0) {
 					
+					?>
+
 					<div class="bitbox1">
 						<div class="aligncenter">
 							<h2><i class="fa fa-list seticon"></i>Tell us about your practice</h2>
@@ -335,13 +345,14 @@ $parking_array = array(
 						  <input type="text" class="form-control ff1" id="phone_number" name="phone_number" value="<?php echo $_POST['phone_number'];?>"   title="" placeholder="XXXXXXXXXXX">
 						   <span id="errspan_phone_number" class="errorspan"></span>
 					  </div>
-					  <input type="text" id="savejob" name="savejob" value=""/>
+					
 				 
 					</div>
-					
+					<?php } ?>
 					<p style="text-align:center;">I agree with the <a href="#" target="_blank">Terms and Conditions</a>  and <a href="#" target="_blank">Privacy Policy</a>  of Medbid</a></p>
 					
 					<br>
+					  <input type="hidden" id="savejob" name="savejob" value=""/>
 					 <div align="center">
 						
 							<button class="btn btn-info sbtn" id="submit5" >Post Job</button>

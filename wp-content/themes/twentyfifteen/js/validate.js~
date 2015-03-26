@@ -351,6 +351,15 @@ function gethourlyrate(i,j){
 
 	function validatepublicjobcreate(){
 		
+ 
+		 
+		jQuerty("#errspan_session_date_range").text("");
+		jQuery("#errspan_parking_facilities").text("");
+		jQuery("#errspan_required_it_systems").text("");
+		jQuery("#errspan_session_description").text("");
+
+
+
 
 		jQuery("#errspan_email").text("");
  		jQuery("#errspan_firstname").text("");
@@ -359,38 +368,78 @@ function gethourlyrate(i,j){
 		jQuery("#errspan_practice_code").text("");
  		jQuery("#errspan_phone_number").text("");
 	 
+
 		var errstat=0;
-		if(jQuery("#email").val() == ""){
-		jQuery("#errspan_email").text("Please enter email");
-		errstat = 1;      
-		}
- 	
-		if(jQuery("#firstname").val() == ""){
-		jQuery("#errspan_firstname").text("Please enter firstname");
-		errstat = 1;       
-		}
+	
+		if( jQuery("#savejob").val() == 'savejob' )
+		{
 
-		if(jQuery("#lastname").val() == ""){
-		jQuery("#errspan_lastname").text("Please enter Lastname");
-		errstat = 1;       
-		}
-		 
- 		if(jQuery("#practicename").val() == ""){ 
+ 
+			if(jQuery("#session_date_range").val() == ""){
+				jQuery("#errspan_session_date_range").text("Please choose your session dates from calendar");
+				errstat = 1;      
+			}
 
-		jQuery("#errspan_practicename").text("Please enter practice name");
-		errstat = 1;       
-		}
+			if(jQuery("#session_date_range").val() == ""){
+				jQuery("#errspan_session_date_range").text("Please choose your session dates from calendar");
+				errstat = 1;      
+			}
 
-		if(jQuery("#practice_code").val() == ""){ 
 
-		jQuery("#errspan_practice_code").text("Please enter practice code");
-		errstat = 1;       
+			if(jQuery("#parking_facilities").val() == ""){
+			jQuery("#errspan_parking_facilities").text("Please choose your parking facilities");
+			errstat = 1;      
+			}
+
+
+			if(jQuery("#required_it_systems").val() == ""){
+			jQuery("#errspan_required_it_systems").text("Please select It systems reqired ");
+			errstat = 1;      
+			}
+
+
+
+			if(jQuery("#session_description").val() == ""){
+			jQuery("#errspan_session_description").text("Please enter job descrption");
+			errstat = 1;      
+			}
+
+	
+			if(jQuery("#email").val() == ""){
+			jQuery("#errspan_email").text("Please enter email");
+			errstat = 1;      
+			}
+	 	
+			if(jQuery("#firstname").val() == ""){
+			jQuery("#errspan_firstname").text("Please enter firstname");
+			errstat = 1;       
+			}
+
+			if(jQuery("#lastname").val() == ""){
+			jQuery("#errspan_lastname").text("Please enter Lastname");
+			errstat = 1;       
+			}
+			 
+	 		if(jQuery("#practicename").val() == ""){ 
+
+			jQuery("#errspan_practicename").text("Please enter practice name");
+			errstat = 1;       
+			}
+
+			if(jQuery("#practice_code").val() == ""){ 
+
+			jQuery("#errspan_practice_code").text("Please enter practice code");
+			errstat = 1;       
+			}
+			 
+			if(jQuery("#phone_number").val() == ""){
+			jQuery("#errspan_phone_number").text("Please enter phone number");
+			errstat = 1;       
+			}
+	
+			 if (  errstat == 1 )
+				return false;
+			else
+				return true;
 		}
-		 
-		if(jQuery("#phone_number").val() == ""){
-		jQuery("#errspan_phone_number").text("Please enter phone number");
-		errstat = 1;       
-		}
-			alert('hi');
-		return true;
 	}

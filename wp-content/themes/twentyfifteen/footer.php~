@@ -1,5 +1,6 @@
 <?php
 $templtpath= get_template_directory_uri(); 
+$url = esc_url( home_url( '/' ) );
 ?>
 	<!--footer start here-->
 	
@@ -10,7 +11,7 @@ $templtpath= get_template_directory_uri();
 						<h3>For Practices</h3>
 						<ul>
 							<li><a class="" href="#">FAQs</a></li>
-							<li><a class="" href="#">Post A Job</a></li>
+							<li><a class="" href="<?php echo $url.'publicjobcreate';?>" >Post A Job</a></li>
 							<li><a class="" href="#">Practice Sign Up</a></li>
 							<li><a class="" href="#">Practice Ts & Cs</a></li>
 							<li><a class="" href="#">Privacy Policy</a></li>
@@ -80,9 +81,9 @@ $templtpath= get_template_directory_uri();
 
 
 <script>
-	jQuery('#myCarousel').carousel({
-		interval:   4000
-	});
+//	jQuery('#myCarousel').carousel({
+//		interval:   4000
+//	});
 </script>
  
   </body>

@@ -1,4 +1,5 @@
 <?php
+ if (!session_id()) { session_start(); } 
 /**
  * The base configurations of the WordPress.
  *

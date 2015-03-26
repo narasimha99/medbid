@@ -1,4 +1,5 @@
 ﻿<?php
+session_start(); 
 $templtpath= get_template_directory_uri(); 
 ?>
 <!DOCTYPE html>

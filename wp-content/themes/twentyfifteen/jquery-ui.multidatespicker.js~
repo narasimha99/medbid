@@ -456,10 +456,8 @@
 						///////////////////////////////////////////////
 						////  ADDING OUR Custom code here //////
  						var purl = SITE_ROOT_JS+'jobs/settimerates/';
-					 
-						//alert(purl);
-						//alert(SITE_ROOT_VAR);
-
+					 	//alert(purl);
+						//alert(SITE_ROOT_VAR)
 						var dateranges = jQuery("#session_date_range").val();
 						//var dateranges = myStringdate.replace("<?php echo $_POST['#session_date_range'];?>", "");
 

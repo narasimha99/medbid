@@ -1,6 +1,6 @@
 <div id="settimerates">
 <?php
-echo "<pre>"; print_r($_POST); echo "</pre>";
+//echo "<pre>"; print_r($_POST); echo "</pre>";
 if (isset($_POST['session_date_range']))
 $dateranges  = $_POST['session_date_range'];
 $daterangeList = explode(",",$dateranges);
@@ -8,13 +8,16 @@ $daterangeList = explode(",",$dateranges);
 <?php 
 $i=1;
 foreach($daterangeList as $sessiondate) {
+
+if ( strlen($sessiondate) > 2 ) {
+
 ?>
 
 <div id="<?php echo 'DIVsessionday'.$i;?>" style="border-style: solid; border-color: 	#00CED1;margin:50px 10px 20px 30px">
 
 <table id="<?php echo 'TABLEsessionday'.$i;?>" style="border:1px solid #DAA520;" width="auto"  >
 		<tr> <td>
-	 <input type="text" id="<?php echo 'session_date_'.$i;?>" name="session_date[<?php echo $i;?>]" value="<?php echo $sessiondate;?>" />  
+	 <input type="text" readonly id="<?php echo 'session_date_'.$i;?>" name="session_date[<?php echo $i;?>]" value="<?php echo $sessiondate;?>" />  
 		<input type='button' name="add" id="<?php echo 'add'.$i;?>" value="add more sessions" onclick="addsession(<?php echo $i;?>);"/>
 		<input type='button' name="delete" id="<?php echo 'delete'.$i;?>" value="Delete day" onclick="deletedate(<?php echo $i;?>);"/>
 	</td> </tr>
@@ -50,9 +53,9 @@ $j = $j + 1;
 $paytolocums = (isset($_POST['paytolocums'][$i-1]))?$_POST['paytolocums'][$i-1]:0;
 $medbidfee = (isset($_POST['medbidfee'][$i-1]))?$_POST['medbidfee'][$i-1]:0;
 ?>
-	<p> <span> Pay to locum</span>  <span id="paytolocumspan"></span> <input type="text" class="paytolocum" name="paytolocums[]" id="<?php echo 'paytolocum_'.$i;?>"  value="<?php echo $paytolocums;?>" /> </p>
+	<p> <span> Pay to locum</span>  <span id="paytolocumspan"></span> <input type="text" readonly class="paytolocum" name="paytolocums[]" id="<?php echo 'paytolocum_'.$i;?>"  value="<?php echo $paytolocums;?>" /> </p>
 	<p> <span> Medbid Locum fees (15% of locum fees)</span> <span id="networklocumfee"></span> 
-		<input type="text" value="<?php echo $medbidfee;?>" name="medbidfee[]" id="<?php echo 'medbidfee_'.$i;?>"  />  
+		<input type="text" readonly value="<?php echo $medbidfee;?>" name="medbidfee[]" id="<?php echo 'medbidfee_'.$i;?>"  />  
 	</p>
 </div>
 
@@ -61,5 +64,6 @@ $medbidfee = (isset($_POST['medbidfee'][$i-1]))?$_POST['medbidfee'][$i-1]:0;
 <?php
 $i= $i + 1;
  } 
+}
 ?>
 </div>

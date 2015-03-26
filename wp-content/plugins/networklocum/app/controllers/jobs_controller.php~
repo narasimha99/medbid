@@ -10,18 +10,17 @@ class JobsController extends MvcPublicController {
 		global $wpdb;
  		$this->set('mylayout', 'client');
 
+	
 		$this->load_model('Job');
- 	/* echo "<pre>"; print_r($_POST); echo "</pre>";
- 							
-	 
-   		 
+	
+		$_SESSION['old_session_date_range'] = $_POST['session_date_range'];
 
-
-		//$_SESSION['post_data'] = $_POST;
+ //	  echo "<pre>"; print_r($_POST); echo "</pre>";
+ 	  
+	
 		//echo "SESSION Data";
-		//echo "<pre>"; print_r($_SESSION); 
-	 
-		//echo "<pre>"; print_r($_POST); echo "</pre>";
+	//	echo "<pre>"; print_r($_SESSION); echo "</pre>";
+ 		//echo "<pre>"; print_r($_POST); echo "</pre>";
  	
 	if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
 			$session_date_count_primary = count($_POST['session_date']);
@@ -35,11 +34,7 @@ class JobsController extends MvcPublicController {
 			//print_r($session_date);
 			$start_Hours_minutes = explode(':',$_POST['session_starttime'][$x][$y]);
 			$end_Hours_minutes = explode(':',$_POST['session_endtime'][$x][$y]);
-
-
-			//$session_starttime = mktime($start_Hours_minutes[0],$start_Hours_minutes[1],0,$session_date_array[1],$session_date_array[2],$session_date_array[0]);
- 			//echo "<pre>"; print_r($session_date_array);
-			
+  
 			$start_Hours_minutes[0] = ($start_Hours_minutes[0]=='') ? 0:$start_Hours_minutes[0];
  			$start_Hours_minutes[1] = ($start_Hours_minutes[1]=='') ? 0:$start_Hours_minutes[1];
 
@@ -47,8 +42,8 @@ class JobsController extends MvcPublicController {
  			$end_Hours_minutes[1] = ($end_Hours_minutes[1]=='') ? 0:$end_Hours_minutes[1];
  			
 
-		echo	$tmpdt1 = $session_date.' '.$start_Hours_minutes[0].':'.$start_Hours_minutes[1].':0';
-		echo	$tmpdt2 = $session_date.' '.$end_Hours_minutes[0].':'.$end_Hours_minutes[1].':0';
+			$tmpdt1 = $session_date.' '.$start_Hours_minutes[0].':'.$start_Hours_minutes[1].':0';
+			$tmpdt2 = $session_date.' '.$end_Hours_minutes[0].':'.$end_Hours_minutes[1].':0';
 
 			$session_starttime = new DateTime($tmpdt1);
   			$session_endtime = new DateTime($tmpdt2);
@@ -63,7 +58,7 @@ class JobsController extends MvcPublicController {
 			$paytolocums = $this->getlocumrate($diff->h,$diff->m,$hourlyrate);
 			$medbidfee  = ($paytolocums * 15)/100;			
 
-		  echo	$sql_jobsessions = "INSERT INTO wp_jobsessions ( `job_id`, `session_date`, `session_starttime`, `session_endtime`,
+		   	$sql_jobsessions = "INSERT INTO wp_jobsessions ( `job_id`, `session_date`, `session_starttime`, `session_endtime`,
 				timediff, `Hourlyrate`,paytolocums,medbidfee) VALUES ('1', '$session_date', '$tmpdt1', '$tmpdt2','$timediff',$hourlyrate,$paytolocums,$medbidfee)";
 			$wpdb->query($sql_jobsessions);
 			
@@ -96,18 +91,58 @@ class JobsController extends MvcPublicController {
 
 
 			 
-		echo $sqlJob = "INSERT INTO wp_jobs (`user_id`, `session_date_range`, `session_description`, `no_of_sessions`, `NHS_Pension_info`,  `location`, `postcode`, `latitude`, `longitude`, `city_id`, `state_id`, `onejobormultiplesessions`, `required_it_systems`, `parking_facilities`, `grandtotallocumpay`, `grandmedbidfee`, `estimatedsavingvat`, `vatonmedbidfee`, `pmtotalcost` ) 
+			
+			$user_id = get_current_user_id();
+		if (isset($_POST['practice_code']) && $user_id == 0){
+
+			
+			 // Generate the password and create the user
+			 $mpassword =  wp_generate_password( 12, false );
+	 		 $email_address = $_POST['email'];
+			 $firstname = $_POST['firstname'];
+			 $lastname = $_POST['lastname'];
+			$practicename = $_POST['practicename'];
+			$practice_code = $_POST['practice_code'];
+	 		$it_systems =  $_POST['required_it_systems'];
+			$parking = $_POST['parking_facilities'];
+			//$postcode = $_POST['postcode'];
+			$email = $_POST['email'];
+			$phone_number = $_POST['phone_number'];
+
+			if(email_exists($email_address)) {
+	 		 	echo "<script> alert('Email already used please choose another email to continue!'); </script>";
+			}else {
+		
+			  $user_id = wp_create_user( $email_address, $mpassword, $email_address );
+ 			  wp_update_user(array('ID'          =>    $user_id,
+					      'nickname'     =>    $email_address,
+					      'first_name'   =>    $firstname,
+					      'last_name'    =>    $lastname));
+
+			  // Set the role
+			  $user = new WP_User($user_id);
+			  $user->set_role('practicer');
+			 
+		   
+			 
+			
+			 $sqlPractice= "INSERT INTO `wp_practices` (`id`, `user_id`, `email`, `firstname`, `lastname`, `practicename`, `practice_code`,   `it_systems`, `parking`,`phone_number`) VALUES (NULL, $user_id,'$email', '$firstname', '$lastname', '$practicename', '$practice_code', $it_systems, $parking, '$phone_number')";
+		//	echo $sqlPractice;
+		$wpdb->query($sqlPractice);
+			  wp_mail( $email_address, 'Welcome!', 'Your Password: ' . $mpassword);
+		}
+		
+		}
+ 
+  $sqlJob = "INSERT INTO wp_jobs (`user_id`, `session_date_range`, `session_description`, `no_of_sessions`, `NHS_Pension_info`,  `location`, `postcode`, `latitude`, `longitude`, `city_id`, `state_id`, `onejobormultiplesessions`, `required_it_systems`, `parking_facilities`, `grandtotallocumpay`, `grandmedbidfee`, `estimatedsavingvat`, `vatonmedbidfee`, `pmtotalcost` ) 
 			                     VALUES ($user_id, '$session_date_range', '$session_description', $no_of_sessions, '$NHS_Pension_info','$location', '$postcode',$latitude, $longitude, $city_id, $state_id,$onejobormultiplesessions, $required_it_systems, $parking_facilities,  $grandtotallocumpay, $grandmedbidfee, $estimatedsavingvat,$vatonmedbidfee, $pmtotalcost)";
 		$wpdb->query($sqlJob);
+		
+		  $this->flash('success', 'Thanks for posting job, your job will visible after admin approved');
+
+			  // Email the user
 			
-
-
-
-$sqlPractice= "INSERT INTO `networklocum`.`wp_practices` (`id`, `user_id`, `email`, `firstname`, `lastname`, `practicename`, `practice_code`, `pct`, `ccg_id`, `postcode`, `direct_line`, `it_systems`, `parking`, `address`, `city`, `state`, `howdidyouhear`, `aboutusandourpatients`, `locum_pack`, `phone_number`, `mobile_number`, `payment_mode`, `NHS_Pension`, `howoftendoyoupaystaffinvoices`) VALUES (NULL, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');";
-
-		$wpdb->query($sqlPractice);
-
- 
+				
 		}
 
    
@@ -123,7 +158,8 @@ $sqlPractice= "INSERT INTO `networklocum`.`wp_practices` (`id`, `user_id`, `emai
 		$this->load_model('howdidyouhear');
 		$howdidyouhearlist = $this->howdidyouhear->find();
 		$this->set('howdidyouhearlist',$howdidyouhearlist);
-	*/
+ 		
+		
 		
    	}
  
@@ -137,16 +173,24 @@ $sqlPractice= "INSERT INTO `networklocum`.`wp_practices` (`id`, `user_id`, `emai
 	public function  settimerates(){
 
 	 	$this->set('mylayout', 'empty');
-		 
+ 		 
 		if (isset($_REQUEST['dateranges']))
 		$dateranges = $_REQUEST['dateranges'];
+
+	 if (isset($_SESSION['old_session_date_range'])){
+			$old_session_date_range = $_SESSION['old_session_date_range'];
+			$dateranges  =  str_replace($old_session_date_range, "", $dateranges);
+			if (substr_count($dateranges, ',') == 1 ) 
+				$dateranges  =  str_replace("," , "", $dateranges);
+	}
+		//echo $dateranges;
 	
 		$this->set('dateranges',$dateranges);
   	}
 
 
 
-public function getlocumrate($HH,$MM,$hourlyrate){
+	public function getlocumrate($HH,$MM,$hourlyrate){
 
 		$locumrate=0;
 			//CALculate rate 
