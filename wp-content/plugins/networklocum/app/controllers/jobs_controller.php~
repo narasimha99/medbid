@@ -11,10 +11,10 @@ class JobsController extends MvcPublicController {
  		$this->set('mylayout', 'client');
 
 		$this->load_model('Job');
- 	
+ 	/* echo "<pre>"; print_r($_POST); echo "</pre>";
  							
-	 /*
-   		//echo "<pre>"; print_r($_POST); echo "</pre>";
+	 
+   		 
 
 
 		//$_SESSION['post_data'] = $_POST;

@@ -23,14 +23,12 @@ $templtpath= get_template_directory_uri();
     <![endif]-->
 	
 <!-- facebox -->
- <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/facebox.js"></script>
-   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<?php echo $templtpath;?>/js/bootstrap.min.js"></script>
 
- <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/facebox.css" />
-<!-- facebox -->
+ <!-- facebox -->
  <script type="text/javascript">
 var myJSONObject = {"JSINFO": [
         {"SITE_ROOT_VAR": "<?php echo esc_url( home_url( '/' ) ); ?>", "SERVER_ROOT_VAR": ""}

@@ -43,6 +43,7 @@ jQuery( document ).ready(function() {
 					<p>Completely <b>free</b> to post! Takes just <b>3 minutes!</b> Collect applications just as fast!</p>
 					<br>
 				</div>
+<form    id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate"  method="POST">
 				<div class="col-md-8 col-md-offset-2 ">
  					<div class="bitbox1">
 						<div class="aligncenter">
@@ -50,7 +51,7 @@ jQuery( document ).ready(function() {
 							<h3>It only takes 3 minutes to post a job.</h3>
 							<p>Select dates by clicking on the calendar.</p>
 						</div>
-				<form    id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate"  method="POST">
+				
 				 		<div class="panel panel-default calendar">
  						<!-- its my code -->
 						<div id="datecalenderdiv">	

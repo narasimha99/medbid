@@ -11,9 +11,9 @@ class JobsController extends MvcPublicController {
  		$this->set('mylayout', 'client');
 
 		$this->load_model('Job');
- 	echo "<pre>"; print_r($_POST); echo "</pre>";
+ 	/* echo "<pre>"; print_r($_POST); echo "</pre>";
  							
-	 /*
+	 
    		 
 
 
@@ -146,7 +146,7 @@ $sqlPractice= "INSERT INTO `networklocum`.`wp_practices` (`id`, `user_id`, `emai
 
 
 
-public function getlocumrate($HH,$MM,$hourlyrate){
+	public function getlocumrate($HH,$MM,$hourlyrate){
 
 		$locumrate=0;
 			//CALculate rate 
