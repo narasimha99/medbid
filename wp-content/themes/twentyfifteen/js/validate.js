@@ -319,8 +319,9 @@ function gethourlyrate(i,j){
  		var z=1;
 		var grandtotallocumpay = 0;
  		$(".paytolocum").each(function() {
- 	  		
+ 	  		//alert('#paytolocum_'+z);	
 	 		grandtotallocumpay  = grandtotallocumpay + parseFloat($('#paytolocum_'+z).val());
+		//	alert(grandtotallocumpay);
  			$("#grandtotallocumpayspan").text(grandtotallocumpay);
 			$("#grandtotallocumpay").val(grandtotallocumpay);
 			z = z + 1;
@@ -351,9 +352,8 @@ function gethourlyrate(i,j){
 
 	function validatepublicjobcreate(){
 		
- 
-		 
-		jQuerty("#errspan_session_date_range").text("");
+ 		 
+		//jQuerty("#errspan_session_date_range").text("");
 		jQuery("#errspan_parking_facilities").text("");
 		jQuery("#errspan_required_it_systems").text("");
 		jQuery("#errspan_session_description").text("");
@@ -375,7 +375,9 @@ function gethourlyrate(i,j){
 		{
 
  
+		/*
 			if(jQuery("#session_date_range").val() == ""){
+						alert('hi'); return false;
 				jQuery("#errspan_session_date_range").text("Please choose your session dates from calendar");
 				errstat = 1;      
 			}
@@ -385,7 +387,7 @@ function gethourlyrate(i,j){
 				errstat = 1;      
 			}
 
-
+		*/
 			if(jQuery("#parking_facilities").val() == ""){
 			jQuery("#errspan_parking_facilities").text("Please choose your parking facilities");
 			errstat = 1;      

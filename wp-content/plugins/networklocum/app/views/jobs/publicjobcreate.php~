@@ -8,8 +8,8 @@ jQuery( document ).ready(function() {
 	//console.log( "ready!" );
 	jQuery("#submit1").click(function () {
 		$("#calendarform").submit();
- 		
-	});
+ 	});
+
 	jQuery("#submit5").click(function () {
 		$("#savejob").val('savejob');
 	});
@@ -50,7 +50,7 @@ jQuery( document ).ready(function() {
 						<div class="aligncenter">
 							<h2><i class="fa fa-calendar seticon"></i>Select dates</h2>
 							<h3>It only takes 3 minutes to post a job.</h3>
-							<p>Select dates by clicking on the calendar.</p>
+							<p id="session_date_range" >Select dates by clicking on the calendar.</p>
 						</div>
 				
 				 		<div class="panel panel-default calendar">
@@ -116,16 +116,14 @@ jQuery( document ).ready(function() {
 						
 						<!-- its my code end here -->
 						<div id="settimerates">	</div>
-						
+ 						<!-- its my code end here -->	
 						<?php 
 						if(isset($_POST['session_date_range'])){
  							include('settimerates.php');
-						 }
+	 					 }
 						?>
-						<!-- its my code end here -->					
 
 					</div>
-
 <div class="bitbox1">
 		<div class="col-md-12 col-sm-12">
 			<div class="nl-payment-sys" style="display: block;">
@@ -345,8 +343,7 @@ $parking_array = array(
 						  <input type="text" class="form-control ff1" id="phone_number" name="phone_number" value="<?php echo $_POST['phone_number'];?>"   title="" placeholder="XXXXXXXXXXX">
 						   <span id="errspan_phone_number" class="errorspan"></span>
 					  </div>
-					
-				 
+					 
 					</div>
 					<?php } ?>
 					<p style="text-align:center;">I agree with the <a href="#" target="_blank">Terms and Conditions</a>  and <a href="#" target="_blank">Privacy Policy</a>  of Medbid</a></p>
