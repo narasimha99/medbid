@@ -13,9 +13,9 @@ class JobsController extends MvcPublicController {
 	
 		$this->load_model('Job');
 	
-		$_SESSION['old_session_date_range'] = $_POST['session_date_range'];
+		$_SESSION['post_data'] = $_POST;
 
- //	  echo "<pre>"; print_r($_POST); echo "</pre>";
+ 	  echo "<pre>"; print_r($_POST); echo "</pre>";
  	  
 	
 		//echo "SESSION Data";
@@ -173,16 +173,18 @@ class JobsController extends MvcPublicController {
  		 
 		if (isset($_REQUEST['dateranges']))
 		$dateranges = $_REQUEST['dateranges'];
-
-	 if (isset($_SESSION['old_session_date_range'])){
-			$old_session_date_range = $_SESSION['old_session_date_range'];
-			$dateranges  =  str_replace($old_session_date_range, "", $dateranges);
-			if (substr_count($dateranges, ',') == 1 ) 
-				$dateranges  =  str_replace("," , "", $dateranges);
-	}
-		//echo $dateranges;
+		
+			 
+	 //if (isset($_SESSION['old_session_date_range'])){
+	//		$old_session_date_range = $_SESSION['old_session_date_range'];
+	//		$dateranges  =  str_replace($old_session_date_range, "", $dateranges);
+	//		if (substr_count($dateranges, ',') == 1 ) 
+	//			$dateranges  =  str_replace("," , "", $dateranges);
+	//}
+		echo $dateranges;
 	
 		$this->set('dateranges',$dateranges);
+		 
   	}
 
 
