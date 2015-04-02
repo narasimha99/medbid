@@ -1,0 +1,9 @@
+<?php
+class Jobsession extends MvcModel {
+ 
+ //var $table = '{prefix}job_sessions';
+ var $belongs_to = array('Job');
+
+}
+
+?>
