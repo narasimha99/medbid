@@ -1,1 +1,0 @@
-<div><?php echo $this->html->object_link($object); ?></div>

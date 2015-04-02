@@ -14,7 +14,7 @@ class PracticesController extends MvcPublicController {
  		
 		 // Generate the password and create the user
 		 $password = $this->params['data']['Practice']['password'];
-		 $mpassword =  wp_generate_password( 12, false );
+		 $mpassword =  wp_generate_password( 12, false);
  		 $email_address = $this->params['data']['Practice']['email'];
 
 		//echo "<pre>";	print_r($this->params);		echo "</pre>";

@@ -1,8 +1,0 @@
-<?php
-
-class Job extends MvcModel {
-	var $display_field = 'name';
-	var $table = '{prefix}pods_client_manager';
-}
-
-?>

@@ -14,10 +14,10 @@ class JobsController extends MvcPublicController {
 	
 		$_SESSION['old_post_data'] = $_POST;
 
- 		//echo "<pre>"; print_r($_POST); echo "</pre>";
+	 	//echo "<pre>"; print_r($_POST); echo "</pre>";
  	  	//echo "SESSION Data";
 		//echo "<pre>"; print_r($_SESSION); echo "</pre>";
- 		//echo "<pre>"; print_r($_POST); echo "</pre>";
+ 		echo "<pre>"; print_r($_POST); echo "</pre>";
  	
 		$practice_created=0;
 		$user_id = get_current_user_id();
@@ -74,11 +74,16 @@ class JobsController extends MvcPublicController {
 			$NHS_Pension_info = 0;			
 			$location = "Hounslow, London";
 			$postcode='SW13 9HB';
-			$latitude ='51.475306';
-			$longitude ='-0.375766';
+
+			$vallatlong = getLnt($postcode);
+			 echo "Latitude: ".$vallatlong['lat']."<br>";
+			 echo "Longitude: ".$vallatlong['lng']."<br>";
+
+			$latitude  = $vallatlong['lat'];  //'51.475306';
+			$longitude = $vallatlong['lng']; //'-0.375766';
 			$city_id = 0;
 			$state_id= 0;
- 			$onejobormultiplesessions = $_POST['onejobormultiplesessions'];
+ 			$onejobormultiplesessions = 1 ; //$_POST['onejobormultiplesessions'];
 			$required_it_systems = $_POST['required_it_systems'];
  			$parking_facilities = $_POST['parking_facilities'];
   			$grandtotallocumpay = $_POST['grandtotallocumpay'];
@@ -87,14 +92,16 @@ class JobsController extends MvcPublicController {
 			$vatonmedbidfee = $_POST['vatonmedbidfee'];
 			$pmtotalcost = $_POST['pmtotalcost'];
 	 		 
-  $sqlJob = "INSERT INTO wp_jobs (`user_id`, `session_date_range`, `session_description`, `no_of_sessions`, `NHS_Pension_info`,  `location`, `postcode`, `latitude`, `longitude`, `city_id`, `state_id`, `onejobormultiplesessions`, `required_it_systems`, `parking_facilities`, `grandtotallocumpay`, `grandmedbidfee`, `estimatedsavingvat`, `vatonmedbidfee`, `pmtotalcost` ) VALUES ($user_id, '$session_date_range', '$session_description', $no_of_sessions, '$NHS_Pension_info','$location', '$postcode',$latitude, $longitude, $city_id, $state_id,$onejobormultiplesessions, $required_it_systems, $parking_facilities,  $grandtotallocumpay, $grandmedbidfee, $estimatedsavingvat,$vatonmedbidfee, $pmtotalcost)";
-		$wpdb->query($sqlJob);
-		
-		
+			$sqlJob = "INSERT INTO wp_jobs (`user_id`, `session_date_range`, `session_description`, `no_of_sessions`, `NHS_Pension_info`,  `location`, `postcode`, `latitude`, `longitude`, `city_id`, `state_id`, `onejobormultiplesessions`, `required_it_systems`, `parking_facilities`, `grandtotallocumpay`, `grandmedbidfee`, `estimatedsavingvat`, `vatonmedbidfee`, `pmtotalcost` ) VALUES ($user_id, '$session_date_range', '$session_description', $no_of_sessions, '$NHS_Pension_info','$location', '$postcode',$latitude, $longitude, $city_id, $state_id,$onejobormultiplesessions, $required_it_systems, $parking_facilities,  $grandtotallocumpay, $grandmedbidfee, $estimatedsavingvat,$vatonmedbidfee, $pmtotalcost) ";
+		//echo $sqlJob;
+			$wpdb->query($sqlJob);
+
+			$job_id = $wpdb->insert_id;
+ 			$count_no_of_sessions = 0;
 			$session_date_count_primary = count($_POST['session_date']);
 			$session_starttime_secondry = count($_POST['session_starttime']);
 			for($x=1;$x<=$session_date_count_primary; $x++ ){
-			for($y=1; $y<=count($_POST['session_starttime'][$x]); $y++){
+ 			for($y=1; $y<=count($_POST['session_starttime'][$x]); $y++){
 		
  			//int mktime ( [int $hour ] [, int $minute ] [, int $second ] [, int $month ] [, int $day ] [, int $year ] [, int $is_dst ] )
 			$session_date =	$_POST['session_date'][$x];
@@ -125,12 +132,18 @@ class JobsController extends MvcPublicController {
 			$medbidfee  = ($paytolocums * 15)/100;			
 
 		   	$sql_jobsessions = "INSERT INTO wp_jobsessions ( `job_id`, `session_date`, `session_starttime`, `session_endtime`,
-				timediff, `Hourlyrate`,paytolocums,medbidfee) VALUES ('1', '$session_date', '$tmpdt1', '$tmpdt2','$timediff',$hourlyrate,$paytolocums,$medbidfee)";
+				timediff, `Hourlyrate`,paytolocums,medbidfee) VALUES ($job_id, '$session_date', '$tmpdt1', '$tmpdt2','$timediff',$hourlyrate,$paytolocums,$medbidfee)";
 			$wpdb->query($sql_jobsessions);
 			
+			$count_no_of_sessions = $count_no_of_sessions + 1;
 		
 			}
 			}
+		
+
+		$sql_job_update = "Update wp_jobs set no_of_sessions = $count_no_of_sessions where id = $job_id";
+		$wpdb->query($sql_job_update);
+	
 			
   		 $this->flash('success', 'Thanks for posting job, your job will visible after admin approved');
 
@@ -166,7 +179,7 @@ class JobsController extends MvcPublicController {
 		if (isset($_REQUEST['dateranges']))
 		$dateranges = $_REQUEST['dateranges'];
  		 
-		if (isset($_SESSION['post_data']['session_date_range'])){
+		if (isset($_SESSION['old_post_data']['session_date_range'])){
 			$old_session_date_range = $_SESSION['old_post_data']['session_date_range'];
 			$dateranges  =  str_replace($old_session_date_range, "", $dateranges);
 	 		if (substr_count($dateranges, ',') == 1 ) 
@@ -200,7 +213,45 @@ class JobsController extends MvcPublicController {
 					 
 		    return $locumrate;
 
-}
+	}
+
+	
+	public function alljobs(){
+
+	 	$this->set('mylayout', 'client');
+		$this->load_model('Job');
+		 
+		global $wpdb;
+
+		//echo $sqlJobs = "SELECT job.location * , b . * FROM `wp_jobs` a, wp_jobsessions b WHERE a.id = b.job_id LIMIT 0 , 30 
+
+		//$Jobdetails = $wpdb->get_results($sqlJobs);
+ 		
+		$params = $this->params;
+
+		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+		$params['join_table'] = array('Jobsession');
+		$params['include'] = array('Jobsession');
+		//$params['conditions'] = array('is_public' => true);
+		$collection = $this->Job->paginate($params);
+		$this->set('joblists', $collection['objects']);
+		$this->set_pagination($collection);
+
+	///echo "<pre>";print_r($collection['objects']); echo "</pre>";
+
+ 		//$this->set('joblists', $Jobdetails);
+  	
+ 	}
+
+	function getLnt($zip){
+		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=".urlencode($zip)."&sensor=false";
+		$result_string = file_get_contents($url);
+		$result = json_decode($result_string, true);
+		$result1[]=$result['results'][0];
+		$result2[]=$result1[0]['geometry'];
+		$result3[]=$result2[0]['location'];
+		return $result3[0];
+	}
 	
 }
 

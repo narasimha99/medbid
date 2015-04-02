@@ -1,5 +1,5 @@
 <?php
-if( $mylayout == 'customer')
+if( $mylayout == 'locum')
 	include('customer-layout.php');
 
 if(	$mylayout == 'advisor')
@@ -7,4 +7,7 @@ if(	$mylayout == 'advisor')
 
 if(	$mylayout == 'client')
 	include('client-layout.php');
+
+if(	$mylayout == 'empty')
+	include('emptypage-layout.php');
 ?>

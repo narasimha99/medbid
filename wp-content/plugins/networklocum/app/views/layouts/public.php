@@ -1,6 +1,6 @@
 <?php
-if( $mylayout == 'customer')
-	include('customer-layout.php');
+if( $mylayout == 'locum')
+	include('locum-layout.php');
 
 if(	$mylayout == 'advisor')
 	include('advisor-layout.php');

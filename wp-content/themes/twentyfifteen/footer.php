@@ -12,7 +12,7 @@ $url = esc_url( home_url( '/' ) );
 						<ul>
 							<li><a class="" href="#">FAQs</a></li>
 							<li><a class="" href="<?php echo $url.'/jobs/publicjobcreate';?>" >Post A Job</a></li>
-							<li><a class="" href="#">Practice Sign Up</a></li>
+							<li><a class="" href="<?php echo $url.'/practices/practicesignup';?>">Practice Sign Up</a></li>
 							<li><a class="" href="#">Practice Ts & Cs</a></li>
 							<li><a class="" href="#">Privacy Policy</a></li>
 							<li><a class="" href="#">Pensions</a></li>
@@ -23,7 +23,7 @@ $url = esc_url( home_url( '/' ) );
 						<h3>For Doctors</h3>
 						<ul>
 							<li><a class="" href="#">FAQs</a></li>
-							<li><a class="" href="#">View Jobs</a></li>
+							<li><a class="" href="<?php echo $url.'/jobs/alljobs';?>">View Jobs</a></li>
 							<li><a class="" href="#">Medi Sign Up</a></li>
 							<li><a class="" href="#">Medi Ts & Cs</a></li>
 							<li><a class="" href="#">Privacy Policy</a></li>
@@ -77,8 +77,6 @@ $url = esc_url( home_url( '/' ) );
 		</div>
 	
 	<!--footer end here-->
-	
-
 
 <script>
 //	jQuery('#myCarousel').carousel({

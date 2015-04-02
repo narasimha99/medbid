@@ -50,12 +50,12 @@ jQuery( document ).ready(function() {
 						<div class="aligncenter">
 							<h2><i class="fa fa-calendar seticon"></i>Select dates</h2>
 							<h3>It only takes 3 minutes to post a job.</h3>
-							<p id="session_date_range" >Select dates by clicking on the calendar.</p>
+							<p>Select dates by clicking on the calendar.</p>
 						</div>
 				
 				 		<div class="panel panel-default calendar">
  						<!-- its my code -->
-						<div id="datecalenderdiv">	
+						<div id="datecalenderdiv"  style="text-align: left;">	
 							 
   	<input type="hidden" id="session_date_range" name="session_date_range" value="<?php if(isset($_POST['session_date_range'])) { echo $_POST['session_date_range']; } ?>" />
 		 <span id="errspan_session_date_range" class="errorspan"></span>
@@ -238,7 +238,7 @@ jQuery( document ).ready(function() {
 						
 					  <div class="form-group">
 						  <label for="password" class="control-label">One job or multiple sessions</label><br>
-						  <input type="radio" name="onejobormultiplesessions" value="1" <?php if ($_post['onejobormultiplesessions'] == 1) echo 'checked'; ?> > Post as one job <input style="margin-left:20px;" type="radio" name="onejobormultiplesessions" value="2" <?php if ($_post['onejobormultiplesessions'] == 2) echo 'checked'; ?> > Post as individual sessions
+<input type="radio" name="onejobormultiplesessions" value="1" <?php if ($_post['onejobormultiplesessions'] == 1) echo 'checked'; ?> > Post as one job <input style="margin-left:20px;" type="radio" name="onejobormultiplesessions" value="2" <?php if ($_post['onejobormultiplesessions'] == 2) echo 'checked'; ?> > Post as individual sessions
 						     <span id="errspan_onejobormultiplesessions" class="errorspan"></span>
 					  </div>
 					  <div class="bitbox1" style="background:#D9F3FC;">

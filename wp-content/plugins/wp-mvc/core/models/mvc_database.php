@@ -12,8 +12,10 @@ class MvcDatabase {
 	}
 	
 	public function get_results($string, $output_type=OBJECT) {
-		$this->add_to_log($string);
+ 		$this->add_to_log($string);
+		//echo"<pre>";echo $string; echo"</pre>";
 		return $this->wpdb->get_results($string, $output_type);
+		
 	}
 	
 	public function get_var($string, $column_offset=0, $row_offset=0) {
