@@ -99,7 +99,7 @@ $templtpath= get_template_directory_uri();
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">IT systems</label>
-						  <select multiple="multiple" id="it_systems" name="data[Practice][it_systems]" class="form-control ff1"">	
+					 <select multiple="multiple" id="it_systems" name="data[Practice][it_systems]" class="form-control ff1"">	
 <option value=""> Select</option>
 <?php
 		foreach($itsystemlist as $itsys){
@@ -151,21 +151,3 @@ $templtpath= get_template_directory_uri();
 	
 	<!--middle end here-->
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  

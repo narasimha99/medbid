@@ -819,6 +819,112 @@ background-image: url('../images/error.png');
 
 
 
+/* new css 14-03-2014 */
+
+.gps {
+  overflow: auto;
+  margin-top: -47px;
+  padding: 20px 0px;
+  text-align: center;
+  box-shadow: 0 5px 5px #eee;
+}
+.dashbg {
+  background: #F9F9F9;
+  margin-top: 8px;
+}
+.dashmid{border: 1px solid #E8E8E8; margin:30px 0px;
+background-color: #fff;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;}
+.dashmidh {
+  background: #62BFE1;
+    padding: 20px;
+	  overflow: auto;
+  -webkit-border-radius: 5px 5px 0px 0px;
+-moz-border-radius: 5px 5px 0px 0px;
+border-radius: 5px 5px 0px 0px;
+}
+
+.dashmidh2 {
+  background: #62BFE1;
+    padding: 20px;
+	  overflow: auto;
+  -webkit-border-radius: 0px 0px 5px 5px;
+-moz-border-radius: 0px 0px 5px 5px;
+border-radius: 0px 0px 5px 5px;
+}
+.dashmidh h2 {
+  float: left;
+  color: #fff;
+  letter-spacing: -1px;
+}
+.dtextpad{padding:20px;}
+
+.disdate {
+  text-align: center;
+  padding: 68px 10px;
+  background: #F5F5F5;
+  color: #333;
+  margin-bottom:20px;
+  height: 292px;
+  border: 1px solid #DDD;
+  -webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+}
+.disdate h2 {
+  font-size: 106px;
+  letter-spacing: -6px;
+}
+.disdate h3 {
+  font-size: 17px;
+}
+.pjobs {
+  padding: 20px;
+  text-align: center;
+  background: #62BFE1;
+  width: 32%;
+  margin-right: 1%;
+  float: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.pjobs h2 {
+  font-size: 63px;
+}
+.pjobs p{ font-size:15px;}
+
+.tnav2 a {
+  padding: 38px 10px !important;
+  font-size: 18px;
+  color: #fff !important;
+  margin: 0px 1px 0px 0px;
+}
+
+
+
+.text5 {
+  font-size: 23px;
+  font-weight: 400;
+  color: #3bafda;
+  letter-spacing: -1px;
+  margin:20px 0px;
+}
+
+.tab-content {
+  border: 1px solid #DDD;
+  margin-top: -1px;
+  padding: 20px;
+  overflow: auto !important;
+}
+
+.panel-title{ font-size:22px; letter-spacing:-1px;}
+
+
+
+
 
 
 

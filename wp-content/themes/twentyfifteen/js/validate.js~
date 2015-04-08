@@ -136,6 +136,10 @@ function validatepracticesignup(){
     }
 
 
+if(jQuery("#pct").val() == ""){ 
+         jQuery("#errspan_pct").text("Please select pct");
+        errstat = 1;       
+}
 
 if(jQuery("#practicename").val() == ""){ 
 
@@ -157,14 +161,27 @@ if(jQuery("#practicename").val() == ""){
         jQuery("#errspan_phone_number").text("Please enter phone number");
         errstat = 1;       
   }
-alert(Query("#it_systems").val());
-alert('hi');
+
+//alert(jQuery("#it_systems").val());
  
  if(jQuery("#it_systems").val() == ""){
-	alert('ho');
-        jQuery("#errspan_it_systems").text("Please select IT Systems");
+         jQuery("#errspan_it_systems").text("Please select IT Systems");
         errstat = 1;       
   }
+
+
+
+ if(jQuery("#mobile_number").val() == ""){
+         jQuery("#errspan_mobile_number").text("Please enter mobile number");
+        errstat = 1;       
+  }
+
+ if(jQuery("#NHS_Pension").val() == ""){
+         jQuery("#errspan_NHS_Pension").text("Please select NHS Pension");
+        errstat = 1;       
+  }
+
+
 
   if (  errstat == 1 )
 	return false;
@@ -445,3 +462,43 @@ function gethourlyrate(i,j){
 				return true;
 		}
 	}
+
+
+
+
+function validatechangepassword(){
+
+  jQuery("#errspan_old_password").text("");
+  jQuery("#errspan_new_password1").text("");
+  jQuery("#errspan_new_password2").text("");
+    
+    var errstat=0;
+
+    if (jQuery("#old_password").val() == "") {
+ 	  jQuery("#errspan_old_password").text("Please enter old password");
+        	errstat = 1;      
+     }
+	
+   if(jQuery("#new_password1").val() == ""){
+        jQuery("#errspan_new_password1").text("Please enter new password");
+       errstat = 1;       
+    }
+	
+
+ if(jQuery("#new_password2").val() == ""){
+        jQuery("#errspan_new_password2").text("Please enter verify password");
+        errstat = 1;       
+    }
+	
+   if ( jQuery("#new_password1").val() != jQuery("#new_password2").val() ){
+	jQuery("#errspan_new_password2").text("Please compare new password and verify password once");
+        errstat = 1;    
+   }
+ 
+  if (  errstat == 1 )
+	return false;
+else
+	return true;
+ 	
+}
+

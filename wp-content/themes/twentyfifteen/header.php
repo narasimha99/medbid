@@ -25,7 +25,7 @@ $templtpath= get_template_directory_uri();
 	
 <!-- facebox -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="<?php echo $templtpath;?>/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="<?php echo $templtpath;?>/js/bootstrap.min.js"></script>
 
@@ -69,7 +69,22 @@ $templtpath= get_template_directory_uri();
 </head>
 
   <body>
+<?php 
+$user_id = get_current_user_id();
+if ( $user_id == 0 ) {
+	include("sitemenu.php"); 
+}
+else 
+{   
+  global $current_user;
+ /// echo "<pre>";		print_r($current_user); echo "</pre>";
 
-<?php include("sitemenu.php"); ?>
-<?php include("locummenu.php"); ?>
-  
+	if ( $current_user->roles[0] == 'administrator')
+		include("sitemenu.php");
+	elseif ( $current_user->roles[0] == 'locum')
+		include("locummenu.php");
+	elseif ( $current_user->roles[0] == 'practicer')
+ 		include("practicemenu.php");
+}
+ 
+ ?>
