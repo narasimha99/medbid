@@ -33,7 +33,7 @@
 					<td data-title="Code"><?php echo $locum->email;?></td>
 					<td data-title="Code"><?php echo $locum->phone_number;?></td>
 					<td data-title="Code"><?php echo $locum->gmc_number;?></td>
-          				<td data-title="Change %" class="numeric"><a href="#" class="btn btn-primary aplbtn" title="Apply for job">Verify</a></td>
+          				<td data-title="Change %" class="numeric"><a href="#" class="btn btn-primary aplbtn" title="Verify locums">Verify</a></td>
         			</tr>
 			<?php } ?>
         			 

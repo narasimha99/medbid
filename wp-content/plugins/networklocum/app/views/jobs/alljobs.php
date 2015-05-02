@@ -1,3 +1,7 @@
+<?php
+ $templtpath= get_template_directory_uri(); 
+ $url = esc_url( home_url( '/' ) );
+?>
 <!--middle start here-->
 	
 	<div class="midcol">
@@ -42,8 +46,8 @@ echo date('D j M Y, H:m', strtotime($jobsession->session_starttime)).' - '.date(
 }
 ?> </td>
         				<td data-title="Price" class="nndumeric"><?php echo $job->no_of_sessions;?> sessions</td>
-        				<td data-title="Change" class="numeric">£ <?php echo $jobsession->Hourlyrate;?> </td>
-        				<td data-title="Change %" class="numeric"><a href="#" class="btn btn-primary aplbtn" title="Apply for job">Apply</a></td>
+        				<td data-title="Change" class="numeric">£ <?php echo $jobsession->hourlyrate;?> </td>
+        				<td data-title="Change %" class="numeric"><a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply</a></td>
         			</tr>
 <?php 
 	
@@ -68,4 +72,4 @@ echo date('D j M Y, H:m', strtotime($jobsession->session_starttime)).' - '.date(
 	</div>
 	
 	<!--middle end here-->
-	
+			

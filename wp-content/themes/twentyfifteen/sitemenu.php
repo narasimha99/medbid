@@ -2,7 +2,7 @@
  $templtpath= get_template_directory_uri(); 
 ?>
 	<!--top main navbar start here-->
-		<nav class="navbar navbar-default navbar-fixed-top novborder">
+	<nav class="navbar navbar-default navbar-fixed-top novborder">
 	  <div class="topbar">
 		<div class="container">
         <div class="navbar-header"> 
@@ -12,13 +12,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="#" class="navbar-brand mblogo"><img alt="MEDBID Logo" class="img-responsive" src="<?php echo $templtpath; ?>/images/medbidlogo.png"></a>
+          <a href="<?php echo $url;?>" class="navbar-brand mblogo"><img alt="MEDBID Logo" class="img-responsive" src="<?php echo $templtpath; ?>/images/medbidlogo.png"></a>
         </div>
         <div class="navbar-collapse collapse" id="navbar">
           <ul class="nav navbar-nav navbar-right ulmargin">
-			<li class="tnav"><a class="" href="<?php echo $url.'doctors';?>">Doctors</a></li>
-			<li class="tnav"><a class="" href="<?php echo $url;?>">Blog</a></li>
-			<li class="tnav"><a class="" href="<?php echo $url.'practices';?>">Practices</a></li>
+			<li class="tnav"><a class="" href="#<?php //echo $url.'doctors';?>">Doctors</a></li>
+			<li class="tnav"><a class="" href="#<?php //echo $url;?>">Blog</a></li>
+			<li class="tnav"><a class="" href="#<?php //echo $url.'practices';?>">Practices</a></li>
 
 <?php  
 global $wpdb;

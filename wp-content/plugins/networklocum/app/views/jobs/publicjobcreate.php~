@@ -1,4 +1,7 @@
-﻿<?php
+<?php
+ $templtpath= get_template_directory_uri(); 
+?>
+<?php
 $url = esc_url( home_url( '/' )); 
 $templtpath= get_template_directory_uri(); 
 ?>
@@ -14,7 +17,8 @@ jQuery( document ).ready(function() {
 		$("#savejob").val('savejob');
 	});
 
- });
+
+});
 </script>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  		<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-1.11.1.js"></script>
@@ -26,228 +30,137 @@ jQuery( document ).ready(function() {
 		<link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/css/prettify.css">
  		<script type="text/javascript" src="<?php echo $templtpath;?>/js/prettify.js"></script>
 		<script type="text/javascript" src="<?php echo $templtpath;?>/js/lang-css.js"></script>
-		<script type="text/javascript">
-		$(function() {
-			prettyPrint();
-		});
-		</script>
- 
+
+  <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.timepicker.js"></script>
+  <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.datepair.js"></script>
+   <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/datepair.js"></script>
+  <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/lib/site.js"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/jquery.timepicker.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/bootstrap-datepicker.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/site.css" />
+	
+   
+
+	 
 <!--middle start here-->
 	
 	<div class="midcol">
+	<div class="bitbox1">	
 		<div class="container">
-		<div class="row">
-		
-				<div class="aligncenter">
-					<h2 class="text1">Find locums in 3 simple steps</h2>
-					<p>Completely <b>free</b> to post! Takes just <b>3 minutes!</b> Collect applications just as fast!</p>
-					<br>
-				</div>
-<form    id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate"  onsubmit="javascript:return validatepublicjobcreate();"  method="POST">
-				 <?php $this->display_flash(); ?>				
-				<div class="col-md-8 col-md-offset-2 ">
- 					<div class="bitbox1">
-						<div class="aligncenter">
-							<h2><i class="fa fa-calendar seticon"></i>Select dates</h2>
-							<h3>It only takes 3 minutes to post a job.</h3>
-							<p>Select dates by clicking on the calendar.</p>
-						</div>
-				
-				 		<div class="panel panel-default calendar">
- 						<!-- its my code -->
-						<div id="datecalenderdiv"  style="text-align: left;">	
-							 
-  	<input type="hidden" id="session_date_range" name="session_date_range" value="<?php if(isset($_POST['session_date_range'])) { echo $_POST['session_date_range']; } ?>" />
-		 <span id="errspan_session_date_range" class="errorspan"></span>
-
-
-						<div  id="datepickerdiv" class="demo">
-			<?php 
-			//	echo "<pre>";		print_r($_POST);
-		if(isset($_POST['session_date_range'])){
-				$session_date_range =  $_POST['session_date_range'];	
+ 		
 			
-//  session_date_range
-				$session_data_range_array = explode(',',$session_date_range);
- 			  	//print_r($session_data_range_array);
-				for($t=0;$t<count($session_data_range_array);$t++){		
-					 	$session_date =trim($session_data_range_array[$t]);
-					 	$vt = $vt.",'".$session_date."'";
-					
-	 				 }
-					 
-				  	$selectdates = trim(substr ($vt, 1),' ');
- 
-				
-				} 
-				 ?>
- 						<script>
-						 
- 					 
- 
-  						$('#datepickerdiv').multiDatesPicker({
-							dateFormat: "yy-m-d",
-							altField: '#session_date_range'
-						<?php 
-						if(isset($_POST['session_date_range']) && strlen($_POST['session_date_range'])>0 ) {
-						?>							
-						  , addDates: [<?php echo $selectdates;?>]
-						<?php } ?>
- 						  });
-						 </script>
-				 	 	</div>
- 						</div>
-					
-						<!-- its my code end here -->
-						</div>
- 
-						<div align="center">
-							<button class="btn btn-info sbtn" id="submit1">Save and Continue</button>
-						</div>
-					</div>
- 
-					<div class="bitbox1">
-					 
-						<div class="aligncenter">
-							<h2><i class="fa fa-clock-o seticon"></i>Set times and rates</h2>
-							<h3>We are not an agency - <b>set your own rates!</b></h3>
-							<p>Select dates you need cover for above</p>
-						</div>
-						
-						<!-- its my code end here -->
-						<div id="settimerates">	</div>
- 						<!-- its my code end here -->	
-						<?php 
-						if(isset($_POST['session_date_range'])){
- 							include('settimerates.php');
-	 					 }
-						?>
+			<form    id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate"  onsubmit="javascript:return validatepublicjobcreate();"  method="POST">
+							 <?php $this->display_flash(); ?>
 
-					</div>
-<div class="bitbox1">
-		<div class="col-md-12 col-sm-12">
-			<div class="nl-payment-sys" style="display: block;">
-				<div class="row">
-					<div class="col-md-6 col-sm-12">
-						<div class="nl-payment-sys-explnd col-md-12">
-							<h5 class="nl-payment-explnd-title">How does Networklocum help you save time and money?</h5>
-							<p>At Networklocum, we believe into fair pay and transparency!</p>
-							<p>This is how we save you money:</p>
-							<ul>
-								<li>50% cheaper than locum agencies</li>
-								<li>You set your own rates</li>
-								<li>Huge VAT savings</li>
-								<li><a href="/costs/">Find our more about the benefits of working with Networklocum.com</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-6 col-sm-12">
-						<div class="total-cost-summary col-md-12">
-							<div class="row">
-								<div class="col-md-12">
-									<h5 class="total-cost-summary-title">Cost breakdown</h5>
-								</div>
-	 						</div>
+ 
+		<div class="row">	 
+		<div class="col-md-12">
+		<!-- <div   align="right"> <input type='button' name="add" style="align:right"  value="Join more days" onclick="addmoredays();"/> </div> -->
 
-				<?php
-					$grandtotallocumpay = (isset($_POST['grandtotallocumpay']))?$_POST['grandtotallocumpay']:0;
-					$grandmedbidfee = (isset($_POST['grandmedbidfee']))?$_POST['grandmedbidfee']:0;
-					$estimatedsavingvat = (isset($_POST['estimatedsavingvat']))?$_POST['estimatedsavingvat']:0;
-					$vatonmedbidfee = (isset($_POST['vatonmedbidfee']))?$_POST['vatonmedbidfee']:0;
-					$pmtotalcost = (isset($_POST['pmtotalcost']))?$_POST['pmtotalcost']:0;
-				?>
-	 						<div class="row">
-								<div class="col-md-12"><hr></div>
-							</div>
-							<div class="row">
-								<div class="col-md-8 col-sm-8">
-									<p class="form-pay-locum">Pay to locum</p>
-								</div>
-								<div class="col-md-4 col-sm-4">
-									<p>£ <span class="locum-total-pay" name="grandtotallocumpay" id="grandtotallocumpayspan"><?php echo $grandtotallocumpay;?></span>
-	<input type="hidden" name="grandtotallocumpay" id="grandtotallocumpay" value="<?php echo $grandtotallocumpay;?>"/> 
-</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-8 col-sm-8">
-									<p class="form-pay-nl">Networklocum fees <span class="details-txt">(15% of locum fees)</span></p>
-								</div>
-								<div class="col-md-4 col-sm-4">
-									<p>£ <span class="nl-total-fee" name="grandmedbidfee" id="grandmedbidfeespan"><?php echo $grandmedbidfee;?></span>
-<input type="hidden" name="grandmedbidfee" id="grandmedbidfee" value="<?php echo $grandmedbidfee;?>"/>
-</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-8 col-sm-8">
-									<p class="form-practice-saving" >Estimated saving (inc. VAT)</p>
-								</div>
-								<div class="col-md-4 col-sm-4">
-									<p class="form-practice-saving">£ <span class="pm-total-save" id="estimatedsavingvatspan"><?php echo $estimatedsavingvat;?></span>
-<input type="hidden" name="estimatedsavingvat" id="estimatedsavingvat" value="<?php echo $estimatedsavingvat;?>"/> 
-</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-8 col-sm-8">
-									<p class="form-pay-nl">VAT <span class="details-txt">(only on Network Locum fees)</span></p>
-								</div>
-								<div class="col-md-4">
-									<p>£ <span class="nl-total-vat" id="vatonmedbidfeespan"><?php echo $vatonmedbidfee;?></span>
-<input type="hidden" name="vatonmedbidfee" id="vatonmedbidfee"  value="<?php echo $vatonmedbidfee;?>"/>
-</p>
-								</div>
-							</div>
-							<div class="row">
- 								<div class="col-md-12"><hr></div>
- 							</div>
-							<div class="row">
-								<div class="col-md-8">
-									<p class="total-cost" >TOTAL COST</p>
-								</div>
-								<div class="col-md-4">
-									<p class="total-cost">£ <span class="pm-total-pay" id="pmtotalcostspan"><?php echo $pmtotalcost;?></span>
-<input type="hidden" name="pmtotalcost" id="pmtotalcost" value="<?php echo $pmtotalcost;?>"/>
-</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
+		<!-- its my code end here -->
+
+		<div id="settimerates">	 </div>
+	 	<!-- its my code end here -->	
+		<?php 
+	 		include('settimerates.php');
+	 	?> 
+	 		
+ 	 
+	 		
+			 
+	 
+					
 				 
-					 <div align="center">
-							<button class="btn btn-info sbtn" id="submit2">Save and Continue</button>
-					</div>
-			
- 				</div>
-			</div>
-		</div>
- 
-</div>
-	
-					
-					<div class="bitbox1">
-					 
-						<div class="aligncenter">
-							<h2><i class="fa fa-list seticon"></i>Tell us about the job</h2>
-							<h3>Collect applications <b>in minutes</b></h3>
-							<p>Provide detailed job description to increase the number of applications for the job.</p>
-						</div>
+						 
 						
 					  <div class="form-group">
-						  <label for="password" class="control-label">One job or multiple sessions</label><br>
-<input type="radio" name="onejobormultiplesessions" value="1" <?php if ($_post['onejobormultiplesessions'] == 1) echo 'checked'; ?> > Post as one job <input style="margin-left:20px;" type="radio" name="onejobormultiplesessions" value="2" <?php if ($_post['onejobormultiplesessions'] == 2) echo 'checked'; ?> > Post as individual sessions
-						     <span id="errspan_onejobormultiplesessions" class="errorspan"></span>
+						  <label for="password" class="control-label">Tariff</label>
+<?php 
+
+$onejobormultiplesessions_array = array(
+'1'=>'Day Rate',
+'2'=>'Half Day Rate',
+'3'=>'Hourly Rate',
+'4'=>'Duty Doctor',
+'5'=>'Salaried Position'
+);
+?>
+					<select id="onejobormultiplesessions" name="onejobormultiplesessions" class="form-control ff1">
+							<option value=""> Select</option>
+ 							<?php
+								for($mt=1;$mt<=count($onejobormultiplesessions_array);$mt++){
+							?>
+						 	  <option value="<?php echo $mt;?>"  <?php if($_POST['onejobormultiplesessions'] == $mt) echo 'selected'?>><?php echo $onejobormultiplesessions_array[$mt];?></option>
+							<?php
+							}	
+							?>
+						 
+ 				     </select>
+ 
+						 
 					  </div>
-					  <div class="bitbox1" style="background:#D9F3FC;">
-						<h3>One locum or multiple locums?</h3>
-						<ul style="margin-left:20px; margin-top:10px;">
-							<li>Post your jobs as individual sessions so that multiple GPs can apply. This will massively increase your chance filling the session.</li>
-							<li>If looking for one GP continuity of care, you can post for one locum with an understanding that fewer people will be available.</li>
-						</ul>
-					  </div>
+					 
+
+			 <div class="form-group">
+						  <label for="password" class="control-label">Number of Patients?</label>
+	
+			 <input type="text" name="number_of_patients" id="number_of_patients"  value="<?php echo $_POST['number_of_patients'];?>"/>
+						 
+						    <span id="errspan_number_of_patients" class="errorspan"></span>
+			</div>
+
+			 
+			 <div class="form-group">
+			 <label for="password" class="control-label">Number of Telephone consultations?</label>
+	
+			 <input type="text" name="number_of_telephoneconsultations" id="number_of_telephoneconsultations"  value="<?php echo $_POST['number_of_telephoneconsultations'];?>"/>
+						 
+						    <span id="errspan_number_of_patients" class="errorspan"></span>
+			</div>
+			 <div class="form-group">
+				 <label for="password" class="control-label">Paperwork </label>
+<input type="radio" name="paperwork" id="paperwork"  value="0"  <?php if ($_POST['paperwork'] == 0)  echo "checked='checked'" ?> /> No
+<input type="radio" name="paperwork" id="paperwork"  value="1"   <?php if ($_POST['paperwork'] == 1)  echo "checked='checked'" ?>  /> Yes
+	 					 
+						    <span id="errspan_number_of_patients" class="errorspan"></span>
+			</div> 
+			 <div class="form-group">
+						  <label for="password" class="control-label">Referrals</label>
+	
+	<input type="radio" name="referrals" id="referrals"  value="0"  <?php if ($_POST['referrals'] == 0)  echo "checked='checked'" ?> /> No
+	<input type="radio" name="referrals" id="referrals"  value="1"  <?php if ($_POST['referrals'] == 1)  echo "checked='checked'" ?>  /> Yes
+					 
+						    <span id="errspan_number_of_patients" class="errorspan"></span>
+			</div>
+			 <div class="form-group">
+						  <label for="password" class="control-label">Home Visits</label>
+	 
+<input type="radio" name="home_visits" id="home_visits"  value="0" <?php if ($_POST['home_visits'] == 0)  echo "checked='checked'" ?>  /> No
+<input type="radio" name="home_visits" id="home_visits"  value="1"  <?php if ($_POST['home_visits'] == 1)  echo "checked='checked'" ?>  /> Yes
+
+			 
+						    <span id="errspan_number_of_patients" class="errorspan"></span>
+			</div>
+			 <div class="form-group">
+						  <label for="password" class="control-label">Bloods</label>
+	
+ <input type="radio" name="bloods" id="bloods"  value="0"  <?php if ($_POST['bloods'] == 0)  echo "checked='checked'" ?>  /> No
+ <input type="radio" name="bloods" id="bloods"  value="1" <?php if ($_POST['bloods'] == 1)  echo "checked='checked'" ?>  /> Yes
+
+				<span id="errspan_number_of_patients" class="errorspan"></span>
+			</div>
+			 <div class="form-group">
+						  <label for="password" class="control-label">Pension Included?</label>
+	
+<input type="radio" name="pension_included" id="pension_included"  value="0"  <?php if ($_POST['pension_included'] == 0)  echo "checked='checked'" ?>   /> No
+ <input type="radio" name="pension_included" id="pension_included"  value="1"  <?php if ($_POST['pension_included'] == 1)  echo "checked='checked'" ?> /> Yes
+						 
+						    <span id="errspan_number_of_patients" class="errorspan"></span>
+			</div>
+			 
+
 					  <div class="form-group">
 						  <label for="password" class="control-label">Required IT systems</label>
 						  <select id="required_it_systems" name="required_it_systems" class="form-control ff1">
@@ -290,77 +203,26 @@ $parking_array = array(
  
 					  </div>
 					  <div class="form-group">
-						  <label for="username" class="control-label">Additional information</label>
+						  <label for="username" class="control-label">Job description</label>
 						  <textarea class="form-control ff1" id="session_description" name="session_description" rows="5" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a"><?php echo $_POST['session_description'];?></textarea>
 						  <span id="errspan_session_description" class="errorspan"></span>
 					  </div>
-					  <div align="center">
-							<button class="btn btn-info sbtn" id="submit3">Save and Continue</button>
-						</div>
-					  
- 
-					</div>
-					<?php 
-						$user_id = get_current_user_id();
-						if ($user_id == 0) {
-					
-					?>
+					 
 
-					<div class="bitbox1">
-						<div class="aligncenter">
-							<h2><i class="fa fa-list seticon"></i>Tell us about your practice</h2>
-							<h3><b>Save up to 50%</b> with Medbid.</h3>
-						</div>
-					 
-					  <div class="form-group">
-						  <label for="password" class="control-label">Practice code</label><br>
-						  <input type="text" class="form-control ff1" id="practice_code" name="practice_code" value="<?php echo $_POST['practice_code'];?>"   title="" placeholder="Practice code">
-					
-						  <span id="errspan_practice_code" class="errorspan"></span>
-					  </div>
-					  <div class="form-group">
-						  <label for="password" class="control-label">Practice name</label><br>
-						  <input type="text" class="form-control ff1" id="practicename" name="practicename" value="<?php echo $_POST['practicename'];?>"  title="" placeholder="Practice name">
-						   <span id="errspan_practicename" class="errorspan"></span>
-					  </div>
-					  <div class="form-group">
-						  <label for="password" class="control-label">First name</label><br>
-						  <input type="text" class="form-control ff1" id="firstname" name="firstname"  value="<?php echo $_POST['firstname'];?>" title="" placeholder="First name">
-						   <span id="errspan_firstname" class="errorspan"></span>
-					  </div>
-					  <div class="form-group">
-						  <label for="password" class="control-label">Last name</label><br>
-						  <input type="text" class="form-control ff1" id="lastname" name="lastname" value="<?php echo $_POST['lastname'];?>"  title="" placeholder="Last name">
-						  <span id="errspan_lastname" class="errorspan"></span>
-					  </div>
-					  <div class="form-group">
-						  <label for="password" class="control-label">Email</label><br>
-						  <input type="text" class="form-control ff1" id="email" name="email" value="<?php echo $_POST['email'];?>" placeholder="me@example.com"/>
-						  <span id="errspan_email" class="errorspan"></span>
-					  </div>
-					  <div class="form-group">
-						  <label for="password" class="control-label">Phone number</label><br>
-						  <input type="text" class="form-control ff1" id="phone_number" name="phone_number" value="<?php echo $_POST['phone_number'];?>"   title="" placeholder="XXXXXXXXXXX">
-						   <span id="errspan_phone_number" class="errorspan"></span>
-					  </div>
-					 
-					</div>
-					<?php } ?>
-					<p style="text-align:center;">I agree with the <a href="#" target="_blank">Terms and Conditions</a>  and <a href="#" target="_blank">Privacy Policy</a>  of Medbid</a></p>
-					
-					<br>
-					  <input type="hidden" id="savejob" name="savejob" value=""/>
+
+			 	 
+					 <input type="hidden" id="savejob" name="savejob" value=""/>
 					 <div align="center">
 						
 							<button class="btn btn-info sbtn" id="submit5" >Post Job</button>
+					</div>
+					
+			
+ 				</div> 
+					</div>
 						</div>
-					
-					
-			</div>
-		</div>  
-	</div>
-	</div>
-	</form>	
+ 	</form>	
+</div>
+</div>
 	<!--middle end here-->
-	
- 
+	 

@@ -1,3 +1,28 @@
+<?php 
+require( dirname(__FILE__) . '/wp-load.php' );
+ob_start();
+$templtpath= get_template_directory_uri(); 
+require ('wp-content/themes/twentyfifteen/header.php');
+?>
+<div class="midcol">
+		<div class="container">
+		<div class="row">
+				<div class="col-md-12">  
+					<div class="aligncenter">
+						<h2 class="text1">Login</h2>
+						<p style="margin-bottom: 40px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</p>
+					</div>
+					
+			<div>
+
+				<div id="login-overlay" class="modal-dialog logbody">
+				  <div class="modal-content boxshadow">
+					 
+					  <div class="modal-body logbody2 ">
+						  <div class="row">
+							  <div class="col-md-6">
+								  <div class="well">
+	 
 <?php
 /**
  * WordPress User Page
@@ -9,7 +34,7 @@
  */
 
 /** Make sure that the WordPress bootstrap has run before continuing. */
-require( dirname(__FILE__) . '/wp-load.php' );
+
 
 // Redirect to https login if forced to use SSL
 if ( force_ssl_admin() && ! is_ssl() ) {
@@ -63,9 +88,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	<!--[if !(IE 8) ]><!-->
 		<html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
 	<!--<![endif]-->
-	<head>
-	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
-	<title><?php bloginfo('name'); ?> &rsaquo; <?php echo $title; ?></title>
+	
 	<?php
 
 	wp_admin_css( 'login', false );
@@ -98,7 +121,7 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 		$login_header_url   = network_home_url();
 		$login_header_title = get_current_site()->site_name;
 	} else {
-		//$login_header_url   = __( 'https://wordpress.org/' );
+		$login_header_url   = __( 'https://wordpress.org/' );
 		//$login_header_title = __( 'Powered by WordPress' );
 	}
 
@@ -146,55 +169,9 @@ function login_header( $title = 'Log In', $message = '', $wp_error = '' ) {
 	$classes = apply_filters( 'login_body_class', $classes, $action );
 
 	?>
-
-
-
-<!-- our code start -->
-      <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Medbid</title>
-
-    <!-- Bootstrap -->
-    <link href="<?php echo get_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet">
-	
-	<link href="<?php echo bloginfo( 'template_url' ).'/css/medi.css'?>" rel="stylesheet">
-	<link href=""<?php echo bloginfo( 'template_url' ).'/css/font-awesome.min.css'?>" rel="stylesheet">
-	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-<!--[if lt IE 9]>
-<script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
-<![endif]-->
-<?php
-	/* We add some JavaScript to pages with the comment form
-	 * to support sites with threaded comments (when in use).
-	 */
-	if ( is_singular() && get_option( 'thread_comments' ) )
-		wp_enqueue_script( 'comment-reply' );
-
-	/* Always have wp_head() just before the closing </head>
-	 * tag of your theme, or you will break many plugins, which
-	 * generally use this hook to add elements to <head> such
-
-	 * as styles, scripts, and meta tags.
-	 */
-//wp_head();
-$templtpath= get_template_directory_uri(); 
-?>
-<!-- our code end -->
-
-</head>
-
-
-<?php 
-   require ('wp-content/themes/twentyfifteen/header.php');
-?>
 	 
-<!-- our code end -- >
-
- <!-- wordpress code begin-->
-
 	<div id="login">
-  	 
+		 
 	<?php
 
 	unset( $login_header_url, $login_header_title );
@@ -261,7 +238,7 @@ function login_footer($input_id = '') {
 
 	// Don't allow interim logins to navigate away from the page.
 	if ( ! $interim_login ): ?>
-	<p id="backtoblog"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php esc_attr_e( 'Are you lost?' ); ?>"><?php printf( __( '&larr; Back to %s' ), get_bloginfo( 'title', 'display' ) ); ?></a></p>
+	<p id="backtoblog" style="display:none"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php esc_attr_e( 'Are you lost?' ); ?>"><?php printf( __( '&larr; Back to %s' ), get_bloginfo( 'title', 'display' ) ); ?></a></p>
 	<?php endif; ?>
 
 	</div>
@@ -281,7 +258,8 @@ function login_footer($input_id = '') {
 	 */
 	do_action( 'login_footer' ); ?>
 	<div class="clear"></div>
- 	<?php
+ 
+	<?php
 }
 
 function wp_shake_js() {
@@ -574,8 +552,6 @@ case 'retrievepassword' :
 
 ?>
 
-
-
 <form name="lostpasswordform" id="lostpasswordform" action="<?php echo esc_url( network_site_url( 'wp-login.php?action=lostpassword', 'login_post' ) ); ?>" method="post">
 	<p>
 		<label for="user_login" ><?php _e('Username or E-mail:') ?><br />
@@ -682,8 +658,7 @@ case 'rp' :
 	<div id="pass-strength-result" class="hide-if-no-js"><?php _e('Strength indicator'); ?></div>
 	<p class="description indicator-hint"><?php echo wp_get_password_hint(); ?></p>
 	<br class="clear" />
-
-	<?php
+ 	<?php
 	/**
 	 * Fires following the 'Strength indicator' meter in the user password reset form.
 	 *
@@ -694,7 +669,9 @@ case 'rp' :
 	do_action( 'resetpass_form', $user );
 	?>
 	<input type="hidden" name="rp_key" value="<?php echo esc_attr( $rp_key ); ?>" />
+
 	<p class="submit"><input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e('Reset Password'); ?>" /></p>
+
 </form>
 
 <p id="nav">
@@ -916,49 +893,16 @@ default:
 	$rememberme = ! empty( $_POST['rememberme'] );
 ?>
 
-
-	<!--middle start here-->
-	
-	<div class="midcol">
-		<div class="container">
-		<div class="row">
-				<div class="col-md-12">  
-					<div class="aligncenter">
-						<h2 class="text1">Login</h2>
-						<p style="margin-bottom: 40px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</p>
-					</div>
-					
-			<div>
-
-<div id="login-overlay" class="modal-dialog logbody">
-				  <div class="modal-content boxshadow">
-					 
-					  <div class="modal-body logbody2 ">
-						  <div class="row">
-							  <div class="col-md-6">
-								  <div class="well">
-
- 
-<form name="loginform" id="loginform" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
-
- 
- <div class="form-group">
-											  <label for="username" class="control-label">Email Address</label>
- 
-
-<input type="text" name="log" id="user_login" class="form-control ff1"  title="Please enter you username" 
-											  placeholder="Your Email Address" value="<?php echo esc_attr($user_login); ?>" size="20" />
-											  <span class="help-block"></span>
-										  </div>
-										  <div class="form-group">
-											  <label for="password" class="control-label">Password</label>
-									  
-	<input type="password" name="pwd" id="user_pass"class="form-control ff1" value="" size="20" title="Please enter your password"
-											  placeholder="Please enter your password" />
-											  <span class="help-block"></span>
-										  </div>
-
- 	<?php
+<form name="loginform"  id="loginform" action="<?php echo esc_url( site_url( 'wp-login.php', 'login_post' ) ); ?>" method="post">
+	 <div class="form-group">
+		<label for="user_login" class="control-label"><?php _e('Username') ?><br />
+		<input type="text" name="log" id="user_login" class="form-control ff1" value="<?php echo esc_attr($user_login); ?>" title="Please enter Username" /></label>
+	</div>
+	<div class="form-group">
+		<label for="user_pass" class="control-label"><?php _e('Password') ?><br />
+		<input type="password" name="pwd" id="user_pass" class="form-control ff1" value="" title="Please enter password" /></label>
+	</div>
+	<?php
 	/**
 	 * Fires following the 'Password' field in the login form.
 	 *
@@ -968,7 +912,9 @@ default:
 	?>
 	<p class="forgetmenot"><label for="rememberme"><input name="rememberme" type="checkbox" id="rememberme" value="forever" <?php checked( $rememberme ); ?> /> <?php esc_attr_e('Remember Me'); ?></label></p>
 	<p class="submit">
-		<input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e('Log In'); ?>" />
+ 
+		<input type="submit" name="wp-submit"  class="btn btn-info btn-block sbtn" value="<?php esc_attr_e('Log In'); ?>" />
+
 <?php	if ( $interim_login ) { ?>
 		<input type="hidden" name="interim-login" value="1" />
 <?php	} else { ?>
@@ -980,8 +926,6 @@ default:
 		<input type="hidden" name="testcookie" value="1" />
 	</p>
 </form>
-<!-- our html code start -->
-
 
 <?php if ( ! $interim_login ) { ?>
 <p id="nav">
@@ -998,7 +942,6 @@ default:
 </p>
 <?php } ?>
 
-	
 <script type="text/javascript">
 function wp_attempt_focus(){
 setTimeout( function(){ try{
@@ -1036,9 +979,17 @@ try {
 <?php } ?>
 </script>
 
-<!-- our code start here -->
+<?php
+login_footer();
+break;
+} // end action switch
+?>
 
-							</div>
+
+
+
+
+ </div>
 							  </div>
 							  <div class="col-md-6">
 								  <p class="lead">Register now for <span class="text-success">FREE</span></p>
@@ -1050,9 +1001,7 @@ try {
 									  <li><span class="fa fa-check text-success"></span> Get a gift <small>(only new customers)</small></li>
 								  </ul>
 								  <p style="margin: 13px 0px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-
-<?php $url = esc_url( home_url( '/' )); ?>
-								  <p><a href="<?php echo $url.'locums/locumsignup'; ?>" class="btn btn-success btn-block sbtn">Yes please, register now as locum!</a></p>
+  <p><a href="<?php echo $url.'locums/locumsignup'; ?>" class="btn btn-success btn-block sbtn">Yes please, register now as locum!</a></p>
 <p><a href="<?php echo $url.'practices/practicesignup'; ?>" class="btn btn-success btn-block sbtn">Yes please, register now as practices!</a></p>
 							  </div>
 						  </div>
@@ -1067,19 +1016,8 @@ try {
 		</div>  
 	</div>
 	
-	<!-- our middle end here-->
-
-<?php
-login_footer();
-break;
-} // end action switch
-
-
-
-?>
-
-
-
+	<!--middle end here-->
+	
 <?php 
    require ('wp-content/themes/twentyfifteen/footer.php');
 ?>

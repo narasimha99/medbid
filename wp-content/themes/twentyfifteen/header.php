@@ -80,7 +80,7 @@ else
  /// echo "<pre>";		print_r($current_user); echo "</pre>";
 
 	if ( $current_user->roles[0] == 'administrator')
-		include("sitemenu.php");
+		include("adminmenu.php");
 	elseif ( $current_user->roles[0] == 'locum')
 		include("locummenu.php");
 	elseif ( $current_user->roles[0] == 'practicer')

@@ -19,7 +19,7 @@ $templtpath= get_template_directory_uri();
 					<div class="col-md-12">
 						<div class="dashmid">
 							<div class="dashmidh">
-								<h2>Edit practice details</h2>
+								<h2>Edit practices details</h2>
 							</div>
 							
 							
@@ -27,10 +27,10 @@ $templtpath= get_template_directory_uri();
 							<div class="dtextpad">
 							
 							<ol class="breadcrumb">
-							  <li><a href="#">Your Account</a></li>
-							  <li class="active">Edit Practice</li>
+							  <li><a href="#"="<?php echo $url.'locums/youraccount';?>">Your Account</a></li>
+							  <li class="active">Edit practices</li>
 
-								  
+								  <?php //echo "in view "; echo "<pre>";print_r($practiceobject); echo "</pre>"; ?>
 								  <div class="row">
 									<div class="col-md-8 col-md-offset-2 ">
 										<div class="bitbox1">

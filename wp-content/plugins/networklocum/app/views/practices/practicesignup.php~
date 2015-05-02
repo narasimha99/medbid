@@ -36,37 +36,37 @@ $templtpath= get_template_directory_uri();
  <?php $this->display_flash(); ?>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Email Address</label>
-						  <input type="text" class="form-control ff1" id="email" name="data[Practice][email]" value=""  title="Please enter you email"  placeholder="Please enter you email" />
+						  <input type="text" class="form-control ff1" id="email" name="data[Practice][email]" value="<?php echo $_POST[data][Practice][email];?>"  title="Please enter you email"  placeholder="Please enter you email" />
 						  <span class="errorspan" id="errspan_email"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Password</label>
-						  <input type="password" class="form-control ff1" id="password" name="data[Practice][password]" value="" title="Please enter password"  placeholder="Please enter you password" />
+						  <input type="password" class="form-control ff1" id="password" name="data[Practice][password]" value="<?php echo $_POST[data][Practice][password];?>" title="Please enter password"  placeholder="Please enter you password" />
 						    <span class="errorspan" id="errspan_password"></span>	
 					  </div>
 					  <div class="form-group">
 						  <label for="password" class="control-label">Repeat Password</label>
-						  <input type="password" class="form-control ff1" id="password1" name="data[Practice][password1]" value="" title="Please enter repeat password"  placeholder="Please enter your repeat password"/>
+						  <input type="password" class="form-control ff1" id="password1" name="data[Practice][password1]" value="<?php echo $_POST[data][Practice][password1];?>" title="Please enter repeat password"  placeholder="Please enter your repeat password"/>
 						    <span class="errorspan" id="errspan_password1"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">First name</label>
-						  <input type="text" class="form-control ff1" id="firstname" name="data[Practice][firstname]" value=""  title="Please enter your firstname"    placeholder="Please enter your firstname"/>
+						  <input type="text" class="form-control ff1" id="firstname" name="data[Practice][firstname]" value="<?php echo $_POST[data][Practice][firstname];?>"  title="Please enter your firstname"    placeholder="Please enter your firstname"/>
 						   	<span class="errorspan" id="errspan_firstname"></span>	
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Last name</label>
-						  <input type="text" class="form-control ff1" id="lastname" name="data[Practice][lastname]" value=""  title="Please enter your lastname" placeholder="Please enter your lastname"   />
+						  <input type="text" class="form-control ff1" id="lastname" name="data[Practice][lastname]" value="<?php echo $_POST[data][Practice][lastname];?>"  title="Please enter your lastname" placeholder="Please enter your lastname"   />
 			<span class="errorspan" id="errspan_lastname"></span>	
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Practice name</label>
-						  <input type="text" class="form-control ff1" id="practicename" name="data[Practice][practicename]" value=""  title="Please enter your practice name"  placeholder="Please enter your practice name" />
+						  <input type="text" class="form-control ff1" id="practicename" name="data[Practice][practicename]" value="<?php echo $_POST[data][Practice][practicename];?>"  title="Please enter your practice name"  placeholder="Please enter your practice name" />
 						<span class="errorspan" id="errspan_practicename"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Practice code</label>
-						  <input type="text" class="form-control ff1" id="practice_code" name="data[Practice][practice_code]" value=""  title="Please enter your practice code"  placeholder="Please enter your practice code" />
+						  <input type="text" class="form-control ff1" id="practice_code" name="data[Practice][practice_code]" value="<?php echo $_POST[data][Practice][practice_code];?>"  title="Please enter your practice code"  placeholder="Please enter your practice code" />
 	<span class="errorspan" id="errspan_practice_code"></span>
 					  </div>
 					  <div class="form-group">
@@ -77,24 +77,22 @@ $templtpath= get_template_directory_uri();
 <?php
 		foreach($cgcodelist as $ccg){
 	?>
- 	  <option value="<?php echo $ccg->id;?>"><?php echo $ccg->ccg_name;?></option>
+ 	  <option value="<?php echo $ccg->id;?>" <?php if($_POST[data][Practice][ccg_id] == $ccg->id) echo 'selected'?>   ><?php echo $ccg->ccg_name;?></option>
 	<?php
 	}	
 	?>  
 		</select>
-
-							 
-						 </select>
+ 
 						  <span class="help-block"></span> <span class="errorspan" id="errspan_ccg_id"></span>	
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Practice postcode</label>
-						  <input type="text" class="form-control ff1" id="postcode" name="data[Practice][postcode]" value=""  title="Please enter your postcode" placeholder="Please enter your postcode" />
+						  <input type="text" class="form-control ff1" id="postcode" name="data[Practice][postcode]" value="<?php echo $_POST[data][Practice][postcode];?>"  title="Please enter your postcode" placeholder="Please enter your postcode" />
 						 <span class="errorspan" id="errspan_postcode"></span>
 					  </div>
 					  <div class="form-group">
 						  <label for="username" class="control-label">Direct Line</label>
-						  <input type="text" class="form-control ff1" id="phone_number" name="data[Practice][phone_number]" value=""  title="Please enter your phonenumber" placeholder="Please enter your phonenumber"/>
+						  <input type="text" class="form-control ff1" id="phone_number" name="data[Practice][phone_number]" value="<?php echo $_POST[data][Practice][phone_number];?>"  title="Please enter your phonenumber" placeholder="Please enter your phonenumber"/>
  <span class="errorspan" id="errspan_phone_number"></span>
 					  </div>
 					  <div class="form-group">
@@ -104,7 +102,7 @@ $templtpath= get_template_directory_uri();
 <?php
 		foreach($itsystemlist as $itsys){
 	?>
- 	  <option value="<?php echo $itsys->id;?>"><?php echo $itsys->itname;?></option>
+ 	  <option value="<?php echo $itsys->id;?>" <?php if($_POST[data][Practice][it_systems] == $itsys->id) echo 'selected'?>  ><?php echo $itsys->itname;?></option>
 	<?php
 	}	
 	?>  
@@ -119,7 +117,7 @@ $templtpath= get_template_directory_uri();
 							<?php
 		foreach($howdidyouhearlist as $hearlst){
 	?>
- 	  <option value="<?php echo $hearlst->id;?>"><?php echo $hearlst->hearname;?></option>
+ 	  <option value="<?php echo $hearlst->id;?>"  <?php if($_POST[data][Practice][howdidyouhear] == $hearlst->id) echo 'selected'?> ><?php echo $hearlst->hearname;?></option>
 	<?php
 	}	
 	?>  

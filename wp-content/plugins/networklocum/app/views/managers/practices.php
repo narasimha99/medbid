@@ -35,7 +35,7 @@
 					<td data-title="Code"><?php echo $practice->phone_number;?></td>
 					<td data-title="Code"><?php echo $practice->practice_code;?></td>
 					<td data-title="Code"><?php echo $practice->practicename;?></td>
-          				<td data-title="Change %" class="numeric"><a href="#" class="btn btn-primary aplbtn" title="Apply for job">Verify</a></td>
+          				<td data-title="Change %" class="numeric"><a href="#" class="btn btn-primary aplbtn" title="Verify practicer">Verify</a></td>
         			</tr>
 			<?php } ?>
         			 

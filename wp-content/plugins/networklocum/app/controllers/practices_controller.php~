@@ -71,12 +71,7 @@ class PracticesController extends MvcPublicController {
 	public function editprofile(){
 		$this->set('mylayout', 'client');
  		$this->load_model('Practice');	
-		$user_ID = get_current_user_id();
-		$object = $this->Practice->find_by_id($user_ID);
-		 	//print_r($object);
-  		//print_r($this->params);			
-		//print_r($_POST); 
-		$this->set('practiceobject', $object);
+	
 		if (isset($this->params['data']['Practice'])){
 		// echo "<pre>";print_r($_FILES); echo "</pre>";	
 
@@ -85,7 +80,7 @@ class PracticesController extends MvcPublicController {
 
 		
 		$target_dir = "uploads/";
-		echo $target_file = $target_dir . basename($_FILES['locum_pack']['name']);
+		  $target_file = $target_dir . basename($_FILES['locum_pack']['name']);
   		if(move_uploaded_file($_FILES['locum_pack']["tmp_name"], $target_file)){
 		        echo "The file ". basename($_FILES["'locum_pack"]["name"]). " has been uploaded.";
 			$this->params['data']['Practice']['locum_pack'] =  $_FILES["'locum_pack"]["name"];
@@ -96,6 +91,13 @@ class PracticesController extends MvcPublicController {
  		  $this->Practice->save($this->params['data']['Practice']);	
 		  $this->flash('success', 'Your details updated successfully.');
 		}
+
+
+		$user_ID = get_current_user_id();
+		$object = $this->Practice->find_by_user_id($user_ID);
+		// echo "<pre>";	print_r($object); echo "</pre>";
+ 		$this->set('practiceobject', $object[0]);
+
 
 		$this->load_model('cgcode');
 		$cgcodelist = $this->cgcode->find();
@@ -119,10 +121,9 @@ class PracticesController extends MvcPublicController {
   	}
 	
 	public function changepassword(){
-
-		wp_set_password('admin',1);
+ 
 		$this->set('mylayout', 'client');
- 		include($_SERVER['DOCUMENT_ROOT']."/medbid/wp-includes/pluggable.php");
+ 		include("wp-includes/pluggable.php");
 
 		if(isset($_POST)){
 
@@ -133,13 +134,17 @@ class PracticesController extends MvcPublicController {
 		 	$hash_old_password = $current_user->data->user_pass;
 			if(wp_check_password($old_password, $hash_old_password)){
 	 			wp_set_password($new_password,$user_id);
-				$this->flash('error', 'Your password update with latest password given.');	
+				$this->flash('success', 'Your password update with latest password given.');	
 			}else{
 				$this->flash('error', 'Please enter valid Old password !');	
 			}
 		}
 	}
-
+	
+	public function billing()
+	{
+		$this->set('mylayout', 'client');
+	}
 
 }
 ?>

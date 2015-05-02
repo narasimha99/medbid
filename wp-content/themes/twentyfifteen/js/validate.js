@@ -18,6 +18,7 @@ return false;
 }
 }
 
+		 
 
 function validatelocumsignup(){
 
@@ -192,7 +193,31 @@ else
 
 
 
+		function addmoredays(){
+			
+		
 
+			var nb = $('div.table-responsive').length;
+		//alert(nb);
+
+
+			var purl = SITE_ROOT_JS+'jobs/settimerates';
+			//alert(purl);
+			//alert(SITE_ROOT_VAR)
+			var dateranges = jQuery("#session_date_range").val();
+			//var dateranges = myStringdate.replace("<?php echo $_POST['#session_date_range'];?>", "");
+
+			jQuery.when($.ajax(
+			{ url:purl,
+			dataType: 'text',
+			data:{dateranges:dateranges,tablcnt:nb}
+			})).done(function( data ) {
+
+			$("#settimerates").html( data );
+
+			});
+
+		}
 
 		function deletedate(p){
 			jQuery('#DIVsessionday'+p).remove();			
@@ -208,11 +233,21 @@ else
 			 // alert(rcount);
 			//$("#yourTableId tr").length
 
- 			//	 rcount = rcount + 1;	
-  			var k = " <tr class='sessiontime' id='times"+rcount+"'> <td> Session "+rcount+" Enter session times using 24 hour notation (eg. 10:00, 18:00).  <br/> <span> Time</span> <input type='text' id='session_starttime_"+p+"_"+rcount+"' value='0' name='session_starttime["+p+"]["+rcount+"]' placeholder='eg: 09:00' /> <span>till</span> <input type='text' name='session_endtime["+p+"]["+rcount+"]' id='session_endtime_"+p+"_"+rcount+"'  placeholder='eg: 17:00'  /> <span>Hourly rate £</span> <input type='text' name='hourlyrate["+p+"]["+rcount+"]' onblur='gethourlyrate("+p+","+rcount+")'  myid='_"+p+"_"+rcount+"'   class='hourlyrate' id='hourlyrate_"+p+"_"+rcount+"'  aceholder='eg: 80.00' /> <input type='button' class='deltimesession' id='"+rcount+"' onclick='deltimesession(this)'  name='delete' value='delete' /> </td> </tr>"; 
+ 				 rcount = rcount - 1;	
+  			var k = " <tr id='sessiontime'> <td> <input type='text' class='time start'  id='session_starttime_"+p+"_"+rcount+"' value='0' name='session_starttime["+p+"]["+rcount+"]' placeholder='eg: 09:00' /> </td> <td> <input type='text' class='time end'   name='session_endtime["+p+"]["+rcount+"]' id='session_endtime_"+p+"_"+rcount+"'  placeholder='eg: 17:00'  /> </td> <td> <input     type='text' name='hourlyrate["+p+"]["+rcount+"]' onblur='gethourlyrate("+p+","+rcount+")'  myid='_"+p+"_"+rcount+"'   class='hourlyrate' id='hourlyrate_"+p+"_"+rcount+"'  placeholder='eg: 80.00' />   </td>  <td> <input type='text' readonly name='paytolocum["+p+"]["+rcount+"]' id='paytolocum_"+p+"_"+rcount+"' value='0' /> </td><td> <input type='text' readonly name='medbidfee["+p+"]["+rcount+"]' id='medbidfee_"+p+"_"+rcount+"' value='0' /> </td> <td> <input type='button' class='deltimesession' id='"+rcount+"' onclick='deltimesession(this)'  name='delete' value='delete' /> </td> <td>&nbsp;</td> <td>&nbsp;</td> </tr>"; 
 			//alert(k);
 			jQuery("#TABLEsessionday"+p).append(k);
-		}
+		
+			 $('#sessiontime .time').timepicker({
+		                    'showDuration': true,
+                		    'timeFormat': 'H:ia'
+                	});
+
+			$('#sessiontime').datepair();
+ 
+
+
+  		}
   
 
 	function dateAdd(date, interval, units) {
@@ -300,8 +335,19 @@ function gethourlyrate(i,j){
  
 		//alert(hourlyrate);
 
+
+		//remove am , pm from time..
+	   
+		var starttime = $('#session_starttime'+myid).val().replace("am", "");
+		var starttime = $('#session_starttime'+myid).val().replace("pm", ""); 
+
+		var endtime = $('#session_endtime'+myid).val().replace("am", "");
+		var endtime = $('#session_endtime'+myid).val().replace("pm", "");
+
 		var session_date = $("#session_date_"+i).val().split("-");
-		var starttime = $('#session_starttime'+myid).val().split(":");
+
+		var starttime = starttime.split(":");
+			
 
 		starttime[0] = (isNaN(starttime[0])) ? 0 : starttime[0];
 		starttime[1] = (isNaN(starttime[1])) ? 0 : starttime[1];
@@ -310,7 +356,7 @@ function gethourlyrate(i,j){
 	 	//var d = new Date(year, month, day, hours, minutes, seconds, milliseconds); 
 		 
 		//alert('sessin statrt time'+session_starttime);
-		var endtime = $('#session_endtime'+myid).val().split(":");
+		var endtime = endtime.split(":");
 		//	alert(endtime);
 		endtime[0] = (isNaN(endtime[0])) ? 0 : endtime[0];
 		endtime[1] = (isNaN(endtime[1])) ? 0 : endtime[1];
@@ -322,13 +368,14 @@ function gethourlyrate(i,j){
 		var paytolocum = calculatelocumrate(session_starttime,session_endtime,hourlyrate);
 		//alert(paytolocum);
 
-		Total_paytolocum = $('#paytolocum_'+i).val();
+		 $('#paytolocum'+myid).val(paytolocum);
+		//Total_paytolocum = $('#paytolocum'+myid).val();
 		//alert('previous paytolocum'+Total_paytolocum);
-		Total_paytolocum =  parseFloat(Total_paytolocum)  +   parseFloat(paytolocum);
-		var medbidfee = (Total_paytolocum * 15)/100;
+		//Total_paytolocum =  parseFloat(Total_paytolocum)  +   parseFloat(paytolocum);
+		var medbidfee = (paytolocum * 15)/100;
  
- 		$('#paytolocum_'+i).val(Total_paytolocum);
-		$('#medbidfee_'+i).val(medbidfee);
+ 		$('#paytolocum'+myid).val(paytolocum);
+		$('#medbidfee'+myid).val(medbidfee);
 
 
 
@@ -375,9 +422,9 @@ function gethourlyrate(i,j){
 		jQuery("#errspan_required_it_systems").text("");
 		jQuery("#errspan_session_description").text("");
 
-
-
-
+		
+		jQuery("#errspan_session_date_range").text("");
+		jQuery("#errspan_session_date_1").text("");
 		jQuery("#errspan_email").text("");
  		jQuery("#errspan_firstname").text("");
 		jQuery("#errspan_lastname").text("");
@@ -392,19 +439,17 @@ function gethourlyrate(i,j){
 		{
 
  
-		/*
-			if(jQuery("#session_date_range").val() == ""){
-						alert('hi'); return false;
-				jQuery("#errspan_session_date_range").text("Please choose your session dates from calendar");
+		
+			if(jQuery("#session_date_1").val() == ""){
+ 				jQuery("#errspan_session_date_range").text("Please choose your session date from calendar");
 				errstat = 1;      
 			}
 
-			if(jQuery("#session_date_range").val() == ""){
-				jQuery("#errspan_session_date_range").text("Please choose your session dates from calendar");
-				errstat = 1;      
-			}
+			//if(jQuery("#session_date_range").val() == ""){
+			//	jQuery("#errspan_session_date_range").text("Please choose your session dates from calendar");
+			//	errstat = 1;      
+			//}
 
-		*/
 			if(jQuery("#parking_facilities").val() == ""){
 			jQuery("#errspan_parking_facilities").text("Please choose your parking facilities");
 			errstat = 1;      

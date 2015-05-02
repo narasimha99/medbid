@@ -1,8 +1,49 @@
-<div id="settimerates">
+<?php
+ $templtpath= get_template_directory_uri(); 
+?>
+
+<script>
+jQuery( document ).ready(function() {
+ 
+$(".session_date").datepicker(
+	{
+	 dateFormat: 'yy-mm-dd',
+	 minDate: 0,
+	 numberOfMonths: 2,
+	 showOn: "button",
+	buttonImage: "<?php echo $templtpath; ?>/images/calendar.png",
+	buttonImageOnly: true,
+	buttonText: "Select date"
+ 	
+ }
+);
+ 
+});
+</script>
+ 
+<?php
+ $templtpath= get_template_directory_uri(); 
+?>
+
+  <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/jquery.timepicker.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/bootstrap-datepicker.css" />
+  <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/site.css" />
+
+ <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.timepicker.js"></script>	
+  <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.datepair.js"></script>
+
+ <div id="settimerates" class="table-responsive">
 <?php
 //echo "<pre>"; print_r($_POST); echo "</pre>";
+ 
 
+
+if( isset($tablcnt))
+$i=$tablcnt;
+else
 $i=1;
+
+/*
 if (isset($_POST['session_date_range'])) {
 		
 		// post data 
@@ -22,60 +63,113 @@ $daterangeList = explode(",",$dateranges);
 //echo "<pre>"; print_r($_SESSION);
 foreach($daterangeList as $sessiondate) {
 if (strlen($sessiondate) > 2 ) {
-
+*/
+//echo "<pre>"; print_r($_POST);
+$_POST['paytolocum'][$i][1] = (isset($_POST['paytolocum'][$i][1]))?$_POST['paytolocum'][$i][1]:0;
+$_POST['medbidfee'][$i][1] = (isset($_POST['medbidfee'][$i][1]))?$_POST['medbidfee'][$i][1]:0;
+$sessiondate = $_POST['session_date'][1];
 ?>
 
-<div id="<?php echo 'DIVsessionday'.$i;?>" style="border-style: solid; border-color:#00CED1;margin:50px 10px 20px 30px">
+<div id="<?php echo 'DIVsessionday'.$i;?>" class="table-responsive" style="border-style: solid; border-color:#00CED1;">
 
-<table id="<?php echo 'TABLEsessionday'.$i;?>" style="border:1px solid #DAA520;" width="auto"  >
-		<tr> <td>
-    <input type="text" readonly id="<?php echo 'session_date_'.$i;?>" name="session_date[<?php echo $i;?>]" value="<?php echo $sessiondate;?>" />  
-		<input type='button' name="add" id="<?php echo 'add'.$i;?>" value="add more sessions" onclick="addsession(<?php echo $i;?>);"/>
-		<input type='button' name="delete" id="<?php echo 'delete'.$i;?>" value="Delete day" onclick="deletedate(<?php echo $i;?>);"/>
-	</td> </tr>
+<table id="<?php echo 'TABLEsessionday'.$i;?>" class="table" >
 
-	<tr class='sessiontime' id='times1'> <td>Session 1 Enter session times using 24 hour notation (eg. 10:00, 18:00). <br/>  <span> Time</span> <input type="text" name="session_starttime[<?php echo $i;?>][1]" id="<?php echo 'session_starttime_'.$i.'_1';?>" value="<?php echo $_POST['session_starttime'][$i][1];?>"  placeholder='eg: 09:00' />	<span>Till</span> <input type="text" name="session_endtime[<?php echo $i;?>][1]" id="<?php echo 'session_endtime_'.$i.'_1';?>"  value="<?php echo $_POST['session_endtime'][$i][1];?>" placeholder='eg: 17:00'  />  <span>Hourly rate £</span> 
-<input type="text" name="hourlyrate[<?php echo $i;?>][1]" id="<?php echo 'hourlyrate_'.$i.'_1';?>" myid="<?php echo '_'.$i.'_1';?>" value="<?php echo $_POST['hourlyrate'][$i][1];?>"   onblur="gethourlyrate(<?php echo $i;?>,1)"  placeholder='eg: 80.00' /> 
+<tr>
+<td colspan="2"><input type="text"  class="session_date" id="<?php echo 'session_date_'.$i;?>" name="session_date[<?php echo $i;?>]" value="<?php echo $sessiondate;?>" placeholder='pick your date'/>    <span id="errspan_session_date_range" class="errorspan"></span> </td>
+<td colspan="2"><input type='button' name="add" id="<?php echo 'add'.$i;?>" value="add more sessions" onclick="addsession(<?php echo $i;?>);"/> </td>
+<td colspan="2"><input type='button' name="delete" id="<?php echo 'delete'.$i;?>" value="Delete day" onclick="deletedate(<?php echo $i;?>);"/>  </td>
+</tr>
+
+ 
+<tr>
+<th>Sart Time</th>
+<th>End Time</th>
+<th>Hourly rate £</th>
+<th>Pay to locum </th>
+<th>Medbid Locum fees</th>
+<th>&nbsp;</th>
+</tr>
+ 
+
+<tbody>		
+ 
+ 
+
+
+<tr id="sessiontime">
+<td><input type="text"  class="time start" name="session_starttime[<?php echo $i;?>][1]" id="<?php echo 'session_starttime_'.$i.'_1';?>" value="<?php echo $_POST['session_starttime'][$i][1];?>"   /> </td>
+<td> <input type="text"   class="time end" name="session_endtime[<?php echo $i;?>][1]" id="<?php echo 'session_endtime_'.$i.'_1';?>"  value="<?php echo $_POST['session_endtime'][$i][1];?>"    />  </td>
+<td> <input type="text" name="hourlyrate[<?php echo $i;?>][1]" id="<?php echo 'hourlyrate_'.$i.'_1';?>" myid="<?php echo '_'.$i.'_1';?>" value="<?php echo $_POST['hourlyrate'][$i][1];?>"   onblur="gethourlyrate(<?php echo $i;?>,1)"  placeholder='eg: 80.00' /> </td>
+
+<td> <input type="text" readonly name="paytolocum[<?php echo $i;?>][1]" id="<?php echo 'paytolocum_'.$i.'_1';?>" value="<?php echo $_POST['paytolocum'][$i][1];?>"  /> </td>
+
+
+<td> <input type="text" readonly name="medbidfee[<?php echo $i;?>][1]" id="<?php echo 'medbidfee_'.$i.'_1';?>" value="<?php echo $_POST['medbidfee'][$i][1];?>"  /> </td>
+
+
+<td> 
 <input type='button' class='deltimesession' name='delete'  class='deltimesession' id="1" value='delete' onclick="$(this).closest('tr').remove();"  /> 
-</td> </tr>
+</td> 
+
+</tr>
 <?php
 //echo count($_POST['session_starttime']) ;
 
 for($j=2; $j <= count($_POST['session_starttime'][$i]) ; $j = $j + 1 )
 {
 ?>
-<tr class='sessiontime' id="times<?php echo $j;?>">
-<td>Session <?php echo $j;?> Enter session times using 24 hour notation (eg. 10:00, 18:00).
-<br/>  <span> Time</span> <input type="text" name="session_starttime[<?php echo $i;?>][<?php echo $j;?>]" id="<?php echo 'session_starttime_'.$i.'_'.$j;?>" value="<?php echo $_POST['session_starttime'][$i][$j];?>"  placeholder='eg: 09:00'/>	<span>Till</span>
-<input type="text" name="session_endtime[<?php echo $i;?>][<?php echo $j;?>]" id="<?php echo 'session_endtime_'.$i.'_'.$j;?>"  value="<?php echo $_POST['session_endtime'][$i][$j];?>" placeholder='eg: 17:00'  />  <span>Hourly rate £</span> 
-<input type="text" name="hourlyrate[<?php echo $i;?>][<?php echo $j;?>]" id="<?php echo 'hourlyrate_'.$i.'_'.$j;?>" myid="<?php echo '_'.$i.'_'.$j;?>" value="<?php echo $_POST['hourlyrate'][$i][$j];?>"   onblur="gethourlyrate(<?php echo $i;?>,<?php echo $j;?>)"  placeholder='eg: 80.00' /> 
+ 
+<tr  id="sessiontime">
+
+<td>
+<input type="text"  class="time start" name="session_starttime[<?php echo $i;?>][<?php echo $j;?>]" id="<?php echo 'session_starttime_'.$i.'_'.$j;?>" value="<?php echo $_POST['session_starttime'][$i][$j];?>"  placeholder='eg: 09:00'/>	 </td>
+
+<td>
+<input type="text" class="time end" name="session_endtime[<?php echo $i;?>][<?php echo $j;?>]" id="<?php echo 'session_endtime_'.$i.'_'.$j;?>"  value="<?php echo $_POST['session_endtime'][$i][$j];?>" placeholder='eg: 17:00'  />  </td>
+
+<td>
+<input type="text" name="hourlyrate[<?php echo $i;?>][<?php echo $j;?>]" id="<?php echo 'hourlyrate_'.$i.'_'.$j;?>" myid="<?php echo '_'.$i.'_'.$j;?>" value="<?php echo $_POST['hourlyrate'][$i][$j];?>"   onblur="gethourlyrate(<?php echo $i;?>,<?php echo $j;?>)"  placeholder='eg: 80.00' />
+</td>
+
+
+
+<td> <input type="text" readonly name="paytolocum[<?php echo $i;?>][1]" id="<?php echo 'paytolocum_'.$i.'_1';?>" value="<?php echo $_POST['paytolocum'][$i][1];?>"  /> </td>
+
+
+<td> <input type="text" readonly name="medbidfee[<?php echo $i;?>][1]" id="<?php echo 'medbidfee_'.$i.'_1';?>" value="<?php echo $_POST['medbidfee'][$i][1];?>"  /> </td>
+<td> 
 <input type='button' class='deltimesession' name='delete'  class='deltimesession' id="<?php echo $j;?>" value='delete' onclick="$(this).closest	`	('tr').remove();"  /> 
-</td> </tr>
+</td>
+ 
+</tr>
 
 <?php
 $j = $j + 1;
 }
 ?> 
-
+	  </tbody>
 </table>
 
 
-<div>
-<?php 
-$paytolocums = (isset($_POST['paytolocums'][$i]))?$_POST['paytolocums'][$i]:0;
-$medbidfee = (isset($_POST['medbidfee'][$i]))?$_POST['medbidfee'][$i]:0;
-?>
-	<p> <span> Pay to locum</span>  <span id="paytolocumspan"></span> <input type="text" readonly class="paytolocum" name="paytolocums[<?php echo $i;?>]" id="<?php echo 'paytolocum_'.$i;?>"  value="<?php echo $paytolocums;?>" /> </p>
-	<p> <span> Medbid Locum fees (15% of locum fees)</span> <span id="networklocumfee"></span> 
-	<input type="text" readonly value="<?php echo $medbidfee;?>" name="medbidfee[<?php echo $i;?>]" id="<?php echo 'medbidfee_'.$i;?>" />  
-	</p>
-</div>
+
 
 </div>
 	
 <?php
 $i= $i + 1;
- } 
-}
+ //} 
+//}
 ?>
 </div>
+
+            <script>
+                $('#sessiontime .time').timepicker({
+                    'showDuration': true,
+                    'timeFormat': 'H:ia'
+                });
+
+		$('#sessiontime').datepair();
+
+            </script>
+  
+ 

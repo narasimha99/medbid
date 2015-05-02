@@ -38,27 +38,27 @@ $("#locumsignupnext").submit();
 
 <div class="form-group">
  <label for="username" class="control-label">GMC number</label>
-<input type="text" class="form-control ff1" id="gmc_number" name="data[Locum][gmc_number]" value=""  title="Please enter your gmc number" placeholder="Your enter your  gmc number"/>
+<input type="text" class="form-control ff1" id="gmc_number" name="data[Locum][gmc_number]" value="<?php echo $_POST['data']['Locum']['gmc_number'];?>"  title="Please enter your gmc number" placeholder="Your enter your  gmc number"/>
 <span class="errorspan" id="errspan_gmc_number"></span>
  </div>
  
 <div class="form-group">
  <label for="username" class="control-label">Postcode</label>
-<input type="text" class="form-control ff1" id="postcode" name="data[Locum][postcode]" value=""  title="Please enter your postcode" 	  placeholder="enter your postcode"/>
+<input type="text" class="form-control ff1" id="postcode" name="data[Locum][postcode]" value="<?php echo $_POST['data']['Locum']['postcode'];?>"  title="Please enter your postcode" 	  placeholder="enter your postcode"/>
 <span class="errorspan" id="errspan_postcode"></span>
  </div>
 
 <div class="form-group">
  <label for="username" class="control-label">Phone number</label>
-<input type="text" class="form-control ff1" id="phone_number" name="data[Locum][phone_number]" value=""  title="Please enter your phone number" 	  placeholder="Your phone number"/>
+<input type="text" class="form-control ff1" id="phone_number" name="data[Locum][phone_number]" value="<?php echo $_POST['data']['Locum']['phone_number'];?>"  title="Please enter your phone number" 	  placeholder="Your phone number"/>
 <span class="errorspan" id="errspan_phone_number"></span>
 </div>
 
 
 <div class="form-group">
  <label for="username" class="control-label">Limited Company</label>
-<input type="radio" class="form-control ff1" id="limited_company" name="data[Locum][limited_company]" value="1" /> Yes
-<input type="radio" class="form-control ff1" id="limited_company" name="data[Locum][limited_company]" value="0" /> No
+<input type="radio" class="form-control ff1" id="limited_company" name="data[Locum][limited_company]" value="1"  <?php if ($_POST['data']['Locum']['limited_company'] == 1) echo "checked='checked'"; ?>   /> Yes
+<input type="radio" class="form-control ff1" id="limited_company" name="data[Locum][limited_company]" value="0" <?php if ($_POST['data']['Locum']['limited_company'] == 0) echo "checked='checked'"; ?>    /> No
 <span class="errorspan" id="errspan_limited_company"></span>
 </div>
 
@@ -68,7 +68,7 @@ $("#locumsignupnext").submit();
 	<?php
 		foreach($howdidyouhearlist as $hearlst){
 	?>
- 	  <option value="<?php echo $hearlst->id;?>"><?php echo $hearlst->hearname;?></option>
+ 	  <option value="<?php echo $hearlst->id;?>"   <?php if($_POST['data']['Locum']['howdidyouhear'] == $hearlst->id) echo 'selected'?>  ><?php echo $hearlst->hearname;?></option>
 	<?php
 	}	
 	?>  

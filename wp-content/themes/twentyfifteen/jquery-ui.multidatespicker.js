@@ -463,6 +463,7 @@
 
 						jQuery.when($.ajax(
 								{ url:purl,
+								  dataType: 'text',
 								  data:{dateranges:dateranges}
 								})).done(function( data ) {
  

@@ -5,19 +5,7 @@ jQuery( document ).ready(function() {
 jQuery("#submit").click(function () {
 $("#locumsignup").submit();
 });
-
-// Event setup using a convenience method
-
-//jQuery( "#email" ).blur(function() {
-//var tageturl = '<?php echo $url;?>'+'accounts/checkemail';
-//alert(tageturl);
-/*
-jQuery.ajax({tageturl, success: function(result){
-        $("#errspan_email").html(result);
-    }});
-alert( "Handler for .blur() called." );
-});
-*/
+ 
 });
 </script>
 
@@ -48,17 +36,17 @@ alert( "Handler for .blur() called." );
  
 <div class="form-group">
 											  <label for="username" class="control-label">Email</label>
-											  <input type="text" class="form-control ff1" id="email" name="data[Locum][email]" value=""  title="Please enter you username" 	  placeholder="Your Email Address" />
+											  <input type="text" class="form-control ff1" id="email" name="data[Locum][email]" value="<?php echo $_POST['data']['Locum']['email'];?>"  title="Please enter you username" 	  placeholder="Your Email Address" />
 <span class="errorspan" id="errspan_email"></span>
 										  </div>
 										  <div class="form-group">
 											  <label for="username" class="control-label">First name</label>
-											  <input type="text" class="form-control ff1" id="firstname" name="data[Locum][firstname]" value=""   title="Please enter"   placeholder="Your First name"/>
+											  <input type="text" class="form-control ff1" id="firstname" name="data[Locum][firstname]" value="<?php echo $_POST['data']['Locum']['firstname'];?>"   title="Please enter"   placeholder="Your First name"/>
 <span class="errorspan" id="errspan_firstname"></span>
 										  </div>
 										  <div class="form-group">
 											  <label for="username" class="control-label">Last name</label>
-											  <input type="text" class="form-control ff1" id="lastname" name="data[Locum][lastname]" value=""  title="Please enter"   placeholder="Your Last name"/>
+											  <input type="text" class="form-control ff1" id="lastname" name="data[Locum][lastname]"   value="<?php echo $_POST['data']['Locum']['lastname'];?>"   title="Please enter"   placeholder="Your Last name"/>
 <span class="errorspan" id="errspan_lastname"></span>
 										  </div>
 										  		   

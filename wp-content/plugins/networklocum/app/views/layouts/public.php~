@@ -13,4 +13,6 @@ if(	$mylayout == 'empty')
 	include('emptypage-layout.php');
 
 */
+
+include('client-layout.php');
 ?>

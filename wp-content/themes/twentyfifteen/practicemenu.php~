@@ -18,11 +18,11 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
           <ul class="nav navbar-nav navbar-right ulmargin">
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'doctors';?>">My Sessions</a></li>
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'doctors';?>">Billing</a></li>
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'doctors';?>"">My Midbid Bank</a></li>
+			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/myjobs';?>">My Sessions</a></li>
+			<li class="tnav tnav2"><a class="" href="<?php echo $url.'practices/billing';?>">Billing</a></li>
+			<li class="tnav tnav2"><a class="" href="#<?php //echo $url.'doctors';?>"">My Midbid Bank</a></li>
 			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/publicjobcreate';?>">Create a Job</a></li>
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'doctors';?>">Messages</a></li>
+			<li class="tnav tnav2"><a class="" href="#<?php //echo $url.'doctors';?>">Messages</a></li>
 			<li class="tnav tnav2"><a class="" href="<?php echo $url.'practices/youraccount';?>">Your Account</a></li>
  			<li class="tnav tnav2"> <a class="" href="<?php echo wp_logout_url(); ?>">Log out</a></li>
  	
