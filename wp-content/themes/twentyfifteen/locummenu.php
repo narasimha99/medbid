@@ -18,7 +18,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
           <ul class="nav navbar-nav navbar-right ulmargin">
-			<li class="tnav tnav2"><a class="" href="#<?php // echo $url.'doctors';?>">My Profile</a></li>
+			<li class="tnav tnav2"><a class="" href="<?php  echo $url.'/locums/myprofile';?>">My Profile</a></li>
 			<li class="tnav tnav2"><a class="" href="<?php  echo $url.'/locums/myjobs';?>">My Jobs</a></li>
 			<li class="tnav tnav2"><a class="" href="#<?php //echo $url.'doctors';?>"">Billing</a></li>
 			<li class="tnav tnav2"><a class="" href="#<?php //echo $url.'jobs/publicjobcreate';?>">Find a job</a></li>

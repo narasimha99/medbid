@@ -61,7 +61,7 @@ class LocumsController extends MvcPublicController {
  		$this->set('locumid',$id);
 	
 	 	if(!empty($this->params['data']['Locum']['gmc_number'])){
-   			  $this->Locum->save($this->params['data']);
+   			  $this->Locum->update($id,$this->params['data']);
 			  $this->flash('success', '  Thanks for Become our locum, Please check your email jobs are waiting for u.');
   		}
 	
@@ -79,9 +79,55 @@ class LocumsController extends MvcPublicController {
 	public function youraccount(){
 		$this->set('mylayout', 'client');
  	}
+
+	public function accountdetails(){
+		$this->set('mylayout', 'client');
+		
+		$user_id = get_current_user_id();
+		$this->set('user_ID',$user_id); 
+		if(isset($_POST[data][Locum][user_id]) ) {
+			$this->Locum->update($user_id,$_POST[data][Locum]);
+			$this->flash('success', 'Your account details updated succeessfully.');	
+		}
+		$object = $this->Locum->find_by_user_id($user_id);
+		$this->set('locumobj',$object[0]);
+		//echo "<pre>";print_r($_POST); echo "</pre>";
+		
+	
+	}
+
+	public function uploaddocuments(){
+		$this->set('mylayout', 'client');
+		if(isset($_POST[data][Locum][user_id]) ) {
+			$this->Locum->update($user_id,$_POST[data][Locum]);
+			$this->flash('success', 'Your account details updated succeessfully.');	
+		}
+	}
 	
 	public function editprofile(){
+	
 		$this->set('mylayout', 'client');
+ 		$this->load_model('Locum');
+ 		$user_ID = get_current_user_id();
+		if(isset($_POST[data][Locum])){
+ 		 	$this->Locum->update($user_ID,$_POST[data][Locum]);
+			 $this->flash('success', 'Your profile updated succeessfully.');	
+		}
+		
+		$this->set('user_ID',$user_ID); 
+		$object = $this->Locum->find_by_user_id($user_ID);
+ 
+	   	$this->set('Locumobject',$object[0]);
+
+		$this->load_model('itsystem');
+		$itsystemlist = $this->itsystem->find();
+		$this->set('itsystemlist',$itsystemlist);
+
+		$this->load_model('howdidyouhear');
+		$howdidyouhearlist = $this->howdidyouhear->find();
+		$this->set('howdidyouhearlist',$howdidyouhearlist);
+
+	
 	}
 
 	public function dashboard(){
@@ -175,18 +221,48 @@ class LocumsController extends MvcPublicController {
 		foreach ($jobsessions as $key => $value){
 
  		 
-		    $sql_jobsessions = "INSERT INTO  wp_applied_sessions(user_id,job_id,jobsession_id,hourlyrate,paytolocum)VALUES($user_id,$job_id,$key,$hourlyrate[$key],$paytolocum[$key])";
+		    $sql_jobsessions = "INSERT INTO  wp_appliedsessions(user_id,job_id,jobsession_id,hourlyrate,paytolocum)VALUES($user_id,$job_id,$key,$hourlyrate[$key],$paytolocum[$key])";
 				$wpdb->query($sql_jobsessions);
  			}
  		
 			$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'alljobs'));
  			//$this->redirect($url);
  			$this->flash('success', 'You have successfully aplied for the job we will get back you soon..');	
-		} 
+		}  
 	}
 
 	public function myjobs(){
+
+ 		$this->set('mylayout', 'client');
+		$user_id = get_current_user_id();
+ 
+		$this->load_model('Appliedsession');
+		 
+		global $wpdb;
+
+  		
+		$params = $this->params;
+
+		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+		$params['joins'] = array('Practice');
+		$params['includes'] = array('Practice');
+		$params['conditions'] = array('Appliedsession.user_id' =>$user_id);
+ 
+
+ 		//$params['conditions'] = array('user_id' =>$user_id);
+ 		$collection = $this->Appliedsession->paginate($params);
+		$this->set('appliedjoblists', $collection['objects']);
+		$this->set_pagination($collection);
+
+	//echo "<pre>";print_r($collection['objects']); echo "</pre>";
+
+ 	}
+
+	public function myprofile(){
+		
 		$this->set('mylayout', 'client');
+		global $wpdb;
+
  	}
 
 }

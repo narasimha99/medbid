@@ -24,7 +24,7 @@ class MvcDatabase {
 	
 	public function query($string) {
 		$this->add_to_log($string);
- 		echo $string;
+ 		//echo $string;
 		return $this->wpdb->query($string);
 	}
 	

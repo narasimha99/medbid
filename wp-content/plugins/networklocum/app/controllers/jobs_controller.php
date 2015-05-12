@@ -14,7 +14,7 @@ class JobsController extends MvcPublicController {
 	
 		$_SESSION['old_post_data'] = $_POST;
 
-	 	echo "<pre>"; print_r($_POST); echo "</pre>";
+	 	// echo "<pre>"; print_r($_POST); echo "</pre>";
  	  	//echo "SESSION Data";
 		//echo "<pre>"; print_r($_SESSION); echo "</pre>";
  		//echo "<pre>"; print_r($_POST); echo "</pre>";
@@ -60,7 +60,7 @@ class JobsController extends MvcPublicController {
 			$pension_included = $_POST['pension_included'];
 
 
-		  	$sqlJob = "INSERT INTO wp_jobs (`user_id`, `session_date_range`, `session_description`, `no_of_sessions`, `NHS_Pension_info`,  `location`, `postcode`, `latitude`, `longitude`, `city_id`, `state_id`, `onejobormultiplesessions`, `required_it_systems`, `parking_facilities`, `grandtotallocumpay`, `grandmedbidfee`, `estimatedsavingvat`, `vatonmedbidfee`, `pmtotalcost`,number_of_patients,number_of_telephoneconsultations,paperwork,referrals,home_visits,bloods,pension_included) VALUES ($user_id, '$session_date_range', '$session_description', $no_of_sessions, '$NHS_Pension_info','$location', '$postcode',$latitude, $longitude, $city_id, $state_id,$onejobormultiplesessions, $required_it_systems, $parking_facilities,  $grandtotallocumpay, $grandmedbidfee, $estimatedsavingvat,$vatonmedbidfee, $pmtotalcost,$number_of_patients,$number_of_telephoneconsultations,$paperwork,$referrals,$home_visits,$bloods,$pension_included) ";
+		  	$sqlJob = "INSERT INTO wp_jobs (`user_id`, `session_date_range`, `session_description`, `no_of_sessions`, `NHS_Pension_info`,  `location`, `postcode`, `latitude`, `longitude`, `city_id`, `state_id`, `onejobormultiplesessions`, `required_it_systems`, `parking_facilities`,number_of_patients,number_of_telephoneconsultations,paperwork,referrals,home_visits,bloods,pension_included) VALUES ($user_id, '$session_date_range', '$session_description', $no_of_sessions, '$NHS_Pension_info','$location', '$postcode',$latitude, $longitude, $city_id, $state_id,$onejobormultiplesessions, $required_it_systems, $parking_facilities,$number_of_patients,$number_of_telephoneconsultations,$paperwork,$referrals,$home_visits,$bloods,$pension_included) ";
  
 
 			$wpdb->query($sqlJob);
@@ -126,8 +126,8 @@ class JobsController extends MvcPublicController {
 
 		$sql_job_update = "Update wp_jobs set no_of_sessions = $count_no_of_sessions where id = $job_id";
 		$wpdb->query($sql_job_update);
-	
-			
+	 
+		 
   		 $this->flash('success', 'Thanks for posting job, your job will visible after admin approved');
 
 			  // Email the user
@@ -139,7 +139,7 @@ class JobsController extends MvcPublicController {
 		
 		$this->set('cgcodelist',$cgcodelist);
 
-			$this->load_model('itsystem');
+		$this->load_model('itsystem');
 		$itsystemlist = $this->itsystem->find();
 		$this->set('itsystemlist',$itsystemlist);
 
@@ -333,7 +333,7 @@ class JobsController extends MvcPublicController {
 
 
 			$sqlJob = "Update  wp_jobs set  session_date_range = '$session_date_range', session_description = '$session_description', no_of_sessions = $no_of_sessions, NHS_Pension_info = '$NHS_Pension_info',  location = '$location', postcode = '$postcode', latitude = $latitude, longitude = $longitude, city_id = $city_id, state_id = $state_id, onejobormultiplesessions =$onejobormultiplesessions , required_it_systems = $required_it_systems, parking_facilities = $parking_facilities,number_of_patients='$number_of_patients',number_of_telephoneconsultations ='$number_of_telephoneconsultations', paperwork = $paperwork,referrals=$referrals, home_visits=$home_visits, bloods = $bloods, pension_included = $pension_included where id= $job_id ";
-		//echo $sqlJob;
+			//echo $sqlJob;
 			$wpdb->query($sqlJob);
   			$count_no_of_sessions = 0;
 			$session_date_count_primary = count($_POST['session_date']);
@@ -377,21 +377,22 @@ class JobsController extends MvcPublicController {
 			$hourlyrate = $_POST['hourlyrate'][$x][$y];
 			$paytolocum = $_POST['paytolocum'][$x][$y];
 			$medbidfee = $_POST['medbidfee'][$x][$y];
-			$jobsession_id = $_POST['jobsession_id'][$x-1];
-
+			$jobsession_id = $_POST['jobsession_id'][$y-1];
+			 
   			//$paytolocums = $this->getlocumrate($diff->h,$diff->m,$hourlyrate);
 			//$medbidfee  = ($paytolocums * 15)/100;			
 			//echo "<pre>"; print_r($_POST);  echo "</pre>";
+			if ($jobsession_id>0)
 		     	$sql_jobsessions = "Update wp_jobsessions set session_date ='$session_date' , session_starttime = '$tmpdt1', session_endtime ='$tmpdt2',timediff='$timediff',hourlyrate = '$hourlyrate',paytolocum =$paytolocum,medbidfee=$medbidfee Where job_id=$job_id and id=$jobsession_id";
-			/*
-			if ($wpdb->query($sql_jobsessions) == 0 ){
+		 
+		 	else 
  		   	  $sql_jobsessions = "INSERT INTO wp_jobsessions ( `job_id`, `session_date`, `session_starttime`, `session_endtime`,
 				timediff, `hourlyrate`,paytolocum,medbidfee)
 				 VALUES ($job_id, '$session_date', '$tmpdt1', '$tmpdt2','$timediff',$hourlyrate,$paytolocum,$medbidfee)";
 
 				$wpdb->query($sql_jobsessions);
-			}
-			*/			
+			
+			 	
 			$count_no_of_sessions = $count_no_of_sessions + 1;
 		
 			 } 
@@ -502,8 +503,48 @@ class JobsController extends MvcPublicController {
 		
 		$this->set('job_id',$job_id);
 	}
-	
 
+	public function postedjobs(){
+
+		$this->set('mylayout', 'client');
+			 
+	 	$user_id = get_current_user_id();
+ 
+		$this->load_model('Appliedsession');
+ 
+		$user_id = get_current_user_id();
+
+		$params = $this->params;
+ 		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+		$params['joins'] = array('Locum');
+		$params['includes'] = array('Locum');
+ 
+		$params['conditions'] = array('practicer_id' =>$user_id);
+ 
+		$collection = $this->Appliedsession->paginate($params);
+		//echo "<pre>"; print_r($collection); echo "</pre>";
+		//print_r($this->Appliedsession);
+		$this->set('appliedjoblists', $collection['objects']); 
+ 		$this->set_pagination($collection);
+ 		//echo "<pre>"; print_r($objects); echo "</pre>";
+		//$this->set('appliedjoblists', objects);
+		$this->set_pagination($collection);
+
+		$this->load_model("Appliedjob");
+		$objects = $this->Appliedjob->find(array('conditions' => array('Appliedjob.practicer_id'=>$user_id)));
+		$dataarryjobs = array();		
+		foreach($objects as $object){
+			$dataarryjobs[$object->job_id]  = $object;
+		} 
+		echo "<pre>";print_r($dataarryjobs); echo "</pre>";
+		
+		$this->set('jobobjects', $dataarryjobs);
+ 	}
+	
+	public function applyedjobdetails(){
+		
+
+	}
 }
 
 ?>

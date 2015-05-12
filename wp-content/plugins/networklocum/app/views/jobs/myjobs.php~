@@ -4,7 +4,7 @@
 		<div class="row">
 		
 				<div class="aligncenter">
-					<h2 class="text1">Week commencing Monday 23 February 2015</h2>
+					<h2 class="text1">My Job Sessions</h2>
 					 <?php $this->display_flash(); ?>
 
 				</div>
