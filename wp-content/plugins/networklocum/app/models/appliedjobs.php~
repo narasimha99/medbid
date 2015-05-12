@@ -1,0 +1,12 @@
+<?php
+class Job extends MvcModel {
+
+ var $belongs_to = array(
+    'Appliedbsession' => array(
+      'foreign_key' => 'job_id'
+    )
+);
+
+//var $has_many = array('Jobsession' => array('local_key' => 'id', 'foreign_key' => 'job_id'));
+}
+?>
