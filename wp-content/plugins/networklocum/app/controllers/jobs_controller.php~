@@ -212,7 +212,7 @@ class JobsController extends MvcPublicController {
 		 
 		global $wpdb;
 
-		//echo $sqlJobs = "SELECT job.location * , b . * FROM `wp_jobs` a, wp_jobsessions b WHERE a.id = b.job_id LIMIT 0 , 30 
+		//echo $sqlJobs = "SELECT job.location,job. * , b . * FROM `wp_jobs` a, wp_jobsessions b WHERE a.id = b.job_id LIMIT 0 , 30 
 
 		//$Jobdetails = $wpdb->get_results($sqlJobs);
  		
@@ -536,7 +536,7 @@ class JobsController extends MvcPublicController {
 		foreach($objects as $object){
 			$dataarryjobs[$object->job_id]  = $object;
 		} 
-		echo "<pre>";print_r($dataarryjobs); echo "</pre>";
+		//echo "<pre>";print_r($dataarryjobs); echo "</pre>";
 		
 		$this->set('jobobjects', $dataarryjobs);
  	}
@@ -545,6 +545,143 @@ class JobsController extends MvcPublicController {
 		
 
 	}
+
+	
+	public function getjobs(){
+
+		$this->set('mylayout', 'empty');	
+ 		
+		$this->load_model('Job');
+		$this->load_model('Jobsession');
+		//print_r($_POST);
+
+		$datepicker=0;
+		$condStr="";
+		$dateranges = explode(",",$_POST['dateranges']);
+		print_r($dateranges);
+ 		for($i=0;$i<count($dateranges);$i++){
+ 			$condStr = $condStr . "  DATE( createddate ) = '$dateranges[$i]' or ";
+		$datepicker=1;
+		}
+		$condStr="  1 = 1  ";
+
+		echo $condStr;
+		$zipcoderesults = 0;
+ 
+		global $wpdb;	
+ 		$fquery="SELECT * FROM wp_jobs WHERE postcode = '$_POST[zipcode]'";
+     		$rs =  $wpdb->get_results($fquery);
+ 		if(count($rs)>0) {		
+		   //echo "<pre>";print_r($rs); echo "</pre>"; 
+            
+                    //if found, set variables
+                    $row =  $rs[0];
+                    $lat1 = $row->latitude;
+                    $lon1 = $row->longitude;
+                    $d = $_POST['distance'];
+                    //earth's radius in miles
+                    $r = 3959;
+ 
+                    //compute max and min latitudes / longitudes for search square
+                    $latN = rad2deg(asin(sin(deg2rad($lat1)) * cos($d / $r) + cos(deg2rad($lat1)) * sin($d / $r) * cos(deg2rad(0))));
+                    $latS = rad2deg(asin(sin(deg2rad($lat1)) * cos($d / $r) + cos(deg2rad($lat1)) * sin($d / $r) * cos(deg2rad(180))));
+                    $lonE = rad2deg(deg2rad($lon1) + atan2(sin(deg2rad(90)) * sin($d / $r) * cos(deg2rad($lat1)), cos($d / $r) - sin(deg2rad($lat1)) * sin(deg2rad($latN))));
+                    $lonW = rad2deg(deg2rad($lon1) + atan2(sin(deg2rad(270)) * sin($d / $r) * cos(deg2rad($lat1)), cos($d / $r) - sin(deg2rad($lat1)) * sin(deg2rad($latN))));
+ 
+                    //display information about starting point
+                    //provide max and min latitudes / longitudes
+		 
+ 
+                    //find all coordinates within the search square's area
+			$zipcoderesults=1;
+            	}
+      
+  		$params = $this->params;
+ 		//$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+		$params['join_table'] = array('Jobsession');
+		$params['include'] = array('Jobsession');
+		if ( $zipcoderesults == 1 ){
+		$params['conditions'] = "(Job.latitude <= $latN AND Job.latitude >= $latS AND Job.longitude <= $lonE AND Job.longitude >= $lonW) AND (Job.latitude != $lat1 AND Job.longitude != $lon1) AND Job.city_id != ''";
+		}
+		 
+		if ( $datepicker == 1 )  {
+			$params['conditions'] = $condStr;
+		}
+
+		$collection = $this->Job->find($params);
+		$this->set('joblists', $collection);
+		//$this->set_pagination($collection);
+		//echo "<pre>";	print_r($collection); echo "</pre>"; 
+
+         	  
+
+	}
+
+	public function findjob(){
+		
+		//echo "<pre>";
+		$this->load_model('Job');
+		$this->load_model('Jobsession');
+		print_r($_POST);
+
+		//if(isset($_POST['submit'])) {
+
+
+		//echo "</pre>";
+		global $wpdb;	
+ 		$fquery="SELECT * FROM wp_jobs WHERE postcode = '$_POST[zipcode]'";
+     		$rs =  $wpdb->get_results($fquery);
+		if(count($rs)>0) {		
+		   //echo "<pre>";print_r($rs); echo "</pre>"; 
+            
+                    //if found, set variables
+                    $row =  $rs[0];
+                    $lat1 = $row->latitude;
+                    $lon1 = $row->longitude;
+                    $d = $_POST['distance'];
+                    //earth's radius in miles
+                    $r = 3959;
+ 
+                    //compute max and min latitudes / longitudes for search square
+                    $latN = rad2deg(asin(sin(deg2rad($lat1)) * cos($d / $r) + cos(deg2rad($lat1)) * sin($d / $r) * cos(deg2rad(0))));
+                    $latS = rad2deg(asin(sin(deg2rad($lat1)) * cos($d / $r) + cos(deg2rad($lat1)) * sin($d / $r) * cos(deg2rad(180))));
+                    $lonE = rad2deg(deg2rad($lon1) + atan2(sin(deg2rad(90)) * sin($d / $r) * cos(deg2rad($lat1)), cos($d / $r) - sin(deg2rad($lat1)) * sin(deg2rad($latN))));
+                    $lonW = rad2deg(deg2rad($lon1) + atan2(sin(deg2rad(270)) * sin($d / $r) * cos(deg2rad($lat1)), cos($d / $r) - sin(deg2rad($lat1)) * sin(deg2rad($latN))));
+ 
+                    //display information about starting point
+                    //provide max and min latitudes / longitudes
+		 
+ 
+                    //find all coordinates within the search square's area
+                    //exclude the starting point and any empty city_id values
+                    $query = "SELECT * FROM wp_jobs WHERE (latitude <= $latN AND latitude >= $latS AND longitude <= $lonE AND longitude >= $lonW) AND (latitude != $lat1 AND longitude != $lon1) AND city_id != '' ORDER BY state_id, city_id, latitude, longitude";
+		      
+
+$this->load_model('Job');
+		 
+		global $wpdb;
+
+		//echo $sqlJobs = "SELECT job.location,job. * , b . * FROM `wp_jobs` a, wp_jobsessions b WHERE a.id = b.job_id LIMIT 0 , 30 
+
+		//$Jobdetails = $wpdb->get_results($sqlJobs);
+ 		
+		$params = $this->params;
+
+		//$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+		$params['join_table'] = array('Jobsession');
+		$params['include'] = array('Jobsession');
+		$params['conditions'] = "(Job.latitude <= $latN AND Job.latitude >= $latS AND Job.longitude <= $lonE AND Job.longitude >= $lonW) AND (Job.latitude != $lat1 AND Job.longitude != $lon1) AND Job.city_id != ''";
+		$collection = $this->Job->find($params);
+		$this->set('joblists', $collection);
+		//$this->set_pagination($collection);
+	//echo "<pre>";	print_r($collection); echo "</pre>"; 
+
+       
+    			$rs = $wpdb->get_results($query);
+			$this->set('jobdetails',$rs);
+                             //output all matches to screen
+		}  
 }
 
+}
 ?>

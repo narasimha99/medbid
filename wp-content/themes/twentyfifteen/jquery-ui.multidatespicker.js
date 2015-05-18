@@ -455,19 +455,23 @@
 
 						///////////////////////////////////////////////
 						////  ADDING OUR Custom code here //////
- 						var purl = SITE_ROOT_JS+'jobs/settimerates/';
+ 						var purl = SITE_ROOT_JS+'jobs/getjobs/';
 					 	//alert(purl);
 						//alert(SITE_ROOT_VAR)
 						var dateranges = jQuery("#session_date_range").val();
 						//var dateranges = myStringdate.replace("<?php echo $_POST['#session_date_range'];?>", "");
+						var  distance = jQuery("#distance").val();
+						var  zipcode = jQuery("#zipcode").val();
+
 
 						jQuery.when($.ajax(
 								{ url:purl,
+								  method: "POST",	
 								  dataType: 'text',
-								  data:{dateranges:dateranges}
+								  data:{dateranges:dateranges,zipcode:zipcode,distance:distance}
 								})).done(function( data ) {
  
-						  $("#settimerates").html( data );
+						  $("#getjobsdiv").html( data );
 						
 						});
 						//////////////////////////////////////////////////

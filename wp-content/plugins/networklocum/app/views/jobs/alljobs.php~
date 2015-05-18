@@ -72,4 +72,4 @@ echo date('D j M Y, H:m', strtotime($jobsession->session_starttime)).' - '.date(
 	</div>
 	
 	<!--middle end here-->
-	
+			
