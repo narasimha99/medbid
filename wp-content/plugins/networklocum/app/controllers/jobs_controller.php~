@@ -558,14 +558,15 @@ class JobsController extends MvcPublicController {
 		$datepicker=0;
 		$condStr="";
 		$dateranges = explode(",",$_POST['dateranges']);
-		print_r($dateranges);
+		//print_r($dateranges);
+		//echo count($dateranges);
  		for($i=0;$i<count($dateranges);$i++){
- 			$condStr = $condStr . "  DATE( createddate ) = '$dateranges[$i]' or ";
-		$datepicker=1;
+ 		 	$condStr = $condStr . "  DATE( createddate ) = '$dateranges[$i]' or ";
+			$datepicker=1;
 		}
-		$condStr="  1 = 1  ";
+		$condStr= $condStr . "  1 = 1  ";
 
-		echo $condStr;
+		//echo $condStr;
 		$zipcoderesults = 0;
  
 		global $wpdb;	
@@ -625,7 +626,20 @@ class JobsController extends MvcPublicController {
 		print_r($_POST);
 
 		//if(isset($_POST['submit'])) {
+		$datepicker=0;
+		$condStr="";
+		$dateranges = explode(",",$_POST['dateranges']);
+		//print_r($dateranges);
+		//echo count($dateranges);
+ 		for($i=0;$i<count($dateranges);$i++){
+ 		 	$condStr = $condStr . "  DATE( createddate ) = '$dateranges[$i]' or ";
+			$datepicker=1;
+		}
+		$condStr= $condStr . "  1 = 1  ";
 
+		//echo $condStr;
+		$zipcoderesults = 0;
+ 
 
 		//echo "</pre>";
 		global $wpdb;	
@@ -670,7 +684,16 @@ $this->load_model('Job');
 		//$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
 		$params['join_table'] = array('Jobsession');
 		$params['include'] = array('Jobsession');
+	  
+		if ( $zipcoderesults == 1 ){
 		$params['conditions'] = "(Job.latitude <= $latN AND Job.latitude >= $latS AND Job.longitude <= $lonE AND Job.longitude >= $lonW) AND (Job.latitude != $lat1 AND Job.longitude != $lon1) AND Job.city_id != ''";
+		}
+		 
+		if ( $datepicker == 1 )  {
+			$params['conditions'] = $condStr;
+		}
+
+
 		$collection = $this->Job->find($params);
 		$this->set('joblists', $collection);
 		//$this->set_pagination($collection);

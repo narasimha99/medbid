@@ -29,15 +29,16 @@ $templtpath= get_template_directory_uri();
 	<div class="midcol">
 	<div class="bitbox1">	
 		<div class="container">
- 		
+
+  
 <form action="http://localhost/medbid/jobs/findjob" method="post">
 
 
 <label>Enter your ZIP Code:
-<input maxlength="5" name="zipcode" size="6" type="text" value="<?php echo $_POST['zipcode'];?>" /></label>
+<input maxlength="5" name="zipcode" id="zipcode"s size="6" type="text" value="<?php echo $_POST['zipcode'];?>" /></label>
  
-<label>Select a distance in miles from this point:</label>
-<select name="distance">
+<label>Within:</label>
+<select name="distance" id="distance">
  <option value="5"  <?php if($_POST['distance'] == 5 ) echo 'selected'?> >5</option>
 <option value="10"  <?php if($_POST['distance'] == 10 ) echo 'selected'?> >10</option>
 <option value="25"  <?php if($_POST['distance'] == 25 ) echo 'selected'?> >25</option>
@@ -110,7 +111,10 @@ $templtpath= get_template_directory_uri();
  
  ?>         
 
-<div id="getjobsdiv"> 
+ 
+<div id="loadingdiv" style="display:none;"><image src="<?php echo $templtpath;?>/images/ajax-loader.gif"/> Updating results... </div>
+
+<div id="getjobsdiv">
 
  <table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
@@ -148,9 +152,8 @@ echo date('D j M Y, H:m', strtotime($jobsession->session_starttime)).' - '.date(
         		</tbody>
         	</table>
 
-				 </div>
-
-    
+ </div>
+   
 </div>
 </div>
 </div>

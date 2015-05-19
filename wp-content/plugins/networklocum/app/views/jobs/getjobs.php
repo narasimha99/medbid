@@ -1,4 +1,3 @@
-testing data ajax data
  <table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
         			<tr>

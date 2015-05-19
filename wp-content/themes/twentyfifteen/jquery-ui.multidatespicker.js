@@ -463,8 +463,9 @@
 						var  distance = jQuery("#distance").val();
 						var  zipcode = jQuery("#zipcode").val();
 
+						jQuery("#loadingdiv").show();
 
-						jQuery.when($.ajax(
+  						jQuery.when($.ajax(
 								{ url:purl,
 								  method: "POST",	
 								  dataType: 'text',
@@ -472,7 +473,7 @@
 								})).done(function( data ) {
  
 						  $("#getjobsdiv").html( data );
-						
+						jQuery("#loadingdiv").hide();
 						});
 						//////////////////////////////////////////////////
 
