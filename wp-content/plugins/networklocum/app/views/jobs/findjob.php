@@ -28,12 +28,11 @@ $templtpath= get_template_directory_uri();
 	
 	<div class="midcol">
 	<div class="bitbox1">	
-		<div class="container">
+	<div class="container">
 
   
 <form action="http://localhost/medbid/jobs/findjob" method="post">
-
-
+ 
 <label>Enter your ZIP Code:
 <input maxlength="5" name="zipcode" id="zipcode"s size="6" type="text" value="<?php echo $_POST['zipcode'];?>" /></label>
  
@@ -97,8 +96,7 @@ $templtpath= get_template_directory_uri();
 						</div>
 					</div>
 		
-	
- 
+</form>
  
 <?php
 
@@ -110,7 +108,7 @@ $templtpath= get_template_directory_uri();
      }
  
  ?>         
-
+ 
  
 <div id="loadingdiv" style="display:none;"><image src="<?php echo $templtpath;?>/images/ajax-loader.gif"/> Updating results... </div>
 
