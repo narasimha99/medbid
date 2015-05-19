@@ -96,7 +96,7 @@ $templtpath= get_template_directory_uri();
 						</div>
 					</div>
 		
-</form>
+
  
 <?php
 
