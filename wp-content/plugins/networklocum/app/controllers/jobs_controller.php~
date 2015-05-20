@@ -697,12 +697,18 @@ $this->load_model('Job');
 		$collection = $this->Job->find($params);
 		$this->set('joblists', $collection);
 		//$this->set_pagination($collection);
-	//echo "<pre>";	print_r($collection); echo "</pre>"; 
+		//echo "<pre>";	print_r($collection); echo "</pre>"; 
 
        
-    			$rs = $wpdb->get_results($query);
-			$this->set('jobdetails',$rs);
-                             //output all matches to screen
+    		              //output all matches to screen
+		}
+		else {
+	 		$params = $this->params;
+	 		//$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+			$params['join_table'] = array('Jobsession');
+			$params['include'] = array('Jobsession');
+	   		$collection = $this->Job->find($params);
+			$this->set('joblists', $collection);
 		}  
 }
 

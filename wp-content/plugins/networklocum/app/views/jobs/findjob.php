@@ -121,25 +121,20 @@ $templtpath= get_template_directory_uri();
 												 </script>
 											  
 												<!-- its my code end here -->
-												 
-						 
-												<div align="center" style="margin-top:10px;">
-													<button class="btn btn-info sbtn" id="submit1">Save and Continue</button>
-												</div>
-											</div>
+ 											</div>
 		
 	
  
  
 					<?php
-					
+					/*
 						 if(!preg_match('/^[0-9]{5}$/', $_POST['zipcode'])) {
 							  echo "<strong>You did not enter a properly formatted ZIP Code.</strong> Please try again.\n";
 						 }
 						 elseif(!preg_match('/^[0-9]{1,3}$/', $_POST['distance'])) {
 							  echo "<strong>You did not enter a properly formatted distance.</strong> Please try again.\n";
 						 }
-					 
+					 */
 					 ?>         
                </form>
 			   
