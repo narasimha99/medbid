@@ -536,7 +536,7 @@ class JobsController extends MvcPublicController {
 		foreach($objects as $object){
 			$dataarryjobs[$object->job_id]  = $object;
 		} 
-		//echo "<pre>";print_r($dataarryjobs); echo "</pre>";
+			//echo "<pre>";print_r($dataarryjobs); echo "</pre>";
 		
 		$this->set('jobobjects', $dataarryjobs);
  	}
@@ -553,18 +553,26 @@ class JobsController extends MvcPublicController {
  		
 		$this->load_model('Job');
 		$this->load_model('Jobsession');
-		//print_r($_POST);
+		//_r($_POST);
 
 		$datepicker=0;
 		$condStr="";
+		if(strlen(trim($_POST['dateranges']))>0)
 		$dateranges = explode(",",$_POST['dateranges']);
+		else
+		$dateranges = array();
+
 		//print_r($dateranges);
 		//echo count($dateranges);
- 		for($i=0;$i<count($dateranges);$i++){
- 		 	$condStr = $condStr . "  DATE( createddate ) = '$dateranges[$i]' or ";
+		if(count($dateranges)>0){
+	 		for($i=0;$i<count($dateranges)-1;$i++){
+	 		 	$condStr = $condStr . "  DATE(Job.session_date_range) = '$dateranges[$i]' ";
+				$condStr = $condStr . " OR ";
+ 			}
+			$condStr = $condStr . "  DATE(Job.session_date_range) = '$dateranges[$i]' ";
 			$datepicker=1;
 		}
-		$condStr= $condStr . "  1 = 1  ";
+		//$condStr= $condStr . "  1 = 1  ";
 
 		//echo $condStr;
 		$zipcoderesults = 0;
@@ -573,12 +581,12 @@ class JobsController extends MvcPublicController {
  		$fquery="SELECT * FROM wp_jobs WHERE postcode = '$_POST[zipcode]'";
      		$rs =  $wpdb->get_results($fquery);
  		if(count($rs)>0) {		
-		   //echo "<pre>";print_r($rs); echo "</pre>"; 
+		// echo "<pre>";print_r($rs); echo "</pre>"; 
             
                     //if found, set variables
                     $row =  $rs[0];
                     $lat1 = $row->latitude;
-                    $lon1 = $row->longitude;
+                   $lon1 = $row->longitude;
                     $d = $_POST['distance'];
                     //earth's radius in miles
                     $r = 3959;
@@ -595,20 +603,25 @@ class JobsController extends MvcPublicController {
  
                     //find all coordinates within the search square's area
 			$zipcoderesults=1;
+ 
             	}
       
   		$params = $this->params;
  		//$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-		$params['join_table'] = array('Jobsession');
-		$params['include'] = array('Jobsession');
+		//$params['join_table'] = array('Jobsession');
+		//$params['include'] = array('Jobsession');
 		if ( $zipcoderesults == 1 ){
 		$params['conditions'] = "(Job.latitude <= $latN AND Job.latitude >= $latS AND Job.longitude <= $lonE AND Job.longitude >= $lonW) AND (Job.latitude != $lat1 AND Job.longitude != $lon1) AND Job.city_id != ''";
+			//echo  "zipcodes ";
 		}
 		 
+
 		if ( $datepicker == 1 )  {
+			//echo "date picker =1";
 			$params['conditions'] = $condStr;
 		}
-
+		//print_r($params);	
+		$params['order'] = 'Job.session_date_range DESC';
 		$collection = $this->Job->find($params);
 		$this->set('joblists', $collection);
 		//$this->set_pagination($collection);
@@ -620,10 +633,12 @@ class JobsController extends MvcPublicController {
 
 	public function findjob(){
 		
+		//$_POST[zipcode]='35042';
 		//echo "<pre>";
 		$this->load_model('Job');
 		$this->load_model('Jobsession');
-		print_r($_POST);
+		
+		//print_r($_POST);
 
 		//if(isset($_POST['submit'])) {
 		$datepicker=0;
@@ -631,16 +646,16 @@ class JobsController extends MvcPublicController {
 		$dateranges = explode(",",$_POST['dateranges']);
 		//print_r($dateranges);
 		//echo count($dateranges);
- 		for($i=0;$i<count($dateranges);$i++){
+ 	
+		for($i=0;$i<count($dateranges);$i++){
  		 	$condStr = $condStr . "  DATE( createddate ) = '$dateranges[$i]' or ";
 			$datepicker=1;
 		}
-		$condStr= $condStr . "  1 = 1  ";
+	 	$condStr= $condStr . "  1 = 1  ";
 
 		//echo $condStr;
 		$zipcoderesults = 0;
- 
-
+				  
 		//echo "</pre>";
 		global $wpdb;	
  		$fquery="SELECT * FROM wp_jobs WHERE postcode = '$_POST[zipcode]'";
@@ -682,8 +697,8 @@ $this->load_model('Job');
 		$params = $this->params;
 
 		//$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-		$params['join_table'] = array('Jobsession');
-		$params['include'] = array('Jobsession');
+		//$params['join_table'] = array('Jobsession');
+		//$params['include'] = array('Jobsession');
 	  
 		if ( $zipcoderesults == 1 ){
 		$params['conditions'] = "(Job.latitude <= $latN AND Job.latitude >= $latS AND Job.longitude <= $lonE AND Job.longitude >= $lonW) AND (Job.latitude != $lat1 AND Job.longitude != $lon1) AND Job.city_id != ''";
@@ -703,14 +718,19 @@ $this->load_model('Job');
     		              //output all matches to screen
 		}
 		else {
-	 		$params = $this->params;
-	 		//$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-			$params['join_table'] = array('Jobsession');
-			$params['include'] = array('Jobsession');
-	   		$collection = $this->Job->find($params);
-			$this->set('joblists', $collection);
+		 	 
+		 
+		    $params = $this->params;
+		    $params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+		    $params['order'] = 'Job.createddate DESC';
+		    //$params['conditions'] = array('is_public' => true);
+		    $collection = $this->Job->paginate($params);
+		   //echo "<pre>"; print_r($collection); echo "</pre>";
+		    $this->set('joblists', $collection['objects']);
+ 		    $this->set_pagination($collection);
+		 
 		}  
-}
+	}
 
 }
 ?>

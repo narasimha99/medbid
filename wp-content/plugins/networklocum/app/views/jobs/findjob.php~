@@ -127,14 +127,14 @@ $templtpath= get_template_directory_uri();
  
  
 					<?php
-					
+					/*
 						 if(!preg_match('/^[0-9]{5}$/', $_POST['zipcode'])) {
 							  echo "<strong>You did not enter a properly formatted ZIP Code.</strong> Please try again.\n";
 						 }
 						 elseif(!preg_match('/^[0-9]{1,3}$/', $_POST['distance'])) {
 							  echo "<strong>You did not enter a properly formatted distance.</strong> Please try again.\n";
 						 }
-					 
+					 */
 					 ?>         
                </form>
 			   
@@ -144,16 +144,17 @@ $templtpath= get_template_directory_uri();
 			      <!----------------ajax loader------------->
 			      <div id="loadingdiv" style="display:none;"><image src="<?php echo $templtpath;?>/images/ajax-loader.gif"/> Updating results... </div>
 			      <!----------------ajax loader------------->
-							 <div id="getjobsdiv">
+							 <div id="getjobsdiv" style="border-style: solid; border-color: #98bf21;">
 								 <table class="col-md-12 table-bordered table-striped table-condensed cf">
 												<thead class="cf">
 													<tr>
-														<th>Location</th>
-														<th>Dates needed</th>
-														<th class="numeric">No of sessions</th>
-														<th class="numeric">Hourly rate</th>
-														<th class="numeric"></th>
-													</tr>
+<th>Postcode</th>														
+<th>Location</th>
+<th>Dates needed</th>
+<th class="numeric">No of sessions</th>
+<th class="numeric">Hourly rate</th>
+<th class="numeric"></th>
+												</tr>
 												</thead>
 												<tbody>
 													 
@@ -164,7 +165,8 @@ $templtpath= get_template_directory_uri();
 								//$jobsessions  = count($job->jobsessions);
 								?>
 													<tr>
-														<td data-title="Code"><?php echo $job->location; echo $job->city_id;echo $job->state_id;?></td>
+<td data-title="Code"> <?php echo $job->postcode;?></td>								
+<td data-title="Code"><?php echo $job->location; echo $job->city_id;echo $job->state_id;?></td>
 														<td data-title="Company"><?php 
 								foreach ($job->jobsessions as $jobsession){
 								echo "<br>";
@@ -180,11 +182,12 @@ $templtpath= get_template_directory_uri();
 								?>	
 												</tbody>
 											</table>
-								
+								<center> <?php echo $this->pagination(); ?> </center>
 								 </div>
 			   </div>
-			   <div style="clear:both;"></div>
-   
+ 		   <div style="clear:both;"></div>
+			  
+ 
             </div>
         </div>
    </div>

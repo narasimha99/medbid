@@ -12,7 +12,7 @@ class MvcDatabase {
 	
 	public function get_results($string, $output_type=OBJECT) {
  		$this->add_to_log($string);
-		//echo"<pre>";echo $string; echo"</pre>";
+	//	echo"<pre>";echo $string; echo"</pre>";
 		return $this->wpdb->get_results($string, $output_type);
 		
 	}
@@ -24,7 +24,7 @@ class MvcDatabase {
 	
 	public function query($string) {
 		$this->add_to_log($string);
- 		echo $string;
+ 		//echo $string;
 		return $this->wpdb->query($string);
 	}
 	

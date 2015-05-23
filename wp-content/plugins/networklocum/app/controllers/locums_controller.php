@@ -205,11 +205,11 @@ class LocumsController extends MvcPublicController {
 
 
 	  	$user_id = get_current_user_id();
-		// echo "<pre>"; print_r($jobdetails); echo "</pre>";
+		//echo "<pre>"; print_r($jobdetails); echo "</pre>";
 		if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
 		
 		 $job_id = $_POST['job_id'];
-		    $sql_appjob = "INSERT INTO  wp_appliedjobs(locum_id,practicer_id,job_id,paperwork,referrals,home_visits,bloods,pension_included)VALUES($user_id,$practicer_id,$job_id,$paperwork,$referrals,$home_visits,$bloods,$pension_included)";
+		   $sql_appjob = "INSERT INTO  wp_appliedjobs(locum_id,practicer_id,job_id,paperwork,referrals,home_visits,bloods,pension_included)VALUES($user_id,$practicer_id,$job_id,$paperwork,$referrals,$home_visits,$bloods,$pension_included)";
 		$wpdb->query($sql_appjob);
 
 
@@ -221,7 +221,7 @@ class LocumsController extends MvcPublicController {
 		foreach ($jobsessions as $key => $value){
 
  		 
-		    $sql_jobsessions = "INSERT INTO  wp_appliedsessions(user_id,job_id,jobsession_id,hourlyrate,paytolocum)VALUES($user_id,$job_id,$key,$hourlyrate[$key],$paytolocum[$key])";
+		    $sql_jobsessions = "INSERT INTO  wp_appliedsessions(user_id,job_id,practicer_id,jobsession_id,hourlyrate,paytolocum)VALUES($user_id,$job_id,$practicer_id,$key,$hourlyrate[$key],$paytolocum[$key])";
 				$wpdb->query($sql_jobsessions);
  			}
  		

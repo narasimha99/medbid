@@ -148,12 +148,13 @@ $templtpath= get_template_directory_uri();
 								 <table class="col-md-12 table-bordered table-striped table-condensed cf">
 												<thead class="cf">
 													<tr>
-														<th>Location</th>
-														<th>Dates needed</th>
-														<th class="numeric">No of sessions</th>
-														<th class="numeric">Hourly rate</th>
-														<th class="numeric"></th>
-													</tr>
+<th>Postcode</th>														
+<th>Location</th>
+<th>Dates needed</th>
+<th class="numeric">No of sessions</th>
+<th class="numeric">Hourly rate</th>
+<th class="numeric"></th>
+												</tr>
 												</thead>
 												<tbody>
 													 
@@ -164,7 +165,8 @@ $templtpath= get_template_directory_uri();
 								//$jobsessions  = count($job->jobsessions);
 								?>
 													<tr>
-														<td data-title="Code"><?php echo $job->location; echo $job->city_id;echo $job->state_id;?></td>
+<td data-title="Code"> <?php echo $job->postcode;?></td>								
+<td data-title="Code"><?php echo $job->location; echo $job->city_id;echo $job->state_id;?></td>
 														<td data-title="Company"><?php 
 								foreach ($job->jobsessions as $jobsession){
 								echo "<br>";
@@ -180,11 +182,12 @@ $templtpath= get_template_directory_uri();
 								?>	
 												</tbody>
 											</table>
-								
+								<center> <?php echo $this->pagination(); ?> </center>
 								 </div>
 			   </div>
-			   <div style="clear:both;"></div>
-   
+ 		   <div style="clear:both;"></div>
+			  
+ 
             </div>
         </div>
    </div>

@@ -41,7 +41,7 @@ foreach($joblists as $job){
         				<td data-title="Company"><?php 
 foreach ($job->jobsessions as $jobsession){
 echo "<br>";
-echo date('D j M Y, H:m', strtotime($jobsession->session_starttime)).' - '.date('H:m', strtotime($jobsession->session_endtime));
+echo date('D j M Y, H:m', strtotime($jobs3ession->session_starttime)).' - '.date('H:m', strtotime($jobsession->session_endtime));
 echo ' - £'.$jobsession->hourlyrate;
 }
 ?> </td>

@@ -40,9 +40,9 @@
 
 
 $yenoarray = array('0'=>'No','1'=>'Yes');
-
-foreach($appliedjoblists as $jobsession){
  
+foreach($appliedjoblists as $jobsession){
+  
 //$jobsessions  = count($job->jobsessions);
 ?>
 					<tr>
