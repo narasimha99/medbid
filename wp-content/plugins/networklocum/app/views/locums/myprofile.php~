@@ -57,19 +57,14 @@ $("#locumsignupnext").submit();
 
 <td>
 
-<a href="/account/upload-photo/">
-<img class="img-circle img-user-config" src="<?php echo $url.'demouser.png'?>">
-</a> 
-
-
-<div id="photoresult"></div> 
-<input type="hidden" name="action" value="update" />
-<input type="hidden" name="user_id" id="user_id" value="102" />
+ 
+<img class="img-circle img-user-config" src="<?php echo  $url.'/upload_pic/'.$profile_image; ?>">
+  
 <p> <a href="<?php echo $url.'upload_crop.php';?>">Update Picture</a> </p>
 </div>
 <?php
-  $_SESSION['myuser_id'] = 102;
-  $_SESSION['mysitemyurl'] = $url.'/locum/myprofile';
+  $_SESSION['myuser_id'] = $user_id;
+  $_SESSION['mysitemyurl'] = $url.'/locums/myprofile';
 ?>
 
 </td>

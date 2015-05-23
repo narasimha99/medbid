@@ -260,12 +260,21 @@ class LocumsController extends MvcPublicController {
 
 	public function myprofile(){
 		
-		$this->set('mylayout', 'client');
-		global $wpdb;
+		$this->set('mylayout', 'client'); 
+		$user_id = get_current_user_id();
+		$this->set('user_id',$user_id);
 
+		$profile_image = get_user_meta($user_id, 'profile_image'); 
+		//print_r($profile_image);
+		if ( $profile_image[0] == null )
+			$profile_image = $url.'demouser.png';
+	 	
+		$this->set('profile_image',$profile_image[0]);
  	}
+
 	
 	public function  uploadcrop(){
+	
 		$this->set('mylayout', 'client');
 	
 	}
