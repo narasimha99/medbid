@@ -1,16 +1,28 @@
+<?php
+$url = esc_url( home_url( '/' ));
+$templtpath= get_template_directory_uri(); 
+?>
 <script>
 jQuery( document ).ready(function() {
 //console.log( "ready!" );
 jQuery("#submit").click(function () {
 $("#locumsignupnext").submit();
 });
+
+ 
  
 });
 </script>
-<?php
-$url = esc_url( home_url( '/' ));
-$templtpath= get_template_directory_uri(); 
-?>
+<style>
+.button-primary {
+    background: none repeat scroll 0 0 #9ebaa0;
+    border-color: #80a583;
+    box-shadow: 0 1px 0 #cbdacc inset, 0 1px 0 rgba(0, 0, 0, 0.15);
+    color: #fff;
+}
+</style>
+
+
 <!--middle start here-->
  	<div class="midcol">
 		<div class="dashbg" style="margin-top: -48px;">
@@ -48,6 +60,18 @@ $templtpath= get_template_directory_uri();
 <a href="/account/upload-photo/">
 <img class="img-circle img-user-config" src="<?php echo $url.'demouser.png'?>">
 </a> 
+
+
+<div id="photoresult"></div> 
+<input type="hidden" name="action" value="update" />
+<input type="hidden" name="user_id" id="user_id" value="102" />
+<p> <a href="<?php echo $url.'upload_crop.php';?>">Update Picture</a> </p>
+</div>
+<?php
+  $_SESSION['myuser_id'] = 102;
+  $_SESSION['mysitemyurl'] = $url.'/locum/myprofile';
+?>
+
 </td>
 
 <td> 
@@ -69,34 +93,30 @@ $templtpath= get_template_directory_uri();
 
 </table>	
 					  
-					  
-				  </form>
-					</div>
-									</div>
 
-								
-									
-									
-									
-								  </div>
-								  
-								 					  
-							</div>
-							<div class="dashmidh2">
-								
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-			
-				
-		
-	</div>
-	
-	<!--middle end here-->
-
+</form>
+</div>
+</div>
  
+</div>
+
+
+</div>
+<div class="dashmidh2">
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<!--middle end here-->
+
+

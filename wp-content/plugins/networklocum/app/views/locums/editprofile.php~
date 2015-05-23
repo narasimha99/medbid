@@ -63,7 +63,7 @@ $templtpath= get_template_directory_uri();
 			<input type="radio"    id="gender" name="data[Locum][gender]" value="0"  <?php if($Locumobject->gender == 0) echo 'checked'; ?> title="" placeholder="select your Gender" />Male
 
 			<input type="radio"  id="gener" name="data[Locum][gender]" value="1" <?php if($Locumobject->gender==1) echo 'checked'; ?> title="" placeholder="select your gender" />Female
-
+	
 
 			<span class="errorspan" id="errspan_gener"></span>
 			</div>

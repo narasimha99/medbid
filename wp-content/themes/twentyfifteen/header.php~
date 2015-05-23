@@ -1,6 +1,7 @@
 ﻿<?php
 session_start(); 
 $templtpath= get_template_directory_uri(); 
+$url = esc_url( home_url( '/' ) );
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +50,7 @@ var myJSONObject = {"JSINFO": [
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
-<?php $url = esc_url( home_url( '/' ) ); ?>
+
 <?php
 	/* We add some JavaScript to pages with the comment form
 	 * to support sites with threaded comments (when in use).

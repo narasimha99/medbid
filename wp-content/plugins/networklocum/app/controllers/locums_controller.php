@@ -264,7 +264,12 @@ class LocumsController extends MvcPublicController {
 		global $wpdb;
 
  	}
-
+	
+	public function  uploadcrop(){
+	
+		$this->set('mylayout', 'client');
+	
+	}
 }
 
 ?>

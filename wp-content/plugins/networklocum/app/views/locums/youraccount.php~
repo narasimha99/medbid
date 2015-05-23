@@ -1,42 +1,33 @@
-<?php
-$url = esc_url(home_url('/'));
-?>
- <!--middle start here-->
+<!--middle start here-->
  	<div class="midcol">
-		<div class="dashbg" style="margin-top: -48px;">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="dashmid">
-							<div class="dashmidh">
-								<h2> Your Account </h2>
-						   </div>
-<table align="center">
-<tr> <td> Your profile </td> </tr>
-<tr> <td> <a  href="<?php echo $url.'locums/dashboard';?>">Dashboard</a> </td> </tr>
-<tr> <td> <a  href="<?php echo $url.'locums/editprofile';?>">Edit profile</a> </td> </tr>
-<tr> <td> <a  href="<?php echo $url.'locums/changepassword';?>">Change Password</a>  </td> </tr>
-<tr> <td> Link Bank Account</td> </tr>
-
-</table>
-									 
-									
-								
-								  
-								 					  
-							</div>
-							<div class="dashmidh2">
-								
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		  
-	</div>
+<?php get_header();
+global $user_ID;
+if ($user_ID) {
+$user_info = get_userdata($user_ID);
+$id = $user_info->ID;
+}
+?>
+[avatar_upload] 
+<div class="wpua-edit-container">
+  <h3>Avatar</h3>
+  <input type="hidden" name="wp-user-avatar" id="wp-user-avatar" value="{attachmentID}" />
+  <p id="wpua-add-button">
+    <button type="button" class="button" id="wpua-add" name="wpua-add">Edit Image</button>
+  </p>
+  <p id="wpua-preview">
+    <img src="{imageURL}" alt="" />
+    Original Size
+  </p>
+  <p id="wpua-thumbnail">
+    <img src="{imageURL}" alt="" />
+    Thumbnail
+  </p>
+  <p id="wpua-remove-button">
+    <button type="button" class="button" id="wpua-remove" name="wpua-remove">Default Avatar</button>
+  </p>
+  <p id="wpua-undo-button">
+    <button type="button" class="button" id="wpua-undo" name="wpua-undo">Undo</button>
+  </p>
+</div>
 	
-	<!--middle end here-->
-
- 
- 
+</div>
