@@ -146,8 +146,9 @@ class PracticesController extends MvcPublicController {
 		$this->set('mylayout', 'client');
 	}
 
-	//applyedjobdetails
 
 
+
+	  
 }
 ?>

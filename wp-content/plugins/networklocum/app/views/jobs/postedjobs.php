@@ -65,9 +65,7 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date
  
         		 
         			</tr>
-<?php 
-	
-
+<?php  
 	}
 ?>	
         		</tbody>

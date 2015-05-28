@@ -61,7 +61,7 @@ echo date('D j M Y, H:m', strtotime($jobsession->session_starttime)).' - '.date(
 
 </div>
 
-<center> <?php //echo $this->pagination(); ?> </center>	
+<center> <?php echo $this->pagination(); ?> </center>	
 					</div>
 					
 					

@@ -23,11 +23,7 @@ jQuery( document ).ready(function() {
 				  $("#getjobsdiv").html( data );
 				jQuery("#loadingdiv").hide();
 				});
-
-
- 
-
- 	});
+  	});
   
 });
 </script>
@@ -68,8 +64,8 @@ $templtpath= get_template_directory_uri();
                <div style="float:left; margin-right:10px;">
 			      <form action="http://localhost/medbid/jobs/findjob" method="post">
 						<label> ZIP Code:
-						<input maxlength="5" name="zipcode" style="font-size:12px; width:80px;" id="zipcode"  type="text" value="<?php echo $_POST['zipcode'];?>" /></label>
-						<br/>
+						<input maxlength="10" name="zipcode" style="font-size:12px; width:80px;" id="zipcode"  type="text" value="<?php echo $_POST['zipcode'];?>" /></label>
+						 
 						<label>Within:</label>
 						<select name="distance" id="distance">
 						 <option value="5"  <?php if($_POST['distance'] == 5 ) echo 'selected'?> >5</option>
@@ -78,10 +74,10 @@ $templtpath= get_template_directory_uri();
 						<option value="50"  <?php if($_POST['distance'] == 50) echo 'selected'?> >50</option>
 						<option value="100"  <?php if($_POST['distance'] == 100 ) echo 'selected'?> >100</option>
 						</select> Miles
- 
-
-						<div id="datecalenderdiv" >	
-													 
+ <br>
+						
+						<div id="datecalenderdiv">	
+							<label> Date range</label>						 
 							<input type="text" id="session_date_range" name="session_date_range" value="<?php if(isset($_POST['session_date_range'])) { echo $_POST['session_date_range']; } ?>" />
 								 <span id="errspan_session_date_range" class="errorspan"></span>	
 												 
@@ -135,7 +131,13 @@ $templtpath= get_template_directory_uri();
 							  echo "<strong>You did not enter a properly formatted distance.</strong> Please try again.\n";
 						 }
 					 */
-					 ?>         
+					 ?>   
+ 					 
+					<label> Practicer </label> <input type="text" /> <br>
+ 					<label> State </label> <input type="text" /> <br>
+					<label> City </label> <input type="text" /> <br>
+					<label> Hourly Rate </label> <input type="text" /> <br>
+
                </form>
 			   
 			   </div>
@@ -144,7 +146,7 @@ $templtpath= get_template_directory_uri();
 			      <!----------------ajax loader------------->
 			      <div id="loadingdiv" style="display:none;"><image src="<?php echo $templtpath;?>/images/ajax-loader.gif"/> Updating results... </div>
 			      <!----------------ajax loader------------->
-							 <div id="getjobsdiv" style="border-style: solid; border-color: #98bf21;">
+							 <div id="getjobsdiv">
 								 <table class="col-md-12 table-bordered table-striped table-condensed cf">
 												<thead class="cf">
 													<tr>

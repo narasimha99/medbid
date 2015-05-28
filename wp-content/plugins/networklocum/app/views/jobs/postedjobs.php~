@@ -40,10 +40,9 @@
 
 
 $yenoarray = array('0'=>'No','1'=>'Yes');
-echo "hi1";
-foreach($appliedjoblists as $jobsession){
-echo "hi2";
  
+foreach($appliedjoblists as $jobsession){
+  
 //$jobsessions  = count($job->jobsessions);
 ?>
 					<tr>
@@ -66,9 +65,7 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date
  
         		 
         			</tr>
-<?php 
-	
-
+<?php  
 	}
 ?>	
         		</tbody>
