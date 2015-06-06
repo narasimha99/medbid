@@ -59,6 +59,12 @@ jQuery( document ).ready(function() {
 		<div class="col-md-12">
 		<!-- <div   align="right"> <input type='button' name="add" style="align:right"  value="Join more days" onclick="addmoredays();"/> </div> -->
 
+
+
+
+	 
+
+
 		<!-- its my code end here -->
 
 		<div id="settimerates">	 </div>
@@ -75,32 +81,7 @@ jQuery( document ).ready(function() {
 				 
 						 
 						
-					  <div class="form-group">
-						  <label for="password" class="control-label">Tariff</label>
-<?php 
-
-$onejobormultiplesessions_array = array(
-'1'=>'Day Rate',
-'2'=>'Half Day Rate',
-'3'=>'Hourly Rate',
-'4'=>'Duty Doctor',
-'5'=>'Salaried Position'
-);
-?>
-					<select id="onejobormultiplesessions" name="onejobormultiplesessions" class="form-control ff1">
-							<option value=""> Select</option>
- 							<?php
-								for($mt=1;$mt<=count($onejobormultiplesessions_array);$mt++){
-							?>
-						 	  <option value="<?php echo $mt;?>"  <?php if($_POST['onejobormultiplesessions'] == $mt) echo 'selected'?>><?php echo $onejobormultiplesessions_array[$mt];?></option>
-							<?php
-							}	
-							?>
-						 
- 				     </select>
- 
-						 
-					  </div>
+				
 					 
 
 			 <div class="form-group">

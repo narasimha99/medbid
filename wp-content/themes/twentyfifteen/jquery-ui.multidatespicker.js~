@@ -462,13 +462,15 @@
 						//var dateranges = myStringdate.replace("<?php echo $_POST['#session_date_range'];?>", "");
 						var  distance = jQuery("#distance").val();
 						var  zipcode = jQuery("#zipcode").val();
+						var phourlyrate = $("#hourlyrate" ).val();	
+
 						jQuery("#loadingdiv").show();
 
   						jQuery.when($.ajax(
 								{ url:purl,
 								  method: "POST",	
 								  dataType: 'text',
-								  data:{dateranges:dateranges,zipcode:zipcode,distance:distance}
+						  data:{dateranges:dateranges,zipcode:zipcode,distance:distance,hourlyrate:phourlyrate}
 								})).done(function( data ) {
  
 						  $("#getjobsdiv").html( data );

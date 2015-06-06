@@ -1,8 +1,13 @@
 <?php
 class Job extends MvcModel {
- var $has_many = array('Jobsession');
- //var $includes = array('Jobsession');
- //var $Joins = array('Jobsession');
-//var $has_many = array('Jobsession' => array('local_key' => 'id', 'foreign_key' => 'job_id'));
+    var $display_field = 'name';
+   //var $includes = array('Jobsession');
+  var $has_many = array('Jobsession');
+  //var $join_table = array("Jobsession");
+
+ /*   var $has_and_belongs_to_many = array(
+		'Jobsession' => array('fields' => array('id', 'session_starttime', 'session_endtime','hourlyrate')
+	));
+*/
 }
 ?>

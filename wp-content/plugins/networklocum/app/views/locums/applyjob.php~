@@ -60,7 +60,7 @@ $templtpath= get_template_directory_uri();
 
 <tr>
 <td>&nbsp;</td>
-<td> Practicer details : <input type="text" name="practicer_id" value="<?php echo $practicerdetails->user_id;?>"/> <?php echo $practicerdetails->practice_code.','.$practicerdetails->practicename; ?> </td>
+<td> Practicer details : <input type="hidden" name="practicer_id" value="<?php echo $practicerdetails->user_id;?>"/> <?php echo $practicerdetails->practice_code.','.$practicerdetails->practicename; ?> </td>
 <td>&nbsp; </td>
 <td> No of sessions : <?php echo $jobdetails->no_of_sessions; ?> </td>
 </tr>
@@ -142,14 +142,14 @@ $j = $j + 1;
 
 
 			 <div class="form-group">
-			  <label for="password" class="control-label">Number of Patients?</label>
-	 			 <?php echo $jobdetails->number_of_patients;?>
-	 		</div>
+			  <label for="password" class="control-label">Number of Patients</label>
+				<input type="text" name="number_of_patients"  value=" <?php echo $jobdetails->number_of_patients;?>"/>	 		
+		 		</div>
 
 			 
 			 <div class="form-group">
 			 <label for="password" class="control-label">Number of Telephone consultations?</label>
-	 			<?php echo $jobdetails->number_of_telephoneconsultations;?>
+	 			<input type="text" name="number_of_telephoneconsultations"  value=" <?php echo $jobdetails->number_of_telephoneconsultations;?>"/>	
   			</div>
 
 			 <div class="form-group">

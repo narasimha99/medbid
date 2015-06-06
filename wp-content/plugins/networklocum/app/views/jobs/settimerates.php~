@@ -3,7 +3,12 @@
 ?>
 
 <script>
+
+
 jQuery( document ).ready(function() {
+
+$("#trafic_rate").text('Hourly rate');
+
  
 $(".session_date").datepicker(
 	{
@@ -17,6 +22,24 @@ $(".session_date").datepicker(
  	
  }
 );
+
+
+var onejobormultiplesessions_array = {
+	'1':'Day Rate',
+	'2':'Half Day Rate',
+	'3':'Hourly Rate',
+	'4':'Duty Doctor',
+	'5':'Salaried Position'
+	};	
+
+$("#onejobormultiplesessions").change(function() {
+ 
+	// var optionSelected = $("option:selected", this);
+	 var valueSelected = this.value;
+	//alert("Handler for .change() called."+onejobormultiplesessions_array[valueSelected]);
+	$("#trafic_rate").text(onejobormultiplesessions_array[valueSelected]);
+});
+
  
 });
 </script>
@@ -74,8 +97,38 @@ $sessiondate = $_POST['session_date'][1];
 
 <table id="<?php echo 'TABLEsessionday'.$i;?>" class="table" >
 
+<tr> 
+<td colspan="6">
+
+	 <label for="password" class="control-label">Tariff</label>
+	<?php 
+	$onejobormultiplesessions_array = array(
+	'1'=>'Day Rate',
+	'2'=>'Half Day Rate',
+	'3'=>'Hourly Rate',
+	'4'=>'Duty Doctor',
+	'5'=>'Salaried Position'
+	);
+	?>
+	<select id="onejobormultiplesessions" name="onejobormultiplesessions" class="form-control ff1" >
+	<option value=""> Select</option>
+	<?php
+	for($mt=1;$mt<=count($onejobormultiplesessions_array);$mt++){
+	?>
+	<option value="<?php echo $mt;?>"  <?php if($_POST['onejobormultiplesessions'] == $mt) echo 'selected'?>><?php echo $onejobormultiplesessions_array[$mt];?></option>
+	<?php
+	}	
+	?>
+
+	</select>
+
+
+
+</td>
+</tr>
+
 <tr>
-<td colspan="2"><input type="text"  class="session_date" id="<?php echo 'session_date_'.$i;?>" name="session_date[<?php echo $i;?>]" value="<?php echo $sessiondate;?>" placeholder='pick your date'/>    <span id="errspan_session_date_range" class="errorspan"></span> </td>
+<td colspan="2"> <label> Date  : </label> <input type="text"  class="session_date" id="<?php echo 'session_date_'.$i;?>" name="session_date[<?php echo $i;?>]" value="<?php echo $sessiondate;?>" placeholder='pick your date'/>    <span id="errspan_session_date_range" class="errorspan"></span> </td>
 <td colspan="2"><input type='button' name="add" id="<?php echo 'add'.$i;?>" value="add more sessions" onclick="addsession(<?php echo $i;?>);"/> </td>
 <td colspan="2"><input type='button' name="delete" id="<?php echo 'delete'.$i;?>" value="Delete day" onclick="deletedate(<?php echo $i;?>);"/>  </td>
 </tr>
@@ -84,9 +137,8 @@ $sessiondate = $_POST['session_date'][1];
 <tr>
 <th>Sart Time</th>
 <th>End Time</th>
-<th>Hourly rate £</th>
+<th><span id="trafic_rate"></span> £</th>
 <th>Pay to locum </th>
-<th>Medbid Locum fees</th>
 <th>&nbsp;</th>
 </tr>
  
@@ -101,10 +153,11 @@ $sessiondate = $_POST['session_date'][1];
 <td> <input type="text"   class="time end" name="session_endtime[<?php echo $i;?>][1]" id="<?php echo 'session_endtime_'.$i.'_1';?>"  value="<?php echo $_POST['session_endtime'][$i][1];?>"    />  </td>
 <td> <input type="text" name="hourlyrate[<?php echo $i;?>][1]" id="<?php echo 'hourlyrate_'.$i.'_1';?>" myid="<?php echo '_'.$i.'_1';?>" value="<?php echo $_POST['hourlyrate'][$i][1];?>"   onblur="gethourlyrate(<?php echo $i;?>,1)"  placeholder='eg: 80.00' /> </td>
 
-<td> <input type="text" readonly name="paytolocum[<?php echo $i;?>][1]" id="<?php echo 'paytolocum_'.$i.'_1';?>" value="<?php echo $_POST['paytolocum'][$i][1];?>"  /> </td>
+<td> <input type="text" readonly name="paytolocum[<?php echo $i;?>][1]" id="<?php echo 'paytolocum_'.$i.'_1';?>" value="<?php echo $_POST['paytolocum'][$i][1];?>"  /> 
 
+<input type="hidden" readonly name="medbidfee[<?php echo $i;?>][1]" id="<?php echo 'medbidfee_'.$i.'_1';?>" value="<?php echo $_POST['medbidfee'][$i][1];?>"  /> 
 
-<td> <input type="text" readonly name="medbidfee[<?php echo $i;?>][1]" id="<?php echo 'medbidfee_'.$i.'_1';?>" value="<?php echo $_POST['medbidfee'][$i][1];?>"  /> </td>
+</td>
 
 
 <td> 

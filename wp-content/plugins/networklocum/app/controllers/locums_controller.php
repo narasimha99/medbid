@@ -158,7 +158,7 @@ class LocumsController extends MvcPublicController {
  	public function applyjob(){
 		$this->set('mylayout', 'client');
 
-				$this->set('mylayout', 'client');
+		$this->set('mylayout', 'client');
 		$this->load_model('Job');
 		$this->load_model('Jobsession');
 		$job_id = $this->params['id'];
@@ -202,14 +202,16 @@ class LocumsController extends MvcPublicController {
 		$home_visits = $_POST['home_visits'];
 		$bloods = $_POST['bloods'];
 		$pension_included = $_POST['pension_included'];
-
+		$number_of_patients = $_POST['number_of_patients'];
+		$number_of_telephoneconsultations = $_POST['number_of_telephoneconsultations'];
+		
 
 	  	$user_id = get_current_user_id();
 		//echo "<pre>"; print_r($jobdetails); echo "</pre>";
 		if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
 		
 		 $job_id = $_POST['job_id'];
-		   $sql_appjob = "INSERT INTO  wp_appliedjobs(locum_id,practicer_id,job_id,paperwork,referrals,home_visits,bloods,pension_included)VALUES($user_id,$practicer_id,$job_id,$paperwork,$referrals,$home_visits,$bloods,$pension_included)";
+		   $sql_appjob = "INSERT INTO  wp_appliedjobs(locum_id,practicer_id,job_id,paperwork,referrals,home_visits,bloods,pension_included,number_of_patients,number_of_telephoneconsultations)VALUES($user_id,$practicer_id,$job_id,$paperwork,$referrals,$home_visits,$bloods,$pension_included,$number_of_patients,$number_of_telephoneconsultations)";
 		$wpdb->query($sql_appjob);
 
 

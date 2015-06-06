@@ -564,30 +564,10 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
 	public function getjobs(){
 
 		$this->set('mylayout', 'empty');	
- 		
-		$this->load_model('Job');
-		$this->load_model('Jobsession');
-		//_r($_POST);
-
-		$datepicker=0;
-		$condStr="";
-		if(strlen(trim($_POST['dateranges']))>0)
-		$dateranges = explode(",",$_POST['dateranges']);
-		else
-		$dateranges = array();
-
-		//print_r($dateranges);
-		//echo count($dateranges);
-		if(count($dateranges)>0){
-	 		for($i=0;$i<count($dateranges)-1;$i++){
-	 		 	$condStr = $condStr . "  DATE(Job.session_date_range) = '$dateranges[$i]' ";
-				$condStr = $condStr . " OR ";
- 			}
-			$condStr = $condStr . "  DATE(Job.session_date_range) = '$dateranges[$i]' ";
-			$datepicker=1;
-		}
-		//$condStr= $condStr . "  1 = 1  ";
-
+ 		 
+		
+		//echo "<pre>";	print_r($_POST); echo "</pre>";
+	
 		//echo $condStr;
 		$zipcoderesults = 0;
  
@@ -600,7 +580,7 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
                     //if found, set variables
                     $row =  $rs[0];
                     $lat1 = $row->latitude;
-                   $lon1 = $row->longitude;
+                    $lon1 = $row->longitude;
                     $d = $_POST['distance'];
                     //earth's radius in miles
                     $r = 3959;
@@ -617,50 +597,90 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
  
                     //find all coordinates within the search square's area
 	
-		 $zipConditions =  "(Job.latitude <= $latN AND Job.latitude >= $latS AND Job.longitude <= $lonE
-				 AND Job.longitude >= $lonW) AND (Job.latitude != $lat1 AND Job.longitude != $lon1) AND Job.city_id != ''";
+		 $zipConditions =  " AND (job.latitude <= $latN AND job.latitude >= $latS AND job.longitude <= $lonE
+				 AND job.longitude >= $lonW) AND (job.latitude != $lat1 AND job.longitude != $lon1) AND job.city_id != ''";
 			$zipcoderesults=1;
   
-
             	}
       
-  		$params = $this->params;
- 		//$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-		//$params['join_table'] = array('Jobsession');
-		//$params['include'] = array('Jobsession');
+   
+
+		$queryConditionString = "";
 	
+
+		if (isset($_POST['hourlyrate'])){
+			//echo 'hourlyrate ';
+
+ 			$phourlyrate = str_replace("£"," ",$_POST['hourlyrate']);
+			$phourlyrate = trim($phourlyrate); 
+			$phourlyrateArray = explode('-',$phourlyrate);
 	
-		if ( $zipcoderesults == 1  && $datepicker == 1 ){
-		
- 		   $params['conditions'] = $condStr . ' AND ' . $zipConditions;
- 		   echo  "zipcodes  and dates ";
- 		} else if ( $datepicker == 1 && $zipcoderesults == 0 )  {
-			echo "date picker =1";
-			$params['conditions'] =  $condStr;
-		} else if ( $zipcoderesults == 1  && $datepicker == 0 ){
-			$params['conditions'] = $zipConditions;
-			echo  "zipcodes ";
+			 $queryConditionString = " WHERE jobsession.hourlyrate >= ".$phourlyrateArray[0] . " AND jobsession.hourlyrate <=".$phourlyrateArray[1];  
+ 		}
+ 
+		if (isset($_POST['tariff'])){
+			//echo ' tariff ';
+  		 	 $queryConditionString .= " AND job.onejobormultiplesessions = ".$_POST['tariff'];
+ 		}
+
+ 
+		$datepicker=0;
+		$condStr="";
+		if(strlen(trim($_POST['dateranges']))>0)
+		$dateranges = explode(",",$_POST['dateranges']);
+		else
+		$dateranges = array();
+
+		//print_r($dateranges);
+		//echo count($dateranges);
+		if(count($dateranges)>0){ 
+			$condStr = " AND ( ";
+	 		for($i=0;$i<count($dateranges)-1;$i++){
+	 		 	$condStr = $condStr . "  DATE(job.session_date_range) = '$dateranges[$i]' ";
+				$condStr = $condStr . " OR ";
+ 			}
+			$condStr = $condStr . "  DATE(job.session_date_range) = '$dateranges[$i]' ";
+			$datepicker=1;
+			$condStr = $condStr. " ) ";
 		}
 		 
+		
+		if ( $zipcoderesults == 1  && $datepicker == 1 ){
+		   $queryConditionString.=  $condStr . $zipConditions;
+ 		 //  echo  "zipcodes  and dates ";
+ 		} else if ( $datepicker == 1 && $zipcoderesults == 0 )  {
+			echo "date picker = 1";
+			//$queryConditionString .=  $condStr;
+		} else if ( $zipcoderesults == 1  && $datepicker == 0 ){
+			$queryConditionString .=   $zipConditions;
+			//echo  "zipcodes ";
+		}
+		
+		
+
+
+       $queryLast = "SELECT job.postcode,job.location,job.city_id,job.state_id,job.no_of_sessions, jobsession.hourlyrate,jobsession.session_starttime,jobsession.session_endtime FROM wp_jobs AS job JOIN wp_jobsessions AS jobsession ON job.id = jobsession.job_id  $queryConditionString    ORDER BY job.session_date_range, job.state_id, job.city_id, job.latitude, job.longitude ";
  
-   		//print_r($params);	
-		$params['order'] = 'Job.session_date_range DESC';
-		$collection = $this->Job->find($params);
-		$this->set('joblists', $collection);
-		//$this->set_pagination($collection);
-		//echo "<pre>";	print_r($collection); echo "</pre>"; 
+	global $wpdb;
+	$results =  $wpdb->get_results($queryLast);
+	//echo "<pre>"; print_r($results); echo "</pre>";
+	$this->set('joblists', $results);
 
-         	  
-
-	}
+ 	}
 
 	public function findjob(){
+
+
+ 		$this->load_model('Job');
 		
+		global $wpdb;
+
+   
 		//$_POST[zipcode]='35042';
 		//echo "<pre>";
 		$this->load_model('Job');
 		$this->load_model('Jobsession');
-		
+		//echo "<pre>"; print_r($this->Jobsession); echo "</pre>";
 		//print_r($_POST);
 
 		//if(isset($_POST['submit'])) {
@@ -706,10 +726,9 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
  
                     //find all coordinates within the search square's area
                     //exclude the starting point and any empty city_id values
-                    $query = "SELECT * FROM wp_jobs WHERE (latitude <= $latN AND latitude >= $latS AND longitude <= $lonE AND longitude >= $lonW) AND (latitude != $lat1 AND longitude != $lon1) AND city_id != '' ORDER BY state_id, city_id, latitude, longitude";
-		      
+                    
 
-$this->load_model('Job');
+		$this->load_model('Job');
 		 
 		global $wpdb;
 
@@ -720,8 +739,8 @@ $this->load_model('Job');
 		$params = $this->params;
 
 		//$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-		//$params['join_table'] = array('Jobsession');
-		//$params['include'] = array('Jobsession');
+		$params['joins'] = array('Jobsession');
+		$params['includes'] = array('Jobsession');
 	  
 		if ( $zipcoderesults == 1 ){
 		$params['conditions'] = "(Job.latitude <= $latN AND Job.latitude >= $latS AND Job.longitude <= $lonE AND Job.longitude >= $lonW) AND (Job.latitude != $lat1 AND Job.longitude != $lon1) AND Job.city_id != ''";
@@ -730,27 +749,37 @@ $this->load_model('Job');
 		if ( $datepicker == 1 )  {
 			$params['conditions'] = $condStr;
 		}
-
+	
+		
 
 		$collection = $this->Job->find($params);
 		$this->set('joblists', $collection);
 		//$this->set_pagination($collection);
-		//echo "<pre>";	print_r($collection); echo "</pre>"; 
+		echo "<pre>";	print_r($collection); echo "</pre>"; 
 
        
     		              //output all matches to screen
 		}
 		else {
-		 	 
-		 
-		    $params = $this->params;
-		    $params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-		    $params['order'] = 'Job.createddate DESC';
-		    //$params['conditions'] = array('is_public' => true);
-		    $collection = $this->Job->paginate($params);
-		   //echo "<pre>"; print_r($collection); echo "</pre>";
-		    $this->set('joblists', $collection['objects']);
- 		    $this->set_pagination($collection);
+		 	
+ 
+
+			$params = $this->params;
+			$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+			$params['order'] = 'Job.createddate DESC';
+			// $params['conditions']  = 'Jobsession.hourlyrate=123';
+			$params['includes'] = array('Jobsession');
+			$params['join_table'] = array('Jobsession');
+
+
+			//'selects' => array('Venue.id');
+
+			//$params['conditions'] = array('is_public' => true);
+			$collection = $this->Job->paginate($params);
+			//echo "<pre>"; print_r($collection); echo "</pre>";
+
+			$this->set('joblists', $collection['objects']);
+			$this->set_pagination($collection);
 		 
 		}  
 	}

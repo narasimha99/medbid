@@ -24,7 +24,7 @@
 global $wpdb;
 if ( is_user_logged_in() ) {
     global $current_user;
-//echo "<pre>";		print_r($user_info); echo "</pre>";
+//echo "<pre>";		print_r($current_user); echo "</pre>";
       $first_name = $current_user->user_firstname;
       $last_name = $current_user->last_name;
 
@@ -36,6 +36,7 @@ if ( is_user_logged_in() ) {
   }
  else
  {
+ 
 ?>
 			<li class="tnav"><a class="" href="<?php echo $url.'wp-login.php';?>">Login</a></li>
 <?php
