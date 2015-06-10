@@ -146,6 +146,44 @@ class PracticesController extends MvcPublicController {
 		$this->set('mylayout', 'client');
 	}
 
+	public function acceptyourlocum(){
+		 
+		//print_r($this->params);
+
+		$locum_id = $this->params['locum_id'];
+		$job_id = $this->params['id'];
+	 	global $wpdb;
+
+		$sqlJob = "Update wp_jobs set selected_locum = $locum_id where id = $job_id";
+ 		$wpdb->query($sqlJob);
+
+		//applied_job_status = 1  // selected 
+ 		 
+		$sqlJoblocum = "Update  wp_appliedjobs set applied_job_status = 1 where job_id = $job_id";
+ 		$wpdb->query($sqlJoblocum);
+  		
+	}
+
+	
+	
+	public function rejectlocum(){
+		 
+		//print_r($this->params);
+
+		$locum_id = $this->params['locum_id'];
+		$job_id = $this->params['id'];
+		 
+		global $wpdb;
+
+		 
+
+		//applied_job_status = 2  // Rejected 
+ 		 
+		$sqlJoblocum = "Update  wp_appliedjobs set applied_job_status = 2 where job_id = $job_id";
+ 		$wpdb->query($sqlJoblocum);
+  		
+	}	
+
 
 
 

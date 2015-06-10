@@ -7,19 +7,31 @@
 	<div class="midcol">
 		<div class="container">
 		<div class="row">
-		
-				<div class="aligncenter">
-					<h2 class="text1">Applied Jobs </h2>
-					
-				</div>
-				
-				<div class="col-md-12">
-					
-					<div>
-					<div class="container">
-    <div class="row">
-        <div id="no-more-tables">
-            <table class="col-md-12 table-bordered table-striped table-condensed cf">
+		   <div class="col-md-8">
+		     <h3>My Jobs</h3>
+		     <p>Details of jobs you've been invited to book, pending applications, booked and completed jobs are all found here. It's the one-stop shop to manage your jobs and keep track of what's happening, when.</p>
+		   </div>
+		   <div class="col-md-4">
+		                 <div class="progress-radial progress-40" style="height:50px;">
+				                <div class="overlay">40%</div>
+			             </div>
+		  </div>
+		</div>
+		<div class="row">
+		  	<div class="bs-docs-section" style="margin-top:20px;">
+		  <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+			<ul id="myTab" class="nav nav-tabs" role="tablist">
+			  <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">My Invites</a></li>
+			  <li role="presentation"><a href="#application" role="tab" id="application-tab" data-toggle="tab" aria-controls="application">Applications</a></li>
+			  <li role="presentation"><a href="#booked" role="tab" id="booked-tab" data-toggle="tab" aria-controls="booked">Booked Jobs</a></li>
+			  <li role="presentation"><a href="#completed" role="tab" id="completed-tab" data-toggle="tab" aria-controls="completed">Completed Jobs</a></li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+			  <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+				<p>You have no invitations outstanding.</p>
+			  </div>
+			  <div role="tabpanel" class="tab-pane fade" id="application" aria-labelledby="application-tab">
+				<table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
         			<tr>
 					<th>Job</th>
@@ -56,17 +68,20 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date
 ?>	
         		</tbody>
         	</table>
-        </div>
-    </div>
-
-</div>
-
-<center> <?php echo $this->pagination(); ?> </center>	
-					</div>
-					
-					
-					
+			<center> <?php echo $this->pagination(); ?> </center>	
+			  </div>
+			  <div role="tabpanel" class="tab-pane fade" id="booked" aria-labelledby="booked-tab">
+				<p>You have no booked jobs.</p>
+			  </div>
+			  <div role="tabpanel" class="tab-pane fade" id="completed" aria-labelledby="completed-tab">
+				<p>You have no completed Jobs.</p>			  </div>
 			</div>
+  </div><!-- /example --></div>
+
+
+            <div id="push"></div>
+				
+				
 		</div>  
 	</div>
 	</div>

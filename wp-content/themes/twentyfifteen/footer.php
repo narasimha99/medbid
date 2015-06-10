@@ -26,7 +26,7 @@ $url = esc_url( home_url( '/' ) );
 							<li><a class="" href="<?php echo $url.'/jobs/alljobs';?>">View Jobs</a></li>
 							<li><a class="" href="#">Medi Sign Up</a></li>
 							<li><a class="" href="#">Medi Ts & Cs</a></li>
-							<li><a class="" href="#">Privacy Policy</a></li>
+							<li><a class="" href="<?php echo $url.'/privacy-policy';?>">Privacy Policy</a></li>
 							<li><a class="" href="#">Pensions</a></li>
 							<li><a class="" href="#">Case Studies</a></li>
 						</ul>

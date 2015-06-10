@@ -31,7 +31,7 @@
 					<th>Home Visits</th>
 					<th>Bloods</th>
 					<th>Pension Included?</th>
- 
+ 					<th>&nbsp;</th>
         			</tr>
         		</thead>
         		<tbody>
@@ -42,7 +42,7 @@
 $yenoarray = array('0'=>'No','1'=>'Yes');
  
 foreach($appliedjoblists as $jobsession){
-  
+//echo "Narasimha"; echo "<pre>";  print_r($jobsession); echo "</pre>"; 
 //$jobsessions  = count($job->jobsessions);
 ?>
 					<tr>
@@ -52,17 +52,17 @@ foreach($appliedjoblists as $jobsession){
  
  
 echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date('H:ma', strtotime($jobsession->session_endtime));
+
  
 ?> </td>
 
 <td data-title="Change" class="numeric">£ <?php echo $jobsession->hourlyrate; ?> </td>
-
 <td data-title="Change" class="numeric"> <?php  echo $yenoarray[$jobsession->job_id];  ?> </td>
 <td data-title="Change" class="numeric"> <?php  echo  $yenoarray[$jobobjects[$jobsession->job_id]->referrals]; ?> </td>
 <td data-title="Change" class="numeric"> <?php  echo  $yenoarray[$jobobjects[$jobsession->job_id]->home_visits]; ?> </td>
 <td data-title="Change" class="numeric"> <?php  echo  $yenoarray[$jobobjects[$jobsession->job_id]->bloods]; ?> </td>
 <td data-title="Change" class="numeric"> <?php  echo  $yenoarray[$jobobjects[$jobsession->job_id]->pension_included]; ?> </td>
- 
+<td data-title="Change %" class="numeric"><a href="<?php echo $url.'practices/acceptyourlocum/'.$jobsession->job_id.'/?locum_id='.$jobsession->user_id;?>" class="btn btn-primary aplbtn" title="Accept the locum">Accept</a> <a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Reject">Reject</a> </td>
         		 
         			</tr>
 <?php  

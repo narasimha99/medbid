@@ -42,13 +42,13 @@ class JobsController extends MvcPublicController {
  			 $city_id  = $practicerDetails[0]->city;
 			 $state_id = $practicerDetails[0]->state;
 	
-			 $vallatlong = $this->getLnt($postcode+$address);
+			 //$vallatlong = $this->getLnt($postcode+$address);
    
 			//echo "Latitude: ".$vallatlong['lat']."<br>";
 			//echo "Longitude: ".$vallatlong['lng']."<br>";
  
- 			$latitude  =  $vallatlong['lat'];  //'51.475306';
-			$longitude =  $vallatlong['lng']; //''-0.375766';
+ 			$latitude  = '51.475306'; // $vallatlong['lat']; 
+			$longitude = '-0.375766'; // $vallatlong['lng']; 
 		
  			$onejobormultiplesessions = $_POST['onejobormultiplesessions'];
 			$required_it_systems = $_POST['required_it_systems'];
@@ -532,8 +532,8 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
  		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
 		$params['joins'] = array('Locum');
 		$params['includes'] = array('Locum');
- 
-		$params['conditions'] = array('practicer_id' =>$user_id);
+ 		$params['conditions'] = array('practicer_id' =>$user_id);
+  		 
  
 		$collection = $this->Appliedsession->paginate($params);
 		//echo "<pre>"; print_r($collection); echo "</pre>";
@@ -545,12 +545,12 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
 		$this->set_pagination($collection);
 
 		$this->load_model("Appliedjob");
-		$objects = $this->Appliedjob->find(array('conditions' => array('Appliedjob.practicer_id'=>$user_id)));
+		$objects = $this->Appliedjob->find(array('conditions' => array('Appliedjob.practicer_id'=>$user_id,'applied_job_status'=>'0' )));
 		$dataarryjobs = array();		
 		foreach($objects as $object){
 			$dataarryjobs[$object->job_id]  = $object;
 		} 
-			//echo "<pre>";print_r($dataarryjobs); echo "</pre>";
+	   	//echo "<pre>";print_r($dataarryjobs); echo "</pre>";
 		
 		$this->set('jobobjects', $dataarryjobs);
  	}
@@ -649,8 +649,8 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
 		   $queryConditionString.=  $condStr . $zipConditions;
  		 //  echo  "zipcodes  and dates ";
  		} else if ( $datepicker == 1 && $zipcoderesults == 0 )  {
-			echo "date picker = 1";
-			//$queryConditionString .=  $condStr;
+			//echo "date picker = 1";
+			$queryConditionString .=  $condStr;
 		} else if ( $zipcoderesults == 1  && $datepicker == 0 ){
 			$queryConditionString .=   $zipConditions;
 			//echo  "zipcodes ";

@@ -5,8 +5,9 @@
 @import url(http://fonts.googleapis.com/css?family=Maven+Pro:400,500,700,900);
 
 
-body{ font-family: 'Maven Pro', sans-serif;
-color:#2c2c2c; font-weight:400; font-size:17px;
+body{ /*font-family: 'Maven Pro', sans-serif;*/
+font-family: Arial, Helvetica, sans-serif;
+color:#2c2c2c; font-weight:400; font-size:14px;
 }
 
 ul,li,h1,h2,h3,h4,h5,p{ margin:0px; padding:0px;}
@@ -285,13 +286,24 @@ border-radius: 3px;}
 .sicons2{background:#1C1C1C !important;   float: right;}
 
 .mtfont{font-size:25px; margin-bottom:30px;}
-.midcol{margin-top: 96px; background:#fff;  padding:48px 0px;}
+.midcol{margin-top: 50px; background:#fff;  padding:48px 0px;}
 
 
 .logbody{
   width: 80%;}
 .logbody2 {
-  padding: 10px;
+  /*padding: 10px;
+  border:1px solid #e3e3e3;
+*/  
+    background-color: white;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    min-height: 20px;
+    padding: 30px;
+ 
 }
 .boxshadow {
   background: #fff;
@@ -299,9 +311,9 @@ border-radius: 3px;}
   border: 0px;
 }
 .ff1 {
-  height: 47px;
+  /*height: 47px;*/
   font-size: 16px;
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
 }
 
 .sbtn {
@@ -311,6 +323,7 @@ border-radius: 3px;}
   font-size: 17px;
   font-weight: 600;
   letter-spacing: -0.5px;
+  margin-top:10px;
 }
 
 .minbox{margin:0px;}
@@ -816,6 +829,150 @@ background-image: url('../images/error.png');
     }
 
 }
+
+
+
+/* new css 14-03-2014 */
+
+.gps {
+  overflow: auto;
+  margin-top: -47px;
+  padding: 20px 0px;
+  text-align: center;
+  box-shadow: 0 5px 5px #eee;
+}
+.dashbg {
+  background: #F9F9F9;
+  margin-top: 8px;
+}
+.dashmid{border: 1px solid #E8E8E8; margin:30px 0px;
+background-color: #fff;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;}
+.dashmidh {
+  background: #62BFE1;
+    padding: 20px;
+	  overflow: auto;
+  -webkit-border-radius: 5px 5px 0px 0px;
+-moz-border-radius: 5px 5px 0px 0px;
+border-radius: 5px 5px 0px 0px;
+}
+
+.dashmidh2 {
+  background: #62BFE1;
+    padding: 20px;
+	  overflow: auto;
+  -webkit-border-radius: 0px 0px 5px 5px;
+-moz-border-radius: 0px 0px 5px 5px;
+border-radius: 0px 0px 5px 5px;
+}
+.dashmidh h2 {
+  float: left;
+  color: #fff;
+  letter-spacing: -1px;
+}
+.dtextpad{padding:20px;}
+
+.disdate {
+  text-align: center;
+  padding: 68px 10px;
+  background: #F5F5F5;
+  color: #333;
+  margin-bottom:20px;
+  height: 292px;
+  border: 1px solid #DDD;
+  -webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+}
+.disdate h2 {
+  font-size: 106px;
+  letter-spacing: -6px;
+}
+.disdate h3 {
+  font-size: 17px;
+}
+
+/*Suresh Kumar styles    */
+.disdate_up {
+  text-align: center;
+  padding: 40px 10px;
+  background: #F5F5F5;
+  color: #333;
+  margin-bottom:20px;
+  height: 100px;
+  border: 1px solid #DDD;
+  -webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+}
+.disdate_up h2 {
+  font-size: 25px;
+}
+.disdate_up h3 {
+  font-size: 17px;
+}
+
+.pjobs {
+  padding: 20px;
+  text-align: center;
+  background: #62BFE1;
+  width: 32%;
+  margin-right: 1%;
+  float: left;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.progress-40 {
+    background-image: linear-gradient(90deg, #eeeeee 50%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0)), linear-gradient(234deg, #3e75a8 50%, #eeeeee 50%, #eeeeee);
+}
+.progress-radial {
+    background-color: #3e75a8;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    float: none;
+    height: 200px;
+    margin: 0 auto;
+    position: relative;
+    width: 200px;
+}
+
+
+
+.pjobs h2 {
+  font-size: 63px;
+}
+.pjobs p{ font-size:15px;}
+
+.tnav2 a {
+  padding: 38px 10px !important;
+  font-size: 18px;
+  color: #fff !important;
+  margin: 0px 1px 0px 0px;
+}
+
+
+
+.text5 {
+  font-size: 23px;
+  font-weight: 400;
+  color: #3bafda;
+  letter-spacing: -1px;
+  margin:20px 0px;
+}
+
+.tab-content {
+  border: 1px solid #DDD;
+  margin-top: -1px;
+  padding: 20px;
+  overflow: auto !important;
+}
+
+.panel-title{ font-size:22px; letter-spacing:-1px;}
+
 
 
 
