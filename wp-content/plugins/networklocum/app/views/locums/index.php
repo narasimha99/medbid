@@ -21,7 +21,11 @@ $templtpath= get_template_directory_uri();
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
+<<<<<<< HEAD
 									<h3><a href="<?php echo  $url.'locums/uploaddocuments/2'; ?>">Medical Indemnity</a></h3>
+=======
+									<h3>Medical Indemnity</h3>
+>>>>>>> 393c7cccbbfe0a80fe53f4c20ebe652c2b23de96
 								</div>
 							 </div>
 							 <div class="col-md-4">
