@@ -462,6 +462,7 @@
 						//var dateranges = myStringdate.replace("<?php echo $_POST['#session_date_range'];?>", "");
 						var  distance = jQuery("#distance").val();
 						var  zipcode = jQuery("#zipcode").val();
+						var tariff  = $("#onejobormultiplesessions").val();
 						var phourlyrate = $("#hourlyrate" ).val();	
 
 						jQuery("#loadingdiv").show();

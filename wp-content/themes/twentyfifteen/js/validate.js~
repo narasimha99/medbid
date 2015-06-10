@@ -234,7 +234,7 @@ else
 			//$("#yourTableId tr").length
 
  				 rcount = rcount - 1;	
-  			var k = " <tr id='sessiontime'> <td> <input type='text' class='time start'  id='session_starttime_"+p+"_"+rcount+"' value='0' name='session_starttime["+p+"]["+rcount+"]' placeholder='eg: 09:00' /> </td> <td> <input type='text' class='time end'   name='session_endtime["+p+"]["+rcount+"]' id='session_endtime_"+p+"_"+rcount+"'  placeholder='eg: 17:00'  /> </td> <td> <input     type='text' name='hourlyrate["+p+"]["+rcount+"]' onblur='gethourlyrate("+p+","+rcount+")'  myid='_"+p+"_"+rcount+"'   class='hourlyrate' id='hourlyrate_"+p+"_"+rcount+"'  placeholder='eg: 80.00' />   </td>  <td> <input type='text' readonly name='paytolocum["+p+"]["+rcount+"]' id='paytolocum_"+p+"_"+rcount+"' value='0' /> </td><td> <input type='text' readonly name='medbidfee["+p+"]["+rcount+"]' id='medbidfee_"+p+"_"+rcount+"' value='0' /> </td> <td> <input type='button' class='deltimesession' id='"+rcount+"' onclick='deltimesession(this)'  name='delete' value='delete' /> </td> <td>&nbsp;</td> <td>&nbsp;</td> </tr>"; 
+  			var k = " <tr id='sessiontime'> <td> <input type='text' class='time start'  id='session_starttime_"+p+"_"+rcount+"' value='0' name='session_starttime["+p+"]["+rcount+"]' placeholder='eg: 09:00' /> </td> <td> <input type='text' class='time end'   name='session_endtime["+p+"]["+rcount+"]' id='session_endtime_"+p+"_"+rcount+"'  placeholder='eg: 17:00'  /> </td> <td> <input     type='text' name='hourlyrate["+p+"]["+rcount+"]' onblur='gethourlyrate("+p+","+rcount+")'  myid='_"+p+"_"+rcount+"'   class='hourlyrate' id='hourlyrate_"+p+"_"+rcount+"'  placeholder='eg: 80.00' />   </td>  <td> <input type='text' readonly name='paytolocum["+p+"]["+rcount+"]' id='paytolocum_"+p+"_"+rcount+"' value='0' /> </td><td> <input type='hidden' readonly name='medbidfee["+p+"]["+rcount+"]' id='medbidfee_"+p+"_"+rcount+"' value='0' /> </td> <td> <input type='button' class='deltimesession' id='"+rcount+"' onclick='deltimesession(this)'  name='delete' value='delete' /> </td> <td>&nbsp;</td> <td>&nbsp;</td> </tr>"; 
 			//alert(k);
 			jQuery("#TABLEsessionday"+p).append(k);
 		
@@ -316,6 +316,8 @@ gethourlyrate();
 
 function gethourlyrate(i,j){
 
+		var onejobormultiplesessions = $("#onejobormultiplesessions").val();
+		
  	 
 		// if($(element).attr('myid'))
   		  var myid = "_"+i+"_"+j;
@@ -548,5 +550,32 @@ else
 }
 
 function validatelocumeditprofile(){
-
+return true;
 }
+
+function findajaxcall(){
+		var purl = SITE_ROOT_JS+'jobs/getjobs/';
+		jQuery("#loadingdiv").show();
+		var phourlyrate = $("#hourlyrate" ).val();	
+	 	var dateranges = jQuery("#session_date_range").val();
+		var  distance = jQuery("#distance").val();
+		var  zipcode = jQuery("#zipcode").val();
+		var  zipcode = jQuery("#zipcode").val();
+		var tariff  = $("#onejobormultiplesessions").val();
+	  
+		//alert(purl);
+		//alert(SITE_ROOT_VAR)
+		jQuery("#loadingdiv").show();
+ 		$.ajax({ url:purl,
+			  method: "POST",	
+			  dataType: 'text',
+			  data:{dateranges:dateranges,zipcode:zipcode,distance:distance,hourlyrate:phourlyrate,tariff:tariff}
+	 	}).done(function( data ) {
+
+				  $("#getjobsdiv").html( data );
+				jQuery("#loadingdiv").hide();
+		});
+		
+		
+	}
+ 

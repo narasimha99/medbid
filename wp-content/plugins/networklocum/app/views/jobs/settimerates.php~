@@ -38,9 +38,8 @@ $("#onejobormultiplesessions").change(function() {
 	 var valueSelected = this.value;
 	//alert("Handler for .change() called."+onejobormultiplesessions_array[valueSelected]);
 	$("#trafic_rate").text(onejobormultiplesessions_array[valueSelected]);
+	
 });
-
- 
 });
 </script>
  
@@ -128,7 +127,7 @@ $sessiondate = $_POST['session_date'][1];
 </tr>
 
 <tr>
-<td colspan="2"> <label> Date  : </label> <input type="text"  class="session_date" id="<?php echo 'session_date_'.$i;?>" name="session_date[<?php echo $i;?>]" value="<?php echo $sessiondate;?>" placeholder='pick your date'/>    <span id="errspan_session_date_range" class="errorspan"></span> </td>
+<td colspan="2"> <label> Date : </label> <input type="text"  class="session_date" id="<?php echo 'session_date_'.$i;?>" name="session_date[<?php echo $i;?>]" value="<?php echo $sessiondate;?>" placeholder='pick your date'/>    <span id="errspan_session_date_range" class="errorspan"></span> </td>
 <td colspan="2"><input type='button' name="add" id="<?php echo 'add'.$i;?>" value="add more sessions" onclick="addsession(<?php echo $i;?>);"/> </td>
 <td colspan="2"><input type='button' name="delete" id="<?php echo 'delete'.$i;?>" value="Delete day" onclick="deletedate(<?php echo $i;?>);"/>  </td>
 </tr>

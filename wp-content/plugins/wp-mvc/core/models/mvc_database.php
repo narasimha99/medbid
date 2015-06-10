@@ -45,7 +45,7 @@ class MvcDatabase {
 	
 	private function add_to_log($string) {
 		if ($this->debug) {
-			echo '<pre>'.$string.'</pre>';
+		//	echo '<pre>'.$string.'</pre>';
 		}
 	}
 

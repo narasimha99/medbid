@@ -73,17 +73,7 @@ jQuery( document ).ready(function() {
 	 		include('settimerates.php');
 	 	?> 
 	 		
- 	 
-	 		
-			 
-	 
-					
-				 
-						 
-						
-				
-					 
-
+ 	  
 			 <div class="form-group">
 						  <label for="password" class="control-label">Number of Patients?</label>
 	

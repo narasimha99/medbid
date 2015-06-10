@@ -38,7 +38,7 @@ foreach($appliedjoblists as $jobsession){
 ?>
 					<tr>
         				<td data-title="Code"><?php echo $jobsession->job_id;?></td>
-	       				<td data-title="Code"><?php echo $jobsession->practice->firstname;?></td>
+	       				<td data-title="Code"><?php echo $jobsession->practice->firstname.','.$jobsession->practice->lastname;?></td>
         				<td data-title="Company"><?php 
  
  

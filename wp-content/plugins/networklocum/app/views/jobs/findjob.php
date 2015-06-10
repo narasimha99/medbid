@@ -47,32 +47,7 @@ var purl = SITE_ROOT_JS+'jobs/getjobs/';
 		findajaxcall();
 	});
 
-	function findajaxcall(){
 	
-		jQuery("#loadingdiv").show();
-		var phourlyrate = $("#hourlyrate" ).val();	
-	 	var dateranges = jQuery("#session_date_range").val();
-		var  distance = jQuery("#distance").val();
-		var  zipcode = jQuery("#zipcode").val();
-		var  zipcode = jQuery("#zipcode").val();
-		var tariff  = $("#onejobormultiplesessions").val();
-	  
-		//alert(purl);
-		//alert(SITE_ROOT_VAR)
-		jQuery("#loadingdiv").show();
- 		$.ajax({ url:purl,
-			  method: "POST",	
-			  dataType: 'text',
-			  data:{dateranges:dateranges,zipcode:zipcode,distance:distance,hourlyrate:phourlyrate,tariff:tariff}
-	 	}).done(function( data ) {
-
-				  $("#getjobsdiv").html( data );
-				jQuery("#loadingdiv").hide();
-		});
-		
-		
-	}
- 
 ///////////		
 });
 </script>

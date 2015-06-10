@@ -8,17 +8,14 @@ require ('wp-content/themes/twentyfifteen/header.php');
 		<div class="container">
 		<div class="row">
 				<div class="col-md-12">  
-					<div class="aligncenter">
-						<h2 class="text1">Login</h2>
-						<p style="margin-bottom: 40px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum</p>
-					</div>
-					
 			<div>
 
 				<div id="login-overlay" class="modal-dialog logbody">
 				  <div class="modal-content boxshadow">
 					 
 					  <div class="modal-body logbody2 ">
+					    <h3>Login</h3>
+						<hr/>
 						  <div class="row">
 							  <div class="col-md-6">
 								  <div class="well">
@@ -553,10 +550,10 @@ case 'retrievepassword' :
 ?>
 
 <form name="lostpasswordform" id="lostpasswordform" action="<?php echo esc_url( network_site_url( 'wp-login.php?action=lostpassword', 'login_post' ) ); ?>" method="post">
-	<p>
-		<label for="user_login" ><?php _e('Username or E-mail:') ?><br />
-		<input type="text" name="user_login" id="user_login" class="input" value="<?php echo esc_attr($user_login); ?>" size="20" /></label>
-	</p>
+	<div class="form-group">
+		<label for="user_login" ><?php _e('Username or E-mail:') ?>
+		<input type="text" name="user_login" id="user_login" class="input" value="<?php echo esc_attr($user_login); ?>"  /></label>
+	</div>
 	<?php
 	/**
 	 * Fires inside the lostpassword form tags, before the hidden fields.
@@ -565,7 +562,7 @@ case 'retrievepassword' :
 	 */
 	do_action( 'lostpassword_form' ); ?>
 	<input type="hidden" name="redirect_to" value="<?php echo esc_attr( $redirect_to ); ?>" />
-	<p class="submit"><input type="submit" name="wp-submit" id="wp-submit" class="button button-primary button-large" value="<?php esc_attr_e('Get New Password'); ?>" /></p>
+	<p class="submit"><input type="submit" name="wp-submit" id="wp-submit" class="btn btn-info btn-block sbtn" value="<?php esc_attr_e('Get New Password'); ?>" /></p>
 </form>
 
 <p id="nav">
@@ -575,7 +572,7 @@ if ( get_option( 'users_can_register' ) ) :
 	$registration_url = sprintf( '<a href="%s">%s</a>', esc_url( wp_registration_url() ), __( 'Register' ) );
 
 	/** This filter is documented in wp-includes/general-template.php */
-	echo ' | ' . apply_filters( 'register', $registration_url );
+	//echo ' | ' . apply_filters( 'register', $registration_url );
 endif;
 ?>
 </p>
@@ -648,11 +645,11 @@ case 'rp' :
 
 	<p>
 		<label for="pass1"><?php _e('New password') ?><br />
-		<input type="password" name="pass1" id="pass1" class="input" size="20" value="" autocomplete="off" /></label>
+		<input type="password" name="pass1" id="pass1" class="input"  value="" autocomplete="off" /></label>
 	</p>
 	<p>
 		<label for="pass2"><?php _e('Confirm new password') ?><br />
-		<input type="password" name="pass2" id="pass2" class="input" size="20" value="" autocomplete="off" /></label>
+		<input type="password" name="pass2" id="pass2" class="input"  value="" autocomplete="off" /></label>
 	</p>
 
 	<div id="pass-strength-result" class="hide-if-no-js"><?php _e('Strength indicator'); ?></div>
@@ -736,11 +733,11 @@ case 'register' :
 <form name="registerform" id="registerform" action="<?php echo esc_url( site_url('wp-login.php?action=register', 'login_post') ); ?>" method="post" novalidate="novalidate">
 	<p>
 		<label for="user_login"><?php _e('Username') ?><br />
-		<input type="text" name="user_login" id="user_login" class="input" value="<?php echo esc_attr(wp_unslash($user_login)); ?>" size="20" /></label>
+		<input type="text" name="user_login" id="user_login" class="input" value="<?php echo esc_attr(wp_unslash($user_login)); ?>"  /></label>
 	</p>
 	<p>
 		<label for="user_email"><?php _e('E-mail') ?><br />
-		<input type="email" name="user_email" id="user_email" class="input" value="<?php echo esc_attr( wp_unslash( $user_email ) ); ?>" size="25" /></label>
+		<input type="email" name="user_email" id="user_email" class="input" value="<?php echo esc_attr( wp_unslash( $user_email ) ); ?>"  /></label>
 	</p>
 	<?php
 	/**
@@ -831,7 +828,7 @@ default:
 			<?php if ( $customize_login ) : ?>
 				<script type="text/javascript">setTimeout( function(){ new wp.customize.Messenger({ url: '<?php echo wp_customize_url(); ?>', channel: 'login' }).send('login') }, 1000 );</script>
 			<?php endif; ?>
-			</body></html>
+			
 <?php		exit;
 		}
 
@@ -934,7 +931,7 @@ default:
 		$registration_url = sprintf( '<a href="%s">%s</a>', esc_url( wp_registration_url() ), __( 'Register' ) );
 
 		/** This filter is documented in wp-includes/general-template.php */
-		echo apply_filters( 'register', $registration_url ) . ' | ';
+		//echo apply_filters( 'register', $registration_url ) . ' | ';
 	endif;
 	?>
 	<a href="<?php echo esc_url( wp_lostpassword_url() ); ?>" title="<?php esc_attr_e( 'Password Lost and Found' ); ?>"><?php _e( 'Lost your password?' ); ?></a>
@@ -992,17 +989,17 @@ break;
  </div>
 							  </div>
 							  <div class="col-md-6">
-								  <p class="lead">Register now for <span class="text-success">FREE</span></p>
-								  <ul class="list-unstyled" style="line-height: 2">
-									  <li><span class="fa fa-check text-success"></span> Lorem Ipsum is simply dummy text </li>
-									  <li><span class="fa fa-check text-success"></span> Contrary to popular belief</li>
-									  <li><span class="fa fa-check text-success"></span> The standard chunk of Lorem</li>
-									  <li><span class="fa fa-check text-success"></span> It is a long established fact</li>
-									  <li><span class="fa fa-check text-success"></span> Get a gift <small>(only new customers)</small></li>
-								  </ul>
-								  <p style="margin: 13px 0px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-  <p><a href="<?php echo $url.'locums/locumsignup'; ?>" class="btn btn-success btn-block sbtn">Yes please, register now as locum!</a></p>
-<p><a href="<?php echo $url.'practices/practicesignup'; ?>" class="btn btn-success btn-block sbtn">Yes please, register now as practices!</a></p>
+								  <h1>New to Docum?</h1>
+								  <hr/>
+								  <p>Sign up it's Fast and Easty</p>
+								  <p>Get Started as</p>
+								  <hr/>
+  <div>
+     <div style="float:left; margin-right:20px;"><a href="<?php echo $url.'locums/locumsignup'; ?>" class="btn btn-success btn-block sbtn">Locum</a></div>
+	 <div style="float:left;"><a href="<?php echo $url.'practices/practicesignup'; ?>" class="btn btn-success btn-block sbtn">Practice</a></div>
+	 <div style="clear:both;"></div>
+  </div>
+
 							  </div>
 						  </div>
 					  </div>

@@ -30,7 +30,7 @@ var onejobormultiplesessions_array = {
 	'3':'Hourly Rate',
 	'4':'Duty Doctor',
 	'5':'Salaried Position'
-	};	
+	};		
 
 $("#onejobormultiplesessions").change(function() {
  
@@ -38,9 +38,8 @@ $("#onejobormultiplesessions").change(function() {
 	 var valueSelected = this.value;
 	//alert("Handler for .change() called."+onejobormultiplesessions_array[valueSelected]);
 	$("#trafic_rate").text(onejobormultiplesessions_array[valueSelected]);
+	
 });
-
- 
 });
 </script>
  

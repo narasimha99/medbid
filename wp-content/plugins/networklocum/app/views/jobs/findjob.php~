@@ -201,7 +201,6 @@ $templtpath= get_template_directory_uri();
             style="border:0; color:#b9cd6d; font-weight:bold;">
       </p>
       <div id="slider-3"></div>
-
 	<p>
 	<?php 
 	$onejobormultiplesessions_array = array(
