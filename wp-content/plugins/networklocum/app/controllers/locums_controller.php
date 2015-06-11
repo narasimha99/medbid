@@ -107,9 +107,12 @@ class LocumsController extends MvcPublicController {
 /*
 `certificate_completion_training`, `passports_photo`, `cv`, `crb_chec`, `user_id`, `data[Locumdocument][gmc_certificate]`, `diptheria`, ``, `, `);
 */	
-
+  
+ 
 $lable_array = array("","Medical Indemnity","Certificate of Completion of Training","cv","Criminal Records Bureau Check","Passport's photo page or drivers license","Diptheria","Poliomyelitis","Basic Life Support Certificate","Tuberculosis","Safeguarding Children","My References","Safeguarding Adults","Current Performers List","Hepatitis B","Varicella (Chicken Pox)","Rubella (German Measles)","Information about your last appraisal","Immunisation History","Information Governance Certificates","Right to work in UK","RCGP 1/2 in Substance Misuse","MMR (Mumps Measles Rubella)","My Terms and Conditions","GMC Certificate");
-		//print_r($this->params);
+	$this->set('lable_array',$lable_array);
+	
+	//print_r($this->params);
 	$sId = $_POST['sId'];
 	$selectedfileName  = $documentList[$sId]; //"gmc_certificate";
 	$target_dir = "uploads/";
