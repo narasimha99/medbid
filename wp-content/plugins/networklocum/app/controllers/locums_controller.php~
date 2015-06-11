@@ -99,7 +99,7 @@ class LocumsController extends MvcPublicController {
 	public function uploaddocuments(){
 		$this->set('mylayout', 'client');
 		
-		echo "<pre>"; print_r($_POST); print_r($_FILES); echo "</pre>";
+		//echo "<pre>"; print_r($_POST); print_r($_FILES); echo "</pre>";
 		
 	$documentList = array("","mdu","certificate_completion_training","cv","crb_chec","passports_photo","diptheria","poliomyelitis",
 "basiclifesupport", "tuberculosis", "safeguarding_children", "my_references", "safeguarding_adults", "current_performers_list", "hepatitis_b", "varicella_chicken", "rubella", "last_appraisal", "immunisation_history", "information_governance_certificates", "righttoworkin_uk", "rcgp_substance_misuse", "mmr", "myterms_conditions","gmc_certificate","tetanus");

@@ -2,7 +2,6 @@
 $url = esc_url( home_url( '/' ));
 $templtpath= get_template_directory_uri(); 
 ?>
-
 <div class="midcol">
 <div class="dashbg" style="margin-top: -48px;">
 <div class="container">
@@ -12,9 +11,7 @@ $templtpath= get_template_directory_uri();
 <div class="dashmidh">
 <h2>upload documents</h2>
 </div>
-
  <?php $this->display_flash(); ?>
- 
 <div class="row-fluid">
 	<div>
 		<h1>How to upload documents</h1>
@@ -40,7 +37,7 @@ $templtpath= get_template_directory_uri();
 			<p>Awaiting documents</p>
 			
 			<table class="table table-hover table-striped">
-				
+
 <?php
 
 $sId =  $this->params['id'];
@@ -52,7 +49,7 @@ $sId =  $this->params['id'];
 						<div class="hidden-xs">
 				 			<input type="file" name="<?php echo $documentList[$sId];?>" id="<?php echo $documentList[$sId];?>" />
 						</div>
-					 </td>,"
+					 </td> 
 				</tr>
 				<?php } ?>
  

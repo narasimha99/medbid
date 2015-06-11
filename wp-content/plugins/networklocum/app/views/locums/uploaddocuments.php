@@ -2,7 +2,6 @@
 $url = esc_url( home_url( '/' ));
 $templtpath= get_template_directory_uri(); 
 ?>
-
 <div class="midcol">
 <div class="dashbg" style="margin-top: -48px;">
 <div class="container">
@@ -12,9 +11,7 @@ $templtpath= get_template_directory_uri();
 <div class="dashmidh">
 <h2>upload documents</h2>
 </div>
-
  <?php $this->display_flash(); ?>
- 
 <div class="row-fluid">
 	<div>
 		<h1>How to upload documents</h1>
