@@ -59,7 +59,7 @@ $("#locumsignupnext").submit();
 							</tr>
 							<tr>
 							  <td><a href="<?php echo $url.'locums/changepassword';?>">Change Password</a></td>
-							  <td><a href="<?php echo $url.'locums/accountdetails';?>">Edit Account Details</a></td>
+							  <td><a href="<?php echo $url.'locums/accountdetails';?>">Edit Personal Settings</a></td>
 							  <td>&nbsp;</td>
 							  <td>&nbsp;</td>
 							</tr>
