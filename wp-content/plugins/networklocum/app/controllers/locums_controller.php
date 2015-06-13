@@ -97,6 +97,8 @@ class LocumsController extends MvcPublicController {
 	}
 
 	public function uploaddocuments(){
+		
+//echo "<pre>"; print_r($_SERVER);echo "</pre>";
 		$this->set('mylayout', 'client');
 		
 		//echo "<pre>"; print_r($_POST); print_r($_FILES); echo "</pre>";
@@ -115,12 +117,25 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 	//print_r($this->params);
 	$sId = $_POST['sId'];
 	$selectedfileName  = $documentList[$sId]; //"gmc_certificate";
-	$target_dir = "uploads/";
-	$target_file = $target_dir . basename($_FILES[$selectedfileName]["name"]);
+
+echo	$useriddir =  get_current_user_id();
+	
+	
+	$target_dir = "upload_documents/";
+ 	$target_dir = $target_dir.$useriddir."/";
+ 	if(!is_dir($target_dir)){
+ 		mkdir($target_dir, 777);
+		chmod($upload_dir, 777);
+	}
+
+
+		
+	$target_file = $target_dir . basename($selectedfileName);
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 	// Check if image file is a actual image or fake image
 	if(isset($_POST["submit"])) {
+
 	    $check = getimagesize($_FILES[$selectedfileName]["tmp_name"]);
 	    if($check !== false) {
 		echo "File is an image - " . $check["mime"] . ".";
@@ -129,23 +144,27 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 		echo "File is not an image.";
 		$uploadOk = 0;
 	    }
-	}
+		//$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'index'));
+	 	//$this->redirect($url);
+ 	}
+
 	// Check if file already exists
-	if (file_exists($target_file)) {
-	    echo "Sorry, file already exists.";
-	    $uploadOk = 0;
-	}
+	//if (file_exists($target_file)) {
+	 //   echo "Sorry, file already exists.";
+	//    $uploadOk = 0;
+	//}
+
 	// Check file size
-	if ($_FILES[$selectedfileName]["size"] > 500000) {
-	    echo "Sorry, your file is too large.";
-	    $uploadOk = 0;
-	}
+	//if ($_FILES[$selectedfileName]["size"] > 500000) {
+	//    echo "Sorry, your file is too large.";
+	//    $uploadOk = 0;
+	//}
 	// Allow certain file formats
-	if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-	&& $imageFileType != "gif" ) {
-	    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-	    $uploadOk = 0;
-	}
+	//if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+	//&& $imageFileType != "gif" ) {
+	//    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+	//    $uploadOk = 0;
+	//}
 	// Check if $uploadOk is set to 0 by an error
 	if ($uploadOk == 0) {
 	    echo "Sorry, your file was not uploaded.";
@@ -154,12 +173,30 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 		
 	    if (move_uploaded_file($_FILES[$selectedfileName]["tmp_name"], $target_file)) {
 		echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+		
+		global $wpdb;
+ 		$sqldocs = "Select * from wp_locumdocuments where user_id = $useriddir";
+		$docdetails = $wpdb->get_results($sqldocs);
+ 		if($docdetails){
+			echo 	$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
+			$wpdb->query($sqlUpdate); 
+		}
+		else
+		{
+			echo $sqlUpdate = "INSERT INTO  wp_locumdocuments (user_id,".$selectedfileName.")VALUES(".$useriddir.",1)"; 
+			$this->flash('success', 'Thanks for  Uploading the file we will aprove as soon as.'.$sqlUpdate);
+			$wpdb->query($sqlUpdate); 
+ 		}
+			
+
 	    } else {
 		echo "Sorry, there was an error uploading your file.";
 	    }
 	}
 
- 	}
+	
+ 	
+	}
 	
 	public function editprofile(){
 	
@@ -268,7 +305,7 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 		if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
 		
 		 $job_id = $_POST['job_id'];
-		   $sql_appjob = "INSERT INTO  wp_appliedjobs(locum_id,practicer_id,job_id,paperwork,referrals,home_visits,bloods,pension_included,number_of_patients,number_of_telephoneconsultations)VALUES($user_id,$practicer_id,$job_id,$paperwork,$referrals,$home_visits,$bloods,$pension_included,$number_of_patients,$number_of_telephoneconsultations)";
+		 $sql_appjob = "INSERT INTO  wp_appliedjobs(locum_id,practicer_id,job_id,paperwork,referrals,home_visits,bloods,pension_included,number_of_patients,number_of_telephoneconsultations)VALUES($user_id,$practicer_id,$job_id,$paperwork,$referrals,$home_visits,$bloods,$pension_included,$number_of_patients,$number_of_telephoneconsultations)";
 		$wpdb->query($sql_appjob);
 
 
@@ -336,6 +373,10 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 	
 		$this->set('mylayout', 'client');
 	
+	}
+
+	public function test(){
+
 	}
 }
 

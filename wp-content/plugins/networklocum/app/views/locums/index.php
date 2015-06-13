@@ -16,34 +16,34 @@ $templtpath= get_template_directory_uri();
 						  <div class="row">
 						     <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3><a href="<?php echo  $url.'locums/uploaddocuments/1'; ?>">CV</a></h3>
+									<h3><a href="<?php echo  $url.'locums/uploaddocuments/3'; ?>">CV</a></h3>
 								</div>
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3><a href="#">Medical Indemnity</a></h3>
+									<h3><a href="<?php echo  $url.'locums/uploaddocuments/1'; ?>">Medical Indemnity</a></h3>
 								</div>
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3>Completion of Training</h3>
+									<h3> <a href="<?php echo  $url.'locums/uploaddocuments/2'; ?>">Completion of Training </a></h3>
 								</div>
 							 </div>
 						  </div>
 						  <div class="row">
 						     <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3>Passport</h3>
+									<h3> <a href="<?php echo  $url.'locums/uploaddocuments/3'; ?>">Passport</a></h3>
 								</div>
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3>C R B</h3>
+									<h3><a href="<?php echo  $url.'locums/uploaddocuments/3'; ?>">C R B </a></h3>
 								</div>
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3>Profile Photo</h3>
+							<h3><a href="<?php echo  $url.'locums/uploaddocuments/3'; ?>">Profile Photo</h3>
 								</div>
 							 </div>
 						  </div>

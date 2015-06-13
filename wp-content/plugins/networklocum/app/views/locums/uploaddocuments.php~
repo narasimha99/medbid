@@ -26,7 +26,7 @@ $templtpath= get_template_directory_uri();
 	</p>
 	<div>
 	<form class="form-horizontal" enctype="multipart/form-data" style="border:1px sold green" action="<?php echo $url;?>locums/uploaddocuments"  method="post">
-		<input type="text" name="sId" value="<?php echo $this->params['id'];?>"/>
+		<input type="hidden" name="sId" value="<?php echo $this->params['id'];?>"/>
    
     
 <div class="panel-body">
@@ -38,16 +38,15 @@ $templtpath= get_template_directory_uri();
 			
 			<table class="table table-hover table-striped">
 
-<?php
-
-$sId =  $this->params['id'];
-?>
+			<?php
+			$sId =  $this->params['id'];
+			?>
 			<?php if (isset($this->params['id'])) { ?>
  				<tr> 
 					<td data-label="Type"><?php echo $lable_array[$sId]; ?></td>
   					<td class="xs-full-width-button action-buttons">
 						<div class="hidden-xs">
-				 			<input type="file" name="<?php echo $documentList[$sId];?>" id="<?php echo $documentList[$sId];?>" />
+				 	<input type="file" name="<?php echo $documentList[$sId];?>" id="<?php echo $documentList[$sId];?>" />
 						</div>
 					 </td> 
 				</tr>

@@ -38,7 +38,12 @@
         				<td data-title="Code"> <a href="<?php echo $url.'managers/managecgcodes' ?>">Manage Cgcodes</a> </td>
          			</tr>
 
-        		</tbody>
+				<tr>
+        				<td data-title="Code"> <a href="<?php echo $url.'managers/manageuploadfiles' ?>">Manage Uploaddocuments</a> </td>
+         			</tr>
+			
+
+	       		</tbody>
         	</table>
         </div>
     </div>

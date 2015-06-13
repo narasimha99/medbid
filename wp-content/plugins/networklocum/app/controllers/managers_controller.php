@@ -10,7 +10,7 @@ class ManagersController extends MvcPublicController {
  		$this->set('mylayout', 'client');
 		
 		global $wpdb;	
-	//echo "<pre>";		print_r($this->params); echo "</pre>";
+		//echo "<pre>";		print_r($this->params); echo "</pre>";
 
 		$this->load_model('itsystem');
  		if(isset($this->params['data']['itsystem'])){
@@ -68,6 +68,37 @@ class ManagersController extends MvcPublicController {
  
  	}
  	
+
+	public function  manageuploadfiles(){
+
+ 		$this->set('mylayout', 'client');
+		
+		global $wpdb;	
+		$this->load_model('cgcode');
+ 		if(isset($this->params['data']['cgcode']['ccg_name'])){
+	  		  $this->cgcode->save($this->params['data']['cgcode'])				;
+			  $this->flash('success', 'Successfully Saved');
+		}
+	
+		$id = $this->params['id'];
+	  	$sql = "select id,ccg_name From wp_cgcodes where id=$id";
+		$editccgcode=$wpdb->get_results($sql);
+		//echo "<pre>";print_r($editccgcode);
+		$this->set('editccgcode',$editccgcode['0']);
+
+ 		
+		$params               = $this->params;
+		$params['page']       = empty($this->params['page']) ? 1 : $this->params['page'];
+		$params['selects']    = array('Cgcode.*');
+  		$this->load_model('cgcode');
+		$cgcodelist = $this->cgcode->find();
+ 		//$this->set('cgcodelist',$cgcodelist);
+	 
+		$collection = $this->cgcode->paginate($params);
+  		$this->set('ccgcodelist', $collection['objects']);
+ 		$this->set_pagination($collection);
+ 
+ 	}
 	public function checkemail(){
 
 		$this->set('mylayout', 'empty');	
