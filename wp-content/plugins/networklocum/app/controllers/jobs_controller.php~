@@ -545,7 +545,7 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
 		$this->set_pagination($collection);
 
 		$this->load_model("Appliedjob");
-		$objects = $this->Appliedjob->find(array('conditions' => array('Appliedjob.practicer_id'=>$user_id,'applied_job_status'=>'0' )));
+		$objects = $this->Appliedjob->find(array('conditions' => array('Appliedjob.practicer_id'=>$user_id )));
 		$dataarryjobs = array();		
 		foreach($objects as $object){
 			$dataarryjobs[$object->job_id]  = $object;
@@ -782,6 +782,15 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
 			$this->set_pagination($collection);
 		 
 		}  
+	}
+
+	public function invitelocums(){
+		$fquery="select id,firstname,lastname from wp_locums";
+		global $wpdb;
+		$rs =  $wpdb->get_results($fquery);
+		$this->set('listlocums',$rs);
+		 
+			
 	}
 
 }

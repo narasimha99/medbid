@@ -378,6 +378,10 @@ echo	$useriddir =  get_current_user_id();
 	public function test(){
 
 	}
+	
+	public function setyouravailability(){
+
+	}
 }
 
 ?>

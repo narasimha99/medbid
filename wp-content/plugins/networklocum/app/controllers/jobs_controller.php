@@ -784,5 +784,14 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
 		}  
 	}
 
+	public function invitelocums(){
+		$fquery="select id,firstname,lastname from wp_locums";
+		global $wpdb;
+		$rs =  $wpdb->get_results($fquery);
+		$this->set('listlocums',$rs);
+		 
+			
+	}
+
 }
 ?>

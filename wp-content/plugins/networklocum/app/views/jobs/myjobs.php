@@ -50,7 +50,8 @@ echo ' - £'.$jobsession->hourlyrate;
         				
         				<td data-title="Change %" class="numeric"><a href="<?php echo $url.'jobs/editjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Edit job">Edit job</a></td>
 
-	
+	<td data-title="Change %" class="numeric"><a href="<?php echo $url.'jobs/invitelocums/'.$job->id;?>" class="btn btn-primary aplbtn" title="Invite job">Invite your locums</a></td>
+
         				<td data-title="Change %" class="numeric"><a href="<?php echo $url.'jobs/deletejob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Delete job" onclick="return confirmDelete();">Delete job</a></td>
 
         			</tr>
