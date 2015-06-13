@@ -41,19 +41,29 @@ $("#locumsignupnext").submit();
 		<div class="container">
 		    <div class="row">
 			   <!--- Left hand side Panel Showing the buttons etc -->
-			   <div class="col-md-8">
+			   <div class="col-md-8" >
 			    <div class="container">
-				<h1 style="padding:10px;">Dr. Fayaz Hasham</h1>
-				 <div class="row" style="padding:10px;">
+				<h1 style="">Dr. Fayaz Hasham</h1>
+				 <div class="row">
 				   <div class="col-md-2">
 				      <div><img class="img-circle img-user-config" src="<?php echo  $url.'/upload_pic/'.$profile_image; ?>"></div>
 				   </div>
 				   <div class="col-md-6">
 						 <div>
-							 <span><a href="">Upload Photo</a></span>
-							 <span><a href="">Upload Document</a></span>
-							 <span><a href="">Email Preferences</a></span>
-							 <span><a href="">Edit Profile</a></span>
+						  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin:10px;">
+						    <tr>
+							  <td><a href="<?php echo $url.'upload_crop.php';?>">Upload Photo</a></td>
+							  <td><a href="<?php echo $url.'locums/uploaddocuments';?>">Upload Document</a></td>
+							  <td><a href="">Email Preferences</a></td>
+							  <td><a href="<?php echo $url.'locums/editprofile';?>">Edit Profile</a></td>
+							</tr>
+							<tr>
+							  <td><a href="<?php echo $url.'locums/changepassword';?>">Change Password</a></td>
+							  <td><a href="<?php echo $url.'locums/accountdetails';?>">Edit Account Details</a></td>
+							  <td>&nbsp;</td>
+							  <td>&nbsp;</td>
+							</tr>
+						  </table>
 						 </div>
 						 <div>
 						   <p style="padding:10px;">You haven't written anything about yourself. Writing a brief description of yourself helps practice managers to be more sure of who they're choosing when you apply for jobs.</p>
@@ -69,8 +79,8 @@ $("#locumsignupnext").submit();
 			   <!-- Left Hand side Panel Ends Here --->
 			   <div class="col-md-4">
 			     <div>
-				 <h4>Personal Details</h4>
-				 <table>
+				 <h4 style="margin-bottom:5px;"><strong>Personal Details</strong></h4>
+				 <table class="col-md-12 table-bordered table-striped table-condensed cf" >
 				    <tr>
 					  <td>GMC Number</td>
 					  <td>7006783</td>
@@ -94,10 +104,38 @@ $("#locumsignupnext").submit();
 				 </table>
 				 </div>
 				 <div>
-				   <h4>My Qualifications</h4>
-				   <p>MRCGP</p>
+				   <h4 style="margin-bottom:10px;"><strong>My Qualifications</strong></h4>
+				  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom:10px;">
+				    <tr>
+					  <td>MRCGP</td>
+					</tr>
+				 </table>
 				 </div>
-				 
+				 <div>
+				   <h4 style="margin-bottom:10px;"><strong>Spoken Languages</strong></h4>
+				  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom:10px;">
+				    <tr>
+					  <td>British English</td>
+					</tr>
+				 </table>
+				 </div>
+				  <div>
+				   <h4 style="margin-bottom:10px;"><strong>IT Systems</strong></h4>
+				  <table class="col-md-12 table-bordered table-striped table-condensed cf">
+				    <tr>
+					  <td>System One</td>
+					</tr>
+					 <tr>
+					  <td>Adastra</td>
+					</tr>
+					 <tr>
+					  <td>EMIS LV</td>
+					</tr>
+					 <tr>
+					  <td>EMIS Web</td>
+					</tr>
+				 </table>
+				 </div>
 			   </div>
 			</div>
 		</div>  
