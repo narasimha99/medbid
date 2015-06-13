@@ -12,30 +12,13 @@ $url = esc_url( home_url( '/' ));
 $templtpath= get_template_directory_uri(); 
 ?>
 <!--middle start here-->
- 	<div class="midcol">
-		<div class="dashbg" style="margin-top: -48px;">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="dashmid">
-							<div class="dashmidh">
-								<h2>Edit locum details</h2>
-							</div>
-							
-							
-							
-							<div class="dtextpad">
-							
-							<ol class="breadcrumb">
-							  <li><a href="<?php echo $url.'locums/youraccount';?>">Your Account</a></li>
-							  <li class="active">Edit Locums</li>
-
-								  <?php //echo "in view "; echo "<pre>";print_r($Locumobject); echo "</pre>"; ?>
-								  <div class="row">
-									<div class="col-md-8 col-md-offset-2 ">
-										<div class="bitbox1">
-						
-<form name="locumeditprofile" id="locumeditprofile"   autocomplete="off"  method="post" action="<?php echo $url;?>locums/editprofile" onsubmit="javascript:return validatelocumeditprofile();" enctype="multipart/form-data">
+     <div class="midcol">
+		<div class="container">
+		   <div class="row">
+		      <div class="col-md-12">
+		        <h3><a href="<?php echo $url.'locums/myprofile';?>">My Profile</a> / Edit Profile</h3>
+				<div style="padding:25px;">
+				<form name="locumeditprofile" id="locumeditprofile"   autocomplete="off"  method="post" action="<?php echo $url;?>locums/editprofile" onsubmit="javascript:return validatelocumeditprofile();" enctype="multipart/form-data">
  <?php $this->display_flash(); ?>
  
 				<input type="hidden" name="data[Locum][id]" id="id" value="<?php echo $user_ID;?>" />
@@ -318,29 +301,10 @@ $howoftendoyoupaystaffinvoices_array = array(
 						</div>
 					  
 				  </form>
-					</div>
-									</div>
-
-								
-									
-									
-									
-								  </div>
-								  
-								 					  
-							</div>
-							<div class="dashmidh2">
-								
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		 
-			
-				
-		
-	</div>
+				  </div>
+			  </div>
+		   </div>
+		</div>
+	 </div>	
 	
-	<!--middle end here-->
+<!--middle end here-->
