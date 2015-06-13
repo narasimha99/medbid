@@ -3,27 +3,16 @@ $url = esc_url( home_url( '/' ));
 $templtpath= get_template_directory_uri(); 
 ?>
 <div class="midcol">
-<div class="dashbg" style="margin-top: -48px;">
-<div class="container">
-<div class="row">
-<div class="col-md-12">
-<div class="dashmid">
-<div class="dashmidh">
-<h2>upload documents</h2>
+		<div class="dashbg">
+			<div class="container">
+				<div class="row">
+				    <div class="col-md-6">
+						 <h2> Docum / Upload CV </h2><br/>	
 </div>
  <?php $this->display_flash(); ?>
 <div class="row-fluid">
-	<div>
-		<h1>How to upload documents</h1>
-		<ol>
-			<li>Click "Choose file" button</li>
-			<li>Choose file to upload</li>
-			<li>Click "Upload documents" button</li>
-		</ol>
-	</div>
-	<p>
-		Please upload as many as you can...don't worry you can come back later.
-	</p>
+	
+	
 	<div>
 	<form class="form-horizontal" enctype="multipart/form-data" style="border:1px sold green" action="<?php echo $url;?>locums/uploaddocuments"  method="post">
 		<input type="hidden" name="sId" value="<?php echo $this->params['id'];?>"/>
@@ -32,10 +21,6 @@ $templtpath= get_template_directory_uri();
 <div class="panel-body">
 	<div class="row">
 		<div class="xs-responsive-table">
-			<h4><strong>Documents you need to get approved</strong></h4>
-			
-			<p>Awaiting documents</p>
-			
 			<table class="table table-hover table-striped">
 
 			<?php
@@ -67,8 +52,6 @@ $templtpath= get_template_directory_uri();
 		  
 	</div>
 	</div>
-	</div>
-		  
 	</div>
 	</div>
 		</div>
