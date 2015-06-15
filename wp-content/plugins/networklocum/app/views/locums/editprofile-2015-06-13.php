@@ -12,13 +12,30 @@ $url = esc_url( home_url( '/' ));
 $templtpath= get_template_directory_uri(); 
 ?>
 <!--middle start here-->
-     <div class="midcol">
-		<div class="container">
-		   <div class="row">
-		      <div class="col-md-12">
-		        <h3><a href="<?php echo $url.'locums/myprofile';?>">My Profile</a> / Edit Profile</h3>
-				<div class="bitbox1">
-				<form name="locumeditprofile" id="locumeditprofile"   autocomplete="off"  method="post" action="<?php echo $url;?>locums/editprofile" onsubmit="javascript:return validatelocumeditprofile();" enctype="multipart/form-data">
+ 	<div class="midcol">
+		<div class="dashbg" style="margin-top: -48px;">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="dashmid">
+							<div class="dashmidh">
+								<h2>Edit locum details</h2>
+							</div>
+							
+							
+							
+							<div class="dtextpad">
+							
+							<ol class="breadcrumb">
+							  <li><a href="<?php echo $url.'locums/youraccount';?>">Your Account</a></li>
+							  <li class="active">Edit Locums</li>
+
+								  <?php //echo "in view "; echo "<pre>";print_r($Locumobject); echo "</pre>"; ?>
+								  <div class="row">
+									<div class="col-md-8 col-md-offset-2 ">
+										<div class="bitbox1">
+						
+<form name="locumeditprofile" id="locumeditprofile"   autocomplete="off"  method="post" action="<?php echo $url;?>locums/editprofile" onsubmit="javascript:return validatelocumeditprofile();" enctype="multipart/form-data">
  <?php $this->display_flash(); ?>
  
 				<input type="hidden" name="data[Locum][id]" id="id" value="<?php echo $user_ID;?>" />
@@ -66,12 +83,6 @@ $templtpath= get_template_directory_uri();
 						 <span class="errorspan" id="errspan_city"></span>
 					  </div>
 
-
-<div class="form-group">
-<label for="username" class="control-label">Postcode</label>
-<input type="text" class="form-control ff1" id="postcode" name="data[Locum][postcode]" value="<?php echo $_POST['data']['Locum']['postcode'];?>"  title="Please enter your postcode" 	  placeholder="enter your postcode"/>
-<span class="errorspan" id="errspan_postcode"></span>
-</div>
 
 
 
@@ -243,9 +254,8 @@ $howoftendoyoupaystaffinvoices_array = array(
 
 				   
 	<div class="form-group">
-<label for="username" class="control-label">Email</label>
-
-<input type="text" class="form-control ff1" id="email" name="data[Locum][email]" value="<?php echo $_POST['data']['Locum']['email'];?>"  				title="Please enter you username" 	  placeholder="Your Email Address" />
+	<label for="username" class="control-label">Email</label>
+	<input type="text" class="form-control ff1" id="email" name="data[Locum][email]" value="<?php echo $_POST['data']['Locum']['email'];?>"  				title="Please enter you username" 	  placeholder="Your Email Address" />
 	<span class="errorspan" id="errspan_email"></span>
 	</div>
 	<div class="form-group">
@@ -271,6 +281,11 @@ $howoftendoyoupaystaffinvoices_array = array(
 <span class="errorspan" id="errspan_gmc_number"></span>
  </div>
  
+<div class="form-group">
+ <label for="username" class="control-label">Postcode</label>
+<input type="text" class="form-control ff1" id="postcode" name="data[Locum][postcode]" value="<?php echo $_POST['data']['Locum']['postcode'];?>"  title="Please enter your postcode" 	  placeholder="enter your postcode"/>
+<span class="errorspan" id="errspan_postcode"></span>
+ </div>
 
 <div class="form-group">
  <label for="username" class="control-label">Phone number</label>
@@ -303,11 +318,13 @@ $howoftendoyoupaystaffinvoices_array = array(
 						</div>
 					  
 				  </form>
-<<<<<<< HEAD
 					</div>
 									</div>
 
-						 			
+								
+									
+									
+									
 								  </div>
 								  
 								 					  
@@ -325,12 +342,5 @@ $howoftendoyoupaystaffinvoices_array = array(
 				
 		
 	</div>
-=======
-				  </div>
-			  </div>
-		   </div>
-		</div>
-	 </div>	
->>>>>>> ea7788018ffbebe6a051e301c67b566a6606945f
 	
-<!--middle end here-->
+	<!--middle end here-->
