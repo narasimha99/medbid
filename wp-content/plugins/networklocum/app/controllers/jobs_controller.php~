@@ -5,6 +5,25 @@ class JobsController extends MvcPublicController {
 		$this->set('mylayout', 'client');	
   	}
 
+
+	public function getLatLong($zipaddress){
+
+	echo	ini_get('allow_url_fopen');
+
+		echo	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".
+urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
+	//$url  = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCJD86bI1Bjvs-iVFKHmM8A0D7CAYz0ylA";
+		$result_string = file_get_contents($url);
+ 
+ 		$result = json_decode($result_string, true);
+		$result1[]=$result['results'][0];
+		$result2[]=$result1[0]['geometry'];
+		$result3[]=$result2[0]['location'];
+		
+		 echo "<pre>"; print_r($result); echo "</pre>";
+
+		return $result3[0];
+	}
 	public function  publicjobcreate(){
 
 		global $wpdb;
@@ -35,7 +54,7 @@ class JobsController extends MvcPublicController {
 			
 			
 			//$location = "Hounslow, London";
-			//$postcode='SW13 9HB';
+			
 			 $practicerDetails = $this->Practice->find_by_user_id($user_id);
    			 $postcode = $practicerDetails[0]->postcode;
 		   	 $address  = $practicerDetails[0]->address;
@@ -239,25 +258,13 @@ class JobsController extends MvcPublicController {
  		//$this->set('joblists', $Jobdetails);
   	
  	}
-	
-	
- 
-	function getLnt($zipaddress){
-	echo	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".
-urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
-	//$url  = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
-		$result_string = file_get_contents($url);
-		$result = json_decode($result_string, true);
-		$result1[]=$result['results'][0];
-		$result2[]=$result1[0]['geometry'];
-		$result3[]=$result2[0]['location'];
-		echo "<pre>"; print_r($result); echo "</pre>";
-
-		return $result3[0];
-	}
+	 
 	
 	function temp() {
 		$this->set('mylayout', 'client');
+		$postcode='SW13 9HB';		
+		$vallatlong = $this->getLatLong($postcode);
+
  	}
 	
 	function myjobs(){
@@ -318,12 +325,12 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
 			$location = "Hounslow, London";
 			$postcode='SW13 9HB';
 	
-			//$vallatlong = $this->getLnt($postcode);
+			$vallatlong = $this->getLatLong($postcode);
 			// echo "Latitude: ".$vallatlong['lat']."<br>";
 			//echo "Longitude: ".$vallatlong['lng']."<br>";
 
-			$latitude  = '51.475306'; //$vallatlong['lat'];  //';
-			$longitude = '-0.375766'; //$vallatlong['lng']; //';
+			$latitude  =  $vallatlong['lat'];  //51.475306'; ';
+			$longitude =  $vallatlong['lng']; //'-0.375766';';
 			$city_id = 0;
 			$state_id= 0;
  			$onejobormultiplesessions = $_POST['onejobormultiplesessions'];
@@ -785,13 +792,51 @@ urlencode($zipaddress)."&key=AIzaSyAm8F7_ETPpV6XCWxTBKAddp2X1dHh4jG0";
 	}
 
 	public function invitelocums(){
-		$fquery="select id,firstname,lastname from wp_locums";
-		global $wpdb;
-		$rs =  $wpdb->get_results($fquery);
-		$this->set('listlocums',$rs);
-		 
-			
-	}
 
+		$job_id = $this->params['id'];
+		if(isset($_POST['job_id']))
+			$job_id = $_POST['job_id'];
+
+		$this->set('job_id',$job_id);
+
+
+		//echo "<pre>"; print_r($_POST); echo "</pre>";
+ 		global $wpdb;
+ 		$zipcode = $_POST['zipcode'];
+		$sqllocum="SELECT id,user_id, firstname,lastname FROM  wp_locums as locum  WHERE postcode like  '$zipcode' ";
+		$rslocums = $wpdb->get_results($sqllocum);
+		$this->set('listlocums',$rslocums);
+
+
+		/*
+ 		if ( isset($zipcode) ){
+ 			
+ 	 		echo $fquery="SELECT * FROM  wp_locums as locum  WHERE postcode like  '$zipcode' ";
+	     		$rs =  $wpdb->get_results($fquery);
+			if(count($rs)>0) {
+
+			    //if found, set variables
+		            $row =  $rs[0];
+		            $lat1 = $row->latitude;
+		            $lon1 = $row->longitude;
+		            $d = $_POST['distance'];
+		            //earth's radius in miles
+		            $r = 3959;
+	  		   //compute max and min latitudes / longitudes for search square
+		            $latN = rad2deg(asin(sin(deg2rad($lat1)) * cos($d / $r) + cos(deg2rad($lat1)) * sin($d / $r) * cos(deg2rad(0))));
+		            $latS = rad2deg(asin(sin(deg2rad($lat1)) * cos($d / $r) + cos(deg2rad($lat1)) * sin($d / $r) * cos(deg2rad(180))));
+		            $lonE = rad2deg(deg2rad($lon1) + atan2(sin(deg2rad(90)) * sin($d / $r) * cos(deg2rad($lat1)), cos($d / $r) - sin(deg2rad($lat1)) * sin(deg2rad($latN))));
+		            $lonW = rad2deg(deg2rad($lon1) + atan2(sin(deg2rad(270)) * sin($d / $r) * cos(deg2rad($lat1)), cos($d / $r) - sin(deg2rad($lat1)) * sin(deg2rad($latN))));
+	 
+ 			 	  $paramsconditions = "(locum.latitude <= $latN AND locum.latitude >= $latS AND locum.longitude <= $lonE AND locum.longitude >= $lonW) AND (locum.latitude != $lat1 AND locum.longitude != $lon1) AND locum.city != ''";
+			echo  $sqllocum = "Select id,user_id,firstname,lastname from wp_locums as locum where $paramsconditions";
+			*/
+			// }
+
+		 //  }
+ 	
+	}
+	
+	
 }
 ?>

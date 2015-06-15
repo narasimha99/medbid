@@ -1,7 +1,7 @@
 <script>
 jQuery( document ).ready(function() {
-
-var purl = SITE_ROOT_JS+'jobs/getjobs/';
+ 
+	var purl = SITE_ROOT_JS+'jobs/getjobs/';
 
   	//console.log( "ready!" );
 	jQuery("#distance").change(function () {
@@ -76,11 +76,7 @@ $templtpath= get_template_directory_uri();
 <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/bootstrap-datepicker.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/site.css" />
 
-
-
-
-
-<!--middle start here-->
+ <!--middle start here-->
 	
 	<div class="midcol">
 	    <div class="bitbox1">	

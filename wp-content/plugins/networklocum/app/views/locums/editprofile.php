@@ -84,6 +84,12 @@ $templtpath= get_template_directory_uri();
 					  </div>
 
 
+<div class="form-group">
+<label for="username" class="control-label">Postcode</label>
+<input type="text" class="form-control ff1" id="postcode" name="data[Locum][postcode]" value="<?php echo $_POST['data']['Locum']['postcode'];?>"  title="Please enter your postcode" 	  placeholder="enter your postcode"/>
+<span class="errorspan" id="errspan_postcode"></span>
+</div>
+
 
 
 	  <div class="form-group">
@@ -254,8 +260,9 @@ $howoftendoyoupaystaffinvoices_array = array(
 
 				   
 	<div class="form-group">
-	<label for="username" class="control-label">Email</label>
-	<input type="text" class="form-control ff1" id="email" name="data[Locum][email]" value="<?php echo $_POST['data']['Locum']['email'];?>"  				title="Please enter you username" 	  placeholder="Your Email Address" />
+<label for="username" class="control-label">Email</label>
+
+<input type="text" class="form-control ff1" id="email" name="data[Locum][email]" value="<?php echo $_POST['data']['Locum']['email'];?>"  				title="Please enter you username" 	  placeholder="Your Email Address" />
 	<span class="errorspan" id="errspan_email"></span>
 	</div>
 	<div class="form-group">
@@ -281,11 +288,6 @@ $howoftendoyoupaystaffinvoices_array = array(
 <span class="errorspan" id="errspan_gmc_number"></span>
  </div>
  
-<div class="form-group">
- <label for="username" class="control-label">Postcode</label>
-<input type="text" class="form-control ff1" id="postcode" name="data[Locum][postcode]" value="<?php echo $_POST['data']['Locum']['postcode'];?>"  title="Please enter your postcode" 	  placeholder="enter your postcode"/>
-<span class="errorspan" id="errspan_postcode"></span>
- </div>
 
 <div class="form-group">
  <label for="username" class="control-label">Phone number</label>
@@ -321,10 +323,7 @@ $howoftendoyoupaystaffinvoices_array = array(
 					</div>
 									</div>
 
-								
-									
-									
-									
+						 			
 								  </div>
 								  
 								 					  

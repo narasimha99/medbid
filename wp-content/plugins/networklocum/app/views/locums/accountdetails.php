@@ -15,9 +15,7 @@ $templtpath= get_template_directory_uri();
 
 <form name="locumaccount" id="locumaccount"   autocomplete="off"  method="post" action="<?php echo $url;?>locums/accountdetails"  enctype="multipart/form-data">
 
- <?php $this->display_flash(); ?>
- 
-
+<?php $this->display_flash(); ?>  
 <div class="form-group">
 <input type="hidden" name="data[Locum][user_id]" value="<?php echo $locumobj->user_id;?>" />
 Email:  <?php echo $locumobj->email; ?>

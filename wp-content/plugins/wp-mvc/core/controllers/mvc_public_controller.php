@@ -100,6 +100,8 @@ class MvcPublicController extends MvcController {
 		$wp_query->is_home = false;
 	}
 
+	
+
 }
 
 ?>
