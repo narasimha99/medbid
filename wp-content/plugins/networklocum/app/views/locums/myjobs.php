@@ -27,7 +27,8 @@
 			  <li role="presentation"><a href="#completed" role="tab" id="completed-tab" data-toggle="tab" aria-controls="completed">Completed Jobs</a></li>
 			</ul>
 			<div id="myTabContent" class="tab-content">
-			  <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+			  <div r
+ole="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
 				<p>You have no invitations outstanding.</p>
 			  </div>
 			  <div role="tabpanel" class="tab-pane fade" id="application" aria-labelledby="application-tab">
@@ -87,4 +88,3 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date
 	</div>
 	
 	<!--middle end here-->
-			

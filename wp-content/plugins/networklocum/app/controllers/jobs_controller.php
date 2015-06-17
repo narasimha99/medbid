@@ -4,28 +4,9 @@ class JobsController extends MvcPublicController {
  	public function index() {
 		$this->set('mylayout', 'client');	
   	}
-
-
-	public function getLatLong($zipaddress){
-
-	echo	ini_get('allow_url_fopen');
-
-		echo	$url = "https://maps.googleapis.com/maps/api/geocode/json?address=".
-urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
-	//$url  = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCJD86bI1Bjvs-iVFKHmM8A0D7CAYz0ylA";
-		$result_string = file_get_contents($url);
  
- 		$result = json_decode($result_string, true);
-		$result1[]=$result['results'][0];
-		$result2[]=$result1[0]['geometry'];
-		$result3[]=$result2[0]['location'];
-		
-		 echo "<pre>"; print_r($result); echo "</pre>";
-
-		return $result3[0];
-	}
 	public function  publicjobcreate(){
-
+ 
 		global $wpdb;
  		$this->set('mylayout', 'client');
  
@@ -66,8 +47,8 @@ urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
 			//echo "Latitude: ".$vallatlong['lat']."<br>";
 			//echo "Longitude: ".$vallatlong['lng']."<br>";
  
- 			$latitude  = '51.475306'; // $vallatlong['lat']; 
-			$longitude = '-0.375766'; // $vallatlong['lng']; 
+ 			$latitude  = $vallatlong['lat']; // '51.475306'; 
+			$longitude = $vallatlong['lng']; //'-0.375766'; 
 		
  			$onejobormultiplesessions = $_POST['onejobormultiplesessions'];
 			$required_it_systems = $_POST['required_it_systems'];
@@ -87,10 +68,9 @@ urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
 			$pension_included = $_POST['pension_included'];
 
 
-		  	$sqlJob = "INSERT INTO wp_jobs (`user_id`, `session_date_range`, `session_description`, `no_of_sessions`, `NHS_Pension_info`,  `location`, `postcode`, `latitude`, `longitude`, `city_id`, `state_id`, `onejobormultiplesessions`, `required_it_systems`, `parking_facilities`,number_of_patients,number_of_telephoneconsultations,paperwork,referrals,home_visits,bloods,pension_included) VALUES ($user_id, '$session_date_range', '$session_description', $no_of_sessions, '$NHS_Pension_info','$location', '$postcode',$latitude, $longitude, $city_id, $state_id,$onejobormultiplesessions, $required_it_systems, $parking_facilities,$number_of_patients,$number_of_telephoneconsultations,$paperwork,$referrals,$home_visits,$bloods,$pension_included) ";
+		  	$sqlJob = "INSERT INTO wp_jobs (`user_id`, `session_date_range`, `session_description`, `no_of_sessions`, `NHS_Pension_info`,  `location`, `postcode`, `latitude`, `longitude`, `city_id`, `state_id`, `onejobormultiplesessions`, `required_it_systems`,`parking_facilities`,number_of_patients,number_of_telephoneconsultations,paperwork,referrals,home_visits,bloods,pension_included) VALUES ($user_id, '$session_date_range', '$session_description', $no_of_sessions, '$NHS_Pension_info','$location', '$postcode',$latitude, $longitude, $city_id, $state_id,$onejobormultiplesessions, $required_it_systems, $parking_facilities,$number_of_patients,$number_of_telephoneconsultations,$paperwork,$referrals,$home_visits,$bloods,$pension_included) ";
  
-
-			$wpdb->query($sqlJob);
+ 			$wpdb->query($sqlJob);
 
 			$job_id = $wpdb->insert_id;
  			$count_no_of_sessions = 0;
@@ -174,14 +154,7 @@ urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
 		$howdidyouhearlist = $this->howdidyouhear->find();
 		$this->set('howdidyouhearlist',$howdidyouhearlist);
     	}
- 
-		
-	
- 
-
- 
-
-
+  
 	public function  settimerates(){
 
 	 	$this->set('mylayout', 'empty');
@@ -262,7 +235,7 @@ urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
 	
 	function temp() {
 		$this->set('mylayout', 'client');
-		$postcode='SW13 9HB';		
+		$postcode='SW13 9HB LONDON';		
 		$vallatlong = $this->getLatLong($postcode);
 
  	}
@@ -662,11 +635,8 @@ urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
 			$queryConditionString .=   $zipConditions;
 			//echo  "zipcodes ";
 		}
-		
-		
-
-
-       $queryLast = "SELECT job.postcode,job.location,job.city_id,job.state_id,job.no_of_sessions, jobsession.hourlyrate,jobsession.session_starttime,jobsession.session_endtime FROM wp_jobs AS job JOIN wp_jobsessions AS jobsession ON job.id = jobsession.job_id  $queryConditionString    ORDER BY job.session_date_range, job.state_id, job.city_id, job.latitude, job.longitude ";
+	 
+	$queryLast = "SELECT job.postcode,job.location,job.city_id,job.state_id,job.no_of_sessions, jobsession.hourlyrate,jobsession.session_starttime,jobsession.session_endtime FROM wp_jobs AS job JOIN wp_jobsessions AS jobsession ON job.id = jobsession.job_id  $queryConditionString    ORDER BY job.session_date_range, job.state_id, job.city_id, job.latitude, job.longitude ";
  
 	global $wpdb;
 	$results =  $wpdb->get_results($queryLast);
@@ -762,7 +732,7 @@ urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
 		$collection = $this->Job->find($params);
 		$this->set('joblists', $collection);
 		//$this->set_pagination($collection);
-		echo "<pre>";	print_r($collection); echo "</pre>"; 
+		//echo "<pre>";	print_r($collection); echo "</pre>"; 
 
        
     		              //output all matches to screen
@@ -791,6 +761,20 @@ urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
 		}  
 	}
 
+
+	function invitelocumsbymail(){
+		// send mail to all locums invite with email_sent=0 by cronjob;
+	}
+
+	public function getlocums(){
+		$this->set('mylayout', 'empty');
+ 		global $wpdb;
+ 		$zipcode = $_POST['zipcode'];
+		$sqllocum="SELECT id,firstname,lastname FROM  wp_locums as locum  WHERE postcode like  '$zipcode' ";
+		$rslocums = $wpdb->get_results($sqllocum);
+		$this->set('listlocums',$rslocums);
+
+	}
 	public function invitelocums(){
 
 		$job_id = $this->params['id'];
@@ -803,10 +787,25 @@ urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
 		//echo "<pre>"; print_r($_POST); echo "</pre>";
  		global $wpdb;
  		$zipcode = $_POST['zipcode'];
-		$sqllocum="SELECT id,user_id, firstname,lastname FROM  wp_locums as locum  WHERE postcode like  '$zipcode' ";
+		$sqllocum="SELECT id,firstname,lastname FROM  wp_locums as locum  WHERE postcode like  '$zipcode' ";
 		$rslocums = $wpdb->get_results($sqllocum);
 		$this->set('listlocums',$rslocums);
+		$user_id = get_current_user_id();
+		if (isset($_POST['submit'])){
+			$locumcheck = $_POST['locumcheck'];
+			for($z=0;$z<=count($locumcheck); $z++){
+				if($locumcheck[$z]>0){
+		 	$sqlinsert="INSERT INTO wp_invitedjobs (job_id,locum_id,practicer_id) values( $job_id,$locumcheck[$z],$user_id)";
+				$wpdb->query($sqlinsert);
+ 				}
+				
+			}
+			  $this->invitelocumsbymail();
+			 $this->flash('success', 'We invited successfully all your Locums aswell as  we sent invitation mail also.');
+			 $url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'myjobs'));
+	     		  $this->redirect($url);
 
+		}
 
 		/*
  		if ( isset($zipcode) ){
@@ -837,6 +836,7 @@ urlencode($zipaddress)."&key=AIzaSyCoCb0kR4ShcXJJ9gfoemBatMKvNRzueHc";
  	
 	}
 	
-	
+
+		
 }
 ?>

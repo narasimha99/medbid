@@ -53,8 +53,8 @@ $("#locumsignupnext").submit();
 						  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin:10px;">
 						    <tr>
 							  <td><a href="<?php echo $url.'upload_crop.php';?>">Upload Photo</a></td>
-							  <td><a href="<?php echo $url.'locums/uploaddocuments';?>">Upload Document</a></td>
-							  <td><a href="">Email Preferences</a></td>
+							  <td><a href="<?php echo $url.'locums/';?>">Upload Document</a></td>
+							  <td><a href="<?php echo $url.'locums/setyouravailability';?>">Email Preferences</a></td>
 							  <td><a href="<?php echo $url.'locums/editprofile';?>">Edit Profile</a></td>
 							</tr>
 							<tr>

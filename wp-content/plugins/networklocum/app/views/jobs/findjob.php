@@ -55,7 +55,6 @@ jQuery( document ).ready(function() {
 $url = esc_url( home_url( '/' )); 
 $templtpath= get_template_directory_uri(); 
 ?>
-
 <script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-ui-1.11.1.js"></script>
 <!-- loads mdp -->
@@ -70,7 +69,8 @@ $templtpath= get_template_directory_uri();
 <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.datepair.js"></script>
 <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/datepair.js"></script>
 <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/lib/site.js"></script>
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/jquery.timepicker.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/bootstrap-datepicker.css" />
@@ -84,19 +84,10 @@ $templtpath= get_template_directory_uri();
 			<h1> Search Jobs </h1>
 			<?php ////////////////////// Left Side div for search filters /////////////////////?>
                <div style="float:left; margin-right:10px;">
-			      <form action="http://localhost/medbid/jobs/findjob" method="post">
+			      <form  action="<?php echo $url;?>jobs/findjob" method="post">
  
 
- 
-    
- 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
- 
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
- 
- 
- 
-						<label> ZIP Code:
+ 						<label> ZIP Code:
 						<input maxlength="10" name="zipcode" style="font-size:12px; width:80px;" id="zipcode"  type="text" value="<?php echo $_POST['zipcode'];?>" /></label>
 						 
 						<label>Within:</label>

@@ -343,8 +343,7 @@ echo	$useriddir =  get_current_user_id();
 		$params['joins'] = array('Practice');
 		$params['includes'] = array('Practice');
 		$params['conditions'] = array('Appliedsession.user_id' =>$user_id);
- 
-
+  
  		//$params['conditions'] = array('user_id' =>$user_id);
  		$collection = $this->Appliedsession->paginate($params);
 		$this->set('appliedjoblists', $collection['objects']);
@@ -382,6 +381,14 @@ echo	$useriddir =  get_current_user_id();
 	public function setyouravailability(){
 
 	}
+
+	public function uploadmutipledocuments(){
+		$this->set('mylayout', 'client'); 
+ 	}
+
+	public function upgradeyourmembership(){
+		$this->set('mylayout', 'client'); 
+ 	}
 }
 
 ?>

@@ -43,7 +43,7 @@ $templtpath= get_template_directory_uri();
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-							<h3><a href="<?php echo  $url.'locums/uploaddocuments/3'; ?>">Profile Photo</h3>
+							<h3><a href="<?php echo  $url.'locums/uploaddocuments/3'; ?>">Profile Photo </a> </h3>
 								</div>
 							 </div>
 						  </div>
@@ -52,15 +52,15 @@ $templtpath= get_template_directory_uri();
 					</div>
 					<div class="col-md-6">
 						  <div style="text-align:center; margin-top:20px;">
-						    <h4>Your profile is 40% Complete</h4>
+			 			    <h4>Your profile is 40% Complete</h4>
 							<div class="progress-radial progress-40">
 				                <div class="overlay">40%</div>
 			                </div>
 							<p>You Still have to</p>
-							<p><a href="">Upload Documents</a></p>
-							<p><a href="">Upload Photo</a></p>
-							<p><a href="">Complete your profile</a></p>
-							<p><a href="">Upgrade your membership</a></p>
+					<p><a href="<?php echo  $url.'locums/uploadmutipledocuments/'; ?>">Upload more documents</a></p>
+ 							<p><a href="<?php echo  $url.'/upload_crop.php/'; ?>">Upload Photo</a></p>
+							<p><a href="<?php echo  $url.'locums/editprofile/'; ?>">Complete your profile</a></p>
+							<p><a href="<?php echo  $url.'locums/upgradeyourmembership/'; ?>">Upgrade your membership</a></p>
 							
 						  </div>
 					</div>

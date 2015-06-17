@@ -2,6 +2,7 @@
  	<div class="midcol">
 		<div class="container">
 			<div class="row">
+
 		
 <script src="http://maps.googleapis.com/maps/api/js"></script>
 <script>
@@ -50,8 +51,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 
  	 
-</head>
-
+<h1> Set your avaiability </h1>
   
 			
 
