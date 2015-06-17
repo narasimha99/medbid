@@ -233,7 +233,7 @@ echo	$useriddir =  get_current_user_id();
 		$this->set('mylayout', 'client');
  		include("wp-includes/pluggable.php");
 
-		if(isset($_POST)){
+		if(isset($_POST['saveform'])){
 
 			$current_user = wp_get_current_user();
 			$user_id = get_current_user_id();
@@ -343,8 +343,7 @@ echo	$useriddir =  get_current_user_id();
 		$params['joins'] = array('Practice');
 		$params['includes'] = array('Practice');
 		$params['conditions'] = array('Appliedsession.user_id' =>$user_id);
- 
-
+  
  		//$params['conditions'] = array('user_id' =>$user_id);
  		$collection = $this->Appliedsession->paginate($params);
 		$this->set('appliedjoblists', $collection['objects']);
@@ -360,7 +359,7 @@ echo	$useriddir =  get_current_user_id();
 		$user_id = get_current_user_id();
 		$this->set('user_id',$user_id);
 
-		$profile_image = get_user_meta($user_id, 'profile_image'); 
+ 		$profile_image = get_user_meta($user_id, 'profile_image'); 
 		//print_r($profile_image);
 		if ( $profile_image[0] == null )
 			$profile_image[0] = 'demouser.png';
@@ -382,6 +381,14 @@ echo	$useriddir =  get_current_user_id();
 	public function setyouravailability(){
 
 	}
+
+	public function uploadmutipledocuments(){
+		$this->set('mylayout', 'client'); 
+ 	}
+
+	public function upgradeyourmembership(){
+		$this->set('mylayout', 'client'); 
+ 	}
 }
 
 ?>

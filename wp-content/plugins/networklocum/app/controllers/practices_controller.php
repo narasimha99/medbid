@@ -5,6 +5,18 @@ class PracticesController extends MvcPublicController {
 		$this->set('mylayout', 'client');	
   	}
 
+	public function getLatLong($zipaddress){
+		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=
+		".urlencode($zipaddress)."&sensor=false";
+		$result_string = file_get_contents($url);
+		$result = json_decode($result_string, true);
+		//echo "<pre>"; print_r($result); echo"</pre>";
+		$result1[]=$result['results'][0];
+		$result2[]=$result1[0]['geometry'];
+		$result3[]=$result2[0]['location'];
+		return $result3[0];
+ 	}
+
 	public function  practicesignup(){
 
  

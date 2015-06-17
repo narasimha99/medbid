@@ -1,7 +1,7 @@
 <script>
 jQuery( document ).ready(function() {
-
-var purl = SITE_ROOT_JS+'jobs/getjobs/';
+ 
+	var purl = SITE_ROOT_JS+'jobs/getjobs/';
 
   	//console.log( "ready!" );
 	jQuery("#distance").change(function () {
@@ -47,32 +47,7 @@ var purl = SITE_ROOT_JS+'jobs/getjobs/';
 		findajaxcall();
 	});
 
-	function findajaxcall(){
 	
-		jQuery("#loadingdiv").show();
-		var phourlyrate = $("#hourlyrate" ).val();	
-	 	var dateranges = jQuery("#session_date_range").val();
-		var  distance = jQuery("#distance").val();
-		var  zipcode = jQuery("#zipcode").val();
-		var  zipcode = jQuery("#zipcode").val();
-		var tariff  = $("#onejobormultiplesessions").val();
-	  
-		//alert(purl);
-		//alert(SITE_ROOT_VAR)
-		jQuery("#loadingdiv").show();
- 		$.ajax({ url:purl,
-			  method: "POST",	
-			  dataType: 'text',
-			  data:{dateranges:dateranges,zipcode:zipcode,distance:distance,hourlyrate:phourlyrate,tariff:tariff}
-	 	}).done(function( data ) {
-
-				  $("#getjobsdiv").html( data );
-				jQuery("#loadingdiv").hide();
-		});
-		
-		
-	}
- 
 ///////////		
 });
 </script>
@@ -80,7 +55,6 @@ var purl = SITE_ROOT_JS+'jobs/getjobs/';
 $url = esc_url( home_url( '/' )); 
 $templtpath= get_template_directory_uri(); 
 ?>
-
 <script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-ui-1.11.1.js"></script>
 <!-- loads mdp -->
@@ -95,17 +69,14 @@ $templtpath= get_template_directory_uri();
 <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.datepair.js"></script>
 <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/datepair.js"></script>
 <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/lib/site.js"></script>
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/jquery.timepicker.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/bootstrap-datepicker.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/site.css" />
 
-
-
-
-
-<!--middle start here-->
+ <!--middle start here-->
 	
 	<div class="midcol">
 	    <div class="bitbox1">	
@@ -113,19 +84,10 @@ $templtpath= get_template_directory_uri();
 			<h1> Search Jobs </h1>
 			<?php ////////////////////// Left Side div for search filters /////////////////////?>
                <div style="float:left; margin-right:10px;">
-			      <form action="http://localhost/medbid/jobs/findjob" method="post">
+			      <form  action="<?php echo $url;?>jobs/findjob" method="post">
  
 
- 
-    
- 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
- 
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
- 
- 
- 
-						<label> ZIP Code:
+ 						<label> ZIP Code:
 						<input maxlength="10" name="zipcode" style="font-size:12px; width:80px;" id="zipcode"  type="text" value="<?php echo $_POST['zipcode'];?>" /></label>
 						 
 						<label>Within:</label>

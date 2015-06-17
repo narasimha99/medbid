@@ -342,6 +342,9 @@ function my_after_avatar() {
 add_action('wpua_after_avatar', 'my_after_avatar');
  
 
+
+
+
 function my_avatar_filter() {
   // Remove from show_user_profile hook
   remove_action('show_user_profile', array('wp_user_avatar', 'wpua_action_show_user_profile'));
@@ -363,3 +366,5 @@ if(!is_admin()) {
 
 remove_action('wpua_before_avatar', 'wpua_do_before_avatar');
 remove_action('wpua_after_avatar', 'wpua_do_after_avatar');
+
+

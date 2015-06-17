@@ -1,6 +1,9 @@
 <?php
 $url = esc_url( home_url( '/' ));
 $templtpath= get_template_directory_uri(); 
+session_start(); //Do not remove this
+$_SESSION["mysitemyurl"] = $url.'/locums/myprofile';
+$_SESSION['myuser_id'] = $user_id;
 ?>
 <script>
 jQuery( document ).ready(function() {
@@ -53,8 +56,8 @@ $("#locumsignupnext").submit();
 						  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin:10px;">
 						    <tr>
 							  <td><a href="<?php echo $url.'upload_crop.php';?>">Upload Photo</a></td>
-							  <td><a href="<?php echo $url.'locums/uploaddocuments';?>">Upload Document</a></td>
-							  <td><a href="">Email Preferences</a></td>
+							  <td><a href="<?php echo $url.'locums/';?>">Upload Document</a></td>
+							  <td><a href="<?php echo $url.'locums/setyouravailability';?>">Email Preferences</a></td>
 							  <td><a href="<?php echo $url.'locums/editprofile';?>">Edit Profile</a></td>
 							</tr>
 							<tr>

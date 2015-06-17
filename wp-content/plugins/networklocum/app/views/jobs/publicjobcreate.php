@@ -1,7 +1,5 @@
 <?php
- $templtpath= get_template_directory_uri(); 
-?>
-<?php
+$templtpath= get_template_directory_uri(); 
 $url = esc_url( home_url( '/' )); 
 $templtpath= get_template_directory_uri(); 
 ?>
@@ -16,9 +14,7 @@ jQuery( document ).ready(function() {
 	jQuery("#submit5").click(function () {
 		$("#savejob").val('savejob');
 	});
-
-
-});
+ });
 </script>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  		<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-1.11.1.js"></script>
@@ -33,7 +29,7 @@ jQuery( document ).ready(function() {
 
   <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.timepicker.js"></script>
   <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.datepair.js"></script>
-   <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/datepair.js"></script>
+  <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/datepair.js"></script>
   <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/lib/site.js"></script>
 
 

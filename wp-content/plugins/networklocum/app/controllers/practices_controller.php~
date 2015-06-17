@@ -5,6 +5,18 @@ class PracticesController extends MvcPublicController {
 		$this->set('mylayout', 'client');	
   	}
 
+	public function getLatLong($zipaddress){
+		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=
+		".urlencode($zipaddress)."&sensor=false";
+		$result_string = file_get_contents($url);
+		$result = json_decode($result_string, true);
+		//echo "<pre>"; print_r($result); echo"</pre>";
+		$result1[]=$result['results'][0];
+		$result2[]=$result1[0]['geometry'];
+		$result3[]=$result2[0]['location'];
+		return $result3[0];
+ 	}
+
 	public function  practicesignup(){
 
  
@@ -154,12 +166,12 @@ class PracticesController extends MvcPublicController {
 		$job_id = $this->params['id'];
 	 	global $wpdb;
 
-	echo	$sqlJob = "Update wp_jobs set selected_locum = $locum_id where id = $job_id";
+		$sqlJob = "Update wp_jobs set selected_locum = $locum_id where id = $job_id";
  		$wpdb->query($sqlJob);
 
 		//applied_job_status = 1  // selected 
  		 
-	echo	$sqlJoblocum = "Update  wp_appliedjobs set applied_job_status = 1 where job_id = $job_id";
+		$sqlJoblocum = "Update  wp_appliedjobs set applied_job_status = 1 where job_id = $job_id";
  		$wpdb->query($sqlJoblocum);
   		
 	}
