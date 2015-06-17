@@ -1,0 +1,14 @@
+	<p> Please select your Locum </p>
+	<ul class="chk-container">
+	<li><input type="checkbox" id="selecctall"/> Selecct All</li>
+	<?php
+	if (isset($listlocums)){
+	// print_r($listlocums); 
+		foreach($listlocums as $locum){
+	?> 
+			<li><input class="checkbox1" type="checkbox" name="locumcheck[]" value="<?php echo $locum->id;?>"><?php echo $locum->firstname.' '.$locum->lastname;?></li>
+
+	<?php
+		}}
+	?>  
+	</ul>
