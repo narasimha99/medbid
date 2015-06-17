@@ -131,8 +131,7 @@ $templtpath= get_template_directory_uri();
 				  		 
   
 					<?php
-					$qualificationsarray  = array('CCT in GP','DCH','DFFP','DFSRH','DGM');
-					/*
+ 					/*
 						$old_itsystems = $Locumobject->it_systems;
 						$old_itsystems_array=explode(",",$old_itsystems);
 						$sm = count($old_itsystems_array);
@@ -160,7 +159,7 @@ $templtpath= get_template_directory_uri();
 		  <label for="username" class="control-label">Languages known</label>
  
 		<?php
-		$spokenLanguagesarray  = array('British English', 'Breton','Afrikaans','Albanian','Argentinian Spanish','Belarusian','Bengali');
+	
 					
 					/*
 						$old_itsystems = $Locumobject->it_systems;
@@ -173,13 +172,14 @@ $templtpath= get_template_directory_uri();
 
  
  					foreach($spokenLanguagesarray as $language) {
+					 
 
 						// $key = array_search($itsys->id, $old_itsystems_array);
 						if ($key>0){
 					?>
-	<input type='checkbox' name="data[Locum][languages_known]"  id='languages_known' value="<?php echo $language;?>" checked /><?php echo $language;?> 
+	<input type='checkbox' name="data[Locum][languages_known]"  id='languages_known' value="<?php echo $language->langname;?>" checked /><?php echo $language->langname;?> 
 						<?php } else { ?>
-	<input type='checkbox' id='languages_known' name="data[Locum][languages_known]" value="<?php echo $language;?>" /><?php echo $language;?> 
+	<input type='checkbox' id='languages_known' name="data[Locum][languages_known]" value="<?php echo $language->langname;?>" /><?php echo $language->langname;?> 
 					 <br/> <?php
 					}}	
 					?>  

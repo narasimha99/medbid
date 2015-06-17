@@ -220,7 +220,20 @@ echo	$useriddir =  get_current_user_id();
 		$this->load_model('howdidyouhear');
 		$howdidyouhearlist = $this->howdidyouhear->find();
 		$this->set('howdidyouhearlist',$howdidyouhearlist);
+			
+		$this->load_model('Languagesknown');
+		$spokenLanguagesarray = $this->Languagesknown->find();
+		$this->set('spokenLanguagesarray',$spokenLanguagesarray);
 
+		//$this->load_model('Qualification');
+		//$qualificationsarray = $this->Qualification->find();
+		//$this->set('qualificationsarray',$qualificationsarray);
+
+		//qualifications
+		 echo "<pre>"; print_r($qualificationsarray); echo "</pre>";
+		//echo "<pre>"; print_r($this->Languagesknown); echo "</pre>";
+  
+		$this->set('howdidyouhearlist',$howdidyouhearlist);	
 	
 	}
 
@@ -355,6 +368,7 @@ echo	$useriddir =  get_current_user_id();
 
 	public function myprofile(){
 		
+		global $wpdb;
 		$this->set('mylayout', 'client'); 
 		$user_id = get_current_user_id();
 		$this->set('user_id',$user_id);
@@ -363,9 +377,19 @@ echo	$useriddir =  get_current_user_id();
 		//print_r($profile_image);
 		if ( $profile_image[0] == null )
 			$profile_image[0] = 'demouser.png';
-	 	
-		$this->set('profile_image',$profile_image[0]);
- 	}
+ 		$this->set('profile_image',$profile_image[0]);
+		
+  		$sqllocum = "Select * from wp_locums where user_id = $user_id  Limit 1";
+		$locumdetails = $wpdb->get_results($sqllocum);
+   		$this->set('locumdetails',$locumdetails[0]);
+
+		$this->load_model('itsystem');
+		$itsystemlist = $this->itsystem->find();
+		$this->set('itsystemlist',$itsystemlist);
+		 echo "<pre>";	print_r($itsystemlist);
+	 print_r($locumdetails[0]); echo "</pre>";
+ 	
+	}
 
 	
 	public function  uploadcrop(){
