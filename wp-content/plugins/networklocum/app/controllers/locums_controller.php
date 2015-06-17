@@ -233,7 +233,7 @@ echo	$useriddir =  get_current_user_id();
 		$this->set('mylayout', 'client');
  		include("wp-includes/pluggable.php");
 
-		if(isset($_POST)){
+		if(isset($_POST['saveform'])){
 
 			$current_user = wp_get_current_user();
 			$user_id = get_current_user_id();
