@@ -11,8 +11,6 @@ jQuery( document ).ready(function() {
 jQuery("#submit").click(function () {
 $("#locumsignupnext").submit();
 });
-
- 
  
 });
 </script>
@@ -24,11 +22,8 @@ $("#locumsignupnext").submit();
     color: #fff;
 }
 </style>
-
-
-<!--middle start here-->
- 
-	<div class="midcol">
+	<!--middle start here-->
+  	<div class="midcol">
 		<div class="container">
 		<div class="row">
 		   <div class="col-md-8">
@@ -46,7 +41,7 @@ $("#locumsignupnext").submit();
 			   <!--- Left hand side Panel Showing the buttons etc -->
 			   <div class="col-md-8" >
 			    <div class="container">
-				<h1 style="">Dr. Fayaz Hasham</h1>
+				<h1 style=""><?php echo $locumdetails->firstname.' '.$locumdetails->lastname;?></h1>
 				 <div class="row">
 				   <div class="col-md-2">
 				      <div><img class="img-circle img-user-config" src="<?php echo  $url.'/upload_pic/'.$profile_image; ?>"></div>
@@ -86,23 +81,25 @@ $("#locumsignupnext").submit();
 				 <table class="col-md-12 table-bordered table-striped table-condensed cf" >
 				    <tr>
 					  <td>GMC Number</td>
-					  <td>7006783</td>
+					  <td><?php echo $locumdetails->gmc_number;?></td>
 					</tr>
 				    <tr>
 					  <td>Smartcard Company Status</td>
-					  <td>I operate as a ltd. company</td>
+					  <td><?php echo $locumdetails->smartcard.' '.$locumdetails->companystatus;?></td>
 					</tr>
 					<tr>
 					  <td>Company Name</td>
-					  <td>None</td>
+					  <td><?php echo $locumdetails->companyname;?></td>
 					</tr>
 					<tr>
 					  <td>National Insurance Number</td>
-					  <td>None</td>
+					  <td><?php echo $locumdetails->insuranceno;?></td>
 					</tr>
 					<tr>
 					  <td>Gender</td>
-					  <td>Male</td>
+					  <td><?php 
+$arraygender = array('0'=>'Male','1'=>'Female');
+echo $arraygender[$locumdetails->gender];?></td>
 					</tr>
 				 </table>
 				 </div>
@@ -110,7 +107,8 @@ $("#locumsignupnext").submit();
 				   <h4 style="margin-bottom:10px;"><strong>My Qualifications</strong></h4>
 				  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom:10px;">
 				    <tr>
-					  <td>MRCGP</td>
+					  <td><?php echo $locumdetails->qualifications;?></td>
+					
 					</tr>
 				 </table>
 				 </div>
@@ -118,7 +116,7 @@ $("#locumsignupnext").submit();
 				   <h4 style="margin-bottom:10px;"><strong>Spoken Languages</strong></h4>
 				  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom:10px;">
 				    <tr>
-					  <td>British English</td>
+					  <td><?php echo $locumdetails->languages_known;?></td>
 					</tr>
 				 </table>
 				 </div>
@@ -126,16 +124,16 @@ $("#locumsignupnext").submit();
 				   <h4 style="margin-bottom:10px;"><strong>IT Systems</strong></h4>
 				  <table class="col-md-12 table-bordered table-striped table-condensed cf">
 				    <tr>
-					  <td>System One</td>
+					  <td><?php echo $itsystemlist[10]->itname;?></td>
 					</tr>
 					 <tr>
-					  <td>Adastra</td>
+					  <td><?php echo $locumdetails->it_systems;?></td>
 					</tr>
 					 <tr>
-					  <td>EMIS LV</td>
+					  <td><?php echo $locumdetails->it_systems;?></td>
 					</tr>
 					 <tr>
-					  <td>EMIS Web</td>
+					  <td><?php echo $locumdetails->it_systems;?></td>
 					</tr>
 				 </table>
 				 </div>
