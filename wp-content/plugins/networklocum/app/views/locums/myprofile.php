@@ -1,6 +1,9 @@
 <?php
 $url = esc_url( home_url( '/' ));
 $templtpath= get_template_directory_uri(); 
+session_start(); //Do not remove this
+$_SESSION["mysitemyurl"] = $url.'/locums/myprofile';
+$_SESSION['myuser_id'] = $user_id;
 ?>
 <script>
 jQuery( document ).ready(function() {

@@ -359,7 +359,7 @@ echo	$useriddir =  get_current_user_id();
 		$user_id = get_current_user_id();
 		$this->set('user_id',$user_id);
 
-		$profile_image = get_user_meta($user_id, 'profile_image'); 
+ 		$profile_image = get_user_meta($user_id, 'profile_image'); 
 		//print_r($profile_image);
 		if ( $profile_image[0] == null )
 			$profile_image[0] = 'demouser.png';
