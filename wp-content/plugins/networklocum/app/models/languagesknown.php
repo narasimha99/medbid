@@ -1,0 +1,5 @@
+<?php
+class Languagesknown extends MvcModel {
+
+}
+?>
