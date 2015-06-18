@@ -21,7 +21,7 @@ $templtpath= get_template_directory_uri();
 				<form name="locumeditprofile" id="locumeditprofile"   autocomplete="off"  method="post" action="<?php echo $url;?>locums/editprofile" onsubmit="javascript:return validatelocumeditprofile();" enctype="multipart/form-data">
  <?php $this->display_flash(); ?>
  
-				<input type="hidden" name="data[Locum][id]" id="id" value="<?php echo $user_ID;?>" />
+				<input type="hidden" name="data[Locum][id]" id="id" value="<?php echo $Locumobject->id;?>" />
 						
 
 			<div class="form-group">
@@ -105,18 +105,13 @@ $templtpath= get_template_directory_uri();
 				   	<?php
 						$old_itsystems = $Locumobject->it_systems;
 						$old_itsystems_array=explode(",",$old_itsystems);
-						$sm = count($old_itsystems_array);
-						$old_itsystems_array[$sm] = $old_itsystems_array[0];
-						unset($old_itsystems_array[0]);
-						//echo "<pre>"; print_r($old_itsystems_array); echo"</pre>";
+ 
  					foreach($itsystemlist as $itsys) {
-
-						 $key = array_search($itsys->id, $old_itsystems_array);
-						if ($key>0){
+  						if (in_array($itsys->id, $old_itsystems_array)){
 					?>
-			<input type='checkbox' name="data[Locum][it_systems]" id='it_systems' value="<?php echo $itsys->id;?>" checked /><?php echo $itsys->itname;?> 
+			<input type='checkbox' name="data[Locum][it_systems][]" id='it_systems' value="<?php echo $itsys->id;?>" checked /><?php echo $itsys->itname;?> 
 						<?php } else { ?>
-			<input type='checkbox' name="data[Locum][it_systems]" id='it_systems' value="<?php echo $itsys->id;?>" /><?php echo $itsys->itname;?> 
+			<input type='checkbox' name="data[Locum][it_systems][]" id='it_systems' value="<?php echo $itsys->id;?>" /><?php echo $itsys->itname;?> 
 					 <br/> <?php
 					}}	
 					?>  
@@ -131,28 +126,22 @@ $templtpath= get_template_directory_uri();
 				  		 
   
 					<?php
- 					/*
-						$old_itsystems = $Locumobject->it_systems;
-						$old_itsystems_array=explode(",",$old_itsystems);
-						$sm = count($old_itsystems_array);
-						$old_itsystems_array[$sm] = $old_itsystems_array[0];
-						unset($old_itsystems_array[0]);
-						//echo "<pre>"; print_r($old_itsystems_array); echo"</pre>";
-					*/
-
- 
+ 					
+						$old_qualifications = $Locumobject->qualifications;
+						$old_qualifications_array=explode(",",$old_qualifications);
+				 
  					foreach($qualificationsarray as $qualify) {
 
-						 $key = array_search($itsys->id, $old_itsystems_array);
-						if ($key>0){
+						 
+					 	if (in_array($qualify->id, $old_qualifications_array)){
 					?>
-	<input type='checkbox' name="data[Locum][qualifications]" id='qualifications' value="<?php echo $qualify;?>" checked /><?php echo $qualify;?> 
+	<input type='checkbox' name="data[Locum][qualifications][]" id='qualifications' value="<?php echo $qualify->id;?>" checked /><?php echo $qualify->quaname;?> 
 						<?php } else { ?>
-	<input type='checkbox' name="data[Locum][qualifications]" id='qualifications' value="<?php echo $qualify;?>" /><?php echo $qualify;?> 
+	<input type='checkbox' name="data[Locum][qualifications][]" id='qualifications' value="<?php echo $qualify->id;?>" /><?php echo $qualify->quaname;?> 
 					 <br/> <?php
 					}}	
 					?>  
- 					<span class="errorspan" id="errspan_it_systems"></span>
+ 					<span class="errorspan" id="errspan_qualifications"></span>
 				  </div>
 			
 	<div class="form-group">
@@ -161,25 +150,16 @@ $templtpath= get_template_directory_uri();
 		<?php
 	
 					
-					/*
-						$old_itsystems = $Locumobject->it_systems;
-						$old_itsystems_array=explode(",",$old_itsystems);
-						$sm = count($old_itsystems_array);
-						$old_itsystems_array[$sm] = $old_itsystems_array[0];
-						unset($old_itsystems_array[0]);
-						//echo "<pre>"; print_r($old_itsystems_array); echo"</pre>";
-					*/
-
+					 
+						$old_languages_known = $Locumobject->languages_known;
+						$old_languages_known_array=explode(",",$old_languages_known);
  
  					foreach($spokenLanguagesarray as $language) {
-					 
-
-						// $key = array_search($itsys->id, $old_itsystems_array);
-						if ($key>0){
+ 						if (in_array($language->id, $old_languages_known_array)){				
 					?>
-	<input type='checkbox' name="data[Locum][languages_known]"  id='languages_known' value="<?php echo $language->langname;?>" checked /><?php echo $language->langname;?> 
+	<input type='checkbox' name="data[Locum][languages_known][]"  id='languages_known' value="<?php echo $language->id;?>" checked /><?php echo $language->langname;?> 
 						<?php } else { ?>
-	<input type='checkbox' id='languages_known' name="data[Locum][languages_known]" value="<?php echo $language->langname;?>" /><?php echo $language->langname;?> 
+	<input type='checkbox' id='languages_known' name="data[Locum][languages_known][]" value="<?php echo $language->id;?>" /><?php echo $language->langname;?> 
 					 <br/> <?php
 					}}	
 					?>  

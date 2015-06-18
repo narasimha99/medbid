@@ -82,11 +82,20 @@ class LocumsController extends MvcPublicController {
 
 	public function accountdetails(){
 		$this->set('mylayout', 'client');
-		
+		//echo "<pre>"; print_r($_POST); echo "</pre>";
 		$user_id = get_current_user_id();
-		$this->set('user_ID',$user_id); 
-		if(isset($_POST[data][Locum][user_id]) ) {
-			$this->Locum->update($user_id,$_POST[data][Locum]);
+		$this->set('user_ID',$user_id);
+		if(isset($_POST[data][Locum][id])){
+			
+			$id = $_POST['data']['Locum']['id'];
+			if(!isset($_POST[data][Locum][available_on_sunday])) $_POST[data][Locum][available_on_sunday]=0;
+			if(!isset($_POST[data][Locum][available_on_tuesday])) $_POST[data][Locum][available_on_tuesday]=0;
+			if(!isset($_POST[data][Locum][available_on_wednesday])) $_POST[data][Locum][available_on_wednesday]=0;
+			if(!isset($_POST[data][Locum][available_on_thursday])) $_POST[data][Locum][available_on_thursday]=0;
+			if(!isset($_POST[data][Locum][available_on_friday])) $_POST[data][Locum][available_on_friday]=0;
+			if(!isset($_POST[data][Locum][available_on_saturday])) $_POST[data][Locum][available_on_saturday]=0;
+  
+			$this->Locum->update($id,$_POST['data']['Locum']);
 			$this->flash('success', 'Your account details updated succeessfully.');	
 		}
 		$object = $this->Locum->find_by_user_id($user_id);
@@ -203,16 +212,28 @@ echo	$useriddir =  get_current_user_id();
 		$this->set('mylayout', 'client');
  		$this->load_model('Locum');
  		$user_ID = get_current_user_id();
+		$this->set('user_ID',$user_ID); 
+		
+
 		if(isset($_POST[data][Locum])){
- 		 	$this->Locum->update($user_ID,$_POST[data][Locum]);
+			 //echo "<pre>"; print_r($_POST); echo "</pre>";	
+			 
+		if (isset($_POST[data][Locum]['it_systems']))
+			$_POST[data][Locum]['it_systems'] = implode(",",$_POST[data][Locum]['it_systems']);
+		if (isset($_POST[data][Locum]['qualifications']))
+			$_POST[data][Locum]['qualifications'] = implode(",",$_POST[data][Locum]['qualifications']);
+		if (isset($_POST[data][Locum]['languages_known']))
+			$_POST[data][Locum]['languages_known'] = implode(",",$_POST[data][Locum]['languages_known']);
+
+			$id = $_POST[data][Locum][id];
+
+ 		 	$this->Locum->update($id,$_POST[data][Locum]);
 			 $this->flash('success', 'Your profile updated succeessfully.');	
 		}
 		
-		$this->set('user_ID',$user_ID); 
 		$object = $this->Locum->find_by_user_id($user_ID);
- 
-	   	$this->set('Locumobject',$object[0]);
-
+ 	   	$this->set('Locumobject',$object[0]);
+		
 		$this->load_model('itsystem');
 		$itsystemlist = $this->itsystem->find();
 		$this->set('itsystemlist',$itsystemlist);
@@ -225,12 +246,12 @@ echo	$useriddir =  get_current_user_id();
 		$spokenLanguagesarray = $this->Languagesknown->find();
 		$this->set('spokenLanguagesarray',$spokenLanguagesarray);
 
-		//$this->load_model('Qualification');
-		//$qualificationsarray = $this->Qualification->find();
-		//$this->set('qualificationsarray',$qualificationsarray);
+		$this->load_model('Qualification');
+		$qualificationsarray = $this->Qualification->find();
+		$this->set('qualificationsarray',$qualificationsarray);
 
 		//qualifications
-		 echo "<pre>"; print_r($qualificationsarray); echo "</pre>";
+		// echo "<pre>"; print_r($qualificationsarray); echo "</pre>";
 		//echo "<pre>"; print_r($this->Languagesknown); echo "</pre>";
   
 		$this->set('howdidyouhearlist',$howdidyouhearlist);	
@@ -366,6 +387,7 @@ echo	$useriddir =  get_current_user_id();
 
  	}
 
+ 
 	public function myprofile(){
 		
 		global $wpdb;
@@ -382,13 +404,21 @@ echo	$useriddir =  get_current_user_id();
   		$sqllocum = "Select * from wp_locums where user_id = $user_id  Limit 1";
 		$locumdetails = $wpdb->get_results($sqllocum);
    		$this->set('locumdetails',$locumdetails[0]);
-
-		$this->load_model('itsystem');
-		$itsystemlist = $this->itsystem->find();
+		//echo "<pre>";print_r($locumdetails); echo "</pre>";
+		
+		$sqlit  = " select itname from wp_itsystems where id in (".$locumdetails[0]->it_systems.")";
+		$itsystemlist =  $wpdb->get_results($sqlit);
 		$this->set('itsystemlist',$itsystemlist);
-		 echo "<pre>";	print_r($itsystemlist);
-	 print_r($locumdetails[0]); echo "</pre>";
- 	
+ 
+		$qualfy = $locumdetails[0]->qualifications;
+		$sqlit  = " select * from  wp_qualifications  where id in (".$qualfy.")";
+		$qualificationsarray =  $wpdb->get_results($sqlit);
+		$this->set('qualificationsarray',$qualificationsarray);
+		$langknow =  $locumdetails[0]->languages_known;
+		$sqlit  = "Select * from wp_languagesknowns  where id in (".$langknow.")";
+		$spokenLanguagesarray =  $wpdb->get_results($sqlit);
+	 	$this->set('spokenLanguagesarray',$spokenLanguagesarray);
+  	
 	}
 
 	

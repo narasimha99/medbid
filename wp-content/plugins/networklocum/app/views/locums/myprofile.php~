@@ -106,36 +106,46 @@ echo $arraygender[$locumdetails->gender];?></td>
 				 <div>
 				   <h4 style="margin-bottom:10px;"><strong>My Qualifications</strong></h4>
 				  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom:10px;">
-				    <tr>
-					  <td><?php echo $locumdetails->qualifications;?></td>
-					
-					</tr>
-				 </table>
+	 	  
+					<?php
+	  				for($p=0;$p<count($qualificationsarray);$p++) {
+					?>
+					 <tr>		
+					  <td><?php echo $qualificationsarray[$p]->quaname;?></td>
+					 </tr>
+					<?php } ?>
+				
+			 	</table>
 				 </div>
 				 <div>
 				   <h4 style="margin-bottom:10px;"><strong>Spoken Languages</strong></h4>
 				  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom:10px;">
-				    <tr>
-					  <td><?php echo $locumdetails->languages_known;?></td>
-					</tr>
+					  
+					<?php
+	  				for($p=0;$p<count($spokenLanguagesarray);$p++) {
+					?>
+					 <tr>		
+					  <td><?php echo $spokenLanguagesarray[$p]->langname;?></td>
+					 </tr>
+					<?php } ?>
+		
 				 </table>
 				 </div>
 				  <div>
 				   <h4 style="margin-bottom:10px;"><strong>IT Systems</strong></h4>
 				  <table class="col-md-12 table-bordered table-striped table-condensed cf">
-				    <tr>
-					  <td><?php echo $itsystemlist[10]->itname;?></td>
-					</tr>
-					 <tr>
-					  <td><?php echo $locumdetails->it_systems;?></td>
-					</tr>
-					 <tr>
-					  <td><?php echo $locumdetails->it_systems;?></td>
-					</tr>
-					 <tr>
-					  <td><?php echo $locumdetails->it_systems;?></td>
-					</tr>
-				 </table>
+				   
+
+				  
+				<?php
+  				for($p=0;$p<count($itsystemlist);$p++) {
+				?>
+				 <tr>		
+				  <td><?php echo $itsystemlist[$p]->itname;?></td>
+				 </tr>
+				<?php } ?>
+		
+ 				 </table>
 				 </div>
 			   </div>
 			</div>
