@@ -18,6 +18,7 @@ $("#locumsignupnext").submit();
   
 });
 </script>
+
 <?php
 $url = esc_url( home_url( '/' ));
 $templtpath= get_template_directory_uri(); 
@@ -27,6 +28,34 @@ $templtpath= get_template_directory_uri();
 		<div class="container">
 		   <div class="row">
 		      <div class="col-md-12">
+
+
+
+ 
+<meta charset="utf-8">
+<title>jQuery geocomplete plugin to autocomplete Location/ Places and gather all location related data.</title>
+<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery.geocomplete.min.js"></script>
+
+<script>
+$(function () {	
+	$("#location").geocomplete({
+	  details: ".bitbox1",
+	  detailsAttribute: "data-geo"
+	});
+
+});
+</script>
+ 
+
+  <div id="container">
+   
+   
+  
+
+
+
 		        <h3><a href="<?php echo $url.'locums/myprofile';?>">My Profile</a> / Edit Profile</h3>
 				<div class="bitbox1">
 				<form name="locumeditprofile" id="locumeditprofile"   autocomplete="off"  method="post" action="<?php echo $url;?>locums/editprofile" onsubmit="javascript:return validatelocumeditprofile();" enctype="multipart/form-data">
@@ -62,42 +91,85 @@ $templtpath= get_template_directory_uri();
 			<span class="errorspan" id="errspan_gener"></span>
 			</div>
 
+
+  
+ 
+  
+
+<div class="form-group">
+<label for="password" class="control-label">Location:</label><br>
+<input type="text" class="form-control ff1" id="location" name="data[Locum][geo_location]" value="<?php echo $Locumobject->geo_location;?>"    title="" placeholder="Type your address location we are getting from Google" />
+<span class="errorspan" id="errspan_location"></span>
+</div>
+
+
+
     				  <div class="form-group">
-						  <label for="password" class="control-label">Address</label><br>
-						  <input type="text" class="form-control ff1" id="address" name="data[Locum][address]" value="<?php echo $Locumobject->address;?>"    title="" placeholder="Address"/>
+						  <label for="password" class="control-label">Postal Address</label><br>
+						  <input type="text" class="form-control ff1"   data-geo="formatted_address"	 id="address" name="data[Locum][address]" value="<?php echo $Locumobject->address;?>"    title="" placeholder="Address"/>
 						   
 						 <span class="errorspan" id="errspan_address"></span>
 					  </div>
 					  
-					  
 	
-  <div class="form-group">
-						  <label for="password" class="control-label">City</label><br>
-						  <input type="text" class="form-control ff1" id="city" name="data[Locum][city]" value="<?php echo $Locumobject->city;?>"    title="" placeholder="TYPE CITY NAME"/>
-						 <span class="errorspan" id="errspan_city"></span>
+
+    			 
+ 
+
+
+    				  <div class="form-group">
+						  <label for="password" class="control-label">Country</label><br>
+						  <input type="text" class="form-control ff1"  data-geo="country" id="country" name="data[Locum][country]" value="<?php echo $Locumobject->address;?>"    title="" placeholder="Address"/>
+						   
+						 <span class="errorspan" id="errspan_country"></span>
 					  </div>
+				  
+
+<div class="form-group">
+<label for="password" class="control-label">State</label><br>
+<input type="text" class="form-control ff1"   data-geo="administrative_area_level_1"  id="state" name="data[Locum][state]" value="<?php echo $Locumobject->state;?>"  placeholder="state"/>
+<span class="errorspan" id="errspan_state"></span>
+
+<input type="text" class="form-control ff1"   data-geo="lat"  id="latitude" name="data[Locum][latitude]" value="<?php echo $Locumobject->latitude;?>"  placeholder="latitude"/>
+
+<input type="text" data-geo="lng" class="form-control ff1"  value="<?php echo $Locumobject->longitude;?>"  id="longitude" name="data[Locum][longitude]" placeholder="longitude">
+
+</div>
+
+ 
+
+     
+ 
+	
+	 
+	
+<div class="form-group">
+<label for="password" class="control-label">City</label><br>
+<input type="text" class="form-control ff1"  data-geo="administrative_area_level_2" id="city" name="data[Locum][city]" value="<?php echo $Locumobject->city;?>"    title="" placeholder="TYPE CITY NAME"/>
+<span class="errorspan" id="errspan_city"></span>
+</div>
 
 
 <div class="form-group">
 <label for="username" class="control-label">Postcode</label>
-<input type="text" class="form-control ff1" id="postcode" name="data[Locum][postcode]" value="<?php echo $_POST['data']['Locum']['postcode'];?>"  title="Please enter your postcode" 	  placeholder="enter your postcode"/>
+<input type="text" class="form-control ff1"  data-geo="postal_code" id="postcode" name="data[Locum][postcode]" value="<?php echo $Locumobject->postcode;?>"  title="Please enter your postcode" 	  placeholder="enter your postcode"/>
 <span class="errorspan" id="errspan_postcode"></span>
 </div>
 
 
 
-	  <div class="form-group">
-	<label for="password" class="control-label">Head line</label><br>
-	<input type="text" class="form-control ff1" id="headline" name="data[Locum][headline]"  value="<?php echo $Locumobject->headline;?>"   title="" placeholder="Enter your headline">
-		<span class="errorspan" id="errspan_headline"></span>
-	 </div>
+<div class="form-group">
+<label for="password" class="control-label">Head line</label><br>
+<input type="text" class="form-control ff1" id="headline" name="data[Locum][headline]"  value="<?php echo $Locumobject->headline;?>"   title="" placeholder="Enter your headline">
+<span class="errorspan" id="errspan_headline"></span>
+</div>
 
 
-  <div class="form-group">
-						  <label for="password" class="control-label">About me </label><br>
-						   <textarea class="form-control ff1" id="aboutme" name="data[Locum][aboutme]" rows="5" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a"><?php echo $Locumobject->aboutme;?></textarea>
-					  <span class="errorspan" id="errspan_aboutme"></span>
-					  </div>
+<div class="form-group">
+<label for="password" class="control-label">About me </label><br>
+<textarea class="form-control ff1" id="aboutme" name="data[Locum][aboutme]" rows="5" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a"><?php echo $Locumobject->aboutme;?></textarea>
+<span class="errorspan" id="errspan_aboutme"></span>
+</div>
 
 
    
@@ -178,24 +250,8 @@ $templtpath= get_template_directory_uri();
 				  </div>
 
 
-
-  <div class="form-group">
-						  <label for="password" class="control-label">Phone Number</label><br>
-						  <input type="text" class="form-control ff1" id="phone_number" name="data[Locum][phone_number]" value="<?php echo $Locumobject->phone_number;?>" title="" placeholder="enter your Phone number"/>
-						 <span class="errorspan" id="errspan_phone_number"></span>
-					  </div>	
-
-
- 	
-
-
-
-  <div class="form-group">
-						  <label for="password" class="control-label">Mobile Number</label><br>
-						  <input type="text" class="form-control ff1" id="phone_numberr" name="data[Locum][phone_number]" value="<?php echo $Locumobject->phone_number;?>" title="" placeholder="Enter your mobile number"/>
-						 <span class="errorspan" id="errspan_phone_numberr"></span>
-					  </div>
-
+ 
+  
   
 				  <div class="form-group">
 						  <label for="username" class="control-label">NHS Pension</label>
@@ -220,6 +276,14 @@ $nhs_pension_array = array(
 							 
 						  <span class="errorspan" id="errspan_NHS_Pension"></span>
 					  </div>
+
+
+<div class="form-group">
+ <label for="username" class="control-label">GMC number</label>
+<input type="text" class="form-control ff1" id="gmc_number" name="data[Locum][gmc_number]" value="<?php echo $_POST['data']['Locum']['gmc_number'];?>"  title="Please enter your gmc number" placeholder="Your enter your  gmc number"/>
+<span class="errorspan" id="errspan_gmc_number"></span>
+ </div>
+ 
 
 
 
@@ -255,25 +319,19 @@ $howoftendoyoupaystaffinvoices_array = array(
 
 
 
-
 <div class="form-group">
- <label for="username" class="control-label">GMC number</label>
-<input type="text" class="form-control ff1" id="gmc_number" name="data[Locum][gmc_number]" value="<?php echo $_POST['data']['Locum']['gmc_number'];?>"  title="Please enter your gmc number" placeholder="Your enter your  gmc number"/>
-<span class="errorspan" id="errspan_gmc_number"></span>
- </div>
- 
-
-<div class="form-group">
- <label for="username" class="control-label">Phone number</label>
-<input type="text" class="form-control ff1" id="phone_number" name="data[Locum][phone_number]" value="<?php echo $_POST['data']['Locum']['phone_number'];?>"  title="Please enter your phone number" 	  placeholder="Your phone number"/>
+<label for="password" class="control-label">Phone Number</label><br>
+<input type="text" class="form-control ff1" id="phone_number" name="data[Locum][phone_number]" value="<?php echo $Locumobject->phone_number;?>" title="" placeholder="enter your Phone number"/>
 <span class="errorspan" id="errspan_phone_number"></span>
 </div>
 
+	
+ 
 
  
 <div class="form-group">
  <label for="username" class="control-label">How did you hear about us?</label>
-<select  class="form-control ff1" name="data[Locum][howdidyouhear]" id="howdidyouhear" style="width: 200px;">
+<select  class="form-control ff1" name="data[Locum][howdidyouhear]" id="howdidyouhear">
 	<?php
 		foreach($howdidyouhearlist as $hearlst){
 	?>
