@@ -35,13 +35,18 @@ class LocumsController extends MvcPublicController {
 				  $user->set_role('locum');
  				  $this->params['data']['Locum']['user_id'] = $user_id;
 				  $object = $this->params['data'];
- 				  $this->Locum->save($object);
- 				// $this->flash('notice', 'Successfully Saved');
+				  $this->Locum->save($object);
+ 	 			  $locum_id = $this->Locum->insert_id;					
+
+				  session_start();
+				  $_SESSION['locum_id'] =  $locum_id;
+
+ 				//$this->flash('notice', 'Successfully Saved');
 				
 				  // Email the user
 				 wp_mail( $email_address, 'Welcome to Medbid! ', 'Your Password: ' . $password);
-		  		$id = $this->Locum->insert_id;
-       				$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'locumsignupnext', 'id' => $id));
+		  		
+       				$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'locumsignupnext'));
  			        $this->redirect($url);
 		 	}
  				
@@ -57,12 +62,14 @@ class LocumsController extends MvcPublicController {
 		
 		$this->load_model('Locum');
 
-		$id =  $this->params['id'];
- 		$this->set('locumid',$id);
+		session_start();
+		$locum_id = $_SESSION['locum_id'];
+ 		$this->set('locumid',$locum_id);
+		//echo "<pre>";	print_r($_POST); echo "</pre>";
 	
 	 	if(!empty($this->params['data']['Locum']['gmc_number'])){
-   			  $this->Locum->update($id,$this->params['data']);
-			  $this->flash('success', '  Thanks for Become our locum, Please check your email jobs are waiting for u.');
+   			  $this->Locum->update($locum_id,$_POST['data']['Locum']);
+			  $this->flash('success', '  Thanks for Become our locum, Please check your email to activate your account.');
   		}
 	
 		$this->load_model('howdidyouhear');
@@ -216,7 +223,7 @@ echo	$useriddir =  get_current_user_id();
 		
 
 		if(isset($_POST[data][Locum])){
-			 //echo "<pre>"; print_r($_POST); echo "</pre>";	
+			// echo "<pre>"; print_r($_POST); echo "</pre>";	
 			 
 		if (isset($_POST[data][Locum]['it_systems']))
 			$_POST[data][Locum]['it_systems'] = implode(",",$_POST[data][Locum]['it_systems']);
@@ -225,7 +232,7 @@ echo	$useriddir =  get_current_user_id();
 		if (isset($_POST[data][Locum]['languages_known']))
 			$_POST[data][Locum]['languages_known'] = implode(",",$_POST[data][Locum]['languages_known']);
 
-			$id = $_POST[data][Locum][id];
+			 $id = $_POST[data][Locum][id];
 
  		 	$this->Locum->update($id,$_POST[data][Locum]);
 			 $this->flash('success', 'Your profile updated succeessfully.');	
@@ -398,16 +405,19 @@ echo	$useriddir =  get_current_user_id();
 		$user_id = get_current_user_id();
 		$this->set('user_id',$user_id);
 
- 		$profile_image = get_user_meta($user_id, 'profile_image'); 
+ 		//$profile_image = get_user_meta($user_id, 'profile_image'); 
 		//print_r($profile_image);
-		if ( $profile_image[0] == null )
-			$profile_image[0] = 'demouser.png';
- 		$this->set('profile_image',$profile_image[0]);
 		
   		$sqllocum = "Select * from wp_locums where user_id = $user_id  Limit 1";
 		$locumdetails = $wpdb->get_results($sqllocum);
    		$this->set('locumdetails',$locumdetails[0]);
 		//echo "<pre>";print_r($locumdetails); echo "</pre>";
+		$profile_image = $locumdetails[0]->profile_image;
+		if (strlen(trim($profile_image)) == 0 )
+			$profile_image = 'demouser.png';
+
+ 		$this->set('profile_image',$profile_image);
+
 		
 		$sqlit  = " select itname from wp_itsystems where id in (".$locumdetails[0]->it_systems.")";
 		$itsystemlist =  $wpdb->get_results($sqlit);

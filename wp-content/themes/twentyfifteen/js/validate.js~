@@ -22,7 +22,7 @@ return false;
 
 function validatelocumsignup(){
 
-  jQuery("#errspan__email").text("");
+  jQuery("#errspan_email").text("");
   jQuery("#errspan_firstname").text("");
   jQuery("#errspan_lastname").text("");
     
@@ -550,7 +550,39 @@ else
 }
 
 function validatelocumeditprofile(){
-return true;
+ 
+var     errstat=0;
+
+if(jQuery("#location").val() == ""){
+
+        jQuery("#errspan_location").text("Please enter your location name along with city name we are varifying from Google...");
+        errstat = 1;       
+    }
+	
+
+if(jQuery("#postcode").val() == ""){
+        jQuery("#errspan_postcode").text("Please enter your postalcode");
+        errstat = 1;       
+    }
+
+
+if(jQuery("#firstname").val() == ""){
+        jQuery("#errspan_firstname").text("Please enter your firstname");
+        errstat = 1;       
+    }
+
+if(jQuery("#lastname").val() == ""){
+        jQuery("#errspan_lastname").text("Please enter your lastname");
+        errstat = 1;       
+    }
+	
+
+
+  if (  errstat == 1 )
+	return false;
+else
+ 	return true;
+
 }
 
 function findajaxcall(){
@@ -577,5 +609,5 @@ function findajaxcall(){
 		});
 		
 		
-	}
+}
  

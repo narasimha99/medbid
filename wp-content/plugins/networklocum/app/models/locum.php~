@@ -1,7 +1,4 @@
 <?php
 class Locum extends MvcModel {
-  	var $name ='Locum';	
-	var $primary_key = 'user_id';
-
 }
 ?>

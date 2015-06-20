@@ -323,18 +323,8 @@ if(strlen($large_photo_exists)>0 && strlen($thumb_photo_exists)>0){
 	mysql_select_db(DB_NAME);
 	$user_id=$_SESSION['myuser_id'];
   	$profile_image = 'thumbnail_'.$_SESSION['random_key'].$_SESSION['user_file_ext'];
-	$sqlcheck="select meta_value from wp_usermeta where user_id=$user_id and meta_key='profile_image'";
- 	$result = mysql_query($sqlcheck);
-	$num_rows = mysql_num_rows($result);
-	
- 	
-
-	if ($num_rows==0)
-		$sqlins = "insert into  wp_usermeta(user_id,meta_key,meta_value)values($user_id,'profile_image','$profile_image')";
-	else
-		$sqlins = "update wp_usermeta  set meta_value='$profile_image' where user_id=$user_id and meta_key='profile_image' ";
- 
-	//echo $sqlins; 	
+	$sqlins = "Update wp_locums  set profile_image='$profile_image' where user_id=$user_id ";
+  	//echo $sqlins; 	
 	mysql_query($sqlins);
 	  
  	mysql_close();  

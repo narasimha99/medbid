@@ -1,63 +1,41 @@
-<script>
-jQuery( document ).ready(function() {
-//console.log( "ready!" );
-jQuery("#submit").click(function () {
-$("#locumsignupnext").submit();
-});
-
-     $("#text").bind("keypress", function( e ) {
-	
-	 $.ajax({
-        url:"getcities.php",
-        success:function(response) {
-            $("#view_port").html(response);
-            $("#load_url").hide();
-        }
-    }); 
-});
-  
-});
-</script>
-
 <?php
 $url = esc_url( home_url( '/' ));
 $templtpath= get_template_directory_uri(); 
 ?>
-<!--middle start here-->
-     <div class="midcol">
-		<div class="container">
-		   <div class="row">
-		      <div class="col-md-12">
-
-
-
- 
-<meta charset="utf-8">
-<title>jQuery geocomplete plugin to autocomplete Location/ Places and gather all location related data.</title>
-<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
 <script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery.geocomplete.min.js"></script>
-
 <script>
-$(function () {	
-	$("#location").geocomplete({
+jQuery( document ).ready(function() {
+//console.log( "ready!" );
+jQuery("#submit").click(function () {
+jQuery("#locumsignupnext").submit();
+});
+ 
+jQuery(function () {	
+ 
+	jQuery("#location").geocomplete({
 	  details: ".bitbox1",
 	  detailsAttribute: "data-geo"
 	});
 
 });
-</script>
- 
 
-  <div id="container">
-   
-   
+
+});
+</script>
+<!--middle start here-->
+<div class="midcol">
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<div class="bitbox1">
+
   
 
-
-
+    
+    
 		        <h3><a href="<?php echo $url.'locums/myprofile';?>">My Profile</a> / Edit Profile</h3>
-				<div class="bitbox1">
+				
 				<form name="locumeditprofile" id="locumeditprofile"   autocomplete="off"  method="post" action="<?php echo $url;?>locums/editprofile" onsubmit="javascript:return validatelocumeditprofile();" enctype="multipart/form-data">
  <?php $this->display_flash(); ?>
  
@@ -98,7 +76,7 @@ $(function () {
 
 <div class="form-group">
 <label for="password" class="control-label">Location:</label><br>
-<input type="text" class="form-control ff1" id="location" name="data[Locum][geo_location]" value="<?php echo $Locumobject->geo_location;?>"    title="" placeholder="Type your address location we are getting from Google" />
+<input type="text" class="form-control ff1" id="location" name="data[Locum][geo_location]" value="<?php echo $Locumobject->geo_location;?>"    title="" placeholder="Start with your location name we are verifying all locations from Google" />
 <span class="errorspan" id="errspan_location"></span>
 </div>
 
@@ -119,7 +97,7 @@ $(function () {
 
     				  <div class="form-group">
 						  <label for="password" class="control-label">Country</label><br>
-						  <input type="text" class="form-control ff1"  data-geo="country" id="country" name="data[Locum][country]" value="<?php echo $Locumobject->address;?>"    title="" placeholder="Address"/>
+						  <input type="text" class="form-control ff1"  data-geo="country" id="country" name="data[Locum][country]" value="<?php echo $Locumobject->address;?>"    title="" placeholder="country"/>
 						   
 						 <span class="errorspan" id="errspan_country"></span>
 					  </div>
@@ -130,9 +108,9 @@ $(function () {
 <input type="text" class="form-control ff1"   data-geo="administrative_area_level_1"  id="state" name="data[Locum][state]" value="<?php echo $Locumobject->state;?>"  placeholder="state"/>
 <span class="errorspan" id="errspan_state"></span>
 
-<input type="text" class="form-control ff1"   data-geo="lat"  id="latitude" name="data[Locum][latitude]" value="<?php echo $Locumobject->latitude;?>"  placeholder="latitude"/>
+<input type="hidden" class="form-control ff1"   data-geo="lat"  id="latitude" name="data[Locum][latitude]" value="<?php echo $Locumobject->latitude;?>"  placeholder="latitude"/>
 
-<input type="text" data-geo="lng" class="form-control ff1"  value="<?php echo $Locumobject->longitude;?>"  id="longitude" name="data[Locum][longitude]" placeholder="longitude">
+<input type="hidden" data-geo="lng" class="form-control ff1"  value="<?php echo $Locumobject->longitude;?>"  id="longitude" name="data[Locum][longitude]" placeholder="longitude">
 
 </div>
 
@@ -280,7 +258,7 @@ $nhs_pension_array = array(
 
 <div class="form-group">
  <label for="username" class="control-label">GMC number</label>
-<input type="text" class="form-control ff1" id="gmc_number" name="data[Locum][gmc_number]" value="<?php echo $_POST['data']['Locum']['gmc_number'];?>"  title="Please enter your gmc number" placeholder="Your enter your  gmc number"/>
+<input type="text" class="form-control ff1" id="gmc_number" name="data[Locum][gmc_number]" value="<?php echo $Locumobject->gmc_number;?>"  title="Please enter your gmc number" placeholder="Your enter your  gmc number"/>
 <span class="errorspan" id="errspan_gmc_number"></span>
  </div>
  
@@ -298,21 +276,22 @@ $howoftendoyoupaystaffinvoices_array = array(
 
 				   
 	<div class="form-group">
-<label for="username" class="control-label">Email</label>
-
-<input type="text" class="form-control ff1" id="email" name="data[Locum][email]" value="<?php echo $_POST['data']['Locum']['email'];?>"  				title="Please enter you username" 	  placeholder="Your Email Address" />
+	<label for="username" class="control-label">Email</label>
+	<input type="text" class="form-control ff1" id="email" name="data[Locum][email]" value="<?php echo $Locumobject->email;?>"  				title="Please enter you username" 	  placeholder="Your Email Address" />
 	<span class="errorspan" id="errspan_email"></span>
 	</div>
+
 	<div class="form-group">
 	<label for="username" class="control-label">First name</label>
 	<input type="text" class="form-control ff1" id="firstname" name="data[Locum][firstname]"
-		 value="<?php echo $_POST['data']['Locum']['firstname'];?>"   title="Please enter"   placeholder="Your First name"/>
+		 value="<?php echo $Locumobject->firstname;?>"   title="Please enter"   placeholder="Your First name"/>
 	<span class="errorspan" id="errspan_firstname"></span>
 	</div>
+
 	<div class="form-group">
 	<label for="username" class="control-label">Last name</label>
 	<input type="text" class="form-control ff1" id="lastname" name="data[Locum][lastname]" 
-	  value="<?php echo $_POST['data']['Locum']['lastname'];?>"   title="Please enter"   placeholder="Your Last name"/>
+	  value="<?php echo $Locumobject->lastname; ?>"   title="Please enter"   placeholder="Your Last name"/>
 	<span class="errorspan" id="errspan_lastname"></span>
 	</div>
 
@@ -335,7 +314,7 @@ $howoftendoyoupaystaffinvoices_array = array(
 	<?php
 		foreach($howdidyouhearlist as $hearlst){
 	?>
- 	  <option value="<?php echo $hearlst->id;?>"   <?php if($_POST['data']['Locum']['howdidyouhear'] == $hearlst->id) echo 'selected'?>  ><?php echo $hearlst->hearname;?></option>
+ 	  <option value="<?php echo $hearlst->id;?>"   <?php if($Locumobject->howdidyouhear == $hearlst->id) echo 'selected'?>  ><?php echo $hearlst->hearname;?></option>
 	<?php
 	}	
 	?>  
@@ -352,34 +331,10 @@ $howoftendoyoupaystaffinvoices_array = array(
 						</div>
 					  
 				  </form>
-<<<<<<< HEAD
-					</div>
-									</div>
 
-						 			
-								  </div>
-								  
-								 					  
-							</div>
-							<div class="dashmidh2">
-								
-							</div>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		 
-			
-				
-		
-	</div>
-=======
-				  </div>
-			  </div>
-		   </div>
-		</div>
-	 </div>	
->>>>>>> ea7788018ffbebe6a051e301c67b566a6606945f
-	
-<!--middle end here-->
+</div>
+</div>
+</div>
+</div>	
+</div>
+ <!--middle end here-->

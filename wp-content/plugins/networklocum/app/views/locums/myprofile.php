@@ -6,7 +6,7 @@ $_SESSION["mysitemyurl"] = $url.'/locums/myprofile';
 $_SESSION['myuser_id'] = $user_id;
 ?>
 <script>
-jQuery( document ).ready(function() {
+jQuery(document).ready(function() {
 //console.log( "ready!" );
 jQuery("#submit").click(function () {
 $("#locumsignupnext").submit();
