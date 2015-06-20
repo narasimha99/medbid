@@ -4,7 +4,18 @@ jQuery( document ).ready(function() {
 jQuery("#submit").click(function () {
 $("#locumsignupnext").submit();
 });
- 
+
+     $("#text").bind("keypress", function( e ) {
+	
+	 $.ajax({
+        url:"getcities.php",
+        success:function(response) {
+            $("#view_port").html(response);
+            $("#load_url").hide();
+        }
+    }); 
+});
+  
 });
 </script>
 <?php

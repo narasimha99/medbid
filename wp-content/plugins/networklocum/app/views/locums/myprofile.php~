@@ -84,13 +84,18 @@ $("#locumsignupnext").submit();
 					  <td><?php echo $locumdetails->gmc_number;?></td>
 					</tr>
 				    <tr>
-					  <td>Smartcard Company Status</td>
-					  <td><?php echo $locumdetails->smartcard.' '.$locumdetails->companystatus;?></td>
+					  <td>Smartcard </td>
+					  <td><?php echo $locumdetails->smartcard;?></td>
 					</tr>
+					<tr>
+					<td>Company Status</td>
+					<td> <?php echo $companyStatus[$locumdetails->companystatus];?> </td>
+					</tr>			
 					<tr>
 					  <td>Company Name</td>
 					  <td><?php echo $locumdetails->companyname;?></td>
 					</tr>
+					
 					<tr>
 					  <td>National Insurance Number</td>
 					  <td><?php echo $locumdetails->insuranceno;?></td>

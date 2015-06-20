@@ -255,6 +255,9 @@ echo	$useriddir =  get_current_user_id();
 		//echo "<pre>"; print_r($this->Languagesknown); echo "</pre>";
   
 		$this->set('howdidyouhearlist',$howdidyouhearlist);	
+		
+		$companyStatus = array('I operate as a limited company','I do not operate as a limited company');
+		$this->set('companyStatus',$companyStatus); 
 	
 	}
 
@@ -418,7 +421,10 @@ echo	$useriddir =  get_current_user_id();
 		$sqlit  = "Select * from wp_languagesknowns  where id in (".$langknow.")";
 		$spokenLanguagesarray =  $wpdb->get_results($sqlit);
 	 	$this->set('spokenLanguagesarray',$spokenLanguagesarray);
-  	
+  		
+			
+		$companyStatus = array('I operate as a limited company','I do not operate as a limited company');
+		$this->set('companyStatus' $companyStatus); 
 	}
 
 	
