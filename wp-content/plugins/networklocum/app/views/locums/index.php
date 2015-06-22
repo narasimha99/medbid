@@ -33,22 +33,22 @@ $templtpath= get_template_directory_uri();
 						  <div class="row">
 						     <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3> <a href="<?php echo  $url.'locums/uploaddocuments/3'; ?>">Passport</a></h3>
+									<h3> <a href="<?php echo  $url.'locums/uploaddocuments/5'; ?>">Passport</a></h3>
 								</div>
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3><a href="<?php echo  $url.'locums/uploaddocuments/3'; ?>">C R B </a></h3>
+									<h3><a href="<?php echo  $url.'locums/uploaddocuments/4'; ?>">Criminal Records Bureau Check</a></h3>
 								</div>
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-							<h3><a href="<?php echo  $url.'locums/uploaddocuments/3'; ?>">Profile Photo </a> </h3>
-								</div>
+							<h3><a href="<?php echo  $url.'upload_crop.php'; ?>">Profile Photo </a> </h3>
+								</div>	
 							 </div>
 						  </div>
 						 
-						</div>
+						</div>	
 					</div>
 					<div class="col-md-6">
 						  <div style="text-align:center; margin-top:20px;">

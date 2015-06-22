@@ -2,6 +2,34 @@
  $templtpath= get_template_directory_uri(); 
  $url = esc_url( home_url( '/' ) );
 ?>
+ 
+<script>
+jQuery( document ).ready(function() {
+
+//console.log( "ready!" );
+jQuery("#home-tab").click(function () {
+
+var purl = SITE_ROOT_JS+'locums/myinvitejobs';
+$.ajax({
+	 url:purl,
+	dataType: 'text',
+	data:{}
+}).done(function( data ) {
+
+$("#myinvitejobs").html( data );
+
+});
+
+
+
+});
+ 
+
+});
+</script>
+
+
+
 <!--middle start here-->
 	
 	<div class="midcol">
@@ -27,10 +55,12 @@
 			  <li role="presentation"><a href="#completed" role="tab" id="completed-tab" data-toggle="tab" aria-controls="completed">Completed Jobs</a></li>
 			</ul>
 			<div id="myTabContent" class="tab-content">
-			  <div r
-ole="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
-				<p>You have no invitations outstanding.</p>
-			  </div>
+ <div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+				
+		<div id="myinvitejobs"> </div>
+
+			
+</div>
 			  <div role="tabpanel" class="tab-pane fade" id="application" aria-labelledby="application-tab">
 				<table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
@@ -38,7 +68,7 @@ ole="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-t
 					<th>Job</th>
         				<th>Practicer details</th>
         				<th>Applied Session details</th>
-        			 	<th class="numeric">Hourly rate</th>
+        			 	<th>Hourly rate</th>
         			</tr>
         		</thead>
         		<tbody>

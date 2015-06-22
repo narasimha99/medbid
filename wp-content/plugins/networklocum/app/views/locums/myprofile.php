@@ -27,6 +27,7 @@ $("#locumsignupnext").submit();
 		<div class="container">
 		<div class="row">
 		   <div class="col-md-8">
+			 <?php $this->display_flash(); ?>
 		     <h3 style="padding:10px;">My Profile</h3>
 		     <p style="padding:10px;">My Profile is the place to describe yourself, so it's clear why practice managers should invite you to work. Make sure to include all your skills, interests and IT systems. This is also where you should upload all your documentation proving you're fully up-to-date with qualifications and training.</p>
 		   </div>
@@ -51,7 +52,7 @@ $("#locumsignupnext").submit();
 						  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin:10px;">
 						    <tr>
 							  <td><a href="<?php echo $url.'upload_crop.php';?>">Upload Photo</a></td>
-							  <td><a href="<?php echo $url.'locums/';?>">Upload Document</a></td>
+							  <td><a href="<?php echo $url.'locums/';?>">Upload Documents</a></td>
 							  <td><a href="<?php echo $url.'locums/setyouravailability';?>">Email Preferences</a></td>
 							  <td><a href="<?php echo $url.'locums/editprofile';?>">Edit Profile</a></td>
 							</tr>

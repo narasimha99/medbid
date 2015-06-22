@@ -121,7 +121,7 @@ class LocumsController extends MvcPublicController {
 		
 	$documentList = array("","mdu","certificate_completion_training","cv","crb_chec","passports_photo","diptheria","poliomyelitis",
 "basiclifesupport", "tuberculosis", "safeguarding_children", "my_references", "safeguarding_adults", "current_performers_list", "hepatitis_b", "varicella_chicken", "rubella", "last_appraisal", "immunisation_history", "information_governance_certificates", "righttoworkin_uk", "rcgp_substance_misuse", "mmr", "myterms_conditions","gmc_certificate","tetanus");
-		$this->set('documentList',$documentList); 
+$this->set('documentList',$documentList); 
 /*
 `certificate_completion_training`, `passports_photo`, `cv`, `crb_chec`, `user_id`, `data[Locumdocument][gmc_certificate]`, `diptheria`, ``, `, `);
 */	
@@ -133,85 +133,43 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 	//print_r($this->params);
 	$sId = $_POST['sId'];
 	$selectedfileName  = $documentList[$sId]; //"gmc_certificate";
-
-echo	$useriddir =  get_current_user_id();
-	
-	
-	$target_dir = "upload_documents/";
- 	$target_dir = $target_dir.$useriddir."/";
- 	if(!is_dir($target_dir)){
- 		mkdir($target_dir, 777);
-		chmod($upload_dir, 777);
-	}
-
-
-		
-	$target_file = $target_dir . basename($selectedfileName);
+		print_r($_POST);print_r($_FILES);
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 	// Check if image file is a actual image or fake image
-	if(isset($_POST["submit"])) {
+	if(isset($_POST["sId"])) {
+ 		
+		$useriddir =  get_current_user_id();
+		$target_dir = "upload_documents/";
+		$target_dir = $target_dir.$useriddir."/";
+		if(!is_dir($target_dir)){
+		mkdir($target_dir, 777);
+		chmod($upload_dir, 777);
+		}
+		$target_file = $target_dir . basename($selectedfileName);
 
-	    $check = getimagesize($_FILES[$selectedfileName]["tmp_name"]);
-	    if($check !== false) {
-		echo "File is an image - " . $check["mime"] . ".";
-		$uploadOk = 1;
-	    } else {
-		echo "File is not an image.";
-		$uploadOk = 0;
-	    }
-		//$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'index'));
-	 	//$this->redirect($url);
- 	}
-
-	// Check if file already exists
-	//if (file_exists($target_file)) {
-	 //   echo "Sorry, file already exists.";
-	//    $uploadOk = 0;
-	//}
-
-	// Check file size
-	//if ($_FILES[$selectedfileName]["size"] > 500000) {
-	//    echo "Sorry, your file is too large.";
-	//    $uploadOk = 0;
-	//}
-	// Allow certain file formats
-	//if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-	//&& $imageFileType != "gif" ) {
-	//    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-	//    $uploadOk = 0;
-	//}
-	// Check if $uploadOk is set to 0 by an error
-	if ($uploadOk == 0) {
-	    echo "Sorry, your file was not uploaded.";
-	// if everything is ok, try to upload file
-	} else {
-		
 	    if (move_uploaded_file($_FILES[$selectedfileName]["tmp_name"], $target_file)) {
-		echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-		
+		 
 		global $wpdb;
  		$sqldocs = "Select * from wp_locumdocuments where user_id = $useriddir";
 		$docdetails = $wpdb->get_results($sqldocs);
- 		if($docdetails){
-			echo 	$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
-			$wpdb->query($sqlUpdate); 
-		}
-		else
-		{
-			echo $sqlUpdate = "INSERT INTO  wp_locumdocuments (user_id,".$selectedfileName.")VALUES(".$useriddir.",1)"; 
-			$this->flash('success', 'Thanks for  Uploading the file we will aprove as soon as.'.$sqlUpdate);
-			$wpdb->query($sqlUpdate); 
- 		}
-			
-
+ 		if($docdetails)
+			$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
+  		else
+			 $sqlUpdate = "INSERT INTO  wp_locumdocuments (user_id,".$selectedfileName.")VALUES(".$useriddir.",1)"; 
+ 			$wpdb->query($sqlUpdate); 
+  		
+		$this->flash('success', 'Thanks for  Uploading the file we will aprove as soon as.');
+ 
 	    } else {
-		echo "Sorry, there was an error uploading your file.";
+		$this->flash('error', "Sorry, there was an error uploading your file.");
 	    }
+		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'myprofile'));
+	        $this->redirect($url);		
+	 
 	}
 
-	
- 	
+
 	}
 	
 	public function editprofile(){
@@ -396,6 +354,43 @@ echo	$useriddir =  get_current_user_id();
 	//echo "<pre>";print_r($collection['objects']); echo "</pre>";
 
  	}
+	
+	public function  myinvitejobs(){
+
+		$this->set('mylayout', 'empty');
+		$user_id = get_current_user_id();
+ 
+		$this->load_model('Invitedjob');
+		 
+		global $wpdb;
+
+  		
+		$params = $this->params;
+ 		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+		$params['joins'] = array('Job,Practice');
+		$params['includes'] = array('Job','Practice');
+		 
+		//$params['conditions'] = array('Invitedjob.user_id' =>$user_id);
+  
+ 		//$params['conditions'] = array('user_id' =>$user_id);
+ 		$collection = $this->Invitedjob->paginate($params);
+		 echo "<pre>"; print_r($collection);  echo "</pre>";
+		//$sqlinvtjobs ="Select  from wp_invitedjobs where 
+		$this->set('invitedjoblists', $collection['objects']);
+		$this->set_pagination($collection);
+ 	}
+
+	public function myapplicationjobs(){
+
+	}
+
+	public function mybookedjobs(){
+
+	}
+	
+	public function completedjobs(){
+	
+	}
 
  
 	public function myprofile(){
@@ -445,6 +440,24 @@ echo	$useriddir =  get_current_user_id();
 	}
 
 	public function test(){
+
+	$this->load_model('Event');
+		 $objects = $this->Event->find(array('joins' => array('Venue'),
+      'includes' => array('Venue'),
+      'selects' => array('Venue.id', 'Venue.name', 'Event.date', 'Event.active'),
+      'additional_selects' => array('Event.date'),
+      'group' => 'Event.id',
+      'order' => 'Event.date DESC',
+      'page' => 1,
+      'per_page' => 20
+    ));
+
+
+	
+	$this->load_model("Job");
+	 $objects = $this->Job->find(array('joins' => array('Jobsession'),'includes' => array('Jobsession'),'conditions'=>array('Job.id'=>array(4412))));
+	echo "<pre>";	print_r($objects); echo "</pre>";
+ 
 
 	}
 	

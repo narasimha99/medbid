@@ -7,12 +7,14 @@ $templtpath= get_template_directory_uri();
 			<div class="container">
 				<div class="row">
 				    <div class="col-md-6">
-						 <h2> Docum / Upload CV </h2><br/>	
+						 <h2> Docum / Upload Documents </h2><br/>	
 </div>
  <?php $this->display_flash(); ?>
 <div class="row-fluid">
-	
-	
+	<br/>
+	<p>
+	Choose your document using the button bellow.
+	</p>
 	<div>
 	<form class="form-horizontal" enctype="multipart/form-data" style="border:1px sold green" action="<?php echo $url;?>locums/uploaddocuments"  method="post">
 		<input type="hidden" name="sId" value="<?php echo $this->params['id'];?>"/>
