@@ -31,11 +31,8 @@ jQuery( document ).ready(function() {
    
 
 	var onejobormultiplesessions_array = {
-		'1':'Day Rate',
-		'2':'Half Day Rate',
-		'3':'Hourly Rate',
-		'4':'Duty Doctor',
-		'5':'Salaried Position'
+		'1':'Hourly Rate',
+		'2':'Salaried Position'
 	};	
 
 	$("#onejobormultiplesessions").change(function() {
@@ -166,13 +163,10 @@ $templtpath= get_template_directory_uri();
 	<p>
 	<?php 
 	$onejobormultiplesessions_array = array(
-	'1'=>'Day Rate',
-	'2'=>'Half Day Rate',
-	'3'=>'Hourly Rate',
-	'4'=>'Duty Doctor',
-	'5'=>'Salaried Position'
+	'1'=>'Hourly Rate',
+ 	'2'=>'Salaried Position'
 	);	
-	$defaultTariff = 3;
+	$defaultTariff = 1;
 	if(!isset($_POST['onejobormultiplesessions'])){
 		$_POST['onejobormultiplesessions'] = $defaultTariff;
 	}
@@ -220,17 +214,16 @@ foreach($joblists as $job){
 //echo "<pre>"; print_r($job); echo "</pre>";
 //$jobsessions  = count($job->jobsessions);
 ?>
-					<tr>
-        				<td data-title="Code"><?php echo $job->location; echo $job->city_id;echo $job->state_id;?></td>
-        				<td data-title="Company"><?php 
-foreach ($job->jobsessions as $jobsession){
-echo "<br>";
-echo date('D j M Y, H:m', strtotime($jobsession->session_starttime)).' - '.date('H:m', strtotime($jobsession->session_endtime));
-}
+<tr>
+<td data-title="Code"><?php echo $job->location; echo $job->city_id;echo $job->state_id;?></td>
+<td data-title="Company"><?php 
+
+echo date('D j M Y, H:m', strtotime($job->session_starttime)).' - '.date('H:m', strtotime($job->session_endtime));
+
 ?> </td>
-        				<td data-title="Price" class="nndumeric"><?php echo $job->no_of_sessions;?> sessions</td>
-        				<td data-title="Change" class="numeric">£ <?php echo $jobsession->hourlyrate;?> </td>
-        				<td data-title="Change %" class="numeric"><a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply</a></td>
+<td data-title="Price" class="nndumeric"><?php echo $job->no_of_sessions;?> sessions</td>
+<td data-title="Change" class="numeric">£ <?php echo $job->hourlyrate;?> </td>
+<td data-title="Change %" class="numeric"><a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply</a></td>
         			</tr>
 <?php 
 	}

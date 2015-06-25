@@ -234,9 +234,22 @@ class JobsController extends MvcPublicController {
 	 
 	
 	function temp() {
+
+		$this->load_model('Job');
+		$objects  = $this->Job->find(array('joins' =>  array(  'table' => 'wp_jobsessions',
+								  	'on' => 'Job.id = Jobsession.job_id',
+								  	'type' => 'LEFT JOIN',
+									'alias'=>'Jobsession'
+							      	),
+						       'additional_selects' => array('Jobsession.session_date,Jobsession.session_starttime', 											'Jobsession.session_endtime','Jobsession.hourlyrate')
+						));
+
+ 
+		echo "<pre>"; print_r($objects); echo "</pre>";	
+
 		$this->set('mylayout', 'client');
 		$postcode='SW13 9HB LONDON';		
-		$vallatlong = $this->getLatLong($postcode);
+		//$vallatlong = $this->getLatLong($postcode);
 
  	}
 	
@@ -640,7 +653,7 @@ class JobsController extends MvcPublicController {
  
 	global $wpdb;
 	$results =  $wpdb->get_results($queryLast);
-	//echo "<pre>"; print_r($results); echo "</pre>";
+	echo "<pre>"; print_r($results); echo "</pre>";
 	$this->set('joblists', $results);
 
  	}
@@ -738,22 +751,40 @@ class JobsController extends MvcPublicController {
     		              //output all matches to screen
 		}
 		else {
-		 	
- 
+		 	 
+ /*
+$this->load_model('Job');
+		$objects  = $this->Job->find(array(
+				'joins' =>  array(  'table' => 'wp_jobsessions',
+					  	'on' => 'Job.id = Jobsession.job_id',
+					  	'type' => 'LEFT JOIN',
+						'alias'=>'Jobsession'
+						),		
+				'additional_selects' => array('Jobsession.session_date,Jobsession.session_starttime', 
+						'Jobsession.session_endtime','Jobsession.hourlyrate')
+		));
+
+*/
 
 			$params = $this->params;
 			$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
 			$params['order'] = 'Job.createddate DESC';
-			// $params['conditions']  = 'Jobsession.hourlyrate=123';
 			$params['includes'] = array('Jobsession');
-			$params['join_table'] = array('Jobsession');
+ 			$params['joins']  = array(  'table' => 'wp_jobsessions',
+					  	'on' => 'Job.id = Jobsession.job_id',
+					  	'type' => 'LEFT JOIN',
+						'alias'=>'Jobsession'
+					     );
+					 		
+			$params['additional_selects'] = array('Jobsession.session_date,Jobsession.session_starttime', 
+						'Jobsession.session_endtime','Jobsession.hourlyrate');
 
 
 			//'selects' => array('Venue.id');
 
 			//$params['conditions'] = array('is_public' => true);
 			$collection = $this->Job->paginate($params);
-			//echo "<pre>"; print_r($collection); echo "</pre>";
+			echo "<pre>"; print_r($collection); echo "</pre>";
 
 			$this->set('joblists', $collection['objects']);
 			$this->set_pagination($collection);
@@ -791,11 +822,13 @@ class JobsController extends MvcPublicController {
 		$rslocums = $wpdb->get_results($sqllocum);
 		$this->set('listlocums',$rslocums);
 		$user_id = get_current_user_id();
+		$practicer_id = $_SESSION['practicer_id'];
+		
 		if (isset($_POST['submit'])){
 			$locumcheck = $_POST['locumcheck'];
 			for($z=0;$z<=count($locumcheck); $z++){
 				if($locumcheck[$z]>0){
-		 	$sqlinsert="INSERT INTO wp_invitedjobs (job_id,locum_id,practicer_id) values( $job_id,$locumcheck[$z],$user_id)";
+		 	$sqlinsert="INSERT INTO wp_invitedjobs (job_id,locum_id,practicer_id) values($job_id,$locumcheck[$z],$practicer_id)";
 				$wpdb->query($sqlinsert);
  				}
 				

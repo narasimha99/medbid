@@ -368,3 +368,17 @@ remove_action('wpua_before_avatar', 'wpua_do_before_avatar');
 remove_action('wpua_after_avatar', 'wpua_do_after_avatar');
 
 
+
+add_action('init', 'myStartSession', 1);
+add_action('wp_logout', 'myEndSession');
+add_action('wp_login', 'myStartSession');
+
+function myStartSession() {
+    if(!session_id()) {
+        session_start();
+    }
+}
+
+function myEndSession() {
+    session_destroy ();
+}

@@ -3,7 +3,13 @@ class LocumsController extends MvcPublicController {
 
  	public function index() {
 		$this->set('mylayout', 'client');	
-  	}
+   		$user_id = get_current_user_id();
+ 		$_SESSION['user_id'] =  $user_id;
+		$this->load_model('Locum');
+		$locumObject = $this->Locum->find_by_user_id($user_id);
+ 		$_SESSION['locum_id'] = $locumObject[0]->id;			
+		//echo "<pre>"; print_r($locumObject);print_r($_SESSION); echo "</pre>";
+   	}
 
 	public function locumsignup(){
 
@@ -291,7 +297,7 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 		$this->set('job_id',$job_id);
 			
 		$practicer_id  = $_POST['practicer_id'];
- 		//echo "<pre>"; print_r($_POST);  echo "</pre>";
+ 		echo "<pre>"; print_r($_POST);  echo "</pre>";
  			
 		$paperwork = $_POST['paperwork'];
 		$referrals = $_POST['referrals'];
@@ -303,11 +309,14 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 		
 
 	  	$user_id = get_current_user_id();
+
+		$locum_id = $_SESSION['locum_id'];
+
 		//echo "<pre>"; print_r($jobdetails); echo "</pre>";
 		if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
 		
 		 $job_id = $_POST['job_id'];
-		 $sql_appjob = "INSERT INTO  wp_appliedjobs(locum_id,practicer_id,job_id,paperwork,referrals,home_visits,bloods,pension_included,number_of_patients,number_of_telephoneconsultations)VALUES($user_id,$practicer_id,$job_id,$paperwork,$referrals,$home_visits,$bloods,$pension_included,$number_of_patients,$number_of_telephoneconsultations)";
+		 $sql_appjob = "INSERT INTO  wp_appliedjobs(locum_id,practicer_id,job_id,paperwork,referrals,home_visits,bloods,pension_included,number_of_patients,number_of_telephoneconsultations)VALUES($locum_id,$practicer_id,$job_id,$paperwork,$referrals,$home_visits,$bloods,$pension_included,$number_of_patients,$number_of_telephoneconsultations)";
 		$wpdb->query($sql_appjob);
 
 
@@ -315,43 +324,49 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
  		$jobsessions = $_POST['jobsessions']; 
 		$hourlyrate = $_POST['hourlyrate'];
 		$paytolocum = $_POST['paytolocum'];
+		$session_starttime = $_POST['session_starttime'];
+		$session_endtime = $_POST['session_endtime'];
 	 
 		foreach ($jobsessions as $key => $value){
 
  		 
-		    $sql_jobsessions = "INSERT INTO  wp_appliedsessions(user_id,job_id,practicer_id,jobsession_id,hourlyrate,paytolocum)VALUES($user_id,$job_id,$practicer_id,$key,$hourlyrate[$key],$paytolocum[$key])";
+		     $sql_jobsessions = "INSERT INTO  wp_appliedsessions(locum_id,job_id,practicer_id,jobsession_id,hourlyrate,paytolocum,session_starttime,session_endtime)VALUES($locum_id,$job_id,$practicer_id,$key,$hourlyrate[$key],$paytolocum[$key],'$session_starttime[$key]','$session_starttime[$key]')";
 				$wpdb->query($sql_jobsessions);
  			}
- 		
-			$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'alljobs'));
- 			//$this->redirect($url);
- 			$this->flash('success', 'You have successfully aplied for the job we will get back you soon..');	
+
+			$this->flash('success', 'You have successfully aplied for the job we will get back you soon..'); 		
+			$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'myjobs'));
+ 			 $this->redirect($url);
+ 				
 		}  
 	}
 
 	public function myjobs(){
 
  		$this->set('mylayout', 'client');
-		$user_id = get_current_user_id();
- 
+  		
+		$locum_id = $_SESSION['locum_id'];
+  
 		$this->load_model('Appliedsession');
 		 
 		global $wpdb;
 
-  		
+ 		 		
 		$params = $this->params;
-
-		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+ 		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
 		$params['joins'] = array('Practice');
 		$params['includes'] = array('Practice');
-		$params['conditions'] = array('Appliedsession.user_id' =>$user_id);
+		$params['conditions'] = array('Appliedsession.locum_id' =>$locum_id);
   
- 		//$params['conditions'] = array('user_id' =>$user_id);
+ 		 //$params['conditions'] = array('user_id' =>$user_id);
  		$collection = $this->Appliedsession->paginate($params);
 		$this->set('appliedjoblists', $collection['objects']);
 		$this->set_pagination($collection);
+		//echo "<pre>"; print_r($collection); echo "</pre>";
+  
+		//echo "<pre>"; print_r($objects); echo "</pre>";	
 
-	//echo "<pre>";print_r($collection['objects']); echo "</pre>";
+ 		//echo "<pre>";print_r($collection['objects']); echo "</pre>";
 
  	}
 	
@@ -359,25 +374,23 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 
 		$this->set('mylayout', 'empty');
 		$user_id = get_current_user_id();
- 
-		$this->load_model('Invitedjob');
 		 
-		global $wpdb;
+		$locum_id = $_SESSION['locum_id'];
+ 	 
+	  		$sqlinvitedjobs="SELECT inivitedjob.*,jobsession.session_starttime,jobsession.session_endtime,jobsession.hourlyrate, Practice.firstname,Practice.lastname FROM wp_invitedjobs inivitedjob 
+		JOIN wp_practices Practice ON Practice.id = inivitedjob.practicer_id 
+		join wp_jobsessions jobsession ON jobsession.job_id = inivitedjob.job_id 
+		WHERE inivitedjob.locum_id = $locum_id";
 
-  		
-		$params = $this->params;
- 		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-		$params['joins'] = array('Job,Practice');
-		$params['includes'] = array('Job','Practice');
-		 
-		//$params['conditions'] = array('Invitedjob.user_id' =>$user_id);
-  
- 		//$params['conditions'] = array('user_id' =>$user_id);
- 		$collection = $this->Invitedjob->paginate($params);
-		 echo "<pre>"; print_r($collection);  echo "</pre>";
-		//$sqlinvtjobs ="Select  from wp_invitedjobs where 
-		$this->set('invitedjoblists', $collection['objects']);
-		$this->set_pagination($collection);
+ 
+ 	global $wpdb;
+ 	$invitedJobDetails = 	$wpdb->get_results($sqlinvitedjobs);
+		$this->set('invitedJobDetails',$invitedJobDetails);
+
+		// echo"<pre>"; print_r($invitedJobDetails); echo "</pre>";
+	
+ 
+	
  	}
 
 	public function myapplicationjobs(){
@@ -439,29 +452,7 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 	
 	}
 
-	public function test(){
-
-	$this->load_model('Event');
-		 $objects = $this->Event->find(array('joins' => array('Venue'),
-      'includes' => array('Venue'),
-      'selects' => array('Venue.id', 'Venue.name', 'Event.date', 'Event.active'),
-      'additional_selects' => array('Event.date'),
-      'group' => 'Event.id',
-      'order' => 'Event.date DESC',
-      'page' => 1,
-      'per_page' => 20
-    ));
-
-
-	
-	$this->load_model("Job");
-	 $objects = $this->Job->find(array(array('joins' => array('Jobsession'),'includes' => array('Jobsession'),'conditions'=>array('Job.id'=>array(4412))));
-	echo "<pre>";	print_r($objects); echo "</pre>";
- 
-
-	}
-	
-	public function setyouravailability(){
+ 	public function setyouravailability(){
 
 	}
 

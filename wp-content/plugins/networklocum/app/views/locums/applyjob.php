@@ -1,6 +1,7 @@
 <script>
 jQuery( document ).ready(function() {
 
+	
         $('input[type="checkbox"]').click(function(){
 
             if($(this).prop("checked") == true){
@@ -18,6 +19,19 @@ jQuery( document ).ready(function() {
             }
 
         });
+
+	$(".hourlyrate").blur(function(){
+		 var data_id =  $(this).attr("data_id");
+	 	//alert(data_id);
+
+		var hourlyrate = $("#hourlyrate_"+data_id).val();
+		var paytolocum = $("#paytolocum_"+data_id).val();
+		var timediff  =  $("#timediff_"+data_id).val();
+		var res = timediff.split(":");
+		paytolocum = hourlyrate * res[0];
+		 $("#paytolocum_"+data_id).val(paytolocum);
+			//alert("This input field has lost its focus.");
+	});
 
 	//console.log( "ready!" );
 	jQuery("#submit1").click(function () {
@@ -74,6 +88,7 @@ $templtpath= get_template_directory_uri();
 <th>Sart Time</th>
 <th>End Time</th>
 <th>Hourly rate £</th>
+<th>Hours</th>
 <th>Pay to locum </th>
  
 
@@ -102,10 +117,18 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime));
 ?>
 </td>
  
-<td> <?php echo date('H:ma', strtotime($jobsession->session_endtime)); ?>  </td>
+<td> <?php echo date('H:ma', strtotime($jobsession->session_endtime)); ?> 
+
+ <input type="hidden" data_id="<?php echo $jobsession->id;?>"   id="session_starttime_<?php echo $jobsession->id;?>" name="session_starttime[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->session_starttime;?>"   /> 
+
+ <input type="hidden" data_id="<?php echo $jobsession->id;?>"    id="session_endtime_<?php echo $jobsession->id;?>" name="session_endtime[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->session_endtime;?>"   /> 
+ </td>
 <td> 
- <input type="text"   id="hourlyrate_<?php echo $jobsession->id;?>" name="hourlyrate[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->hourlyrate;?>"  readyonly />   </td>
-<td>  <input type="text"   id="paytolocum_<?php echo $jobsession->id;?>"  name="paytolocum[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->paytolocum;?>" readonly    />   </td>	
+ <input type="text" data_id="<?php echo $jobsession->id;?>" class="hourlyrate"  id="hourlyrate_<?php echo $jobsession->id;?>" name="hourlyrate[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->hourlyrate;?>"   />   </td>
+<td>
+<input type="hidden" data_id="<?php echo $jobsession->id;?>"  id="timediff_<?php echo $jobsession->id;?>" name="timediff[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->timediff;?>"   /> <?php echo $jobsession->timediff;?>  </td>
+ 
+<td>  <input type="text" data_id="<?php echo $jobsession->id;?>"   id="paytolocum_<?php echo $jobsession->id;?>"  name="paytolocum[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->paytolocum;?>" readonly    />   </td>	
  
 <?php 
 if (!isset($jobsession->id))
@@ -129,11 +152,8 @@ $j = $j + 1;
 				<?php 
 
 				$onejobormultiplesessions_array = array(
-				'1'=>'Day Rate',
-				'2'=>'Half Day Rate',
-				'3'=>'Hourly Rate',
-				'4'=>'Duty Doctor',
-				'5'=>'Salaried Position'
+				'1'=>'Hourly Rate',
+				'2'=>'Salaried Position'
 				);
 				?>
 				<?php  echo $onejobormultiplesessions_array[$jobdetails->onejobormultiplesessions];?>
@@ -142,13 +162,13 @@ $j = $j + 1;
 
 
 			 <div class="form-group">
-			  <label for="password" class="control-label">Number of Patients</label>
+			  <label for="password" class="control-label">Number of Patients  : </label>
 				<input type="text" name="number_of_patients"  value="<?php echo $jobdetails->number_of_patients;?>"/>	 		
 		 		</div>
 
 			 
 			 <div class="form-group">
-			 <label for="password" class="control-label">Number of Telephone consultations?</label>
+			 <label for="password" class="control-label">Number of Telephone consultations : </label>
 	 			<input type="text" name="number_of_telephoneconsultations"  value="<?php echo $jobdetails->number_of_telephoneconsultations;?>"/>	
   			</div>
 
@@ -194,7 +214,7 @@ $j = $j + 1;
 			</div>
 
 					  <div class="form-group">
-						  <label for="password" class="control-label">Required IT systems</label>
+						  <label for="password" class="control-label">Required IT systems : </label>
 						   <?php
 								foreach($itsystemlist as $itsys){
 							  if($jobdetails->required_it_systems == $itsys->id) echo $itsys->itname; 
@@ -203,7 +223,7 @@ $j = $j + 1;
 							?>  
   					  </div>
 					  <div class="form-group">
-						  <label for="username" class="control-label">Parking facilities</label>
+						  <label for="username" class="control-label">Parking facilities : </label>
 <?php
 $parking_array = array(
 '1'=>'Free and near',
@@ -224,7 +244,7 @@ $parking_array = array(
   					 
 					  </div>
 					  <div class="form-group">
-						  <label for="username" class="control-label">Job description</label>
+						  <label for="username" class="control-label">Job description  : </label>
 						 <?php echo $jobdetails->session_description;?>
  					  </div>
 					 

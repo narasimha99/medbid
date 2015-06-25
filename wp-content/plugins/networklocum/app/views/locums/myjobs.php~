@@ -39,13 +39,18 @@ $("#myinvitejobs").html( data );
 		     <h3>My Jobs</h3>
 		     <p>Details of jobs you've been invited to book, pending applications, booked and completed jobs are all found here. It's the one-stop shop to manage your jobs and keep track of what's happening, when.</p>
 		   </div>
+
+
 		   <div class="col-md-4">
 		                 <div class="progress-radial progress-40" style="height:50px;">
 				                <div class="overlay">40%</div>
 			             </div>
 		  </div>
+		
 		</div>
 		<div class="row">
+
+  <?php $this->display_flash(); ?>
 		  	<div class="bs-docs-section" style="margin-top:20px;">
 		  <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 			<ul id="myTab" class="nav nav-tabs" role="tablist">
