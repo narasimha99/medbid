@@ -54,7 +54,7 @@ $i=1;
 
 <tr>
 <td colspan="2"><input type="text"  class="session_date" id="<?php echo 'session_date_'.$i;?>" name="session_date[<?php echo $i;?>]" value="<?php echo $sessiondate;?>" placeholder='pick your date'/>  <span id="errspan_session_date_range" class="errorspan"></span> </td>
-<td colspan="2"><input type='button' name="add" id="<?php echo 'add'.$i;?>" value="add more sessions" onclick="addsession(<?php echo $i;?>);"/> </td>
+<td colspan="2"><input type='hidden' name="add" id="<?php echo 'add'.$i;?>" value="add more sessions" onclick="addsession(<?php echo $i;?>);"/> </td>
 </tr>
 
  

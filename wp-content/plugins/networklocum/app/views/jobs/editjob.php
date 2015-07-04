@@ -73,11 +73,8 @@ jQuery( document ).ready(function() {
 <?php 
 
 $onejobormultiplesessions_array = array(
-'1'=>'Day Rate',
-'2'=>'Half Day Rate',
-'3'=>'Hourly Rate',
-'4'=>'Duty Doctor',
-'5'=>'Salaried Position'
+'1'=>'Hourly Rate',
+'2'=>'Salaried Position'
 );
 ?>
 					<select id="onejobormultiplesessions" name="onejobormultiplesessions" class="form-control ff1">

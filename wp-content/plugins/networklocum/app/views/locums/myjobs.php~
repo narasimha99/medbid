@@ -51,6 +51,7 @@ $("#myinvitejobs").html( data );
 		<div class="row">
 
   <?php $this->display_flash(); ?>
+
 		  	<div class="bs-docs-section" style="margin-top:20px;">
 		  <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 			<ul id="myTab" class="nav nav-tabs" role="tablist">
@@ -70,10 +71,12 @@ $("#myinvitejobs").html( data );
 				<table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
         			<tr>
+					<th>Application #</th>
 					<th>Job</th>
         				<th>Practicer details</th>
         				<th>Applied Session details</th>
         			 	<th>Hourly rate</th>
+					<th>Job Status</th>
         			</tr>
         		</thead>
         		<tbody>
@@ -84,19 +87,34 @@ foreach($appliedjoblists as $jobsession){
  
 //$jobsessions  = count($job->jobsessions);
 ?>
-					<tr>
-        				<td data-title="Code"><?php echo $jobsession->job_id;?></td>
-	       				<td data-title="Code"><?php echo $jobsession->practice->firstname.','.$jobsession->practice->lastname;?></td>
-        				<td data-title="Company"><?php 
- 
+			
+<tr>
+<td data-title="Code"><?php echo $jobsession->id;?></td>
+<td data-title="Code"><?php echo $jobsession->job_id;?></td>
+<td data-title="Code"><?php echo $jobsession->firstname.','.$jobsession->lastname;?></td>
+<td data-title="Company"><?php 
+
  
 echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date('H:ma', strtotime($jobsession->session_endtime));
  
 ?> </td>
 
 <td data-title="Change" class="numeric">£ <?php echo $jobsession->hourlyrate;?> </td>
-        		 
-        			</tr>
+<td data-title="Change" class="numeric"><?php 
+				if( $jobsession->practicer_accepted == 1) echo "Accepted";
+				else if($jobsession->practicer_rejected == 1) echo  "Rejected"; 
+				else if($jobsession->practicer_accepted == 0) echo  "Waiting..";
+?> 
+</td>
+<td data-title="Change %" class="numeric">
+<?php 
+	if( $jobsession->practicer_accepted == 1 && $jobsession->locum_accepted == 0 ) {
+?>
+<a href="<?php echo $url.'locums/acceptyourjob/'.$jobsession->id;?>" class="btn btn-primary aplbtn" title="Accept the job">Accept</a>
+<a href="<?php echo $url.'locums/acceptyourjob/'.$jobsession->id?>" class="btn btn-primary aplbtn" title="Reject job">Reject</a>
+<?php } ?>
+</td>
+</tr>
 <?php 
 	
 

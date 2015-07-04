@@ -47,7 +47,8 @@
         				<th>Edit Records</th>
          			</tr>
         		</thead>
-        		<tbody>
+        		 
+			<tbody>
 				<?php
 				$i  =1;
 	 foreach($itsystemlist as $itsystem) { ?>
@@ -58,10 +59,10 @@
         				
         				<td data-title="Change %" class="numeric">
 					<a href="<?php echo $url.'managers/manageitsystems/'.$itsystem->id;?>">Edit </a></td>
-        			</tr>
-        			 <?php
-		$i = $i+1;
-
+   
+</tr>
+<?php
+$i = $i+1;
  } 
 ?>
         		</tbody>

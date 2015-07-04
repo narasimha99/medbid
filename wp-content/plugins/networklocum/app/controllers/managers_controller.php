@@ -72,30 +72,16 @@ class ManagersController extends MvcPublicController {
 	public function  manageuploadfiles(){
 
  		$this->set('mylayout', 'client');
-		
-		global $wpdb;	
-		$this->load_model('cgcode');
- 		if(isset($this->params['data']['cgcode']['ccg_name'])){
-	  		  $this->cgcode->save($this->params['data']['cgcode'])				;
-			  $this->flash('success', 'Successfully Saved');
-		}
-	
-		$id = $this->params['id'];
-	  	$sql = "select id,ccg_name From wp_cgcodes where id=$id";
-		$editccgcode=$wpdb->get_results($sql);
-		//echo "<pre>";print_r($editccgcode);
-		$this->set('editccgcode',$editccgcode['0']);
 
- 		
-		$params               = $this->params;
+		$this->load_model('Masterdocument');		
+		$masterDocuments = $this->Masterdocument->find();
+		$this->set('masterDocuments',$masterDocuments);
+  
+ 		$this->load_model('Locumdocument');
+	  	$params               = $this->params;
 		$params['page']       = empty($this->params['page']) ? 1 : $this->params['page'];
-		$params['selects']    = array('Cgcode.*');
-  		$this->load_model('cgcode');
-		$cgcodelist = $this->cgcode->find();
- 		//$this->set('cgcodelist',$cgcodelist);
-	 
-		$collection = $this->cgcode->paginate($params);
-  		$this->set('ccgcodelist', $collection['objects']);
+ 		$collection = $this->Locumdocument->paginate($params);
+  		$this->set('Locumdocuments', $collection['objects']);
  		$this->set_pagination($collection);
  
  	}
@@ -150,7 +136,22 @@ class ManagersController extends MvcPublicController {
  
 	}
 
- 
+ 	public function verifydocuments(){
+
+		$this->set('mylayout', 'client');
+		
+		$this->load_model('Masterdocument');		
+		$masterDocuments = $this->Masterdocument->find();
+		$this->set('masterDocuments',$masterDocuments);
+		
+		$user_id = get_current_user_id();	
+		$this->load_model('Locumdocument');
+	 	$locumDocuments = $this->Locumdocument->find_by_user_id($user_id);
+		$this->set('locumDocuments',$locumDocuments);
+
+
+	
+ 	}
 
 }
 ?>

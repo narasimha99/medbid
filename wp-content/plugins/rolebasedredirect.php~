@@ -85,7 +85,7 @@ add_action( 'admin_head', 'dolly_css' );
  * WordPress function for redirecting users on login based on user role
  */
 function my_login_redirect( $url, $request, $user ){
-	
+	echo "<pre>"; print_r($user); echo"</pre>"; 
 	$url = home_url('/members-only/');
 
     if( $user && is_object( $user ) && is_a( $user, 'WP_User' ) ) {
@@ -101,6 +101,8 @@ function my_login_redirect( $url, $request, $user ){
 			     $url = home_url('/members-only/');
         }
     }
+    echo $url;
+	exit;
     return $url;
 }
 

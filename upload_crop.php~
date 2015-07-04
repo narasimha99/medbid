@@ -1,4 +1,5 @@
 <?php
+
 include('wp-config.php');
 //echo  $_SESSION["sitemyurl"];
  error_reporting (E_ALL ^ E_NOTICE);
@@ -308,7 +309,8 @@ $(window).load(function () {
 
 </script>
 <?php }?>
-<h1>Photo Upload and Crop</h1>
+
+<h1>Upload your profile picture</h1>
 <?php
 //Display error message if there are any
 if(strlen($error)>0){
@@ -330,7 +332,7 @@ if(strlen($large_photo_exists)>0 && strlen($thumb_photo_exists)>0){
  	mysql_close();  
 
 
-	
+	echo "<p> Your profile picture updated click here to </p> ";
 	echo "<p><a href=\"".$_SESSION["mysitemyurl"]."\">Return to profile screen </a></p>";
 	//Clear the time stamp session and user file extension
 	$_SESSION['random_key']= "";
@@ -338,6 +340,8 @@ if(strlen($large_photo_exists)>0 && strlen($thumb_photo_exists)>0){
 }else{
 		if(strlen($large_photo_exists)>0){?>
 		<h2>Create Thumbnail</h2>
+		<h6>Choose your position on image to crop and customize your profile picture</h6>
+		<h6>Then click on Save thumbnail button  to continue</h6>
 		<div align="center">
 			<img src="<?php echo $upload_path.$large_image_name.$_SESSION['user_file_ext'];?>" style="float: left; margin-right: 10px;" id="thumbnail" alt="Create Thumbnail" />
 			<div style="border:1px #e5e5e5 solid; float:left; position:relative; overflow:hidden; width:<?php echo $thumb_width;?>px; height:<?php echo $thumb_height;?>px;">
@@ -357,7 +361,7 @@ if(strlen($large_photo_exists)>0 && strlen($thumb_photo_exists)>0){
 		</div>
 	<hr />
 	<?php 	} ?>
-	<h2>Upload Photo</h2>
+	<h2>Please choose bellow options to select your profile picture..</h2>
 	<form name="photo" enctype="multipart/form-data" action="<?php echo $_SERVER["PHP_SELF"];?>" method="post">
 	Photo <input type="file" name="image" size="30" /> <input type="submit" name="upload" value="Upload" />
 	<input type="hidden" name="myuser_id" value="<?php  echo  $_SESSION['myuser_id'];?>" />

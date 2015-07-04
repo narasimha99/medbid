@@ -80,7 +80,7 @@ $templtpath= get_template_directory_uri();
 </tr>
  
 <tr>
-<td colspan="4"> Please choose bellow sessions to apply the job </td>
+<td colspan="4"> Please choose any one from  bellow sessions to apply the job </td>
 </tr>
 
 <tr>

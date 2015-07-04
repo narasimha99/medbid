@@ -80,7 +80,7 @@ $templtpath= get_template_directory_uri();
 </tr>
  
 <tr>
-<td colspan="4"> Please choose bellow sessions to apply the job </td>
+<td colspan="4"> Please choose any one from  bellow sessions to apply the job </td>
 </tr>
 
 <tr>
@@ -119,9 +119,9 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime));
  
 <td> <?php echo date('H:ma', strtotime($jobsession->session_endtime)); ?> 
 
- <input type="text" data_id="<?php echo $jobsession->id;?>"   id="session_starttime_<?php echo $jobsession->id;?>" name="session_starttime[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->session_starttime;?>"   /> 
+ <input type="hidden" data_id="<?php echo $jobsession->id;?>"   id="session_starttime_<?php echo $jobsession->id;?>" name="session_starttime[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->session_starttime;?>"   /> 
 
- <input type="text" data_id="<?php echo $jobsession->id;?>"    id="session_endtime_<?php echo $jobsession->id;?>" name="session_endtime[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->session_endtime;?>"   /> 
+ <input type="hidden" data_id="<?php echo $jobsession->id;?>"    id="session_endtime_<?php echo $jobsession->id;?>" name="session_endtime[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->session_endtime;?>"   /> 
  </td>
 <td> 
  <input type="text" data_id="<?php echo $jobsession->id;?>" class="hourlyrate"  id="hourlyrate_<?php echo $jobsession->id;?>" name="hourlyrate[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->hourlyrate;?>"   />   </td>

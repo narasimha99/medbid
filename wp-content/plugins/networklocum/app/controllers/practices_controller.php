@@ -2,8 +2,13 @@
 class PracticesController extends MvcPublicController {
 
  	public function index() {
-		$this->set('mylayout', 'client');	
-  	}
+		$this->set('mylayout', 'client');
+		$user_id = get_current_user_id();
+ 		$_SESSION['user_id'] =  $user_id;
+		$this->load_model('Practice');
+		$PracticeObject = $this->Practice->find_by_user_id($user_id);
+ 		$_SESSION['practicer_id'] = $PracticeObject[0]->id;	
+     	}
 
 	public function getLatLong($zipaddress){
 		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=
@@ -47,7 +52,7 @@ class PracticesController extends MvcPublicController {
 			  $this->params['data']['Practice']['user_id'] = $user_id;
  			
 			  $this->Practice->save($this->params['data']['Practice']);
-			  $this->flash('success', 'Thanks for become our member, Please check your email lot of locums are waiting for you.');
+			  $this->flash('success', 'Thanks for become our member,Plesase check your email to continue.');
 
 			  // Email the user
 			  wp_mail( $email_address, 'Welcome!', 'Your Password: ' . $mpassword);
@@ -148,8 +153,9 @@ class PracticesController extends MvcPublicController {
 			}else{
 				$this->flash('error', 'Please enter valid Old password !');	
 			}
-		}
+ 		}
 	}
+
 	
 	public function billing()
 	{
@@ -159,39 +165,64 @@ class PracticesController extends MvcPublicController {
 	public function acceptyourlocum(){
 		 
 		//print_r($this->params);
-
+		
+		$this->load_model('Appliedjob');	
+	
 		$locum_id = $this->params['locum_id'];
-		$job_id = $this->params['id'];
+		$applied_id = $this->params['id'];
 	 	global $wpdb;
 
-		$sqlJob = "Update wp_jobs set selected_locum = $locum_id where id = $job_id";
- 		$wpdb->query($sqlJob);
+		//$sqlJob = "Update wp_jobs set selected_locum = $locum_id where id = $job_id";
+ 		//$wpdb->query($sqlJob);
 
 		//applied_job_status = 1  // selected 
- 		 
-		$sqlJoblocum = "Update  wp_appliedjobs set applied_job_status = 1 where job_id = $job_id";
- 		$wpdb->query($sqlJoblocum);
-  		
-	}
+		$sqlJoblocum = "Update wp_appliedjobs set practicer_accepted = 1   where id = $applied_id ";
+		$wpdb->query($sqlJoblocum);
+
+		 $url = esc_url( home_url( '/' ) );
+
+		$sqlLocum = "Select firstname,lastname,email from wp_locums where id=$locum_id";
+		$rs =  $wpdb->get_results($sqlLocum);
+		if(count($rs)>0) {		
+
+			$locumName = 	$rs[0]->firstname.$rs[0]->lastname;
+			$email = $rs[0]->email;
+		
+			$message = "Dear $locumName, <br><br>
+				    Congratulations, your application succefully accepted by our practicers,<br> 
+				    Please click here to confirm once to know your availablity. <br>
+				    To know more details please use bellow link  here to continue.. <br><br>
+				    <a href='"."$url/locum/acceptyourjob/$applied_id'>View the Job</a> <br><br>
+  				    Regards, <br>
+				    Medbid. ";
+
+ 				 echo $message;
+	
+ 			mail($email,'Congratulations your selected for this job',$message);
+		  	$this->flash('success', 'You have succesfully accepted your locum.');
+			$url = MvcRouter::public_url(array('controller' =>'jobs', 'action' => 'postedjobs'));
+ 			$this->redirect($url);
+ 				
+  		}
+					
+ 	}
 
 	
 	
 	public function rejectlocum(){
 		 
 		//print_r($this->params);
-
-		$locum_id = $this->params['locum_id'];
-		$job_id = $this->params['id'];
+ 		$locum_id = $this->params['locum_id'];
+		$appliedjobId = $this->params['id'];
 		 
 		global $wpdb;
-
-		 
-
-		//applied_job_status = 2  // Rejected 
- 		 
-		$sqlJoblocum = "Update  wp_appliedjobs set applied_job_status = 2 where job_id = $job_id";
+ 
+		//practicer_rejected = 0  // Rejected 
+  		echo $sqlJoblocum = "Update  wp_appliedjobs set practicer_rejected = 1 WHERE  id = $appliedjobId ";
  		$wpdb->query($sqlJoblocum);
-  		
+  		$this->flash('success', 'Your are rejected locum succesfully.');
+		$url = MvcRouter::public_url(array('controller' =>'jobs', 'action' => 'postedjobs'));
+ 		$this->redirect($url);
 	}	
 
 

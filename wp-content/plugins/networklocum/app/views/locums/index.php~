@@ -1,5 +1,8 @@
 <?php
 $url = esc_url( home_url( '/' ));
+
+
+
 $templtpath= get_template_directory_uri(); 
 ?>
 <!--middle start here-->
@@ -16,29 +19,29 @@ $templtpath= get_template_directory_uri();
 						  <div class="row">
 						     <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3><a href="<?php echo  $url.'locums/uploaddocuments/3'; ?>">CV</a></h3>
+								<h3> <?php $this->checkdocument(3,$masterDocuments,0);  ?> </h3>
 								</div>
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3><a href="<?php echo  $url.'locums/uploaddocuments/1'; ?>">Medical Indemnity</a></h3>
+									<h3> <?php $this->checkdocument(1,$masterDocuments,0); ?> </h3>
 								</div>
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3> <a href="<?php echo  $url.'locums/uploaddocuments/2'; ?>">Completion of Training </a></h3>
-								</div>
+								<h3> <?php $this->checkdocument(2,$masterDocuments,0); ?> </h3>
+							</div>
 							 </div>
 						  </div>
 						  <div class="row">
 						     <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3> <a href="<?php echo  $url.'locums/uploaddocuments/5'; ?>">Passport</a></h3>
+									<h3> <?php $this->checkdocument(5,$masterDocuments,0); ?> </h3>
 								</div>
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-									<h3><a href="<?php echo  $url.'locums/uploaddocuments/4'; ?>">Criminal Records Bureau Check</a></h3>
+								<h3> <?php $this->checkdocument(4,$masterDocuments,0); ?> </h3>
 								</div>
 							 </div>
 							 <div class="col-md-4">

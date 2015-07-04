@@ -111,7 +111,7 @@ class MvcModel {
 	public function save($data) {
 
  		$data = $this->object_to_array($data);
-		print_r($data);
+		///print_r($data);
   		if (empty($data[$this->name])) {
 			$data = array($this->name => $data);
 		}
@@ -132,7 +132,7 @@ class MvcModel {
 					return false;
 				}
 			}
-			echo "testing".$id;
+		
 			$this->update($id, $model_data);
 			$this->update_associations($id, $model_data);
 		} else {

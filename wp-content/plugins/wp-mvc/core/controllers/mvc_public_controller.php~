@@ -3,15 +3,16 @@
 class MvcPublicController extends MvcController {
 
 	public $is_admin = false;
-	
+	 
 	function __construct() {
 		parent::__construct();
 		$this->clean_wp_query();
-	}
+ 		
+ 	}
 	
 	public function index() {
 		$this->set_objects();
-	}
+  	}
 	
 	public function show() {
 		$this->set_object();
@@ -99,9 +100,10 @@ class MvcPublicController extends MvcController {
 		$wp_query->queried_object = null;
 		$wp_query->is_home = false;
 	}
-
 	
-
+	
+	
+ 
 }
 
 ?>

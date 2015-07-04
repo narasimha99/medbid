@@ -9,7 +9,6 @@ $templtpath= get_template_directory_uri();
 				    <div class="col-md-6">
 						 <h2> Docum / Upload Documents </h2><br/>	
 </div>
- <?php $this->display_flash(); ?>
 <div class="row-fluid">
 	<br/>
 	<p>
@@ -27,13 +26,14 @@ $templtpath= get_template_directory_uri();
 
 			<?php
 			$sId =  $this->params['id'];
+			$sId = $sId - 1;
 			?>
 			<?php if (isset($this->params['id'])) { ?>
  				<tr> 
-					<td data-label="Type"><?php echo $lable_array[$sId]; ?></td>
+					<td data-label="Type"><?php echo $masterDocuments[$sId]->document_title; ?></td>
   					<td class="xs-full-width-button action-buttons">
 						<div class="hidden-xs">
-				 	<input type="file" name="<?php echo $documentList[$sId];?>" id="<?php echo $documentList[$sId];?>" />
+				 	<input type="file" name="<?php echo $masterDocuments[$sId]->document_filename;?>" id="<?php echo $masterDocuments[$sId]->document_filename;?>" />
 						</div>
 					 </td> 
 				</tr>

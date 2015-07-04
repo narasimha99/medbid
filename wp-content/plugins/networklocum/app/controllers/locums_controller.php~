@@ -7,9 +7,46 @@ class LocumsController extends MvcPublicController {
  		$_SESSION['user_id'] =  $user_id;
 		$this->load_model('Locum');
 		$locumObject = $this->Locum->find_by_user_id($user_id);
- 		$_SESSION['locum_id'] = $locumObject[0]->id;			
-		//echo "<pre>"; print_r($locumObject);print_r($_SESSION); echo "</pre>";
-   	}
+ 		$_SESSION['locum_id'] = $locumObject[0]->id;	
+		
+		 // custom getMyCustomData written by murthy snmurty99@gmail.com
+ 	  
+		$masterDocuments  = array();
+		$this->load_model('Masterdocument');		
+		$masterDocuments = $this->Masterdocument->find();
+		$this->set('masterDocuments',$masterDocuments);
+		
+ 		//echo "<pre>"; print_r($masterDocuments); echo "</pre>";
+		
+ 	  
+    	}
+
+	function checkdocument($id,$masterDocuments,$location){
+ 		 $id = $id - 1;
+		$user_id = get_current_user_id();
+		$this->load_model('Locumdocument');
+	
+		$url = esc_url( home_url( '/' ));
+
+	 	$locumDocuments = $this->Locumdocument->find_by_user_id($user_id);
+		 $this->set('locumDocuments',$locumDocuments);
+  		// echo "<pre>"; print_r($locumDocuments);  echo"</pre>";
+	 	$document_title =   $masterDocuments[$id]->document_title;
+		$document_filename = $masterDocuments[$id]->document_filename;
+		  //echo  $locumDocuments[0]->$document_filename; 
+		 
+		if( $locumDocuments[0]->$document_filename  == 1 )
+ 			echo  "Your document is Waiting for Approve";  
+		else if( $locumDocuments[0]->$document_filename == 2 ) 
+			echo  'Approved';
+		else if($locumDocuments[0]->$document_filename == 0 ) {
+			 $id = $id + 1;
+			if ( $location == 0 )
+				echo "<a href='$url/locums/uploaddocuments/$id'>".$document_title."</a>";
+			else	
+			echo " <a class='btn btn-xs btn-default' href='$url/locums/uploaddocuments/$id'><i class='icon-cloud-upload'></i>&nbsp;Upload</a>"; 
+		}	
+	 }
 
 	public function locumsignup(){
 
@@ -76,6 +113,10 @@ class LocumsController extends MvcPublicController {
 	 	if(!empty($this->params['data']['Locum']['gmc_number'])){
    			  $this->Locum->update($locum_id,$_POST['data']['Locum']);
 			  $this->flash('success', '  Thanks for Become our locum, Please check your email to activate your account.');
+ 		
+       				$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'landingpage'));
+ 			        $this->redirect($url);
+		 
   		}
 	
 		$this->load_model('howdidyouhear');
@@ -120,37 +161,35 @@ class LocumsController extends MvcPublicController {
 
 	public function uploaddocuments(){
 		
-//echo "<pre>"; print_r($_SERVER);echo "</pre>";
-		$this->set('mylayout', 'client');
-		
-		//echo "<pre>"; print_r($_POST); print_r($_FILES); echo "</pre>";
-		
-	$documentList = array("","mdu","certificate_completion_training","cv","crb_chec","passports_photo","diptheria","poliomyelitis",
-"basiclifesupport", "tuberculosis", "safeguarding_children", "my_references", "safeguarding_adults", "current_performers_list", "hepatitis_b", "varicella_chicken", "rubella", "last_appraisal", "immunisation_history", "information_governance_certificates", "righttoworkin_uk", "rcgp_substance_misuse", "mmr", "myterms_conditions","gmc_certificate","tetanus");
-$this->set('documentList',$documentList); 
-/*
-`certificate_completion_training`, `passports_photo`, `cv`, `crb_chec`, `user_id`, `data[Locumdocument][gmc_certificate]`, `diptheria`, ``, `, `);
-*/	
-  
- 
-$lable_array = array("","Medical Indemnity","Certificate of Completion of Training","cv","Criminal Records Bureau Check","Passport's photo page or drivers license","Diptheria","Poliomyelitis","Basic Life Support Certificate","Tuberculosis","Safeguarding Children","My References","Safeguarding Adults","Current Performers List","Hepatitis B","Varicella (Chicken Pox)","Rubella (German Measles)","Information about your last appraisal","Immunisation History","Information Governance Certificates","Right to work in UK","RCGP 1/2 in Substance Misuse","MMR (Mumps Measles Rubella)","My Terms and Conditions","GMC Certificate");
-	$this->set('lable_array',$lable_array);
+	//echo "<pre>"; print_r($_SERVER);echo "</pre>";
+	$this->set('mylayout', 'client');
+
+	//echo "<pre>"; print_r($_POST); print_r($_FILES); echo "</pre>";
+
+	$masterDocuments = array();
+	$this->load_model('Masterdocument');		
+	$masterDocuments = $this->Masterdocument->find();
+	$this->set('masterDocuments',$masterDocuments);
 	
 	//print_r($this->params);
 	$sId = $_POST['sId'];
-	$selectedfileName  = $documentList[$sId]; //"gmc_certificate";
-		print_r($_POST);print_r($_FILES);
+	$sId = $sId - 1;
+
+	$selectedfileName  = $masterDocuments[$sId]->document_filename; //"gmc_certificate";
+	//print_r($_POST);print_r($_FILES);
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 	// Check if image file is a actual image or fake image
 	if(isset($_POST["sId"])) {
  		
 		$useriddir =  get_current_user_id();
-		$target_dir = "upload_documents/";
+		$target_dir = "verification_counter/";
 		$target_dir = $target_dir.$useriddir."/";
 		if(!is_dir($target_dir)){
-		mkdir($target_dir, 777);
-		chmod($upload_dir, 777);
+
+		mkdir($target_dir, 0777);
+		chmod($upload_dir, 0777);
+
 		}
 		$target_file = $target_dir . basename($selectedfileName);
 
@@ -165,12 +204,12 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 			 $sqlUpdate = "INSERT INTO  wp_locumdocuments (user_id,".$selectedfileName.")VALUES(".$useriddir.",1)"; 
  			$wpdb->query($sqlUpdate); 
   		
-		$this->flash('success', 'Thanks for  Uploading the file we will aprove as soon as.');
+		$this->flash('success', 'Thanks for  Uploading the file we will approve ASAP.');
  
 	    } else {
 		$this->flash('error', "Sorry, there was an error uploading your file.");
 	    }
-		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'myprofile'));
+		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'uploadmutipledocuments'));
 	        $this->redirect($url);		
 	 
 	}
@@ -258,12 +297,13 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 	}
 
  	public function applyjob(){
-		$this->set('mylayout', 'client');
 
-		$this->set('mylayout', 'client');
+	 	$this->set('mylayout', 'client');
 		$this->load_model('Job');
+		$this->load_model('Appliedjob');
 		$this->load_model('Jobsession');
 		$job_id = $this->params['id'];
+		$locum_id = $_SESSION['locum_id'];
 		global $wpdb;
 
 		$sqlJob = "Select * from wp_jobs where id = $job_id";
@@ -281,6 +321,7 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 		 
 		$this->set('jobsessions',$jobsessions);
 		
+ 
 		$this->load_model('cgcode');
 		$cgcodelist = $this->cgcode->find();
 		
@@ -295,32 +336,16 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 		$this->set('howdidyouhearlist',$howdidyouhearlist);
 		
 		$this->set('job_id',$job_id);
-			
-		$practicer_id  = $_POST['practicer_id'];
- 		echo "<pre>"; print_r($_POST);  echo "</pre>";
+ 	  	$user_id = get_current_user_id();
+   		if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
+		
+		$job_id = $_POST['job_id'];
+		$_POST['locum_id'] = $locum_id;
+		$_POST['practicer_id'] = $practicer_id;
+		 
+		 $this->Appliedjob->save($_POST);
+
  			
-		$paperwork = $_POST['paperwork'];
-		$referrals = $_POST['referrals'];
-		$home_visits = $_POST['home_visits'];
-		$bloods = $_POST['bloods'];
-		$pension_included = $_POST['pension_included'];
-		$number_of_patients = $_POST['number_of_patients'];
-		$number_of_telephoneconsultations = $_POST['number_of_telephoneconsultations'];
-		
-
-	  	$user_id = get_current_user_id();
-
-		$locum_id = $_SESSION['locum_id'];
-
-		//echo "<pre>"; print_r($jobdetails); echo "</pre>";
-		if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
-		
-		 $job_id = $_POST['job_id'];
-		 $sql_appjob = "INSERT INTO  wp_appliedjobs(locum_id,practicer_id,job_id,paperwork,referrals,home_visits,bloods,pension_included,number_of_patients,number_of_telephoneconsultations)VALUES($locum_id,$practicer_id,$job_id,$paperwork,$referrals,$home_visits,$bloods,$pension_included,$number_of_patients,$number_of_telephoneconsultations)";
-		$wpdb->query($sql_appjob);
-
-
-			
  		$jobsessions = $_POST['jobsessions']; 
 		$hourlyrate = $_POST['hourlyrate'];
 		$paytolocum = $_POST['paytolocum'];
@@ -347,26 +372,42 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
   		
 		$locum_id = $_SESSION['locum_id'];
   
-		$this->load_model('Appliedsession');
+		$this->load_model('Appliedjob');
 		 
 		global $wpdb;
 
- 		 		
-		$params = $this->params;
- 		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-		$params['joins'] = array('Practice');
-		$params['includes'] = array('Practice');
-		$params['conditions'] = array('Appliedsession.locum_id' =>$locum_id);
-  
- 		 //$params['conditions'] = array('user_id' =>$user_id);
- 		$collection = $this->Appliedsession->paginate($params);
-		$this->set('appliedjoblists', $collection['objects']);
-		$this->set_pagination($collection);
-		//echo "<pre>"; print_r($collection); echo "</pre>";
-  
-		//echo "<pre>"; print_r($objects); echo "</pre>";	
+		$params = array(); 
+ 		$params['joins'][] =   array('table' =>'wp_appliedsessions',
+					     'on' => 'Appliedjob.job_id = appliedsession.job_id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'appliedsession');
 
- 		//echo "<pre>";print_r($collection['objects']); echo "</pre>";
+		$params['joins'][] =   array('table' =>'wp_practices',
+					     'on' => 'Appliedjob.practicer_id = practicer.id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'practicer');
+
+		$params['joins'][] =   array('table' =>'wp_jobs',
+					     'on' => 'Appliedjob.job_id = job.id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'job');
+
+   		
+  		$params['additional_selects'] = array('appliedsession.session_date,appliedsession.session_starttime',
+						   'appliedsession.session_endtime','appliedsession.hourlyrate','appliedsession.paytolocum',
+					   		 						'practicer.firstname','practicer.lastname','practicer.practice_code','practicer.practicename','practicer.email',
+					'job.no_of_sessions','job.session_description','job.onejobormultiplesessions','job.required_it_systems','job.parking_facilities');
+						
+ 
+ 		 $params['conditions'] = array('Appliedjob.locum_id' =>$locum_id);
+		 $params['group'] = 'Appliedjob.id';
+ 
+
+		$objects = $this->Appliedjob->find($params);
+		echo "<pre>";print_r($objects); echo "</pre>";
+ 		$this->set('appliedjoblists',$objects);
+ 		 		
+	 
 
  	}
 	
@@ -457,12 +498,116 @@ $lable_array = array("","Medical Indemnity","Certificate of Completion of Traini
 	}
 
 	public function uploadmutipledocuments(){
-		$this->set('mylayout', 'client'); 
+		$this->set('mylayout', 'client');
+
+		$this->load_model('Masterdocument');		
+		$masterDocuments = $this->Masterdocument->find();
+		$this->set('masterDocuments',$masterDocuments);
+ 
  	}
 
 	public function upgradeyourmembership(){
 		$this->set('mylayout', 'client'); 
  	}
+
+	
+	public function acceptyourjob(){
+		$this->set('mylayout', 'client'); 
+
+
+		$this->load_model('Appliedjob');
+ 		$locum_id =  $_SESSION['locum_id'];
+
+		$appliedjobId = $this->params['id'];
+ 		$this->set('appliedjobId',$appliedjobId); 
+		$params = array(); 
+ 		$params['joins'][] =   array('table' =>'wp_appliedsessions',
+					     'on' => 'Appliedjob.job_id = appliedsession.job_id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'appliedsession');
+
+		$params['joins'][] =   array('table' =>'wp_practices',
+					     'on' => 'Appliedjob.practicer_id = practicer.id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'practicer');
+
+		$params['joins'][] =   array('table' =>'wp_jobs',
+					     'on' => 'Appliedjob.job_id = job.id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'job');
+
+   		
+  		$params['additional_selects'] = array('appliedsession.session_date,appliedsession.session_starttime',
+						   'appliedsession.session_endtime','appliedsession.hourlyrate','appliedsession.paytolocum',
+					   		 						'practicer.firstname','practicer.lastname','practicer.practice_code','practicer.practicename','practicer.email',
+					'job.no_of_sessions','job.session_description','job.onejobormultiplesessions','job.required_it_systems','job.parking_facilities');
+						
+ 
+ 		$params['conditions'] = array('Appliedjob.id' =>$appliedjobId);
+ 
+ 
+
+		$objects = $this->Appliedjob->find($params);
+		//echo "<pre>";print_r($objects); echo "</pre>";
+ 		$this->set('jobdetails', $objects[1]);
+
+ 		
+	
+		$this->load_model('itsystem');
+		$itsystemlist = $this->itsystem->find();
+		$this->set('itsystemlist',$itsystemlist);
+
+
+		if(isset($_POST['acceptjob'])){
+			$acceptjob = $_POST['acceptjob'];
+
+			global $wpdb;
+
+			if($acceptjob == 'acceptjob'){
+		 			
+		 	 	//locum_accepted = 1  // Accepted this job
+				$sqlJoblocum = "Update wp_appliedjobs set locum_accepted = 1   where id = $appliedjobId ";
+				$wpdb->query($sqlJoblocum);
+
+				$url = esc_url( home_url( '/' ) );
+
+
+				if(isset($objects[1])) {		
+ 					$practicerName = 	$objects[1]->firstname.$objects[1]->lastname;
+					$email = $objects[1]->email;
+
+					$message = "Dear $practicerName, <br><br>
+					Congratulations, your application succefully accepted by our locums,<br> 
+					Please click here to confirm once to know your availablity. <br>
+					To know more details please use bellow link  here to continue.. <br><br>
+					<a href='"."$url/locum/acceptyourjob/$appliedjobId'>View the Job</a> <br><br>
+					Regards, <br>
+					Medbid. ";
+
+					echo $message;
+ 
+					mail($email,'Congratulations your job accepted by locum for this job',$message);
+					$this->flash('success', 'You have succesfully accepted our practicers job.');
+ 				}					
+	
+			}
+
+			if($acceptjob == 'rejectjob'){
+ 		  		$sqlJoblocum = "Update  wp_appliedjobs set locum_rejected = 1 WHERE  id = $appliedjobId ";
+		 		$wpdb->query($sqlJoblocum);
+		  		$this->flash('success', 'Your are rejected practicers job succesfully.');
+  			}
+
+			$url = MvcRouter::public_url(array('controller' =>'locums', 'action' => 'myjobs'));
+			$this->redirect($url); 
+		} 
+		  
+ 	}
+
+
+
+	
+	
 }
 
 ?>

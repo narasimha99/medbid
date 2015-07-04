@@ -42,7 +42,7 @@ $("#locumsignupnext").submit();
 			   <!--- Left hand side Panel Showing the buttons etc -->
 			   <div class="col-md-8" >
 			    <div class="container">
-				<h1 style=""><?php echo $locumdetails->firstname.' '.$locumdetails->lastname;?></h1>
+				<h1 style=""> Dr. <?php echo $locumdetails->firstname.' '.$locumdetails->lastname;?></h1>
 				 <div class="row">
 				   <div class="col-md-2">
 				      <div><img class="img-circle img-user-config" src="<?php echo  $url.'/upload_pic/'.$profile_image; ?>"></div>

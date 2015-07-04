@@ -73,10 +73,7 @@ jQuery( document ).ready(function() {
 <?php 
 
 $onejobormultiplesessions_array = array(
-'1'=>'Day Rate',
-'2'=>'Half Day Rate',
-'3'=>'Hourly Rate',
-'4'=>'Duty Doctor',
+'1'=>'Hourly Rate',
 '5'=>'Salaried Position'
 );
 ?>

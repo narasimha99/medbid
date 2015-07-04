@@ -106,6 +106,7 @@ $sessiondate = $_POST['session_date'][1];
 	<select id="onejobormultiplesessions" name="onejobormultiplesessions" class="form-control ff1" >
 	<option value=""> Select</option>
 	<?php
+		$_POST['onejobormultiplesessions'] = 1;
 	for($mt=1;$mt<=count($onejobormultiplesessions_array);$mt++){
 	?>
 	<option value="<?php echo $mt;?>"  <?php if($_POST['onejobormultiplesessions'] == $mt) echo 'selected'?>><?php echo $onejobormultiplesessions_array[$mt];?></option>
@@ -122,8 +123,8 @@ $sessiondate = $_POST['session_date'][1];
 
 <tr>
 <td colspan="2"> <label> Date : </label> <input type="text"  class="session_date" id="<?php echo 'session_date_'.$i;?>" name="session_date[<?php echo $i;?>]" value="<?php echo $sessiondate;?>" placeholder='pick your date'/>    <span id="errspan_session_date_range" class="errorspan"></span> </td>
-<td colspan="2"><input type='button' name="add" id="<?php echo 'add'.$i;?>" value="add more sessions" onclick="addsession(<?php echo $i;?>);"/> </td>
-<td colspan="2"><input type='button' name="delete" id="<?php echo 'delete'.$i;?>" value="Delete day" onclick="deletedate(<?php echo $i;?>);"/>  </td>
+<td colspan="2"><input type='hidden' name="add" id="<?php echo 'add'.$i;?>" value="add more sessions" onclick="addsession(<?php echo $i;?>);"/> </td>
+<td colspan="2"><input type='hidden' name="delete" id="<?php echo 'delete'.$i;?>" value="Delete day" onclick="deletedate(<?php echo $i;?>);"/>  </td>
 </tr>
 
  

@@ -1,10 +1,9 @@
 <?php
-$templtpath= get_template_directory_uri(); 
+$templtpath = get_template_directory_uri(); 
 $url = esc_url( home_url( '/' )); 
-$templtpath= get_template_directory_uri(); 
 ?>
 <script>
-jQuery( document ).ready(function() {
+jQuery(document).ready(function() {
 
 	//console.log( "ready!" );
 	jQuery("#submit1").click(function () {
@@ -45,7 +44,7 @@ jQuery( document ).ready(function() {
 	<div class="midcol">
 	<div class="bitbox1">	
 		<div class="container">
- 		
+ 		<h2> Create a Job </h2>
 			
 			<form    id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate"  onsubmit="javascript:return validatepublicjobcreate();"  method="POST">
 							 <?php $this->display_flash(); ?>

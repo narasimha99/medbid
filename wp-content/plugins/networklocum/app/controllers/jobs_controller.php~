@@ -13,14 +13,14 @@ class JobsController extends MvcPublicController {
 		$this->load_model('Job');
 	
 		$_SESSION['old_post_data'] = $_POST;
-
-	 	// echo "<pre>"; print_r($_POST); echo "</pre>";
+		 
+		// echo "<pre>"; print_r($_POST); echo "</pre>";
  	  	//echo "SESSION Data";
 		//echo "<pre>"; print_r($_SESSION); echo "</pre>";
  		//echo "<pre>"; print_r($_POST); echo "</pre>";
  	
 		$practice_created=0;
-		$user_id = get_current_user_id();
+		$user_id = get_current_user_id();		
 		$this->load_model('Practice');
 			 
 			 
@@ -28,51 +28,32 @@ class JobsController extends MvcPublicController {
 		  
 		if ( $user_id > 0 ) {
 
-			$session_date_range = $_POST['session_date'][1];
-			$session_description = $_POST['session_description'];
+			$_POST['session_date_range']  = $_POST['session_date'][1];
+  			$session_description = $_POST['session_description'];
 			$no_of_sessions = 1;
 			$NHS_Pension_info = 0;			
 			
-			
-			//$location = "Hounslow, London";
-			
+
 			 $practicerDetails = $this->Practice->find_by_user_id($user_id);
-   			 $postcode = $practicerDetails[0]->postcode;
-		   	 $address  = $practicerDetails[0]->address;
- 			 $city_id  = $practicerDetails[0]->city;
-			 $state_id = $practicerDetails[0]->state;
+			
+			 $_POST['user_id']  = $practicerDetails[0]->id;
+   			 $_POST['postcode'] = $practicerDetails[0]->postcode;
+		   	 $_POST['location'] = $practicerDetails[0]->address;
+ 			 $_POST['city_id']  = $practicerDetails[0]->city;
+		 	 $_POST['state_id'] = $practicerDetails[0]->state;
+			 $_POST['country']  = $practicerDetails[0]->country;
 	
-			 //$vallatlong = $this->getLnt($postcode+$address);
+			// $vallatlong = $this->getLatLong($postcode+$address);
    
 			//echo "Latitude: ".$vallatlong['lat']."<br>";
 			//echo "Longitude: ".$vallatlong['lng']."<br>";
  
- 			$latitude  = $vallatlong['lat']; // '51.475306'; 
-			$longitude = $vallatlong['lng']; //'-0.375766'; 
-		
- 			$onejobormultiplesessions = $_POST['onejobormultiplesessions'];
-			$required_it_systems = $_POST['required_it_systems'];
- 			$parking_facilities = $_POST['parking_facilities'];
-  			$grandtotallocumpay = $_POST['grandtotallocumpay'];
-			$grandmedbidfee = $_POST['grandmedbidfee'];
-			$estimatedsavingvat = $_POST['estimatedsavingvat'];
-			$vatonmedbidfee = $_POST['vatonmedbidfee'];
-			$pmtotalcost = $_POST['pmtotalcost'];
-	 		 
-			$number_of_patients = $_POST['number_of_patients'];
-			$number_of_telephoneconsultations = $_POST['number_of_telephoneconsultations'];
-			$paperwork = $_POST['paperwork'];
-			$referrals = $_POST['referrals'];
-			$home_visits = $_POST['home_visits'];
-			$bloods = $_POST['bloods'];
-			$pension_included = $_POST['pension_included'];
-
-
-		  	$sqlJob = "INSERT INTO wp_jobs (`user_id`, `session_date_range`, `session_description`, `no_of_sessions`, `NHS_Pension_info`,  `location`, `postcode`, `latitude`, `longitude`, `city_id`, `state_id`, `onejobormultiplesessions`, `required_it_systems`,`parking_facilities`,number_of_patients,number_of_telephoneconsultations,paperwork,referrals,home_visits,bloods,pension_included) VALUES ($user_id, '$session_date_range', '$session_description', $no_of_sessions, '$NHS_Pension_info','$location', '$postcode',$latitude, $longitude, $city_id, $state_id,$onejobormultiplesessions, $required_it_systems, $parking_facilities,$number_of_patients,$number_of_telephoneconsultations,$paperwork,$referrals,$home_visits,$bloods,$pension_included) ";
- 
- 			$wpdb->query($sqlJob);
-
-			$job_id = $wpdb->insert_id;
+ 			 $_POST['latitude']   =  '51.475306';  //  $vallatlong['lat'];; 
+			 $_POST['longitude']  =  '-0.375766'; // $vallatlong['lng'];
+ 			
+			$_POST['is_public'] = 1;
+ 			$this->Job->save($_POST);		
+ 			$job_id = $this->Job->insert_id;
  			$count_no_of_sessions = 0;
 			$session_date_count_primary = count($_POST['session_date']);
 			$session_starttime_secondry = count($_POST['session_starttime']);
@@ -84,7 +65,7 @@ class JobsController extends MvcPublicController {
 			$session_date_array = explode('-',$session_date);
 			//print_r($session_date);
 			
-			 $_POST['session_starttime'][$x][$y]  = str_replace("am","", $_POST['session_starttime'][$x][$y]);
+				 $_POST['session_starttime'][$x][$y]  = str_replace("am","", $_POST['session_starttime'][$x][$y]);
 			 $_POST['session_starttime'][$x][$y]  = str_replace("pm","", $_POST['session_starttime'][$x][$y]);
 
 		  	 $_POST['session_endtime'][$x][$y]  = str_replace("am","", $_POST['session_endtime'][$x][$y]);
@@ -135,7 +116,11 @@ class JobsController extends MvcPublicController {
 		$wpdb->query($sql_job_update);
 	 
 		 
-  		 $this->flash('success', 'Thanks for posting job, your job will visible after admin approved');
+  		 $this->flash('success', 'Thanks for posting your job.');
+		
+		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'myjobs'));
+	        $this->redirect($url);
+
 
 			  // Email the user
  		}
@@ -254,31 +239,28 @@ class JobsController extends MvcPublicController {
  	}
 	
 	function myjobs(){
+
 		$this->set('mylayout', 'client');
- 
-		$this->load_model('Job');
- 
-		global $wpdb;
-
-		$user_id = get_current_user_id();
-		//echo $sqlJobs = "SELECT job.location * , b . * FROM `wp_jobs` a, wp_jobsessions b WHERE a.id = b.job_id LIMIT 0 , 30 
-
-		//$Jobdetails = $wpdb->get_results($sqlJobs);
- 		$user_id = get_current_user_id();
-
-		$params = $this->params;
+  		$this->load_model('Job');
+  
+		$practicer_id = $_SESSION['practicer_id'];
+  		$params = $this->params;
  		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-		$params['join_table'] = array('Jobsession');
-		$params['include'] = array('Jobsession');
-		$params['conditions'] = array('user_id' =>$user_id);
-		$collection = $this->Job->paginate($params);
-		$this->set('joblists', $collection['objects']);
+ 		$params['joins'] =  array('table' => 'wp_jobsessions',
+					     'on' => 'Job.id = Jobsession.job_id',
+			 	  	    'type'=> 'LEFT JOIN',
+				  	   'alias'=>'Jobsession');
+
+		$params['additional_selects'] = array('Jobsession.session_date,Jobsession.session_starttime', 							      'Jobsession.session_endtime','Jobsession.hourlyrate');
+
+  		$params['conditions'] = array('Job.user_id' =>$practicer_id);
+		$params['order'] = "Job.createddate DESC";
+ 		$collection = $this->Job->paginate($params);
+ 		$this->set('joblists', $collection['objects']);
 		$this->set_pagination($collection);
-
-	///echo "<pre>";print_r($collection['objects']); echo "</pre>";
-
- 		//$this->set('joblists', $Jobdetails);
-  	
+ 
+		//echo "<pre>"; print_r($collection); echo "</pre>";	
+ 		 
 	}
 	
 	public 	function  editjob(){
@@ -294,10 +276,7 @@ class JobsController extends MvcPublicController {
   		$this->load_model('Job');
  
 	 	//echo "<pre>"; print_r($_POST); echo "</pre>";
- 	  	//echo "SESSION Data";
-		//echo "<pre>"; print_r($_SESSION); echo "</pre>";
- 		
- 	
+  
 	  	$user_id = get_current_user_id();
  
 	if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
@@ -306,43 +285,14 @@ class JobsController extends MvcPublicController {
 			$job_id = $_POST['job_id'];
  			$session_date_range = $_POST['session_date'][1]; // $_POST['session_date_range'];
 			$session_description = $_POST['session_description'];
+ 			$_POST['session_date_range']  = $_POST['session_date'][1];
+			$session_description = $_POST['session_description'];
+			$this->Job->update($job_id,$_POST); 
+ 
+
 			$no_of_sessions = 1;
 			$NHS_Pension_info = 0;			
-			$location = "Hounslow, London";
-			$postcode='SW13 9HB';
-	
-			$vallatlong = $this->getLatLong($postcode);
-			// echo "Latitude: ".$vallatlong['lat']."<br>";
-			//echo "Longitude: ".$vallatlong['lng']."<br>";
-
-			$latitude  =  $vallatlong['lat'];  //51.475306'; ';
-			$longitude =  $vallatlong['lng']; //'-0.375766';';
-			$city_id = 0;
-			$state_id= 0;
- 			$onejobormultiplesessions = $_POST['onejobormultiplesessions'];
-			$required_it_systems = $_POST['required_it_systems'];
- 			$parking_facilities = $_POST['parking_facilities'];
-  			$grandtotallocumpay = $_POST['grandtotallocumpay'];
-			$grandmedbidfee = $_POST['grandmedbidfee'];
-			$estimatedsavingvat = $_POST['estimatedsavingvat'];
-			$vatonmedbidfee = $_POST['vatonmedbidfee'];
-			$pmtotalcost = $_POST['pmtotalcost'];
-	 		 
-
-			$number_of_patients = $_POST['number_of_patients'];
-			$number_of_telephoneconsultations = $_POST['number_of_telephoneconsultations'];
-			$paperwork = $_POST['paperwork'];
-			$referrals = $_POST['referrals'];
-			$home_visits = $_POST['home_visits'];
-			$bloods = $_POST['bloods'];
-			$pension_included = $_POST['pension_included'];
-
-
-
-			$sqlJob = "Update  wp_jobs set  session_date_range = '$session_date_range', session_description = '$session_description', no_of_sessions = $no_of_sessions, NHS_Pension_info = '$NHS_Pension_info',  location = '$location', postcode = '$postcode', latitude = $latitude, longitude = $longitude, city_id = $city_id, state_id = $state_id, onejobormultiplesessions =$onejobormultiplesessions , required_it_systems = $required_it_systems, parking_facilities = $parking_facilities,number_of_patients='$number_of_patients',number_of_telephoneconsultations ='$number_of_telephoneconsultations', paperwork = $paperwork,referrals=$referrals, home_visits=$home_visits, bloods = $bloods, pension_included = $pension_included where id= $job_id ";
-			//echo $sqlJob;
-			$wpdb->query($sqlJob);
-  			$count_no_of_sessions = 0;
+   			$count_no_of_sessions = 0;
 			$session_date_count_primary = count($_POST['session_date']);
 			$session_starttime_secondry = count($_POST['session_starttime']);
 			for($x=1;$x<=$session_date_count_primary; $x++ ){
@@ -352,7 +302,7 @@ class JobsController extends MvcPublicController {
 			$session_date =	$_POST['session_date'][$x];
 			$session_date_array = explode('-',$session_date);
 			//print_r($session_date);
-			
+	 		
 			 $_POST['session_starttime'][$x][$y]  = str_replace("am","", $_POST['session_starttime'][$x][$y]);
 			 $_POST['session_starttime'][$x][$y]  = str_replace("pm","", $_POST['session_starttime'][$x][$y]);
 
@@ -413,7 +363,7 @@ class JobsController extends MvcPublicController {
 		$wpdb->query($sql_job_update);
 		
 			
-  		 $this->flash('success', 'Thanks for Updating job, your job will visible after admin approved');
+  		 $this->flash('success', 'Your job Updated  successfully');
 
 			  // Email the user
  		unset($_POST['savejob']);
@@ -514,38 +464,37 @@ class JobsController extends MvcPublicController {
 	public function postedjobs(){
 
 		$this->set('mylayout', 'client');
-			 
-	 	$user_id = get_current_user_id();
+ 		$this->load_model('Appliedjob');
+ 		$practicer_id =  $_SESSION['practicer_id'];
  
-		$this->load_model('Appliedsession');
- 
-		$user_id = get_current_user_id();
-
 		$params = $this->params;
  		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-		$params['joins'] = array('Locum');
-		$params['includes'] = array('Locum');
- 		$params['conditions'] = array('practicer_id' =>$user_id);
-  		 
- 
-		$collection = $this->Appliedsession->paginate($params);
-		//echo "<pre>"; print_r($collection); echo "</pre>";
-		//print_r($this->Appliedsession);
-		$this->set('appliedjoblists', $collection['objects']); 
- 		$this->set_pagination($collection);
- 		//echo "<pre>"; print_r($objects); echo "</pre>";
-		//$this->set('appliedjoblists', objects);
-		$this->set_pagination($collection);
+ 		$params['joins'][] =   array('table' =>'wp_appliedsessions',
+					     'on' => 'Appliedjob.job_id = appliedsession.job_id ',
+			 	  	    'type'=> 'LEFT JOIN',
+				  	   'alias'=>'appliedsession');
 
-		$this->load_model("Appliedjob");
-		$objects = $this->Appliedjob->find(array('conditions' => array('Appliedjob.practicer_id'=>$user_id )));
-		$dataarryjobs = array();		
-		foreach($objects as $object){
-			$dataarryjobs[$object->job_id]  = $object;
-		} 
-	   	//echo "<pre>";print_r($dataarryjobs); echo "</pre>";
-		
-		$this->set('jobobjects', $dataarryjobs);
+		$params['joins'][] =   array('table' =>'wp_locums',
+					     'on' => 'Appliedjob.locum_id = locum.id ',
+			 	  	    'type'=> 'LEFT JOIN',
+				  	   'alias'=>'locum');
+   		
+  		$params['additional_selects'] = array('appliedsession.session_date,appliedsession.session_starttime',
+						   'appliedsession.session_endtime','appliedsession.hourlyrate','appliedsession.paytolocum',
+						   'referrals','home_visits','bloods','pension_included',
+						 'locum.firstname','locum.lastname');
+ 
+ 		$params['conditions'] = array('Appliedjob.practicer_id' =>$practicer_id,
+						'Appliedjob.practicer_rejected' =>0,
+						 'Appliedjob.locum_rejected'=>0,
+						 'Appliedjob.practicer_accepted'=>0,
+ 					 );
+ 
+		$params['order'] = "Appliedjob.applieddate ASC";
+ 		$collection = $this->Appliedjob->paginate($params);
+ 		$this->set('appliedjoblists', $collection['objects']);
+		// echo "<pre>";print_r($collection); echo "</pre>";
+
  	}
 	
 	public function applyedjobdetails(){
@@ -557,9 +506,7 @@ class JobsController extends MvcPublicController {
 	public function getjobs(){
 
 		$this->set('mylayout', 'empty');	
- 		 
-		
-		//echo "<pre>";	print_r($_POST); echo "</pre>";
+ 		//echo "<pre>";	print_r($_POST); echo "</pre>";
 	
 		//echo $condStr;
 		$zipcoderesults = 0;
@@ -608,7 +555,8 @@ class JobsController extends MvcPublicController {
 			$phourlyrate = trim($phourlyrate); 
 			$phourlyrateArray = explode('-',$phourlyrate);
 	
-			 $queryConditionString = " WHERE jobsession.hourlyrate >= ".$phourlyrateArray[0] . " AND jobsession.hourlyrate <=".$phourlyrateArray[1];  
+			 $queryConditionString = " WHERE jobsession.hourlyrate >= ".$phourlyrateArray[0]."
+						    AND jobsession.hourlyrate <=".$phourlyrateArray[1];  
  		}
  
 		if (isset($_POST['tariff'])){
@@ -649,148 +597,38 @@ class JobsController extends MvcPublicController {
 			//echo  "zipcodes ";
 		}
 	 
-	$queryLast = "SELECT job.postcode,job.location,job.city_id,job.state_id,job.no_of_sessions, jobsession.hourlyrate,jobsession.session_starttime,jobsession.session_endtime FROM wp_jobs AS job JOIN wp_jobsessions AS jobsession ON job.id = jobsession.job_id  $queryConditionString    ORDER BY job.session_date_range, job.state_id, job.city_id, job.latitude, job.longitude ";
+	  $queryLast = "SELECT job.postcode,job.location,job.city_id,job.state_id,job.no_of_sessions, jobsession.hourlyrate,jobsession.session_starttime,jobsession.session_endtime FROM wp_jobs AS job JOIN wp_jobsessions AS jobsession ON job.id = jobsession.job_id  $queryConditionString    ORDER BY job.session_date_range, job.state_id, job.city_id, job.latitude, job.longitude ";
  
 	global $wpdb;
 	$results =  $wpdb->get_results($queryLast);
-	echo "<pre>"; print_r($results); echo "</pre>";
+	//echo "<pre>"; print_r($results); echo "</pre>";
 	$this->set('joblists', $results);
 
  	}
 
 	public function findjob(){
-
-
- 		$this->load_model('Job');
-		
-		global $wpdb;
-
-   
-		//$_POST[zipcode]='35042';
-		//echo "<pre>";
+ 
 		$this->load_model('Job');
-		$this->load_model('Jobsession');
-		//echo "<pre>"; print_r($this->Jobsession); echo "</pre>";
-		//print_r($_POST);
-
-		//if(isset($_POST['submit'])) {
-		$datepicker=0;
-		$condStr="";
-		$dateranges = explode(",",$_POST['dateranges']);
-		//print_r($dateranges);
-		//echo count($dateranges);
- 	
-		for($i=0;$i<count($dateranges);$i++){
- 		 	$condStr = $condStr . "  DATE( createddate ) = '$dateranges[$i]' or ";
-			$datepicker=1;
-		}
-	 	$condStr= $condStr . "  1 = 1  ";
-
-		//echo $condStr;
-		$zipcoderesults = 0;
-				  
-		//echo "</pre>";
-		global $wpdb;	
- 		$fquery="SELECT * FROM wp_jobs WHERE postcode = '$_POST[zipcode]'";
-     		$rs =  $wpdb->get_results($fquery);
-		if(count($rs)>0) {		
-		   //echo "<pre>";print_r($rs); echo "</pre>"; 
-            
-                    //if found, set variables
-                    $row =  $rs[0];
-                    $lat1 = $row->latitude;
-                    $lon1 = $row->longitude;
-                    $d = $_POST['distance'];
-                    //earth's radius in miles
-                    $r = 3959;
- 
-                    //compute max and min latitudes / longitudes for search square
-                    $latN = rad2deg(asin(sin(deg2rad($lat1)) * cos($d / $r) + cos(deg2rad($lat1)) * sin($d / $r) * cos(deg2rad(0))));
-                    $latS = rad2deg(asin(sin(deg2rad($lat1)) * cos($d / $r) + cos(deg2rad($lat1)) * sin($d / $r) * cos(deg2rad(180))));
-                    $lonE = rad2deg(deg2rad($lon1) + atan2(sin(deg2rad(90)) * sin($d / $r) * cos(deg2rad($lat1)), cos($d / $r) - sin(deg2rad($lat1)) * sin(deg2rad($latN))));
-                    $lonW = rad2deg(deg2rad($lon1) + atan2(sin(deg2rad(270)) * sin($d / $r) * cos(deg2rad($lat1)), cos($d / $r) - sin(deg2rad($lat1)) * sin(deg2rad($latN))));
- 
-                    //display information about starting point
-                    //provide max and min latitudes / longitudes
-		 
- 
-                    //find all coordinates within the search square's area
-                    //exclude the starting point and any empty city_id values
-                    
-
-		$this->load_model('Job');
-		 
-		global $wpdb;
-
-		//echo $sqlJobs = "SELECT job.location,job. * , b . * FROM `wp_jobs` a, wp_jobsessions b WHERE a.id = b.job_id LIMIT 0 , 30 
-
-		//$Jobdetails = $wpdb->get_results($sqlJobs);
- 		
-		$params = $this->params;
-
-		//$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-		$params['joins'] = array('Jobsession');
+ 		$params = $this->params;
+		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+		$params['order'] = 'Job.createddate DESC';
 		$params['includes'] = array('Jobsession');
-	  
-		if ( $zipcoderesults == 1 ){
-		$params['conditions'] = "(Job.latitude <= $latN AND Job.latitude >= $latS AND Job.longitude <= $lonE AND Job.longitude >= $lonW) AND (Job.latitude != $lat1 AND Job.longitude != $lon1) AND Job.city_id != ''";
-		}
-		 
-		if ( $datepicker == 1 )  {
-			$params['conditions'] = $condStr;
-		}
-	
-		
+		$params['joins']  = array(  'table' => 'wp_jobsessions',
+					'on' => 'Job.id = Jobsession.job_id',
+					'type' => 'LEFT JOIN',
+					'alias'=>'Jobsession'
+				    );
 
-		$collection = $this->Job->find($params);
-		$this->set('joblists', $collection);
-		//$this->set_pagination($collection);
-		//echo "<pre>";	print_r($collection); echo "</pre>"; 
+		$params['additional_selects'] = array('Jobsession.session_date,Jobsession.session_starttime', 
+		'Jobsession.session_endtime','Jobsession.hourlyrate');
 
-       
-    		              //output all matches to screen
-		}
-		else {
-		 	 
- /*
-$this->load_model('Job');
-		$objects  = $this->Job->find(array(
-				'joins' =>  array(  'table' => 'wp_jobsessions',
-					  	'on' => 'Job.id = Jobsession.job_id',
-					  	'type' => 'LEFT JOIN',
-						'alias'=>'Jobsession'
-						),		
-				'additional_selects' => array('Jobsession.session_date,Jobsession.session_starttime', 
-						'Jobsession.session_endtime','Jobsession.hourlyrate')
-		));
+		//$params['conditions'] = array('is_public' => true);
+		$collection = $this->Job->paginate($params);
+		//	echo "<pre>"; print_r($collection); echo "</pre>";
 
-*/
-
-			$params = $this->params;
-			$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-			$params['order'] = 'Job.createddate DESC';
-			$params['includes'] = array('Jobsession');
- 			$params['joins']  = array(  'table' => 'wp_jobsessions',
-					  	'on' => 'Job.id = Jobsession.job_id',
-					  	'type' => 'LEFT JOIN',
-						'alias'=>'Jobsession'
-					     );
-					 		
-			$params['additional_selects'] = array('Jobsession.session_date,Jobsession.session_starttime', 
-						'Jobsession.session_endtime','Jobsession.hourlyrate');
-
-
-			//'selects' => array('Venue.id');
-
-			//$params['conditions'] = array('is_public' => true);
-			$collection = $this->Job->paginate($params);
-			echo "<pre>"; print_r($collection); echo "</pre>";
-
-			$this->set('joblists', $collection['objects']);
-			$this->set_pagination($collection);
-		 
-		}  
-	}
+		$this->set('joblists', $collection['objects']);
+		$this->set_pagination($collection);
+ 	}
 
 
 	function invitelocumsbymail(){
@@ -870,6 +708,17 @@ $this->load_model('Job');
 	}
 	
 
-		
+
+	 public function getLatLong($zipaddress){
+		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=
+		".urlencode($zipaddress)."&sensor=false";
+		$result_string = file_get_contents($url);
+		$result = json_decode($result_string, true);
+		//echo "<pre>"; print_r($result); echo"</pre>";
+		$result1[]=$result['results'][0];
+		$result2[]=$result1[0]['geometry'];
+		$result3[]=$result2[0]['location'];
+		return $result3[0];
+ 	}		
 }
 ?>
