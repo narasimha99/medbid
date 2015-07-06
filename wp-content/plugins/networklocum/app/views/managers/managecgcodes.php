@@ -70,16 +70,16 @@
  					</div>
 					
  	
- 
-								  </div>
-								 
+
 							  </div>
+							 
 						  </div>
 					  </div>
 				  </div>
 			  </div>
-			</div>
-		</div> 
+		  </div>
+		</div>
+	</div> 
 	<center> <?php echo $this->pagination(); ?> </center>			
 				
 			</div>

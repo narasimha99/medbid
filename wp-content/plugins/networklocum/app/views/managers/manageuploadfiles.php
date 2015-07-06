@@ -31,11 +31,14 @@
 <?php
 $i  =1;
 foreach($Locumdocuments as $document) { 
+ 
+	$locumName =  $document->firstname;
+ 
 ?>
 <tr>
 <td data-title="Code"><?php echo $i;?></td>
 
-<td data-title="Code"><?php echo $document->user_id;?></td>
+<td data-title="Code"> <a href="#"><?php echo $locumName; ?> </a> </td>
 
 <td data-title="Company"> <?php echo $document->certificate_completion_training;?> </td>
         				
@@ -98,8 +101,8 @@ $i= $i+1;
 ?>
         		</tbody>
         	</table>
- 					</div>
-		</div>
-</div>
-<div>
-</div>
+	</div>
+	</div>
+	</div>
+	<div>
+	</div>

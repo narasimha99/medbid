@@ -80,8 +80,12 @@ class ManagersController extends MvcPublicController {
  		$this->load_model('Locumdocument');
 	  	$params               = $this->params;
 		$params['page']       = empty($this->params['page']) ? 1 : $this->params['page'];
- 		$collection = $this->Locumdocument->paginate($params);
+ 		$params['includes']       = array('Locum');
+		$params['joins'] = array('Locum');
+  		$params['additional_selects'] = array('Locum.firstname','Locum.lastname');
+		$collection = $this->Locumdocument->paginate($params);
   		$this->set('Locumdocuments', $collection['objects']);
+		//echo "<pre>"; print_r($collection); echo "</pre>";
  		$this->set_pagination($collection);
  
  	}
@@ -105,7 +109,7 @@ class ManagersController extends MvcPublicController {
 	  		  $this->cgcode->save($_POST);
 			  $this->flash('success', 'Successfully Saved');
 		}
-	
+		
   		$params               = $this->params;
 		$params['page']       = empty($this->params['page']) ? 1 : $this->params['page'];
 		$params['selects']    = array('locums.*');
@@ -144,12 +148,32 @@ class ManagersController extends MvcPublicController {
 		$masterDocuments = $this->Masterdocument->find();
 		$this->set('masterDocuments',$masterDocuments);
 		
-		$user_id = get_current_user_id();	
+		$locum_id = $this->params['id'];
+		$this->set('locum_id',$locum_id);	
 		$this->load_model('Locumdocument');
-	 	$locumDocuments = $this->Locumdocument->find_by_user_id($user_id);
+
+		$sql= "SELECT `Locumdocument`.*, Locum.firstname, Locum.lastname FROM `wp_locumdocuments` `Locumdocument` JOIN wp_locums Locum ON Locum.id = Locumdocument.user_id WHERE Locumdocument.user_id IN (1)  ";
+		global $wpdb;	
+		$locumDocuments = $wpdb->get_results($sql);
+ 
+
+		echo "<pre>"; print_r($_POST); echo "</pre>";
 		$this->set('locumDocuments',$locumDocuments);
-
-
+		
+		if (isset($_POST['documentstatus'])){
+		$documentStatus = $_POST['documentstatus'];
+		//accept -  2
+		//Reject - 3
+			
+		foreach($documentStatus as  $key=>$val){
+		
+			$selectedfileName  = $masterDocuments[$key-1]->document_filename;
+			$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = $val where user_id = $locum_id ";
+			$wpdb->query($sqlUpdate); 
+  		
+			
+		}}
+ 	
 	
  	}
 

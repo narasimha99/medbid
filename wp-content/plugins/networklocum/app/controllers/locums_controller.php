@@ -16,19 +16,19 @@ class LocumsController extends MvcPublicController {
 		$masterDocuments = $this->Masterdocument->find();
 		$this->set('masterDocuments',$masterDocuments);
 		
- 		//echo "<pre>"; print_r($masterDocuments); echo "</pre>";
+ 		// echo "<pre>"; print_r($locumObject); echo "</pre>";
 		
  	  
     	}
 
 	function checkdocument($id,$masterDocuments,$location){
  		 $id = $id - 1;
-		$user_id = get_current_user_id();
+		$locum_id  = $_SESSION['locum_id']; 
 		$this->load_model('Locumdocument');
 	
 		$url = esc_url( home_url( '/' ));
 
-	 	$locumDocuments = $this->Locumdocument->find_by_user_id($user_id);
+	 	$locumDocuments = $this->Locumdocument->find_by_user_id($locum_id);
 		 $this->set('locumDocuments',$locumDocuments);
   		// echo "<pre>"; print_r($locumDocuments);  echo"</pre>";
 	 	$document_title =   $masterDocuments[$id]->document_title;
@@ -39,6 +39,10 @@ class LocumsController extends MvcPublicController {
  			echo  "Your document is Waiting for Approve";  
 		else if( $locumDocuments[0]->$document_filename == 2 ) 
 			echo  'Approved';
+			
+		else if( $locumDocuments[0]->$document_filename == 3) 
+			echo  'Rejected';
+
 		else if($locumDocuments[0]->$document_filename == 0 ) {
 			 $id = $id + 1;
 			if ( $location == 0 )
@@ -181,8 +185,8 @@ class LocumsController extends MvcPublicController {
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 	// Check if image file is a actual image or fake image
 	if(isset($_POST["sId"])) {
- 		
-		$useriddir =  get_current_user_id();
+ 		 
+		$useriddir = $_SESSION['locum_id']; // get_current_user_id();
 		$target_dir = "verification_counter/";
 		$target_dir = $target_dir.$useriddir."/";
 		if(!is_dir($target_dir)){

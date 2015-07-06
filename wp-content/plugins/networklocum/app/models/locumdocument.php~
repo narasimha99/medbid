@@ -1,7 +1,10 @@
 <?php
 class Locumdocument extends MvcModel {
- //var $has_and_belongs_to_many = array('Appliedjob');
-  //var $includes = array('Appliedjob');
-   
+   var $belongs_to = array(
+		    'Locum' => array(
+		      'foreign_key' => 'user_id'
+		    ));
+
+  var $include=array('Locum');
 }
 ?>
