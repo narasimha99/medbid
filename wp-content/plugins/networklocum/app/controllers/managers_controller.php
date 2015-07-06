@@ -157,7 +157,7 @@ class ManagersController extends MvcPublicController {
 		$locumDocuments = $wpdb->get_results($sql);
  
 
-		echo "<pre>"; print_r($_POST); echo "</pre>";
+		//echo "<pre>"; print_r($_POST); echo "</pre>";
 		$this->set('locumDocuments',$locumDocuments);
 		
 		if (isset($_POST['documentstatus'])){
@@ -170,9 +170,12 @@ class ManagersController extends MvcPublicController {
 			$selectedfileName  = $masterDocuments[$key-1]->document_filename;
 			$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = $val where user_id = $locum_id ";
 			$wpdb->query($sqlUpdate); 
-  		
-			
-		}}
+ 		}
+		
+		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'manageuploadfiles'));
+	        $this->redirect($url);			
+				
+		}
  	
 	
  	}
