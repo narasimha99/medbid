@@ -32,21 +32,60 @@ $templtpath= get_template_directory_uri();
 				?>
 				<tr>
 					<td><?php echo $document->document_title;?>  </td>
- 					<td>
+ 					
 					<?php
-						$downloadUrl = $url."verification_counter/".$locum_id."/".$document->document_filename;
-						 $docFilename =  $document->document_filename;
-						// $locumDocuments[0]->$docFilename;
-						if( $locumDocuments[0]->$docFilename == 1 ) { ?>
-							<a href="<?php echo $downloadUrl;?>"  target="_blank"> view document</a>
-						<?php 
-						}
-						?>
+					$downloadUrl = $url."verification_counter/".$locum_id."/".$document->document_filename;
+					$docFilename =  $document->document_filename;
+					// $locumDocuments[0]->$docFilename;
+			
+					if( $locumDocuments[0]->$docFilename == 0 ) {
+					 ?>
+					<td>
+						Not uploaded Yet.
 					</td>
 					<td>
- 						<input type="radio" name="documentstatus[<?php echo $document->id;?>]" value="2"/> Accept 
- 						<input type="radio" name="documentstatus[<?php echo $document->id;?>]" value="3"/> Reject 
-    					</td>
+						&nbsp;
+					</td>
+					<?php 
+					}
+					?>
+					<?php
+
+					if( $locumDocuments[0]->$docFilename == 1 ) { ?>
+					<td>
+						<a href="<?php echo $downloadUrl;?>"  target="_blank"> view document</a>
+					</td>
+					<td>
+						<input type="radio" name="documentstatus[<?php echo $document->id;?>]" value="2"/> Accept 
+						<input type="radio" name="documentstatus[<?php echo $document->id;?>]" value="3"/> Reject 
+					</td>
+					<?php 
+					}
+					?>
+				 
+					<?php if( $locumDocuments[0]->$docFilename == 2 ) { ?>
+					<td>
+						<a href="<?php echo $downloadUrl;?>"  target="_blank"> view document</a>
+					</td>
+					<td>
+						 Accepted
+  					</td>
+					<?php 
+					}
+					?>
+
+
+	 
+					<?php if( $locumDocuments[0]->$docFilename == 3 ) { ?>
+					<td>
+						<a href="<?php echo $downloadUrl;?>"  target="_blank"> view document</a>
+					</td>
+					<td>
+						 Rejected
+  					</td>
+					<?php 
+					}
+					?>
  				</tr>
   
  				<?php } ?>

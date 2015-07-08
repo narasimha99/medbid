@@ -26,7 +26,7 @@
         			</tr>
         		</thead>
         		<tbody>
-			<?php foreach($locumlist as $locum) { ?>
+			<?php foreach($locumlist as $locum) {?>
         			<tr>
 					<td data-title="Code"><?php echo $locum->firstname;?></td>
 					<td data-title="Code"><?php echo $locum->lastname;?></td>

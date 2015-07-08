@@ -116,6 +116,7 @@ class ManagersController extends MvcPublicController {
  
 		$this->load_model('locum');
 		$locumlist = $this->locum->find();
+		//echo "<pre>"; 		print_r($locumlist);
  		$this->set('locumlist',$locumlist);
  
 	}

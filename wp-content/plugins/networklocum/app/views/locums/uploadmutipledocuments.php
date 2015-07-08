@@ -10,11 +10,9 @@ $templtpath= get_template_directory_uri();
 <div class="panel panel-default">
 <div class="panel-heading">
  <?php $this->display_flash(); ?>
-
 <span class="panel-title">
 <ol class="breadcrumb">
  <li><a href="/account/welcome/">Welcome to medbid </a></li>
-
 <li class="active">Clinical Documents</li>
 </ol>
 </span>

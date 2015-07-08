@@ -41,8 +41,15 @@ class LocumsController extends MvcPublicController {
 			echo  'Approved';
 			
 		else if( $locumDocuments[0]->$document_filename == 3) 
-			echo  'Rejected';
+		{
+			echo  'Rejected upload again<br>';
+			 $id = $id + 1;
+			if ( $location == 0 )
+				echo "<a href='$url/locums/uploaddocuments/$id'>".$document_title."</a>";
+			else	
+			echo " <a class='btn btn-xs btn-default' href='$url/locums/uploaddocuments/$id'><i class='icon-cloud-upload'></i>&nbsp;Upload</a>"; 
 
+		}
 		else if($locumDocuments[0]->$document_filename == 0 ) {
 			 $id = $id + 1;
 			if ( $location == 0 )
@@ -168,7 +175,7 @@ class LocumsController extends MvcPublicController {
 	//echo "<pre>"; print_r($_SERVER);echo "</pre>";
 	$this->set('mylayout', 'client');
 
-	//echo "<pre>"; print_r($_POST); print_r($_FILES); echo "</pre>";
+	echo "<pre>"; print_r($_POST); print_r($_FILES); echo "</pre>";
 
 	$masterDocuments = array();
 	$this->load_model('Masterdocument');		
@@ -183,6 +190,8 @@ class LocumsController extends MvcPublicController {
 	//print_r($_POST);print_r($_FILES);
 	$uploadOk = 1;
 	$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+ 		 
+
 	// Check if image file is a actual image or fake image
 	if(isset($_POST["sId"])) {
  		 
@@ -195,7 +204,12 @@ class LocumsController extends MvcPublicController {
 		chmod($upload_dir, 0777);
 
 		}
-		$target_file = $target_dir . basename($selectedfileName);
+		
+		
+		
+	echo	$target_file = $target_dir . basename($selectedfileName);
+	echo 	$imageFileType = pathinfo($_FILES[$selectedfileName]["tmp_name"],PATHINFO_EXTENSION);
+		exit; 
 
 	    if (move_uploaded_file($_FILES[$selectedfileName]["tmp_name"], $target_file)) {
 		 
