@@ -8,18 +8,15 @@ $templtpath= get_template_directory_uri();
 jQuery( document ).ready(function() {
 //console.log( "ready!" );
 jQuery("#submit").click(function () {
-jQuery("#locumsignupnext").submit();
+   jQuery("#locumsignupnext").submit();
 });
  
 jQuery(function () {	
- 
-	jQuery("#location").geocomplete({
+ 	jQuery("#location").geocomplete({
 	  details: ".bitbox1",
 	  detailsAttribute: "data-geo"
 	});
-
 });
-
 
 });
 </script>
@@ -30,11 +27,7 @@ jQuery(function () {
 <div class="col-md-12">
 <div class="bitbox1">
 
-  
-
-    
-    
-		        <h3><a href="<?php echo $url.'locums/myprofile';?>">My Profile</a> / Edit Profile</h3>
+   		        <h3><a href="<?php echo $url.'locums/myprofile';?>">My Profile</a> / Edit Profile</h3>
 				
 				<form name="locumeditprofile" id="locumeditprofile"   autocomplete="off"  method="post" action="<?php echo $url;?>locums/editprofile" onsubmit="javascript:return validatelocumeditprofile();" enctype="multipart/form-data">
  <?php $this->display_flash(); ?>

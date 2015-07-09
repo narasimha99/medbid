@@ -38,7 +38,7 @@ foreach($Locumdocuments as $document) {
 <tr>
 <td data-title="Code"><?php echo $i;?></td>
 
-<td data-title="Code"> <a href="#"><?php echo $locumName; ?> </a> </td>
+<td data-title="Code"> <a target="_blank" href="<?php echo $url.'/locums/viewlocum/'.$document->user_id;?>"><?php echo $locumName; ?> </a> </td>
 
 <td data-title="Company"> <?php echo $document->certificate_completion_training;?> </td>
         				

@@ -1,3 +1,7 @@
+<?php
+$url = esc_url( home_url( '/' ));
+$templtpath= get_template_directory_uri(); 
+?>
 <!--middle start here-->
 	<div class="midcol">
 		<div class="container">
@@ -33,7 +37,7 @@
 					<td data-title="Code"><?php echo $locum->email;?></td>
 					<td data-title="Code"><?php echo $locum->phone_number;?></td>
 					<td data-title="Code"><?php echo $locum->gmc_number;?></td>
-          				<td data-title="Change %" class="numeric"><a href="#" class="btn btn-primary aplbtn" title="Verify locums">Verify</a></td>
+          				<td data-title="Change %" class="numeric"><a href="<?php echo $url.'/managers/verifylocums/'.$locum->id;?>" class="btn btn-primary aplbtn" title="verify locums">verify locum</a></td>
         			</tr>
 			<?php } ?>
         			 

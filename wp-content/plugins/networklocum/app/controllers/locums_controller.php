@@ -422,7 +422,7 @@ class LocumsController extends MvcPublicController {
  
 
 		$objects = $this->Appliedjob->find($params);
-		echo "<pre>";print_r($objects); echo "</pre>";
+		//echo "<pre>";print_r($objects); echo "</pre>";
  		$this->set('appliedjoblists',$objects);
  		 		
 	 
@@ -622,7 +622,35 @@ class LocumsController extends MvcPublicController {
 		  
  	}
 
+	public function viewlocum(){
+		  
+		$this->set('mylayout', 'client'); 
+		$locum_id = $this->params['id'];
+	
+		$this->load_model('Locum');
+		$Locumobject = $this->Locum->find_by_id($locum_id);
+		//echo "<pre>"; print_r($Locumobject); echo "</pre>";
+ 		$this->set('Locumobject',$Locumobject); 
+		
+		$this->load_model('itsystem');
+		$itsystemlist = $this->itsystem->find();
+		$this->set('itsystemlist',$itsystemlist);
 
+		$this->load_model('howdidyouhear');
+		$howdidyouhearlist = $this->howdidyouhear->find();
+		$this->set('howdidyouhearlist',$howdidyouhearlist);
+			
+		$this->load_model('Languagesknown');
+		$spokenLanguagesarray = $this->Languagesknown->find();
+		$this->set('spokenLanguagesarray',$spokenLanguagesarray);
+
+		$this->load_model('Qualification');
+		$qualificationsarray = $this->Qualification->find();
+ 		$this->set('qualificationsarray',$qualificationsarray);
+		
+		
+
+	}
 
 	
 	

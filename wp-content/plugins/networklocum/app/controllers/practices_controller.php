@@ -226,7 +226,32 @@ class PracticesController extends MvcPublicController {
 	}	
 
 
+	public function viewpracticer(){
+		
+		$this->set('mylayout', 'client'); 
+		$practicer_id = $this->params['id'];
+	
+		$this->load_model('Practice');
+		$practicerobject = $this->Practice->find_by_id($practicer_id);
+		echo "<pre>"; print_r($practicerobject); echo "</pre>";
+ 		$this->set('practicerobject',$practicerobject); 
+		
+		$this->load_model('itsystem');
+		$itsystemlist = $this->itsystem->find();
+		$this->set('itsystemlist',$itsystemlist);
 
+		$this->load_model('howdidyouhear');
+		$howdidyouhearlist = $this->howdidyouhear->find();
+		$this->set('howdidyouhearlist',$howdidyouhearlist);
+			
+		$this->load_model('Languagesknown');
+		$spokenLanguagesarray = $this->Languagesknown->find();
+		$this->set('spokenLanguagesarray',$spokenLanguagesarray);
+
+		$this->load_model('Qualification');
+		$qualificationsarray = $this->Qualification->find();
+ 		$this->set('qualificationsarray',$qualificationsarray);
+ 	}
 
 	  
 }

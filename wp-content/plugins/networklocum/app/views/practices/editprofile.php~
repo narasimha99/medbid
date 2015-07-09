@@ -1,3 +1,9 @@
+<?php
+$url = esc_url( home_url( '/' ));
+$templtpath= get_template_directory_uri(); 
+?>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery.geocomplete.min.js"></script>
 <script>
 jQuery( document ).ready(function() {
 //console.log( "ready!" );
@@ -5,6 +11,14 @@ jQuery("#submit").click(function () {
 $("#locumsignupnext").submit();
 });
  
+jQuery(function () {	
+ 	jQuery("#location").geocomplete({
+	  details: ".bitbox1",
+	  detailsAttribute: "data-geo"
+	});
+});
+
+
 });
 </script>
 <?php
@@ -28,7 +42,7 @@ $templtpath= get_template_directory_uri();
 							
 							<ol class="breadcrumb">
 							  <li><a href="#"="<?php echo $url.'locums/youraccount';?>">Your Account</a></li>
-							  <li class="active">Edit Locum</li>
+							  <li class="active">Edit practices</li>
 
 								  <?php //echo "in view "; echo "<pre>";print_r($practiceobject); echo "</pre>"; ?>
 								  <div class="row">
@@ -88,31 +102,36 @@ $templtpath= get_template_directory_uri();
 						  <span class="errorspan" id="errspan_ccg_id"></span>
 					  </div>
 					  
-					  <div class="form-group">
-						  <label for="username" class="control-label">IT Systems</label>
-		  		  <select id="it_systems" name="data[Practice][it_systems][]" required="true"  class="form-control ff1" multiple="multiple">	
-					<option value="">Select</option>
-					<?php
-						$old_itsystems = $practiceobject->it_systems;
-						$old_itsystems_array=explode(",",$old_itsystems);
-						$sm = count($old_itsystems_array);
-						$old_itsystems_array[$sm] = $old_itsystems_array[0];
-						unset($old_itsystems_array[0]);
-						//echo "<pre>"; print_r($old_itsystems_array); echo"</pre>";
- 					foreach($itsystemlist as $itsys){
-						 $key = array_search($itsys->id, $old_itsystems_array);
-						if ($key>0){
-					?>
-					<option selected value="<?php echo $itsys->id;?>"><?php echo $itsys->itname;?></option>
-						<?php } else { ?>
-					<option value="<?php echo $itsys->id;?>"><?php echo $itsys->itname;?></option>
-					<?php
-					}}	
-					?>  
-					</select>
-						<span class="errorspan" id="errspan_it_systems"></span>
-					  </div>
-					  
+<div class="form-group">
+<label for="username" class="control-label">IT Systems</label>
+<select id="it_systems" name="data[Practice][it_systems][]" required="true"  class="form-control ff1" multiple="multiple">	
+<option value="">Select</option>
+<?php
+$old_itsystems = $practiceobject->it_systems;
+$old_itsystems_array=explode(",",$old_itsystems);
+$sm = count($old_itsystems_array);
+$old_itsystems_array[$sm] = $old_itsystems_array[0];
+unset($old_itsystems_array[0]);
+//echo "<pre>"; print_r($old_itsystems_array); echo"</pre>";
+foreach($itsystemlist as $itsys){
+$key = array_search($itsys->id, $old_itsystems_array);
+if ($key>0){
+?>
+<option selected value="<?php echo $itsys->id;?>"><?php echo $itsys->itname;?></option>
+<?php } else { ?>
+<option value="<?php echo $itsys->id;?>"><?php echo $itsys->itname;?></option>
+<?php
+}}	
+?>  
+</select>
+<span class="errorspan" id="errspan_it_systems"></span>
+</div>
+	
+
+
+
+
+				  
 					  <div class="form-group">
 						  <label for="username" class="control-label">Parking facilities</label>
 						 
@@ -137,10 +156,17 @@ $templtpath= get_template_directory_uri();
 							</select>
 						<span class="errorspan" id="errspan_parking"></span>
 					  </div>
+
+<div class="form-group">
+<label for="password" class="control-label">Location:</label><br>
+<input type="text" class="form-control ff1" id="location" name="data[Practice][geo_location]" value="<?php echo $practiceobject->geo_location;?>"    title="" placeholder="Start with your location name we are verifying all locations from Google" />
+<span class="errorspan" id="errspan_location"></span>
+</div>
+
 					  
 					  <div class="form-group">
 						  <label for="password" class="control-label">Address</label><br>
-						  <input type="text" class="form-control ff1" id="address" name="data[Practice][address]" value="<?php echo $practiceobject->address;?>"    title="" placeholder="Address"/>
+						  <input type="text" class="form-control ff1" id="address" name="data[Practice][address]" value="<?php echo $practiceobject->address;?>"  data-geo="formatted_address"  placeholder="Address"/>
 						   
 						 <span class="errorspan" id="errspan_address"></span>
 					  </div>
@@ -149,16 +175,38 @@ $templtpath= get_template_directory_uri();
 	
   <div class="form-group">
 						  <label for="password" class="control-label">City</label><br>
-						  <input type="text" class="form-control ff1" id="city" name="data[Practice][city]" value="<?php echo $practiceobject->city;?>"    title="" placeholder="TYPE CITY NAME"/>
+						  <input type="text" class="form-control ff1" id="city" name="data[Practice][city]" value="<?php echo $practiceobject->city;?>"  data-geo="administrative_area_level_2"    placeholder="TYPE CITY NAME"/>
 						 <span class="errorspan" id="errspan_city"></span>
 					  </div>
 
+
+ <div class="form-group">
+						  <label for="password" class="control-label">Country</label><br>
+						  <input type="text" class="form-control ff1"  data-geo="country" id="country" name="data[Practice][country]" value="<?php echo $practiceobject->country;?>"    title="" placeholder="country"/>
+						   
+						 <span class="errorspan" id="errspan_country"></span>
+					  </div>
+				  
+
+
+<div class="form-group">
+<label for="password" class="control-label">State</label><br>
+<input type="text" class="form-control ff1"   data-geo="administrative_area_level_1"  id="state" name="data[Practice][state]" value="<?php echo $practiceobject->state;?>"  placeholder="state"/>
+<span class="errorspan" id="errspan_state"></span>
+
+<input type="hidden" class="form-control ff1"   data-geo="lat"  id="latitude" name="data[Practice][latitude]" value="<?php echo $practiceobject->latitude;?>"  placeholder="latitude"/>
+
+<input type="hidden" data-geo="lng" class="form-control ff1"  value="<?php echo $practiceobject->longitude;?>"  id="longitude" name="data[Practice][longitude]" placeholder="longitude">
+
+</div>
+
+ 
 
 
 
   <div class="form-group">
 						  <label for="password" class="control-label">Post code</label><br>
-						  <input type="text" class="form-control ff1" id="postcode" name="data[Practice][postcode]"  value="<?php echo $practiceobject->practice_code;?>"   title="" placeholder="Enter your postcode">
+						  <input type="text" class="form-control ff1" id="postcode" name="data[Practice][postcode]"  value="<?php echo $practiceobject->practice_code;?>"  data-geo="postal_code" placeholder="Enter your postcode">
 						  <span class="errorspan" id="errspan_postcode"></span>
 					  </div>
 
@@ -246,23 +294,23 @@ $howoftendoyoupaystaffinvoices_array = array(
 );
 ?>	
 
-				  <div class="form-group">
-				  <label for="username" class="control-label">How often do you pay staff invoices?</label>
-		  <select  id="howoftendoyoupaystaffinvoices" name="data[Practice][howoftendoyoupaystaffinvoices]" class="form-control ff1">	
-		<option  > Select</option>			
-		<option value=""> Select</option>
-		<?php
-		for($mt=1;$mt<count($howoftendoyoupaystaffinvoices_array);$mt++){
-		?>
-		<option value="<?php echo $mt;?>"  <?php if($practiceobject->howoftendoyoupaystaffinvoices == $mt) echo 'selected'?>><?php echo $howoftendoyoupaystaffinvoices_array[$mt];?></option>
-		<?php
-		}	
-		?>
-		</select>
+<div class="form-group">
+<label for="username" class="control-label">How often do you pay staff invoices?</label>
+<select  id="howoftendoyoupaystaffinvoices" name="data[Practice][howoftendoyoupaystaffinvoices]" class="form-control ff1">	
+<option  > Select</option>			
+<option value=""> Select</option>
+<?php
+for($mt=1;$mt<count($howoftendoyoupaystaffinvoices_array);$mt++){
+?>
+<option value="<?php echo $mt;?>"  <?php if($practiceobject->howoftendoyoupaystaffinvoices == $mt) echo 'selected'?>><?php echo $howoftendoyoupaystaffinvoices_array[$mt];?></option>
+<?php
+}	
+?>
+</select>
 
-							 
-						  <span class="errorspan" id="errspan_it_systems"></span>
-					  </div>
+
+<span class="errorspan" id="errspan_it_systems"></span>
+</div>
 
 
 	

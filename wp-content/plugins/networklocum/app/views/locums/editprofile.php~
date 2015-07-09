@@ -8,18 +8,15 @@ $templtpath= get_template_directory_uri();
 jQuery( document ).ready(function() {
 //console.log( "ready!" );
 jQuery("#submit").click(function () {
-jQuery("#locumsignupnext").submit();
+   jQuery("#locumsignupnext").submit();
 });
  
 jQuery(function () {	
- 
-	jQuery("#location").geocomplete({
+ 	jQuery("#location").geocomplete({
 	  details: ".bitbox1",
 	  detailsAttribute: "data-geo"
 	});
-
 });
-
 
 });
 </script>

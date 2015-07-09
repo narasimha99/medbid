@@ -55,8 +55,8 @@ $("#myinvitejobs").html( data );
 		  	<div class="bs-docs-section" style="margin-top:20px;">
 		  <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 			<ul id="myTab" class="nav nav-tabs" role="tablist">
-			  <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">My Invites</a></li>
-			  <li role="presentation"><a href="#application" role="tab" id="application-tab" data-toggle="tab" aria-controls="application">Applications</a></li>
+			  <li role="presentation"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">My Invites</a></li>
+			  <li role="presentation"  class="active" ><a href="#application" role="tab" id="application-tab" data-toggle="tab" aria-controls="application">Applications</a></li>
 			  <li role="presentation"><a href="#booked" role="tab" id="booked-tab" data-toggle="tab" aria-controls="booked">Booked Jobs</a></li>
 			  <li role="presentation"><a href="#completed" role="tab" id="completed-tab" data-toggle="tab" aria-controls="completed">Completed Jobs</a></li>
 			</ul>
