@@ -61,8 +61,7 @@ class PracticesController extends MvcPublicController {
 
 		$this->load_model('cgcode');
 		$cgcodelist = $this->cgcode->find();
-		
-		$this->set('cgcodelist',$cgcodelist);
+ 		$this->set('cgcodelist',$cgcodelist);
 
 		$this->load_model('itsystem');
 		$itsystemlist = $this->itsystem->find();
@@ -218,7 +217,7 @@ class PracticesController extends MvcPublicController {
 		global $wpdb;
  
 		//practicer_rejected = 0  // Rejected 
-  		echo $sqlJoblocum = "Update  wp_appliedjobs set practicer_rejected = 1 WHERE  id = $appliedjobId ";
+  		  $sqlJoblocum = "Update  wp_appliedjobs set practicer_rejected = 1 WHERE  id = $appliedjobId ";
  		$wpdb->query($sqlJoblocum);
   		$this->flash('success', 'Your are rejected locum succesfully.');
 		$url = MvcRouter::public_url(array('controller' =>'jobs', 'action' => 'postedjobs'));
@@ -233,24 +232,21 @@ class PracticesController extends MvcPublicController {
 	
 		$this->load_model('Practice');
 		$practicerobject = $this->Practice->find_by_id($practicer_id);
-		echo "<pre>"; print_r($practicerobject); echo "</pre>";
+		//echo "<pre>"; print_r($practicerobject); echo "</pre>";
  		$this->set('practicerobject',$practicerobject); 
 		
 		$this->load_model('itsystem');
 		$itsystemlist = $this->itsystem->find();
 		$this->set('itsystemlist',$itsystemlist);
 
-		$this->load_model('howdidyouhear');
-		$howdidyouhearlist = $this->howdidyouhear->find();
-		$this->set('howdidyouhearlist',$howdidyouhearlist);
-			
-		$this->load_model('Languagesknown');
-		$spokenLanguagesarray = $this->Languagesknown->find();
-		$this->set('spokenLanguagesarray',$spokenLanguagesarray);
+		$this->load_model('cgcode');
+		$cgcodelist = $this->cgcode->find();
+ 		$this->set('cgcodelist',$cgcodelist);
 
-		$this->load_model('Qualification');
-		$qualificationsarray = $this->Qualification->find();
- 		$this->set('qualificationsarray',$qualificationsarray);
+		$this->load_model('Pctcode');
+		$Pctcodelist = $this->Pctcode->find();
+		$this->set('Pctcodelist',$Pctcodelist);
+		
  	}
 
 	  

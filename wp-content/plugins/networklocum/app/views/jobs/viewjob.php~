@@ -1,73 +1,48 @@
 <?php
- $templtpath= get_template_directory_uri(); 
-?>
-<?php
 $url = esc_url( home_url( '/' )); 
 $templtpath= get_template_directory_uri(); 
-?>
-<script>
-jQuery( document ).ready(function() {
-
-	//console.log( "ready!" );
-	jQuery("#submit1").click(function () {
-		$("#calendarform").submit();
- 	});
-
-	jQuery("#submit5").click(function () {
-		$("#savejob").val('savejob');
-	});
- 
-});
-</script>
- 
-
-	 
+?>	 
 <!--middle start here-->
-	
-	<div class="midcol">
-	<div class="bitbox1">	
-		<div class="container">
- 		
-			
-			<form    id="calendarform" action="<?php echo $url.'jobs/editjob/'.$job_id;?>"  onsubmit="javascript:return validatepublicjobcreate();"  method="POST">
-		<h2> View Job Details </h2>						
-		 <?php  $this->display_flash(); ?>
+<div class="midcol">
+<div class="container">
+<div class="row">	 
+<div class="col-md-12">
+ 
+<h2> View Job Details </h2>						
+<?php  $this->display_flash(); ?>
 
  
-		<div class="row">	 
-		<div class="col-md-12">
- 		<!-- its my code end here -->
-
-		 <table id="<?php echo 'TABLEsessionday'.$i;?>" class="table" >
-
+<table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom:10px;margin-top:10px">
+ 
+<tbody>		
+ 
 <tr>
  <td> Practicers details </td>
-</tr>
-<tr>
- <td> Dates required </td>
+ <td colspan="3"> <?php echo $jobdetails[0]->practice_code.', '.$jobdetails[0]->practicename ;?>  &nbsp; <a href="<?php echo $url.'practices/viewpracticer/'.$jobdetails[0]->user_id;?>" target="_blank" title= "Click here to  view more practicers details on newtab"> view more...</a> </td>
 </tr>
 
- <h3> Dates required </h3>
-<tr>
  
+ 
+<tr>
+  <td colspan="4">  Dates required  </td> 
+</tr>
+
+ 
+<tr>
 <th>Sart Time</th>
 <th>End Time</th>
 <th>Hourly rate £</th>
 <th>Pay to locum </th>
-<th>Medbid Locum fees</th>
-
 </tr>
  
 
-<tbody>		
- 
 <?php
 //echo count($_POST['session_starttime']) ;
-echo "<pre>"; print_r($practicerdetails);
+//echo "<pre>"; print_r($practicerdetails);
 
 	$i=1;
 	$j=1;
-	foreach($jobsessions as $jobsession) 
+	foreach($jobdetails as $jobsession) 
 	{
  	
 ?>
@@ -76,7 +51,7 @@ echo "<pre>"; print_r($practicerdetails);
 <?php 
 echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime));
 ?>
- 	 </td>
+</td>
  
 <td>
 
@@ -90,69 +65,131 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime));
 
 
 <td> <?php echo $jobsession->paytolocum;?>   </td>
-
-
-<td>  <?php echo $jobsession->medbidfee;?> </td>
-
-
-
-<td> 
- </td> 
-<?php 
-if (!isset($jobsession->id))
-	$jobsession->id = 0;
-?>
-<input type="hidden" name="jobsession_id[]" value="<?php echo $jobsession->id;?>"/>
-
-
-
+  
 </tr>
 
 <?php
 $j = $j + 1;
 }
 ?> 
- </tbody>
-</table>
 
+<tr>	 		
 
- 		</div>
-	 		
-			 
- 	
-					
-				 
-						 
-						
-					  <div class="form-group">
-						  <label for="password" class="control-label">One job or multiple sessions</label>
+<td>
+ <label for="password" class="control-label">One job or multiple sessions</label>
+</td>
+
+<td colspan="3">
 <?php 
- 
 $onejobormultiplesessions_array = array(
 '1'=>'Post as one job',
 '2'=>'Post as individual sessions'
 );
-
-   echo $onejobormultiplesessions_array[$jobdetails->onejobormultiplesessions];
+   echo $onejobormultiplesessions_array[$jobdetails[0]->onejobormultiplesessions];
 ?>
-					
-							 
-						 
- 				    
-						 
-					  </div>
-					  
-					  <div class="form-group">
-						  <label for="password" class="control-label">Required IT systems</label>
-						   <?php
-								foreach($itsystemlist as $itsys){
-							  if($jobdetails->required_it_systems == $itsys->id) echo $itsys->itname; 
-							 
-							}	
-							?>  
-  					  </div>
-					  <div class="form-group">
-						  <label for="username" class="control-label">Parking facilities</label>
+</td> 
+</tr>
+
+<tr>
+<td>
+<label for="password" class="control-label">Tariff: </label>
+</td>
+<td colspan="3" >
+<?php 
+$onejobormultiplesessions_array = array(
+'1'=>'Hourly Rate',
+'2'=>'Salaried Position'
+);
+?>
+<?php  echo $onejobormultiplesessions_array[$jobdetails[0]->onejobormultiplesessions];?>
+</td>
+</tr>
+
+<tr>
+<td>
+<label for="password" class="control-label">Number of Patients  : </label>
+</td>
+<td colspan="3">
+ <?php echo $jobdetails[0]->number_of_patients;?> 		
+</td>
+</tr>
+
+<td>
+<label for="password" class="control-label">Number of Telephone consultations : </label>
+</td>
+<td colspan="3">
+ <?php echo $jobdetails[0]->number_of_telephoneconsultations;?>
+</td>
+</tr>
+
+<?php 
+$yesnoarray = array('0'=>'No','1'=>'Yes');
+?>
+<td>
+	<label for="password" class="control-label">Paperwork </label>
+</td>
+<td colspan="3">
+	<?php echo  $yesnoarray[$jobdetails[0]->paperwork]; ?> 
+</td>
+</tr>
+ 
+
+<tr>
+
+<td>
+<label for="password" class="control-label">Referrals</label>
+</td>
+<td colspan="3">
+<?php echo  $yesnoarray[$jobdetails[0]->referrals]; ?>  
+</td>
+</tr>
+
+<tr>
+<td>
+	<label for="password" class="control-label">Home Visits</label>
+</td>
+<td colspan="3">
+<?php echo  $yesnoarray[$jobdetails[0]->home_visits]; ?> 
+</td>
+</tr>
+
+<tr>
+<td>
+<label for="password" class="control-label">Bloods</label>
+</td>
+<td colspan="3">
+<?php echo  $yesnoarray[$jobdetails[0]->bloods]; ?> 
+</tdd>
+</tr>
+
+<tr>
+<td>
+<label for="password" class="control-label">Pension Included?</label>
+</td>
+<td colspan="3">
+<?php echo  $yesnoarray[$jobdetails[0]->pension_included]; ?> 
+</td>
+</tr>
+
+<tr>				  
+<td>
+<label for="password" class="control-label">Required IT systems</label>
+</td>
+<td colspan="3">
+<?php
+foreach($itsystemlist as $itsys){
+if($jobdetails[0]->required_it_systems == $itsys->id) echo $itsys->itname; 
+
+}	
+?>  
+</td>
+</tr>
+
+<tr>
+<td>
+ <label for="username" class="control-label">Parking facilities</label>
+</td>
+<td colspan="3">
 <?php
 $parking_array = array(
 '1'=>'Free and near',
@@ -166,31 +203,29 @@ $parking_array = array(
 						 
 <?php
 								 
-						 echo 	 $parking_array[$jobdetails->parking_facilities];
- 
-	 ?>
-						 
-  					 
-					  </div>
-					  <div class="form-group">
-						  <label for="username" class="control-label">Job description</label>
-						 <?php echo $jobdetails->session_description;?>
- 					  </div>
-					 
+ echo 	 $parking_array[$jobdetails[0]->parking_facilities];
+ ?>
+ </td>  					 
+</tr>
+
+<tr>
+<td> 
+<label for="username" class="control-label">Job description</label>
+</td>
+<td colspan="3"> <?php echo $jobdetails[0]->session_description;?> </td>
+</tr>
+ 		 
+</tbody>
+</table>
+
+<br>
+<div style="text-align:center">
+<a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply for this job</a>
+</div>
 
 
-			<div class="row">
-				 
-					 <input type="hidden" id="savejob" name="savejob" value=""/>
-					 <input type="hidden" id="savejob" name="job_id" value="<?php echo $job_id;?>"/>
-					 <div align="center">
-						
-							<button class="btn btn-info sbtn" id="submit5" >Post Job</button>
-						</div>
-					
-			
- 				</div> 
-					</div>
-						</div>
- 	</form>	
-	<!--middle end here-->
+</div> 
+</div>
+</div>
+</div>
+<!--middle end here-->

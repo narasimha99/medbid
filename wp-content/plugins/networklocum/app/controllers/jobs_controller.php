@@ -23,8 +23,8 @@ class JobsController extends MvcPublicController {
 		$user_id = get_current_user_id();		
 		$this->load_model('Practice');
 			 
-			 
-	if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
+				 
+		if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
 		  
 		if ( $user_id > 0 ) {
 
@@ -65,7 +65,7 @@ class JobsController extends MvcPublicController {
 			$session_date_array = explode('-',$session_date);
 			//print_r($session_date);
 			
-				 $_POST['session_starttime'][$x][$y]  = str_replace("am","", $_POST['session_starttime'][$x][$y]);
+			 $_POST['session_starttime'][$x][$y]  = str_replace("am","", $_POST['session_starttime'][$x][$y]);
 			 $_POST['session_starttime'][$x][$y]  = str_replace("pm","", $_POST['session_starttime'][$x][$y]);
 
 		  	 $_POST['session_endtime'][$x][$y]  = str_replace("am","", $_POST['session_endtime'][$x][$y]);
@@ -168,24 +168,24 @@ class JobsController extends MvcPublicController {
 
 	public function getlocumrate($HH,$MM,$hourlyrate){
 
-		$locumrate=0;
-			//CALculate rate 
-			if($hourlyrate>0){
-			 
-			  if ( $HH>0 )
-			   	 $locumrate = $hourlyrate * $HH;
-		
-			  if ( $MM>0 ){
- 				if ( $MM<=25){
-	 				 $locumrate = $locumrate + ( ($hourlyrate/4) * $MM);
-				 } else if ($MM<=50){
- 					 $locumrate = $locumrate + ( ($hourlyrate/2) * $MM);
-				 }
+	$locumrate=0;
+		//CALculate rate 
+		if($hourlyrate>0){
+		 
+		  if ( $HH>0 )
+		   	 $locumrate = $hourlyrate * $HH;
+	
+		  if ( $MM>0 ){
+			if ( $MM<=25){
+ 				 $locumrate = $locumrate + ( ($hourlyrate/4) * $MM);
+			 } else if ($MM<=50){
+				 $locumrate = $locumrate + ( ($hourlyrate/2) * $MM);
 			 }
+		 }
 
-			}		
-					 
-		    return $locumrate;
+		}		
+				 
+	    return $locumrate;
 
 	}
 
@@ -230,7 +230,7 @@ class JobsController extends MvcPublicController {
 						));
 
  
-		echo "<pre>"; print_r($objects); echo "</pre>";	
+		//echo "<pre>"; print_r($objects); echo "</pre>";	
 
 		$this->set('mylayout', 'client');
 		$postcode='SW13 9HB LONDON';		
@@ -432,19 +432,37 @@ class JobsController extends MvcPublicController {
 	}	
 		
 	public function viewjob(){
+		
 		$this->set('mylayout', 'client');
 		$this->load_model('Job');
-		$this->load_model('Jobsession');
+	 
 		$job_id = $this->params['id'];
-		global $wpdb;
+  
+		 
 
-		$sqlJob = "Select * from wp_jobs where id = $job_id";
-		$jobdetails = $wpdb->get_results($sqlJob);
- 		$this->set('jobdetails',$jobdetails[0]);
+		$params = $this->params;
+  		$params['joins'][] =  array(  'table' => 'wp_jobsessions',
+							'on' => 'Job.id = Jobsession.job_id',
+							'type' => 'LEFT JOIN',
+							'alias'=>'Jobsession'
+		 			);
 
-		$jobsessions = $this->Jobsession->find(array('conditions' => array('Jobsession.job_id' =>$job_id)));
- 		$this->set('jobsessions',$jobsessions);
-		
+		$params['joins'][] =   array('table' =>'wp_practices',
+					     'on' => 'practice.id = Job.user_id',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'practice');
+   		
+  		$params['additional_selects'] = array('Jobsession.session_date,Jobsession.session_starttime', 							'Jobsession.session_endtime','Jobsession.paytolocum','Jobsession.hourlyrate',
+						'practice.practicename','practice.practice_code');
+ 
+ 		$params['conditions'] =  array('Job.id' =>$job_id);
+ 
+  		$jobdetails = $this->Job->paginate($params);
+
+
+ 		//echo "<pre>"; print_r($jobdetails); echo"</pre>";
+		$this->set('jobdetails',$jobdetails['objects']);
+	
 		$this->load_model('cgcode');
 		$cgcodelist = $this->cgcode->find();
 		

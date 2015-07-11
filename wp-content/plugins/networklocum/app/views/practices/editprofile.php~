@@ -220,7 +220,7 @@ if ($key>0){
 
   <div class="form-group">
 						  <label for="password" class="control-label">Travel Info</label><br>
-<textarea class="form-control ff1" id="travel_info" name="data[Practice][travel_info]" rows="5" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a"><?php echo $practiceobject->practice_code;?></textarea>
+<textarea class="form-control ff1" id="travel_info" name="data[Practice][travel_info]" rows="5" placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a"><?php echo $practiceobject->travel_info;?></textarea>
 						 <span class="errorspan" id="errspan_travel_info"></span>
 					  </div>
 

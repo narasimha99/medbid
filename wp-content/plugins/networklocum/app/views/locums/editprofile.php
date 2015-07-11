@@ -116,7 +116,7 @@ jQuery(function () {
 	
 <div class="form-group">
 <label for="password" class="control-label">City</label><br>
-<input type="text" class="form-control ff1"  data-geo="administrative_area_level_2" id="city" name="data[Locum][city]" value="<?php echo $Locumobject->city;?>"    title="" placeholder="TYPE CITY NAME"/>
+<input type="text" class="form-control ff1"  data-geo="administrative_area_level_2" 	id="city" name="data[Locum][city]" value="<?php echo $Locumobject->city;?>"    title="" placeholder="TYPE CITY NAME"/>
 <span class="errorspan" id="errspan_city"></span>
 </div>
 

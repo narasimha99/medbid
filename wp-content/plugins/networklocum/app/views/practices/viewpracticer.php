@@ -19,13 +19,11 @@ if (strlen(trim($profile_image)) == 0 )
 $profile_image = 'demouser.png';
 
 ?>
-
 <div>
 <img class="img-circle img-user-config" src="<?php echo  $url.'/upload_pic/'.$profile_image; ?>"/>
 <span style="float:right"> <h1><?php echo $practicerobject->firstname.' '.$practicerobject->lastname;?></h1> </span>
 </div>		
-		
-  
+ 
 <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin-bottom:10px;">
 
 <tr>
@@ -47,14 +45,26 @@ $profile_image = 'demouser.png';
 
 <tr>
 <td><label for="username" class="control-label">Pct Code</label> </td>
-<td> <?php echo $practicerobject->pct;?> </td>
+<td> <?php
+foreach($Pctcodelist as $pctcode) {
+if( $pctcode->id ==  $practicerobject->pct)
+echo $pctcode->pct_name;
+}
+?> </td>
 </tr>
 
 
 
 <tr>
 <td> <label for="password" class="control-label">Ccg Code </label> </td>
-<td> <?php echo $practicerobject->ccg_id;?> </td>
+<td>
+<?php
+foreach($cgcodelist as $ccgCode) {
+if( $ccgCode->id ==  $practicerobject->ccg_id)
+echo $ccgCode->ccg_name;
+}
+?> 
+</td>
 </tr> 
 
 <tr>
@@ -90,23 +100,13 @@ $parking_array = array(
 
 <?php
 for($mt=1;$mt<count($parking_array);$mt++){
-?>
-<?php echo $parking_array[$mt];?></option>	
-<?php
-}	
+  if( $practicerobject->parking  == $mt)
+	echo $parking_array[$mt];
+ }	
 ?>
 </td>
 </tr>
- 
-<?php 
-$companyarray = array('I operate as a limited company','I do not operate as a limited company');
-?>
-
-<tr> 
-<td> <label for="password" class="control-label">company status</label> </td>
-<td> <?php //echo $companyarray[$practicerobject->companystatus]; ?> </td>
-</tr>
- 
+  
 <tr>
 <td> <label for="password" class="control-label">Travel information</label> </td>
 <td> 
@@ -155,14 +155,7 @@ echo $practicerobject->travel_info;
 <td> <?php echo $practicerobject->aboutusandourpatients;?> </td>
 </tr>
  
- 
-
-
-
-   
-
-
-	
+  
   
 <tr>
 <td>Phone Number </td>

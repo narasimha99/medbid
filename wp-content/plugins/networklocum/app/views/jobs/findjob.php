@@ -223,6 +223,7 @@ echo date('D j M Y, H:m', strtotime($job->session_starttime)).' - '.date('H:m', 
 ?> </td>
 <td data-title="Price" class="nndumeric"><?php echo $job->no_of_sessions;?> sessions</td>
 <td data-title="Change" class="numeric">£ <?php echo $job->hourlyrate;?> </td>
+<td data-title="Change %" class="numeric"><a href="<?php echo $url.'jobs/viewjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="view job">View job</a></td>
 <td data-title="Change %" class="numeric"><a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply</a></td>
         			</tr>
 <?php 
