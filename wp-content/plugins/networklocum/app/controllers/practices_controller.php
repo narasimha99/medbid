@@ -220,7 +220,7 @@ class PracticesController extends MvcPublicController {
 	
  			mail($email,'Congratulations your selected for this job',$message);
 		  	$this->flash('success', 'You have succesfully accepted your locum.');
-			$url = MvcRouter::public_url(array('controller' =>'jobs', 'action' => 'postedjobs'));
+			$url = MvcRouter::public_url(array('controller' =>'jobs', 'action' => 'jobapplications'));
  			$this->redirect($url);
  				
   		}
@@ -241,7 +241,7 @@ class PracticesController extends MvcPublicController {
   		  $sqlJoblocum = "Update  wp_appliedjobs set practicer_rejected = 1 WHERE  id = $appliedjobId ";
  		$wpdb->query($sqlJoblocum);
   		$this->flash('success', 'Your are rejected locum succesfully.');
-		$url = MvcRouter::public_url(array('controller' =>'jobs', 'action' => 'postedjobs'));
+		$url = MvcRouter::public_url(array('controller' =>'jobs', 'action' => 'jobapplications'));
  		$this->redirect($url);
 	}	
 

@@ -118,7 +118,7 @@ class JobsController extends MvcPublicController {
 		 
   		 $this->flash('success', 'Thanks for posting your job.');
 		
-		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'myjobs'));
+		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'mypostedjobs'));
 	        $this->redirect($url);
 
 
@@ -238,7 +238,7 @@ class JobsController extends MvcPublicController {
 
  	}
 	
-	function myjobs(){
+	function mypostedjobs(){
 
 		$this->set('mylayout', 'client');
   		$this->load_model('Job');
@@ -414,7 +414,7 @@ class JobsController extends MvcPublicController {
 		$wpdb->query($sql_jobsessions);
        		$this->flash('notice', 'Successfully deleted');
 
-		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'myjobs'));
+		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'mypostedjobs'));
 	        $this->redirect($url);
 
 	}
@@ -479,7 +479,7 @@ class JobsController extends MvcPublicController {
 		$this->set('job_id',$job_id);
 	}
 
-	public function postedjobs(){
+	public function jobapplications(){
 
 		$this->set('mylayout', 'client');
  		$this->load_model('Appliedjob');
@@ -690,7 +690,7 @@ class JobsController extends MvcPublicController {
  			}
 			  $this->invitelocumsbymail();
 			 $this->flash('success', 'We invited successfully all your Locums aswell as  we sent invitation mail also.');
-			 $url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'myjobs'));
+			 $url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'mypostedjobs'));
 	     		  $this->redirect($url);
 
 		}

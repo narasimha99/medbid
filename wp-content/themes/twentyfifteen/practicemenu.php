@@ -18,8 +18,8 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
           <ul class="nav navbar-nav navbar-right ulmargin">
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/postedjobs';?>">My Posted Jobs</a></li>
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/myjobs';?>">My Sessions</a></li>
+			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/jobapplications';?>">Job Applications </a></li>
+			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/mypostedjobs';?>">My Posted Jobs</a></li>
 			<li class="tnav tnav2"><a class="" href="#<?php //echo $url.'practices/billing';?>">Billing</a></li>
 			<li class="tnav tnav2"><a class="" href="#<?php //echo $url.'doctors';?>"">My Midbid Bank</a></li>
 			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/publicjobcreate';?>">Create a Job</a></li>
