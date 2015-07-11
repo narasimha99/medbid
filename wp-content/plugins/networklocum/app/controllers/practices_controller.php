@@ -21,6 +21,8 @@ class PracticesController extends MvcPublicController {
 		  $i = $i+1;
 		}
  		$_POST['session_date_range'] =  implode(",",$session_date_range); 
+		$this->set('postedJobscount',$i);
+
  		//echo "<pre>"; print_r($jobs); echo "</pre>";
 
 

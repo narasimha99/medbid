@@ -100,10 +100,10 @@ prettyPrint();
 								 <div class="row">
 								 
 									<div class="col-md-6" >
-										<h2>ACTIVITY SUMMARY <span style="float: right;margin-right: 9px; font-size:16px;"><a class="" href="#">View all</a></span></h2> 
+										<h2>ACTIVITY SUMMARY <span style="float: right;margin-right: 9px; font-size:16px;"><a class="" href="<?php echo $url.'jobs/mypostedjobs/' ;?>">View all</a></span></h2> 
 										<div>
 											<div class="pjobs">
-												<h2>0</h2>
+												<h2><?php echo $postedJobscount;?></h2>
 												<p>Posted Jobs</p>
 											</div>
 											<div class="pjobs" style="background:#5CB85C;">
@@ -118,11 +118,7 @@ prettyPrint();
 									</div>
 									
 									<div class="col-md-6" style="text-align:center; line-height:30px;   padding-top: 75px;">
-										<h2>UPCOMING MIDBIDS</h2>
-										<p>You have no upcoming Midbids</p>
-										<div><a href="#">View your Midbids bank</a></div>
-									</div>
-									
+			 						
 								 </div>						  
 							</div>
 							<div class="dashmidh2">
