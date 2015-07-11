@@ -24,12 +24,12 @@ $templtpath= get_template_directory_uri();
  
  
 <tr>
-  <td colspan="4">  Dates required  </td> 
+ <td>  Job Posted Date: </td> <td colspan="3"><?php echo date('D j M Y, H:m', strtotime($jobdetails[0]->createddate));?> </td> 
 </tr>
 
  
 <tr>
-<th>Sart Time</th>
+<th>Start Time</th>
 <th>End Time</th>
 <th>Hourly rate £</th>
 <th>Pay to locum </th>
