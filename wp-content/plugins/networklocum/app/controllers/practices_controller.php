@@ -2,13 +2,31 @@
 class PracticesController extends MvcPublicController {
 
  	public function index() {
-		$this->set('mylayout', 'client');
-		$user_id = get_current_user_id();
+ 		$this->set('mylayout', 'client');
+  		$user_id = get_current_user_id();
  		$_SESSION['user_id'] =  $user_id;
 		$this->load_model('Practice');
 		$PracticeObject = $this->Practice->find_by_user_id($user_id);
  		$_SESSION['practicer_id'] = $PracticeObject[0]->id;	
+
+		$practicer_id = $_SESSION['practicer_id'];
+
+		$this->load_model('Job');
+		$jobs = $this->Job->find(array('selects' => array('Job.id','Job.session_date_range'),array('conditions' => array('Job.user_id' =>$practicer_id))));
+
+		$session_date_range = array();
+		$i=0;
+		foreach($jobs as $job){
+		  $session_date_range[$i] = $job->session_date_range;
+		  $i = $i+1;
+		}
+ 		$_POST['session_date_range'] =  implode(",",$session_date_range); 
+ 		//echo "<pre>"; print_r($jobs); echo "</pre>";
+
+
      	}
+
+
 
 	public function getLatLong($zipaddress){
 		$url = "http://maps.googleapis.com/maps/api/geocode/json?address=
@@ -73,31 +91,7 @@ class PracticesController extends MvcPublicController {
 		
  	}
 	
-	public function dashboard(){
- 		$this->set('mylayout', 'client');
-		
-		
-		$user_id = get_current_user_id();
- 		$_SESSION['user_id'] =  $user_id;
-		$this->load_model('Practice');
-		$PracticeObject = $this->Practice->find_by_user_id($user_id);
- 		$_SESSION['practicer_id'] = $PracticeObject[0]->id;	
-
-		$practicer_id = $_SESSION['practicer_id'];
-
-		$this->load_model('Job');
-		$jobs = $this->Job->find(array('selects' => array('Job.id','Job.session_date_range'),array('conditions' => array('Job.user_id' =>$practicer_id))));
-
-		$session_date_range = array();
-		$i=0;
-		foreach($jobs as $job){
-		  $session_date_range[$i] = $job->session_date_range;
-		  $i = $i+1;
-		}
- 		$_POST['session_date_range'] =  implode(",",$session_date_range); 
- 		//echo "<pre>"; print_r($jobs); echo "</pre>";
- 	}
- 
+	 
 
 	public function youraccount(){
  		$this->set('mylayout', 'client');

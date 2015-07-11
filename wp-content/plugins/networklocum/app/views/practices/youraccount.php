@@ -13,7 +13,7 @@ $url = esc_url(home_url('/'));
 						   </div>
 <table align="center">
 <tr> <td> Your profile </td> </tr>
-<tr> <td> <a  href="<?php echo $url.'practices/dashboard';?>">Dashboard</a> </td> </tr>
+<tr> <td> <a  href="<?php echo $url.'practices';?>">Dashboard</a> </td> </tr>
 <tr> <td> <a  href="<?php echo $url.'practices/editprofile';?>">Edit profile</a> </td> </tr>
 <tr> <td> <a  href="<?php echo $url.'practices/changepassword';?>">Change Password</a>  </td> </tr>
 <tr> <td> Link Bank Account</td> </tr>
