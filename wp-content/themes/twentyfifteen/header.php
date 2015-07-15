@@ -68,8 +68,7 @@ var myJSONObject = {"JSINFO": [
 $templtpath= get_template_directory_uri(); 
 ?>
 </head>
-
-  <body>
+<body>
 <?php 
 $user_id = get_current_user_id();
 if ( $user_id == 0 ) {

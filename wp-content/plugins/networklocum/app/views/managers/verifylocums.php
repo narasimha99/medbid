@@ -2,6 +2,20 @@
 $url = esc_url( home_url( '/' ));
 $templtpath= get_template_directory_uri(); 
 ?>
+<script>
+jQuery(document).ready(function() {
+
+	//console.log( "ready!" );
+	jQuery("#submit1").click(function () {
+		$("#calendarform").submit();
+ 	});
+
+	jQuery("#submit2").click(function () {
+		$("#savejob").val('savejob');
+	});
+ });
+</script>
+
 <!--middle start here-->
 <div class="midcol">
 <div class="container">
@@ -244,8 +258,10 @@ if (in_array($language->id, $old_languages_known_array)){
  
 
 					 <div align="center">
-							<button class="btn btn-info sbtn" id="submit">verify locum</button>
-						</div>
+						<
+							<button class="btn btn-info sbtn" id="submit1">verified locum</button>
+							<button class="btn btn-info sbtn" id="submit2">Rejected locum</button>
+					 </div>
 
  
 </div>

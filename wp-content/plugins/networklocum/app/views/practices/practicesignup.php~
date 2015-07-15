@@ -148,4 +148,3 @@ $templtpath= get_template_directory_uri();
 	</div>
 	
 	<!--middle end here-->
-	

@@ -220,7 +220,7 @@ $parking_array = array(
 
 <br>
 <div style="text-align:center">
-<a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply for this job</a>
+<a href="<?php echo $url.'locums/applyjob/'.$jobdetails[0]->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply for this job</a>
 </div>
 
 

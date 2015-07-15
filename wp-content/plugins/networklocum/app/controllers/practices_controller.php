@@ -2,6 +2,7 @@
 class PracticesController extends MvcPublicController {
 
  	public function index() {
+		$this->isvaliduser();	
  		$this->set('mylayout', 'client');
   		$user_id = get_current_user_id();
  		$_SESSION['user_id'] =  $user_id;
@@ -96,10 +97,12 @@ class PracticesController extends MvcPublicController {
 	 
 
 	public function youraccount(){
+		$this->isvaliduser();	
  		$this->set('mylayout', 'client');
  	}
 
 	public function editprofile(){
+		$this->isvaliduser();	
 		$this->set('mylayout', 'client');
  		$this->load_model('Practice');	
 	
@@ -152,7 +155,8 @@ class PracticesController extends MvcPublicController {
   	}
 	
 	public function changepassword(){
- 
+		
+		$this->isvaliduser();	 
 		$this->set('mylayout', 'client');
  		include("wp-includes/pluggable.php");
 
@@ -175,12 +179,15 @@ class PracticesController extends MvcPublicController {
 	
 	public function billing()
 	{
+		$this->isvaliduser();	
 		$this->set('mylayout', 'client');
 	}
 
 	public function acceptyourlocum(){
 		 
 		//print_r($this->params);
+		
+		$this->isvaliduser();	
 		
 		$this->load_model('Appliedjob');	
 	
@@ -225,7 +232,10 @@ class PracticesController extends MvcPublicController {
 
 	
 	
+
 	public function rejectlocum(){
+
+		$this->isvaliduser();	
 		 
 		//print_r($this->params);
  		$locum_id = $this->params['locum_id'];
@@ -243,7 +253,7 @@ class PracticesController extends MvcPublicController {
 
 
 	public function viewpracticer(){
-		
+
 		$this->set('mylayout', 'client'); 
 		$practicer_id = $this->params['id'];
 	
@@ -266,6 +276,16 @@ class PracticesController extends MvcPublicController {
 		
  	}
 
-	  
+	public function isvaliduser(){
+ 		$user_id = get_current_user_id();
+		if($user_id == 0){
+			global $wp;
+			$url = esc_url( home_url( '/' ));
+			$targetplace  = $url.$wp->request;
+			$targetUrl = $url."/wp-login.php?redirect_to=$targetplace";
+			wp_redirect( $targetUrl, 301);
+			exit;		
+	 	}
+    	}	  
 }
 ?>

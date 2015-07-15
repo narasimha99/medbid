@@ -2,11 +2,14 @@
 class JobsController extends MvcPublicController {
 
  	public function index() {
+		$this->isvaliduser();	
+
 		$this->set('mylayout', 'client');	
   	}
  
 	public function  publicjobcreate(){
- 
+		$this->isvaliduser();	
+
 		global $wpdb;
  		$this->set('mylayout', 'client');
  
@@ -240,6 +243,8 @@ class JobsController extends MvcPublicController {
 	
 	function mypostedjobs(){
 
+		$this->isvaliduser();	
+		
 		$this->set('mylayout', 'client');
   		$this->load_model('Job');
   
@@ -264,7 +269,9 @@ class JobsController extends MvcPublicController {
 	}
 	
 	public 	function  editjob(){
-	
+
+		$this->isvaliduser();	
+ 	
 		$this->set('mylayout', 'client');
 		global $wpdb;
  		$this->load_model('Jobsession');
@@ -401,6 +408,8 @@ class JobsController extends MvcPublicController {
 	
 	public  function deletejob(){
   
+		$this->isvaliduser();	
+
 		$this->set('mylayout', 'client');
  		$this->load_model('Jobsession');
 		$job_id = $this->params['id'];
@@ -420,6 +429,8 @@ class JobsController extends MvcPublicController {
 	}
 
 	public function deletejobsession(){
+		$this->isvaliduser();	
+
 		$this->set('mylayout', 'client');
 		$jobsession_id = $this->params['id'];
 		$sql_jobsessions = "Delete from wp_jobsessions Where  id=$jobsession_id";
@@ -480,6 +491,9 @@ class JobsController extends MvcPublicController {
 	}
 
 	public function jobapplications(){
+	
+		$this->isvaliduser();	
+
 
 		$this->set('mylayout', 'client');
  		$this->load_model('Appliedjob');
@@ -654,6 +668,8 @@ class JobsController extends MvcPublicController {
 	}
 
 	public function getlocums(){
+		$this->isvaliduser();	
+
 		$this->set('mylayout', 'empty');
  		global $wpdb;
  		$zipcode = $_POST['zipcode'];
@@ -662,9 +678,10 @@ class JobsController extends MvcPublicController {
 		$this->set('listlocums',$rslocums);
 
 	}
-	public function invitelocums(){
 
-		$job_id = $this->params['id'];
+	public function invitelocums(){
+		$this->isvaliduser();	
+  		$job_id = $this->params['id'];
 		if(isset($_POST['job_id']))
 			$job_id = $_POST['job_id'];
 
@@ -737,5 +754,18 @@ class JobsController extends MvcPublicController {
 		$result3[]=$result2[0]['location'];
 		return $result3[0];
  	}		
+
+		
+	public function isvaliduser(){
+ 		$user_id = get_current_user_id();
+		if($user_id == 0){
+			global $wp;
+			$url = esc_url( home_url( '/' ));
+			$targetplace  = $url.$wp->request;
+			$targetUrl = $url."/wp-login.php?redirect_to=$targetplace";
+			wp_redirect( $targetUrl, 301);
+			exit;		
+	 	}
+    	}
 }
 ?>

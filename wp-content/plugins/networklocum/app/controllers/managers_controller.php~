@@ -182,6 +182,7 @@ class ManagersController extends MvcPublicController {
  	}
 
 	public function verifylocums(){
+
 		  
 		$this->set('mylayout', 'client'); 
 		$locum_id = $this->params['id'];
@@ -207,6 +208,10 @@ class ManagersController extends MvcPublicController {
 		$qualificationsarray = $this->Qualification->find();
  		$this->set('qualificationsarray',$qualificationsarray);
  
+	}
+
+	public function jobs(){
+
 	}
 }
 ?>

@@ -17,8 +17,9 @@
         <div class="navbar-collapse collapse" id="navbar">
           <ul class="nav navbar-nav navbar-right ulmargin">
 			<li class="tnav"><a class="" href="#<?php //echo $url.'doctors';?>">Doctors</a></li>
+ 			<li class="tnav"><a class="" href="#<?php //echo $url.'practices';?>">Practices</a></li>
+			<li class="tnav"><a class="" href="<?php echo $url.'jobs/findjob';?>">Jobs</a></li>
 			<li class="tnav"><a class="" href="#<?php //echo $url;?>">Blog</a></li>
-			<li class="tnav"><a class="" href="#<?php //echo $url.'practices';?>">Practices</a></li>
 
 <?php  
 global $wpdb;

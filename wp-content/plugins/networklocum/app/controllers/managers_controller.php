@@ -209,5 +209,9 @@ class ManagersController extends MvcPublicController {
  		$this->set('qualificationsarray',$qualificationsarray);
  
 	}
+
+	public function jobs(){
+
+	}
 }
 ?>

@@ -2,6 +2,7 @@
 class LocumsController extends MvcPublicController {
 
  	public function index() {
+		$this->isvaliduser();	
 		$this->set('mylayout', 'client');	
    		$user_id = get_current_user_id();
  		$_SESSION['user_id'] =  $user_id;
@@ -22,8 +23,9 @@ class LocumsController extends MvcPublicController {
     	}
 
 	function checkdocument($id,$masterDocuments,$location){
- 		 $id = $id - 1;
-		$locum_id  = $_SESSION['locum_id']; 
+		$this->isvaliduser();	 
+		 $id = $id - 1;
+ 		$locum_id  = $_SESSION['locum_id']; 
 		$this->load_model('Locumdocument');
 	
 		$url = esc_url( home_url( '/' ));
@@ -138,14 +140,18 @@ class LocumsController extends MvcPublicController {
 
 	public function landingpage(){
 		$this->set('mylayout', 'client');
-	        $this->flash('success', '  Thanks for Become a locum, Please check your email lot of thoughts are awaiting for u.');
+	        $this->flash('success', '  Thanks for Become a locum, Please check your email to activate account.');
  	}
 		
+	
+
 	public function youraccount(){
+		$this->isvaliduser();	
 		$this->set('mylayout', 'client');
  	}
 
 	public function accountdetails(){
+		$this->isvaliduser();	
 		$this->set('mylayout', 'client');
 		//echo "<pre>"; print_r($_POST); echo "</pre>";
 		$user_id = get_current_user_id();
@@ -166,16 +172,14 @@ class LocumsController extends MvcPublicController {
 		$object = $this->Locum->find_by_user_id($user_id);
 		$this->set('locumobj',$object[0]);
 		//echo "<pre>";print_r($_POST); echo "</pre>";
-		
-	
-	}
+ 	}
 
 	public function uploaddocuments(){
-		
+		$this->isvaliduser();	
 	//echo "<pre>"; print_r($_SERVER);echo "</pre>";
 	$this->set('mylayout', 'client');
 
-	echo "<pre>"; print_r($_POST); print_r($_FILES); echo "</pre>";
+	//echo "<pre>"; print_r($_POST); print_r($_FILES); echo "</pre>";
 
 	$masterDocuments = array();
 	$this->load_model('Masterdocument');		
@@ -207,9 +211,9 @@ class LocumsController extends MvcPublicController {
 		
 		
 		
-	echo	$target_file = $target_dir . basename($selectedfileName);
-	echo 	$imageFileType = pathinfo($_FILES[$selectedfileName]["tmp_name"],PATHINFO_EXTENSION);
-		exit; 
+		$target_file = $target_dir . basename($selectedfileName);
+	 	$imageFileType = pathinfo($_FILES[$selectedfileName]["tmp_name"],PATHINFO_EXTENSION);
+		//exit; 
 
 	    if (move_uploaded_file($_FILES[$selectedfileName]["tmp_name"], $target_file)) {
 		 
@@ -236,7 +240,7 @@ class LocumsController extends MvcPublicController {
 	}
 	
 	public function editprofile(){
-	
+		$this->isvaliduser();	
 		$this->set('mylayout', 'client');
  		$this->load_model('Locum');
  		$user_ID = get_current_user_id();
@@ -290,11 +294,12 @@ class LocumsController extends MvcPublicController {
 	}
 
 	public function dashboard(){
+		$this->isvaliduser();	
 		$this->set('mylayout', 'client');
 	}
 
 	public function changepassword(){
- 
+		 $this->isvaliduser();		
 		$this->set('mylayout', 'client');
  		include("wp-includes/pluggable.php");
 
@@ -316,6 +321,7 @@ class LocumsController extends MvcPublicController {
 
  	public function applyjob(){
 
+		$this->isvaliduser();	
 	 	$this->set('mylayout', 'client');
 		$this->load_model('Job');
 		$this->load_model('Appliedjob');
@@ -386,6 +392,7 @@ class LocumsController extends MvcPublicController {
 
 	public function myjobs(){
 
+		$this->isvaliduser();	
  		$this->set('mylayout', 'client');
   		
 		$locum_id = $_SESSION['locum_id'];
@@ -411,9 +418,9 @@ class LocumsController extends MvcPublicController {
 				  	   'alias'=>'job');
 
    		
-  		$params['additional_selects'] = array('appliedsession.session_date,appliedsession.session_starttime',
+  		$params['additional_selects'] = array('Appliedjob.id AS AppliedjobID,appliedsession.session_date,appliedsession.session_starttime',
 						   'appliedsession.session_endtime','appliedsession.hourlyrate','appliedsession.paytolocum',
-					   		 						'practicer.firstname','practicer.lastname','practicer.practice_code','practicer.practicename','practicer.email',
+					   		 						'practicer.id','practicer.lastname','practicer.practice_code','practicer.practicename','practicer.email',
 					'job.no_of_sessions','job.session_description','job.onejobormultiplesessions','job.required_it_systems','job.parking_facilities');
 						
  
@@ -430,6 +437,8 @@ class LocumsController extends MvcPublicController {
  	}
 	
 	public function  myinvitejobs(){
+
+		$this->isvaliduser();	
 
 		$this->set('mylayout', 'empty');
 		$user_id = get_current_user_id();
@@ -467,6 +476,7 @@ class LocumsController extends MvcPublicController {
  
 	public function myprofile(){
 		
+		$this->isvaliduser();	
 		global $wpdb;
 		$this->set('mylayout', 'client'); 
 		$user_id = get_current_user_id();
@@ -530,6 +540,8 @@ class LocumsController extends MvcPublicController {
 
 	
 	public function acceptyourjob(){
+		$this->isvaliduser();	
+
 		$this->set('mylayout', 'client'); 
 
 
@@ -606,7 +618,7 @@ class LocumsController extends MvcPublicController {
  
 					mail($email,'Congratulations your job accepted by locum for this job',$message);
 					$this->flash('success', 'You have succesfully accepted our practicers job.');
- 				}					
+	 				}					
 	
 			}
 
@@ -622,9 +634,60 @@ class LocumsController extends MvcPublicController {
 		  
  	}
 
+	public function applyedjobdetails(){
+
+		$this->isvaliduser();	
+
+		$this->set('mylayout', 'client'); 
+
+		$this->load_model('Appliedjob');
+ 
+		$appliedjobId = $this->params['id'];
+ 		$this->set('appliedjobId',$appliedjobId); 
+		$params = array(); 
+ 		$params['joins'][] =   array('table' =>'wp_appliedsessions',
+					     'on' => 'Appliedjob.job_id = appliedsession.job_id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'appliedsession');
+
+		$params['joins'][] =   array('table' =>'wp_practices',
+					     'on' => 'Appliedjob.practicer_id = practicer.id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'practicer');
+
+		$params['joins'][] =   array('table' =>'wp_jobs',
+					     'on' => 'Appliedjob.job_id = job.id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'job');
+
+   		
+  		$params['additional_selects'] = array('appliedsession.session_date,appliedsession.session_starttime',
+						   'appliedsession.session_endtime','appliedsession.hourlyrate','appliedsession.paytolocum',
+					   		 						'practicer.firstname','practicer.lastname','practicer.practice_code','practicer.practicename','practicer.email',
+					'job.no_of_sessions','job.session_description','job.onejobormultiplesessions','job.required_it_systems','job.parking_facilities');
+						
+ 
+ 		$params['conditions'] = array('Appliedjob.id' =>$appliedjobId);
+ 
+ 
+
+		$objects = $this->Appliedjob->find($params);
+		//echo "<pre>";print_r($objects); echo "</pre>";
+ 		$this->set('jobdetails', $objects[1]);
+
+ 		
+	
+		$this->load_model('itsystem');
+		$itsystemlist = $this->itsystem->find();
+		$this->set('itsystemlist',$itsystemlist);
+
+
+ 		  
+ 	}
+
+
 	public function viewlocum(){
-		print_r($_GET);
-		print_r($_POST);
+		  
 		$this->set('mylayout', 'client'); 
 		$locum_id = $this->params['id'];
 	
@@ -654,6 +717,17 @@ class LocumsController extends MvcPublicController {
 	}
 
 	
+	public function isvaliduser(){
+ 		$user_id = get_current_user_id();
+		if($user_id == 0){
+			global $wp;
+			$url = esc_url( home_url( '/' ));
+			$targetplace  = $url.$wp->request;
+			$targetUrl = $url."/wp-login.php?redirect_to=$targetplace";
+			wp_redirect( $targetUrl, 301);
+			exit;		
+	 	}
+    	}
 	
 }
 

@@ -330,44 +330,7 @@ require get_template_directory() . '/inc/template-tags.php';
  */
 require get_template_directory() . '/inc/customizer.php';
 
-
- function my_before_avatar() {
-  echo '<div id="my-avatar">';
-}
-add_action('wpua_before_avatar', 'my_before_avatar');
-
-function my_after_avatar() {
-  echo '</div>';
-}
-add_action('wpua_after_avatar', 'my_after_avatar');
  
-
-
-
-
-function my_avatar_filter() {
-  // Remove from show_user_profile hook
-  remove_action('show_user_profile', array('wp_user_avatar', 'wpua_action_show_user_profile'));
-  remove_action('show_user_profile', array('wp_user_avatar', 'wpua_media_upload_scripts'));
-
-  // Remove from edit_user_profile hook
-  remove_action('edit_user_profile', array('wp_user_avatar', 'wpua_action_show_user_profile'));
-  remove_action('edit_user_profile', array('wp_user_avatar', 'wpua_media_upload_scripts'));
-
-  // Add to edit_user_avatar hook
-  add_action('edit_user_avatar', array('wp_user_avatar', 'wpua_action_show_user_profile'));
-  add_action('edit_user_avatar', array('wp_user_avatar', 'wpua_media_upload_scripts'));
-}
-
-// Loads only outside of administration panel
-if(!is_admin()) {
-  add_action('init','my_avatar_filter');
-}
-
-remove_action('wpua_before_avatar', 'wpua_do_before_avatar');
-remove_action('wpua_after_avatar', 'wpua_do_after_avatar');
-
-
 
 add_action('init', 'myStartSession', 1);
 add_action('wp_logout', 'myEndSession');
@@ -382,3 +345,20 @@ function myStartSession() {
 function myEndSession() {
     session_destroy ();
 }
+
+add_action('template_redirect', 'do_template_redirect');
+
+function do_template_redirect()
+{
+echo "Narasimha";
+   global $wp;
+ print_r(get_site_url()); 
+echo "<pre>";print_r($wp);
+
+ //  if($wp_query->query_vars['pagename'] == 'zeitgeist' && $wp_query->query_vars['feed'] == 'feed')
+  // {
+   //   include TEMPLATEPATH . "/zeitgeist/feed.php";
+    //  exit;
+   //}
+}
+$locumUrls = array('');

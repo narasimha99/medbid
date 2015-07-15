@@ -29,7 +29,7 @@ $templtpath= get_template_directory_uri();
 
  
 <tr>
-<th>Sart Time</th>
+<th>Start Time</th>
 <th>End Time</th>
 <th>Hourly rate £</th>
 <th>Pay to locum </th>

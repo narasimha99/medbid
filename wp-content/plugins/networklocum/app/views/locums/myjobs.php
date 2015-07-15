@@ -50,13 +50,13 @@ $("#myinvitejobs").html( data );
 		</div>
 		<div class="row">
 
-  <?php $this->display_flash(); ?>
+			  <?php $this->display_flash(); ?>
 
 		  	<div class="bs-docs-section" style="margin-top:20px;">
 		  <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 			<ul id="myTab" class="nav nav-tabs" role="tablist">
-			  <li role="presentation"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">My Invites</a></li>
-			  <li role="presentation"  class="active" ><a href="#application" role="tab" id="application-tab" data-toggle="tab" aria-controls="application">Applications</a></li>
+			  <li role="presentation" class="active" ><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">My Invites</a></li>
+			  <li role="presentation"><a href="#application" role="tab" id="application-tab" data-toggle="tab" aria-controls="application">Applications</a></li>
 			  <li role="presentation"><a href="#booked" role="tab" id="booked-tab" data-toggle="tab" aria-controls="booked">Booked Jobs</a></li>
 			  <li role="presentation"><a href="#completed" role="tab" id="completed-tab" data-toggle="tab" aria-controls="completed">Completed Jobs</a></li>
 			</ul>
@@ -72,7 +72,7 @@ $("#myinvitejobs").html( data );
         		<thead class="cf">
         			<tr>
 					<th>Application #</th>
-					<th>Job</th>
+					<th>Job Code #</th>
         				<th>Practicer details</th>
         				<th>Applied Session details</th>
         			 	<th>Hourly rate</th>
@@ -84,17 +84,17 @@ $("#myinvitejobs").html( data );
 <?php 
 
 foreach($appliedjoblists as $jobsession){
- 
-//$jobsessions  = count($job->jobsessions);
+//echo "<pre>"; print_r($jobsession);
+$jobsessions  = count($job->jobsessions);
 ?>
-			
 <tr>
-<td data-title="Code"><?php echo $jobsession->id;?></td>
-<td data-title="Code"><?php echo $jobsession->job_id;?></td>
-<td data-title="Code"><?php echo $jobsession->firstname.','.$jobsession->lastname;?></td>
+<td data-title="Code"><a target="_blank" href="<?php echo $url.'locums/applyedjobdetails/'.$jobsession->AppliedjobID;?>"> <?php echo $jobsession->AppliedjobID;?> </a> </td>
+<td data-title="Code"><a target="_blank" href="<?php echo $url.'jobs/viewjob/'.$jobsession->job_id;?>"><?php echo $jobsession->job_id;?> </a> </td>
+<td data-title="Code"><a target="_blank" href="<?php echo $url.'practices/viewpracticer/'.$jobsession->practicer_id;?>">
+			<?php echo $jobsession->practice_code.','.$jobsession->practicename;?>
+			</a>
+</td>
 <td data-title="Company"><?php 
-
- 
 echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date('H:ma', strtotime($jobsession->session_endtime));
  
 ?> </td>
@@ -116,9 +116,7 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date
 </td>
 </tr>
 <?php 
-	
-
-	}
+  	}
 ?>	
         		</tbody>
         	</table>
