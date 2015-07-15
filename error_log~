@@ -1,0 +1,8 @@
+[23-May-2015 04:22:53 America/New_York] PHP Warning:  PHP Startup: Invalid library (maybe not a PHP library) 'gettext.so' in Unknown on line 0
+[23-May-2015 08:22:54 UTC] WordPress database error Table 'hashtagf_medbid.wp_events' doesn't exist for query 
+			DESCRIBE
+				wp_events made by require('wp-blog-header.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, MvcLoader->init, MvcLoader->load_models, MvcModel->__construct, MvcModel->init_schema, MvcDatabaseAdapter->get_results, MvcDatabase->get_results
+[23-May-2015 08:22:54 UTC] WordPress database error Table 'hashtagf_medbid.wp_groupdatas' doesn't exist for query 
+			DESCRIBE
+				wp_groupdatas made by require('wp-blog-header.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, MvcLoader->init, MvcLoader->load_models, MvcModel->__construct, MvcModel->init_schema, MvcDatabaseAdapter->get_results, MvcDatabase->get_results
+[23-May-2015 08:22:55 UTC] PHP Fatal error:  Allowed memory size of 67108864 bytes exhausted (tried to allocate 78 bytes) in /home/hashtagf/public_html/medbid/wp-content/plugins/wp-mvc/core/models/mvc_model.php on line 79
