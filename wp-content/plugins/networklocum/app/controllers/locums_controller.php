@@ -672,7 +672,7 @@ class LocumsController extends MvcPublicController {
  
 
 		$objects = $this->Appliedjob->find($params);
-		//echo "<pre>";print_r($objects); echo "</pre>";
+		echo "<pre>";print_r($objects); echo "</pre>";
  		$this->set('jobdetails', $objects[1]);
 
  		
