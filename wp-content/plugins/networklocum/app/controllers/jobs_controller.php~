@@ -209,9 +209,12 @@ class JobsController extends MvcPublicController {
 		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
 		$params['join_table'] = array('Jobsession');
 		$params['include'] = array('Jobsession');
+		$params['per_page'] = '20';
+
 		//$params['conditions'] = array('is_public' => true);
 		$collection = $this->Job->paginate($params);
 		$this->set('joblists', $collection['objects']);
+
 		$this->set_pagination($collection);
 
 	///echo "<pre>";print_r($collection['objects']); echo "</pre>";
@@ -260,6 +263,8 @@ class JobsController extends MvcPublicController {
 
   		$params['conditions'] = array('Job.user_id' =>$practicer_id);
 		$params['order'] = "Job.createddate DESC";
+		$params['per_page'] = '20';
+
  		$collection = $this->Job->paginate($params);
  		$this->set('joblists', $collection['objects']);
 		$this->set_pagination($collection);
@@ -468,6 +473,8 @@ class JobsController extends MvcPublicController {
  
  		$params['conditions'] =  array('Job.id' =>$job_id);
  
+		$params['per_page'] = '20';
+
   		$jobdetails = $this->Job->paginate($params);
 
 
@@ -521,7 +528,8 @@ class JobsController extends MvcPublicController {
 						 'Appliedjob.locum_rejected'=>0,
 						 'Appliedjob.practicer_accepted'=>0,
  					 );
- 
+		 $params['per_page'] = '20';
+
 		$params['order'] = "Appliedjob.applieddate ASC";
  		$collection = $this->Appliedjob->paginate($params);
  		$this->set('appliedjoblists', $collection['objects']);
@@ -653,6 +661,8 @@ class JobsController extends MvcPublicController {
 
 		$params['additional_selects'] = array('Jobsession.session_date,Jobsession.session_starttime', 
 		'Jobsession.session_endtime','Jobsession.hourlyrate');
+		
+		$params['per_page'] = '20';
 
 		//$params['conditions'] = array('is_public' => true);
 		$collection = $this->Job->paginate($params);

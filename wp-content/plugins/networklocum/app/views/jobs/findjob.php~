@@ -196,6 +196,10 @@ $templtpath= get_template_directory_uri();
 			      <div id="loadingdiv" style="display:none;"><image src="<?php echo $templtpath;?>/images/ajax-loader.gif"/> Updating results... </div>
 			      <!----------------ajax loader------------->
 							 <div id="getjobsdiv">
+<?php
+if(count($joblists)>0){
+?>
+
 								 <table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
         			<tr>
@@ -209,7 +213,7 @@ $templtpath= get_template_directory_uri();
         		<tbody>
         			 
 <?php 
-
+echo "<pre>"; print_r($joblists); echo "</pre>";
 foreach($joblists as $job){
 //echo "<pre>"; print_r($job); echo "</pre>";
 //$jobsessions  = count($job->jobsessions);
@@ -223,7 +227,7 @@ echo date('D j M Y, H:m', strtotime($job->session_starttime)).' - '.date('H:m', 
 ?> </td>
 <td data-title="Price" class="nndumeric"><?php echo $job->no_of_sessions;?> sessions</td>
 <td data-title="Change" class="numeric">£ <?php echo $job->hourlyrate;?> </td>
-<td data-title="Change %" class="numeric"><a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply</a></td>
+<td data-title="Change %" class="numeric"><a href="<?php echo $url.'jobs/viewjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="view job">View job</a></td>
 <td data-title="Change %" class="numeric"><a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply</a></td>
         			</tr>
 <?php 
@@ -232,6 +236,15 @@ echo date('D j M Y, H:m', strtotime($job->session_starttime)).' - '.date('H:m', 
         		</tbody>
         	</table>
 								<center> <?php echo $this->pagination(); ?> </center>
+
+<?php
+ } 
+else
+ {
+ 	echo "<div> No Jobs Posted Yet</div>";
+}
+?>
+
 								 </div>
 			   </div>
  		   <div style="clear:both;"></div>

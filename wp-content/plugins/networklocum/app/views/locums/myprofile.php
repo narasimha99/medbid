@@ -32,9 +32,7 @@ $("#locumsignupnext").submit();
 		     <p style="padding:10px;">My Profile is the place to describe yourself, so it's clear why practice managers should invite you to work. Make sure to include all your skills, interests and IT systems. This is also where you should upload all your documentation proving you're fully up-to-date with qualifications and training.</p>
 		   </div>
 		   <div class="col-md-4">
-		                 <div class="progress-radial progress-40" style="height:50px;">
-				                <div class="overlay">40%</div>
-			             </div>
+		                
 		  </div>
 		</div>
 		<div class="container">
@@ -53,16 +51,16 @@ $("#locumsignupnext").submit();
  		$this->set('profile_image',$profile_image);
 
 
-?>				      <div><img class="img-circle img-user-config" src="<?php echo  $url.'/upload_pic/'.$profile_image; ?>">
+?>				      <div><img class="img-circle img-user-config" src="<?php echo  $url.'/documpropic/'.$profile_image; ?>">
 </div>
 				   </div>
 				   <div class="col-md-6">
 						 <div>
 						  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin:10px;">
 						    <tr>
-							  <td><a href="<?php echo $url.'upload_crop.php';?>">Upload Photo</a></td>
+							  <td><a href="<?php echo $url.'uploadprofileimage.php';?>">Upload Photo</a></td>
 							  <td><a href="<?php echo $url.'locums/';?>">Upload Documents</a></td>
-							  <td><a href="<?php echo $url.'locums/setyouravailability';?>">Email Preferences</a></td>
+							  <td><a href="#<?php //echo $url.'locums/setyouravailability';?>">Email Preferences</a></td>
 							  <td><a href="<?php echo $url.'locums/editprofile';?>">Edit Profile</a></td>
 							</tr>
 							<tr>

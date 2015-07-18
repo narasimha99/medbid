@@ -402,6 +402,10 @@ class LocumsController extends MvcPublicController {
 		global $wpdb;
 
 		$params = array(); 
+		$params = $this->params;
+    		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+  
+
  		$params['joins'][] =   array('table' =>'wp_appliedsessions',
 					     'on' => 'Appliedjob.job_id = appliedsession.job_id ',
 			 	  	    'type'=> 'JOIN',
@@ -426,13 +430,13 @@ class LocumsController extends MvcPublicController {
  
  		 $params['conditions'] = array('Appliedjob.locum_id' =>$locum_id);
 		 $params['group'] = 'Appliedjob.id';
- 
+		$params['per_page'] = '20';
 
-		$objects = $this->Appliedjob->find($params);
+		$collection = $this->Appliedjob->paginate($params);
 		//echo "<pre>";print_r($objects); echo "</pre>";
- 		$this->set('appliedjoblists',$objects);
- 		 		
-	 
+ 		$this->set('appliedjoblists', $collection['objects']);
+ 	 	$this->set_pagination($collection);		
+		 
 
  	}
 	
@@ -673,7 +677,7 @@ class LocumsController extends MvcPublicController {
 
 		$objects = $this->Appliedjob->find($params);
 		//echo "<pre>";print_r($objects); echo "</pre>";
- 		$this->set('jobdetails', $objects[1]);
+ 		$this->set('jobdetails', $objects[0]);
 
  		
 	

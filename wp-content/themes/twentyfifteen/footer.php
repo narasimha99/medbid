@@ -45,9 +45,7 @@ $url = esc_url( home_url( '/' ) );
 					<div class="col-xs-12 col-sm-6 col-md-3">
 						<h3>Address</h3>
 						<img alt="MEDBID Logo" class="img-responsive" src="<?php echo $templtpath;?>/images/medbidlogo2.png">
-						<p>1219 Holywell Centre, <br>
-							Phipp Street <br>
-							London, EC2A 4PS</p>
+						<p>94 Wolsey Road Middlesex Northwood London UK HA6 2EH</p>
 						<img alt="MEDBID Logo" class="img-responsive" src="<?php echo $templtpath;?>/images/phicon.png">
 						<h4>8888 888 8888</h4>
 					</div>
@@ -59,9 +57,9 @@ $url = esc_url( home_url( '/' ) );
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8">
-						<a href="#"><img alt="" src="<?php echo $templtpath;?>/images/appstoreicon.png"></a>
-						<a href="#"><img alt="" src="<?php echo $templtpath;?>/images/googleplayicon.png"></a>
-						<p>COPYRIGHT 2015 © MediLance. ALL RIGHTS RESERVED</p>
+						<?php /*?><a href="#"><img alt="" src="<?php echo $templtpath;?>/images/appstoreicon.png"></a>
+						<a href="#"><img alt="" src="<?php echo $templtpath;?>/images/googleplayicon.png"></a><?php */?>
+						<p>COPYRIGHT 2015 &copy Docum. ALL RIGHTS RESERVED</p>
 					</div>
 					
 					<div class="col-md-4">

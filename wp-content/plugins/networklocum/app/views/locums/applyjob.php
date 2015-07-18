@@ -109,7 +109,7 @@ $j=1;
 ?>
 <tr  id="sessiontime">
 <td>
-<input type="checkbox" name="jobsessions[<?php echo $jobsession->id;?>]" id="<?php echo $jobsession->id;?>"  value="<?php echo $jobsession->id;?>" /> 
+<input type="radio" checked name="jobsessions[<?php echo $jobsession->id;?>]" id="<?php echo $jobsession->id;?>"  value="<?php echo $jobsession->id;?>" /> 
  </td>
 <td>
 <?php 

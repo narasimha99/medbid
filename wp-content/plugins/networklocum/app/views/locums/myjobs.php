@@ -42,9 +42,7 @@ $("#myinvitejobs").html( data );
 
 
 		   <div class="col-md-4">
-		                 <div class="progress-radial progress-40" style="height:50px;">
-				                <div class="overlay">40%</div>
-			             </div>
+		                &nbsp;
 		  </div>
 		
 		</div>
@@ -68,7 +66,10 @@ $("#myinvitejobs").html( data );
 			
 </div>
 			  <div role="tabpanel" class="tab-pane fade" id="application" aria-labelledby="application-tab">
-				<table class="col-md-12 table-bordered table-striped table-condensed cf">
+<?php
+if(count($appliedjoblists)>0){
+?>	
+			<table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
         			<tr>
 					<th>Application #</th>
@@ -121,6 +122,14 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date
         		</tbody>
         	</table>
 			<center> <?php echo $this->pagination(); ?> </center>	
+<?php
+ } 
+else
+ {
+ 	echo "You have no applied jobs";
+}
+?>
+
 			  </div>
 			  <div role="tabpanel" class="tab-pane fade" id="booked" aria-labelledby="booked-tab">
 				<p>You have no booked jobs.</p>

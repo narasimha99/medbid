@@ -12,6 +12,9 @@ $onejobormultiplesessions_array = array(
 
 
 ?>
+<?php
+if(count($joblists)>0){
+?>
 <table class="col-md-12 table-bordered table-striped table-condensed cf">
 <thead class="cf">
 <tr>
@@ -48,3 +51,12 @@ echo date('D j M Y, H:m', strtotime($job->session_starttime)).' - '.date('H:m', 
 ?>	
 </tbody>
 </table>
+<?php
+ } 
+else
+ {
+ 	echo "<div> No more Jobs found on your search options..</div>";
+}
+?>
+
+
