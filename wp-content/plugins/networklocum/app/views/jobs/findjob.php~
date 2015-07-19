@@ -15,7 +15,7 @@ jQuery( document ).ready(function() {
                range:true,
                min: 0,
                max: 500,
-               values: [ 35, 200 ],
+               values: [ 0, 200 ],
                slide: function( event, ui ) {
                   $( "#hourlyrate" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
 		 // loading content
@@ -76,30 +76,26 @@ $templtpath= get_template_directory_uri();
  <!--middle start here-->
 	
 	<div class="midcol">
-	    <div class="bitbox1">	
 		    <div class="container">
-			<h1> Search Jobs </h1>
+			<h3>Find Job in Docum</h3>
+			<div class="row">
 			<?php ////////////////////// Left Side div for search filters /////////////////////?>
-               <div style="float:left; margin-right:10px;">
+               <div class="col-md-5" style="margin-bottom:20px; margin-top:10px;">
+			   <p>Use these options to filter your requirement as more suitable to you</p>
 			      <form  action="<?php echo $url;?>jobs/findjob" method="post">
- 
-
- 						<label> ZIP Code:
-						<input maxlength="10" name="zipcode" style="font-size:12px; width:80px;" id="zipcode"  type="text" value="<?php echo $_POST['zipcode'];?>" /></label>
-						 
+						<input maxlength="10" name="zipcode" id="zipcode" placeholder="Zip Code"  type="text" value="<?php echo $_POST['zipcode'];?>" class="form-control ff1" /> <br/>
 						<label>Within:</label>
-						<select name="distance" id="distance">
-						<option value="5"  <?php if($_POST['distance'] == 5 ) echo 'selected'?>>5</option>
-						<option value="10"  <?php if($_POST['distance'] == 10 ) echo 'selected'?>>10</option>
-						<option value="25"  <?php if($_POST['distance'] == 25 ) echo 'selected'?>>25</option>
-						<option value="50"  <?php if($_POST['distance'] == 50) echo 'selected'?>>50</option>
-						<option value="100"  <?php if($_POST['distance'] == 100 ) echo 'selected'?> >100</option>
-						</select> Miles
+						<select name="distance" id="distance"  class="form-control ff1">
+						<option value="5"  <?php if($_POST['distance'] == 5 ) echo 'selected'?>>5 Miles</option>
+						<option value="10"  <?php if($_POST['distance'] == 10 ) echo 'selected'?>>10 Miles</option>
+						<option value="25"  <?php if($_POST['distance'] == 25 ) echo 'selected'?>>25 Miles</option>
+						<option value="50"  <?php if($_POST['distance'] == 50) echo 'selected'?>>50 Miles</option>
+						<option value="100"  <?php if($_POST['distance'] == 100 ) echo 'selected'?> >100 Miles</option>
+						</select> 
  <br>
 						
 						<div id="datecalenderdiv">	
-							<label> Date range</label>						 
-							<input type="text" id="session_date_range" name="session_date_range" value="<?php if(isset($_POST['session_date_range'])) { echo $_POST['session_date_range']; } ?>" />
+							<input type="text" id="session_date_range" name="session_date_range" value="<?php if(isset($_POST['session_date_range'])) { echo $_POST['session_date_range']; } ?>"  class="form-control ff1" placeholder="Date Range" />
 								 <span id="errspan_session_date_range" class="errorspan"></span>	
 												 
 									<?php 
@@ -156,10 +152,9 @@ $templtpath= get_template_directory_uri();
    
       <p>
          <label for="hourlyrate">Hourly rate range:</label>
-         <input type="text" id="hourlyrate" 
-            style="border:0; color:#b9cd6d; font-weight:bold;">
+         <input type="text" id="hourlyrate" placeholder="Hourly Rate"  class="form-control ff1">
       </p>
-      <div id="slider-3"></div>
+      <div id="slider-3" style="margin:20px;"></div>
 	<p>
 	<?php 
 	$onejobormultiplesessions_array = array(
@@ -191,7 +186,7 @@ $templtpath= get_template_directory_uri();
 			   
 			   </div>
 			   <?php ////////////////////// Right Side div for Results/////////////////////?>
-			   <div style="float:left;">
+			   <div class="col-md-7">
 			      <!----------------ajax loader------------->
 			      <div id="loadingdiv" style="display:none;"><image src="<?php echo $templtpath;?>/images/ajax-loader.gif"/> Updating results... </div>
 			      <!----------------ajax loader------------->
@@ -208,12 +203,13 @@ if(count($joblists)>0){
         				<th class="numeric">No of sessions</th>
         				<th class="numeric">Hourly rate</th>
         				<th class="numeric"></th>
+						<th class="numeric"></th>
         			</tr>
         		</thead>
         		<tbody>
         			 
 <?php 
-echo "<pre>"; print_r($joblists); echo "</pre>";
+//echo "<pre>"; print_r($joblists); echo "</pre>";
 foreach($joblists as $job){
 //echo "<pre>"; print_r($job); echo "</pre>";
 //$jobsessions  = count($job->jobsessions);
@@ -247,9 +243,8 @@ else
 
 								 </div>
 			   </div>
- 		   <div style="clear:both;"></div>
 			  
- 
+             </div>
             </div>
         </div>
-   </div>
+

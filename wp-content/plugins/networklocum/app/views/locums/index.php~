@@ -56,7 +56,7 @@ $templtpath= get_template_directory_uri();
 						 
 							
 					<p><a href="<?php echo  $url.'locums/uploadmutipledocuments/'; ?>">Upload more documents</a></p>
- 							<p><a href="<?php echo  $url.'/uploadprofileimage.php/'; ?>">Upload Photo</a></p>
+ 							<p><a href="<?php echo  $url.'uploadprofileimage.php'; ?>">Upload Photo</a></p>
 							<p><a href="<?php echo  $url.'locums/editprofile/'; ?>">Complete your profile</a></p>
 							<p><a href="<?php echo  $url.'locums/upgradeyourmembership/'; ?>">Upgrade your membership</a></p>
 							

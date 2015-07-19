@@ -38,13 +38,12 @@ class LocumsController extends MvcPublicController {
 		  //echo  $locumDocuments[0]->$document_filename; 
 		 
 		if( $locumDocuments[0]->$document_filename  == 1 )
- 			echo  "Your document is Waiting for Approve";  
+ 			 echo  "<p style=\"color:#F55E08\">Waiting for Approve</p>";
 		else if( $locumDocuments[0]->$document_filename == 2 ) 
-			echo  'Approved';
-			
-		else if( $locumDocuments[0]->$document_filename == 3) 
+			echo  '<p style=\"color:green\">Approved</p>';
+	 	else if( $locumDocuments[0]->$document_filename == 3) 
 		{
-			echo  'Rejected upload again<br>';
+			echo  '<p style=\"color:red\">Rejected upload again</p>';
 			 $id = $id + 1;
 			if ( $location == 0 )
 				echo "<a href='$url/locums/uploaddocuments/$id'>".$document_title."</a>";
@@ -720,7 +719,21 @@ class LocumsController extends MvcPublicController {
 
 	}
 
+	public function uploadprofileimage(){
+		$this->set('mylayout', 'client'); 
+
+	}
+
+	public function upload(){
+		$this->set('mylayout', 'empty');
+
+	}
 	
+	public function crop_script(){
+		$this->set('mylayout', 'empty');
+	}
+
+
 	public function isvaliduser(){
  		$user_id = get_current_user_id();
 		if($user_id == 0){
@@ -732,6 +745,7 @@ class LocumsController extends MvcPublicController {
 			exit;		
 	 	}
     	}
+	
 	
 }
 

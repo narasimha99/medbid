@@ -208,12 +208,12 @@ if (in_array($language->id, $old_languages_known_array)){
 
 
  
- 
 
 
 <tr>
 <td>Phone Number </td>
 <td> <?php echo $Locumobject->phone_number;?> </td>
+ 
 </tr>
 
 <tr>
