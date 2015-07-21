@@ -195,11 +195,9 @@ jQuery(function () {
 	<div class="form-group">
 		  <label for="username" class="control-label">Languages known</label>
  
-		<?php
+					<?php
 	
-					
-					 
-						$old_languages_known = $Locumobject->languages_known;
+ 						$old_languages_known = $Locumobject->languages_known;
 						$old_languages_known_array=explode(",",$old_languages_known);
  
  					foreach($spokenLanguagesarray as $language) {
@@ -245,13 +243,11 @@ $nhs_pension_array = array(
 
 <div class="form-group">
  <label for="username" class="control-label">GC number</label>
-<input type="text" class="form-control ff1" id="gmc_number" name="data[Locum][gmc_number]" value="<?php echo $Locumobject->gmc_number;?>"  title="Please enter your gmc number" placeholder="Your enter your  gmc number"/>
+<input type="text" class="form-control ff1" id="gmc_number" name="data[Locum][gmc_number]" value="<?php echo $Locumobject->gmc_number;?>"  title="Please enter your gmc number" placeholder="Your enter your  gmc number" <?php  if ($Locumobject->verifiedlocum == 1 ) echo 'readonly=readonly'; ?> />
+
 <span class="errorspan" id="errspan_gmc_number"></span>
  </div>
- 
-
-
-
+  
 <?php
 $howoftendoyoupaystaffinvoices_array = array(
 '1'=>'As soon as they are received',
