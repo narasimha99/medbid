@@ -64,7 +64,7 @@ $templtpath= get_template_directory_uri();
 					
 		<?php if( $Locumobject->verifiedlocum == 0) { ?>					
 			<div class="row">		
-		<div style="padding:15px; border:1px solid #cdcdcd; background-color:#fafafa;">Your profile is not yet approved by our team, before apply to any job it should be valid. <a href="<?php echo  $url.'locums/editprofile/'; ?>">more...</a></div>
+		<div style="padding:15px; border:1px solid #cdcdcd; background-color:#FA8056;">Your profile is not yet approved by our team, before apply to any job it should be valid. <a href="<?php echo  $url.'locums/editprofile/'; ?>">more...</a></div>
 			</div>
 		<?php } else {  ?>
 		

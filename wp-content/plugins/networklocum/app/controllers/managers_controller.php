@@ -232,7 +232,8 @@ class ManagersController extends MvcPublicController {
 				mail($locumemail,'Congratulations your account verified  by Docum',$message);
 				$this->flash('success', 'You have succesfully varified our locums.');
  
-			}elseif( $verifiedlocum == 2){
+			}
+				if( $verifiedlocum == 2){
 				$message = "Dear $locumName, <br><br>
 				your profile rejected due to invalid details  verified  by our team,<br> 
 				Please click here to update your profile. <br>
@@ -245,7 +246,9 @@ class ManagersController extends MvcPublicController {
 				mail($locumemail,'Your profile account rejected by our Docum',$message);
 				$this->flash('success', 'Your rejected current locums.');	
 			}
-
+			
+			$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'locums'));
+	        $this->redirect($url);		
 			
 		}
  
