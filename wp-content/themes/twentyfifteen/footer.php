@@ -82,6 +82,5 @@ $url = esc_url( home_url( '/' ) );
 //		interval:   4000
 //	});
 </script>
- 
-  </body>
+   </body>
 </html>
