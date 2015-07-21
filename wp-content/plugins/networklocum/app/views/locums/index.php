@@ -6,9 +6,14 @@ $templtpath= get_template_directory_uri();
 	<div class="midcol">
 		<div class="dashbg">
 			<div class="container">
+				<?php 
+				if ( $locumObject[0]->verifiedlocum == 0  || $locumObject[0]->verifiedlocum == 2 ) {
+				?>
 				<div class="row">
-					<div style="padding:15px; border:1px solid #cdcdcd; background-color:#FA8056;">Your profile is not yet approved by our team, before apply to any job it should be valid.. <a href="<?php echo  $url.'locums/editprofile/'; ?>">more...</a></div>
- 				</div>
+				<div style="padding:15px; border:1px solid #cdcdcd; background-color:#fafafa;">Your profile is not yet approved by our team, before apply to any job it should be valid.. <a href="<?php echo  $url.'locums/editprofile/'; ?>">more...</a></div>
+ 				</div>	
+				<?php } ?>
+
 				<div class="row">
 					<div class="col-md-6">
 						<div class="dtextpad">
@@ -69,11 +74,7 @@ $templtpath= get_template_directory_uri();
 				</div>
 			</div>
 		</div>
-		
-			
-				
-		
+ 		
 	</div>
 	
 	<!--middle end here-->
-	
