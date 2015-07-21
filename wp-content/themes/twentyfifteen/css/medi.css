@@ -16,7 +16,9 @@ ul,li,h1,h2,h3,h4,h5,p{ margin:0px; padding:0px;}
 
 .topbar {
 height: 96px;
-background: url(../images/topbg.png) ;
+/*background: url(../images/topbg.png) ;*/
+background-color:#62BFE1;
+
 }
 
 .mblogo{margin:9px 0px 0px 0px;}
@@ -897,7 +899,7 @@ border-radius: 3px;
 /*Suresh Kumar styles    */
 .disdate_up {
   text-align: center;
-  padding: 40px 10px;
+  padding: 30px 10px;
   background: #F5F5F5;
   color: #333;
   margin-bottom:20px;
@@ -906,12 +908,30 @@ border-radius: 3px;
   -webkit-border-radius: 3px;
 -moz-border-radius: 3px;
 border-radius: 3px;
+vertical-align:middle;
 }
 .disdate_up h2 {
-  font-size: 25px;
+  font-size: 20px;
+  vertical-align:middle;
+}
+
+.disdate_up h3 a{
+  font-size: 14px;
+  vertical-align:middle;
+  
+}
+
+.disdate_up h3 a:hover{
+  
+  text-decoration:none;
+  color:#0033FF;
+  font-size: 14px;
+  vertical-align:middle;
+ 
 }
 .disdate_up h3 {
-  font-size: 17px;
+  font-size: 14px;
+  vertical-align:middle;
 }
 
 .pjobs {
