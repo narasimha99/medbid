@@ -38,13 +38,12 @@ class LocumsController extends MvcPublicController {
 		  //echo  $locumDocuments[0]->$document_filename; 
 		 
 		if( $locumDocuments[0]->$document_filename  == 1 )
- 			echo  "Your document is Waiting for Approve";  
+ 			 echo  "<p style=\"color:#F55E08\">Waiting for Approve</p>";
 		else if( $locumDocuments[0]->$document_filename == 2 ) 
-			echo  'Approved';
-			
-		else if( $locumDocuments[0]->$document_filename == 3) 
+			echo  '<p style=\"color:green\">Approved</p>';
+	 	else if( $locumDocuments[0]->$document_filename == 3) 
 		{
-			echo  'Rejected upload again<br>';
+			echo  '<p style=\"color:red\">Rejected upload again</p>';
 			 $id = $id + 1;
 			if ( $location == 0 )
 				echo "<a href='$url/locums/uploaddocuments/$id'>".$document_title."</a>";
@@ -209,10 +208,9 @@ class LocumsController extends MvcPublicController {
 
 		}
 		
-		
-		
-		$target_file = $target_dir . basename($selectedfileName);
-	 	$imageFileType = pathinfo($_FILES[$selectedfileName]["tmp_name"],PATHINFO_EXTENSION);
+	 	$target_file = $target_dir . basename($selectedfileName);
+	 	$imageFileType = pathinfo($_FILES[$selectedfileName]["name"],PATHINFO_EXTENSION);
+		$target_file =	$target_file.'.'.$imageFileType;
 		//exit; 
 
 	    if (move_uploaded_file($_FILES[$selectedfileName]["tmp_name"], $target_file)) {
@@ -221,8 +219,12 @@ class LocumsController extends MvcPublicController {
  		$sqldocs = "Select * from wp_locumdocuments where user_id = $useriddir";
 		$docdetails = $wpdb->get_results($sqldocs);
  		if($docdetails)
-			$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
+			{
+				$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
+				$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
+			}
   		else
+
 			 $sqlUpdate = "INSERT INTO  wp_locumdocuments (user_id,".$selectedfileName.")VALUES(".$useriddir.",1)"; 
  			$wpdb->query($sqlUpdate); 
   		
@@ -257,9 +259,11 @@ class LocumsController extends MvcPublicController {
 		if (isset($_POST[data][Locum]['languages_known']))
 			$_POST[data][Locum]['languages_known'] = implode(",",$_POST[data][Locum]['languages_known']);
 
-			 $id = $_POST[data][Locum][id];
-
- 		 	$this->Locum->update($id,$_POST[data][Locum]);
+			if( $_POST[data][Locum]['verifiedlocum'] == 2)
+			 $_POST[data][Locum]['verifiedlocum'] = 0;
+			
+			$id = $_POST[data][Locum][id];
+		  	$this->Locum->update($id,$_POST[data][Locum]);
 			 $this->flash('success', 'Your profile updated succeessfully.');	
 		}
 		
@@ -402,6 +406,10 @@ class LocumsController extends MvcPublicController {
 		global $wpdb;
 
 		$params = array(); 
+		$params = $this->params;
+    		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+  
+
  		$params['joins'][] =   array('table' =>'wp_appliedsessions',
 					     'on' => 'Appliedjob.job_id = appliedsession.job_id ',
 			 	  	    'type'=> 'JOIN',
@@ -426,13 +434,13 @@ class LocumsController extends MvcPublicController {
  
  		 $params['conditions'] = array('Appliedjob.locum_id' =>$locum_id);
 		 $params['group'] = 'Appliedjob.id';
- 
+		$params['per_page'] = '20';
 
-		$objects = $this->Appliedjob->find($params);
+		$collection = $this->Appliedjob->paginate($params);
 		//echo "<pre>";print_r($objects); echo "</pre>";
- 		$this->set('appliedjoblists',$objects);
- 		 		
-	 
+ 		$this->set('appliedjoblists', $collection['objects']);
+ 	 	$this->set_pagination($collection);		
+		 
 
  	}
 	
@@ -672,8 +680,8 @@ class LocumsController extends MvcPublicController {
  
 
 		$objects = $this->Appliedjob->find($params);
-		echo "<pre>";print_r($objects); echo "</pre>";
- 		$this->set('jobdetails', $objects[1]);
+		//echo "<pre>";print_r($objects); echo "</pre>";
+ 		$this->set('jobdetails', $objects[0]);
 
  		
 	
@@ -716,7 +724,21 @@ class LocumsController extends MvcPublicController {
 
 	}
 
+	public function uploadprofileimage(){
+		$this->set('mylayout', 'client'); 
+
+	}
+
+	public function upload(){
+		$this->set('mylayout', 'empty');
+
+	}
 	
+	public function crop_script(){
+		$this->set('mylayout', 'empty');
+	}
+
+
 	public function isvaliduser(){
  		$user_id = get_current_user_id();
 		if($user_id == 0){
@@ -728,6 +750,7 @@ class LocumsController extends MvcPublicController {
 			exit;		
 	 	}
     	}
+	
 	
 }
 

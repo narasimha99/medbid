@@ -12,7 +12,6 @@ $templtpath= get_template_directory_uri();
 <h2 class="text1"> View Locum Profile </h2>
 </div>
  
-
 <?php
 $profile_image = $Locumobject->profile_image;
 if (strlen(trim($profile_image)) == 0 )
@@ -21,7 +20,7 @@ $profile_image = 'demouser.png';
 ?>
 
 <div>
-<img class="img-circle img-user-config" src="<?php echo  $url.'/upload_pic/'.$profile_image; ?>"/>
+<img class="img-circle img-user-config" src="<?php echo  $url.'/documpropic/'.$profile_image; ?>"/>
 <span style="float:right"> <h1> Dr. <?php echo $Locumobject->firstname.' '.$Locumobject->lastname;?></h1> </span>
 </div>		
 		

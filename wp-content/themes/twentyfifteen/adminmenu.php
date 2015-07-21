@@ -19,8 +19,7 @@
 			<li class="tnav"><a class="" href="<?php echo $url.'managers';?>">Dashboard</a></li>
 			<li class="tnav"><a class="" href="<?php echo $url.'managers/locums';?>">Locums</a></li>
  			<li class="tnav"><a class="" href="<?php echo $url.'managers/practices';?>">Practices</a></li>
-			<li class="tnav"><a class="" href="<?php echo $url.'managers/jobs';?>">Jobs</a></li>
-
+			<li class="tnav"><a class="" href="<?php echo $url.'jobs/findjob';?>">Jobs</a></li>
 
 <?php  
 global $wpdb;

@@ -88,6 +88,7 @@ prettyPrint();
 								  </div>
 							 </div>
 				</div>
+				<div class="clear"> </div>
 									
 									<div class="col-md-12" style="margin:20px 0px;">
 										<div class="alert alert-danger" role="alert">

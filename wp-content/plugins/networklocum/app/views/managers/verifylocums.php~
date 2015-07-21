@@ -7,11 +7,13 @@ jQuery(document).ready(function() {
 
 	//console.log( "ready!" );
 	jQuery("#submit1").click(function () {
-		$("#calendarform").submit();
- 	});
+		$("#verifiedlocum").val(1);		
+		$("#verifylocums").submit();
+  	});
 
 	jQuery("#submit2").click(function () {
-		$("#savejob").val('savejob');
+		$("#verifiedlocum").val(2);	
+		$("#verifylocums").submit();
 	});
  });
 </script>
@@ -34,7 +36,7 @@ $profile_image = 'demouser.png';
 ?>
 
 <div>
-<img class="img-circle img-user-config" src="<?php echo  $url.'/upload_pic/'.$profile_image; ?>"/>
+<img class="img-circle img-user-config" src="<?php echo  $url.'/documpropic/'.$profile_image; ?>"/>
 <span style="float:right"> <h1> Dr. <?php echo $Locumobject->firstname.' '.$Locumobject->lastname;?></h1> </span>
 </div>		
 		
@@ -78,13 +80,7 @@ echo  $arrGender[$Locumobject->gender];
 </td>
 </tr>
 
-
-
  
-  
- 
-	
-
     			 
 <tr>
 <td> Postal Address </td>
@@ -234,7 +230,7 @@ if (in_array($language->id, $old_languages_known_array)){
 
 
 <tr>
-<td><label for="username" class="control-label">GMC number</label> </td>
+<td><label for="username" class="control-label">GC number</label> </td>
 <td> <?php echo $Locumobject->gmc_number;?> </td>
 </tr>
 
@@ -258,9 +254,17 @@ if (in_array($language->id, $old_languages_known_array)){
  
 
 					 <div align="center">
-						<
-							<button class="btn btn-info sbtn" id="submit1">verified locum</button>
-							<button class="btn btn-info sbtn" id="submit2">Rejected locum</button>
+							<form name="verifylocums" id="verifylocums"   autocomplete="off"  method="post" action="<?php echo $url;?>managers/verifylocums"  enctype="multipart/form-data">
+
+						<input type="hidden" name="verifiedlocum" id="verifiedlocum" value="0"/>
+						<input type="hidden" name="id" id="id" value="<?php echo $Locumobject->id;?>"/>
+ 
+					<?php
+					if( $Locumobject->verifiedlocum == 0) { ?>
+						<button class="btn btn-info sbtn" id="submit1">Verify</button>
+						<button class="btn btn-info sbtn" id="submit2">Reject</button>
+					<?php }else ?>			
+					</form>
 					 </div>
 
  

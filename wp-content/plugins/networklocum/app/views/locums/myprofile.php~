@@ -25,26 +25,24 @@ $("#locumsignupnext").submit();
 	<!--middle start here-->
   	<div class="midcol">
 		<div class="container">
-		<div class="row">
-		   <div class="col-md-8">
+		<?php /*?><div class="row">
+		   <div class="col-md-12" style="border:1px solid #cdcdcd; background-color:#fafafa;margin-top:5px;">
 			 <?php $this->display_flash(); ?>
 		     <h3 style="padding:10px;">My Profile</h3>
 		     <p style="padding:10px;">My Profile is the place to describe yourself, so it's clear why practice managers should invite you to work. Make sure to include all your skills, interests and IT systems. This is also where you should upload all your documentation proving you're fully up-to-date with qualifications and training.</p>
 		   </div>
-		   <div class="col-md-4">
-		                 <div class="progress-radial progress-40" style="height:50px;">
-				                <div class="overlay">40%</div>
-			             </div>
-		  </div>
-		</div>
-		<div class="container">
+		</div><?php */?>
 		    <div class="row">
 			   <!--- Left hand side Panel Showing the buttons etc -->
 			   <div class="col-md-8" >
 			    <div class="container">
-				<h1 style=""> Dr. <?php echo $locumdetails->firstname.' '.$locumdetails->lastname;?></h1>
 				 <div class="row">
-				   <div class="col-md-2">
+				   <div class="col-md-8" style="margin-bottom:50px;">
+				     <h1> Dr. <?php echo $locumdetails->firstname.' '.$locumdetails->lastname;?></h1>
+				   </div>
+				 </div>
+				 <div class="row">
+				   <div class="col-md-3">
 <?php
 		$profile_image = $locumdetails->profile_image;
 		if (strlen(trim($profile_image)) == 0 )
@@ -52,34 +50,36 @@ $("#locumsignupnext").submit();
 
  		$this->set('profile_image',$profile_image);
 
-				      <div><img class="img-circle img-user-config" src="<?php echo  $url.'/upload_pic/'.$profile_image; ?>"></div>
+
+?>				      <div><img class="img-circle img-user-config" src="<?php echo  $url.'/documpropic/'.$profile_image; ?>">
+</div>
 				   </div>
-				   <div class="col-md-6">
-						 <div>
-						  <table class="col-md-12 table-bordered table-striped table-condensed cf" style="margin:10px;">
-						    <tr>
-							  <td><a href="<?php echo $url.'upload_crop.php';?>">Upload Photo</a></td>
-							  <td><a href="<?php echo $url.'locums/';?>">Upload Documents</a></td>
-							  <td><a href="<?php echo $url.'locums/setyouravailability';?>">Email Preferences</a></td>
-							  <td><a href="<?php echo $url.'locums/editprofile';?>">Edit Profile</a></td>
-							</tr>
-							<tr>
-							  <td><a href="<?php echo $url.'locums/changepassword';?>">Change Password</a></td>
-							  <td><a href="<?php echo $url.'locums/accountdetails';?>">Edit Personal Settings</a></td>
-							  <td>&nbsp;</td>
-							  <td>&nbsp;</td>
-							</tr>
-						  </table>
-						 </div>
-						 <div>
-						   <p style="padding:10px;">You haven't written anything about yourself. Writing a brief description of yourself helps practice managers to be more sure of who they're choosing when you apply for jobs.</p>
-						 </div>
+				   <div class="col-md-5">
+						  <ul style="list-style:none; line-height:25px;">
+						    <li><a href="<?php echo $url.'uploadprofileimage.php';?>">Change Photo</a></li>
+							<li><a href="<?php echo $url.'locums/';?>">Upload Documents</a></li>
+							<li><a href="<?php echo $url.'locums/editprofile';?>">Edit Profile</a></li>
+							<li><a href="<?php echo $url.'locums/changepassword';?>">Change Password</a></li>
+							<li><a href="<?php echo $url.'locums/accountdetails';?>">Edit Personal Settings</a></li>
+							
+						  </ul>
+						 
 				   </div>
 				 </div>			   
 			   </div>
 			   <div style="margin:10px;">
+			     <h3>About Yourself </h3>
+				<?php if (strlen($locumdetails->aboutme)>0) { ?>
+
+				<p style="padding:10px;"> <?php echo $locumdetails->aboutme;?> </p>
+				<?php } else { ?>
+				  <p style="padding:10px;">You haven't written anything about yourself. Writing a brief description of yourself helps practice managers to be more sure of who they're choosing when you apply for jobs.</p>
+				<?php } ?>
+			   </div>
+			   <div style="margin:10px;">
 			     <h3>Verification documents</h3>
-				  <p style="padding:5px;">You haven't uploaded any documents yet. We need your CV, MDU, GMC, certification of completion of training, passport and CRB. Other documents are not essential, but are useful to help practices verify you. For more help on becoming approved, please see our blog post.</p>
+				  <p style="padding:5px;">If you haven't uploaded any documents yet. We need your CV, MDU, GMC, certification of completion of training, passport and CRB. Other documents are not essential, but are useful to help practices verify you. For more help on becoming approved, <a href="#">please see our blog post</a> or <a href="<?php echo  $url.'locums/uploadmutipledocuments/'; ?>">Upload more documents to verfify </a>
+</p>
 			   </div>
 			   </div>
 			   <!-- Left Hand side Panel Ends Here --->
@@ -162,7 +162,6 @@ echo $arraygender[$locumdetails->gender];?></td>
 				 </div>
 			   </div>
 			</div>
-		</div>  
 	</div>
 	</div>	
 	

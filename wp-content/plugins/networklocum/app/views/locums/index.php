@@ -7,6 +7,9 @@ $templtpath= get_template_directory_uri();
 		<div class="dashbg">
 			<div class="container">
 				<div class="row">
+					<div style="padding:15px; border:1px solid #cdcdcd; background-color:#fafafa;">Your profile is not yet approved by our team, before apply to any job it should be valid.. <a href="<?php echo  $url.'locums/editprofile/'; ?>">more...</a></div>
+ 				</div>
+				<div class="row">
 					<div class="col-md-6">
 						<div class="dtextpad">
 						 <h2> Welcome to Docum </h2>
@@ -43,7 +46,7 @@ $templtpath= get_template_directory_uri();
 							 </div>
 							 <div class="col-md-4">
 							   <div class="disdate_up">
-							<h3><a href="<?php echo  $url.'upload_crop.php'; ?>">Profile Photo </a> </h3>
+							<h3><a href="<?php echo  $url.'uploadprofileimage.php'; ?>">Profile Photo </a> </h3>
 								</div>	
 							 </div>
 						  </div>
@@ -52,13 +55,11 @@ $templtpath= get_template_directory_uri();
 					</div>
 					<div class="col-md-6">
 						  <div style="text-align:center; margin-top:20px;">
-			 			    <h4>Your profile is 40% Complete</h4>
-							<div class="progress-radial progress-40">
-				                <div class="overlay">40%</div>
-			                </div>
-							<p>You Still have to</p>
+			 			    <h4>You Still have to</h4>
+						 
+							
 					<p><a href="<?php echo  $url.'locums/uploadmutipledocuments/'; ?>">Upload more documents</a></p>
- 							<p><a href="<?php echo  $url.'/upload_crop.php/'; ?>">Upload Photo</a></p>
+ 							<p><a href="<?php echo  $url.'uploadprofileimage.php'; ?>">Upload Photo</a></p>
 							<p><a href="<?php echo  $url.'locums/editprofile/'; ?>">Complete your profile</a></p>
 							<p><a href="<?php echo  $url.'locums/upgradeyourmembership/'; ?>">Upgrade your membership</a></p>
 							
