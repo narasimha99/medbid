@@ -208,10 +208,9 @@ class LocumsController extends MvcPublicController {
 
 		}
 		
-		
-		
-		$target_file = $target_dir . basename($selectedfileName);
-	 	$imageFileType = pathinfo($_FILES[$selectedfileName]["tmp_name"],PATHINFO_EXTENSION);
+	 	$target_file = $target_dir . basename($selectedfileName);
+	 	$imageFileType = pathinfo($_FILES[$selectedfileName]["name"],PATHINFO_EXTENSION);
+		$target_file =	$target_file.'.'.$imageFileType;
 		//exit; 
 
 	    if (move_uploaded_file($_FILES[$selectedfileName]["tmp_name"], $target_file)) {
@@ -220,8 +219,12 @@ class LocumsController extends MvcPublicController {
  		$sqldocs = "Select * from wp_locumdocuments where user_id = $useriddir";
 		$docdetails = $wpdb->get_results($sqldocs);
  		if($docdetails)
-			$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
+			{
+				$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
+				$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
+			}
   		else
+
 			 $sqlUpdate = "INSERT INTO  wp_locumdocuments (user_id,".$selectedfileName.")VALUES(".$useriddir.",1)"; 
  			$wpdb->query($sqlUpdate); 
   		
@@ -256,9 +259,11 @@ class LocumsController extends MvcPublicController {
 		if (isset($_POST[data][Locum]['languages_known']))
 			$_POST[data][Locum]['languages_known'] = implode(",",$_POST[data][Locum]['languages_known']);
 
-			 $id = $_POST[data][Locum][id];
-
- 		 	$this->Locum->update($id,$_POST[data][Locum]);
+			if( $_POST[data][Locum]['verifiedlocum'] == 2)
+			 $_POST[data][Locum]['verifiedlocum'] = 0;
+			
+			$id = $_POST[data][Locum][id];
+		  	$this->Locum->update($id,$_POST[data][Locum]);
 			 $this->flash('success', 'Your profile updated succeessfully.');	
 		}
 		

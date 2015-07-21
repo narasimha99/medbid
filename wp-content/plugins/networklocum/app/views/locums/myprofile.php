@@ -78,7 +78,8 @@ $("#locumsignupnext").submit();
 			   </div>
 			   <div style="margin:10px;">
 			     <h3>Verification documents</h3>
-				  <p style="padding:5px;">You haven't uploaded any documents yet. We need your CV, MDU, GMC, certification of completion of training, passport and CRB. Other documents are not essential, but are useful to help practices verify you. For more help on becoming approved, please see our blog post.</p>
+				  <p style="padding:5px;">If you haven't uploaded any documents yet. We need your CV, MDU, GMC, certification of completion of training, passport and CRB. Other documents are not essential, but are useful to help practices verify you. For more help on becoming approved, <a href="#">please see our blog post</a> or <a href="<?php echo  $url.'locums/uploadmutipledocuments/'; ?>">Upload more documents to verfify. </a>
+</p>
 			   </div>
 			   </div>
 			   <!-- Left Hand side Panel Ends Here --->

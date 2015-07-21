@@ -207,6 +207,47 @@ class ManagersController extends MvcPublicController {
 		$this->load_model('Qualification');
 		$qualificationsarray = $this->Qualification->find();
  		$this->set('qualificationsarray',$qualificationsarray);
+		//echo "<pre>";print_r($_POST);echo"</pre>";
+		if(isset($_POST['verifiedlocum'])){
+			
+			$locum_id = $_POST['id']; 
+			$verifiedlocum = $_POST['verifiedlocum'];
+			$this->Locum->update($locum_id,$_POST);
+
+			$locumName = $Locumobject->firstname.' '.$Locumobject->lastname;
+			$locumemail = $Locumobject->email;
+			 $url = esc_url(home_url('/'));
+
+			if( $verifiedlocum == 1 ){
+				
+ 				$message = "Dear $locumName, <br><br>
+				Congratulations, your succefully verified  by our team,<br> 
+				Please click here to confirm once to know your availablity. <br>
+				<a href='"."$url/locum'> Click here to view your profile </a> <br><br>
+				Regards, <br>
+				Docum. ";
+
+				//echo $message;
+
+				mail($locumemail,'Congratulations your account verified  by Docum',$message);
+				$this->flash('success', 'You have succesfully varified our locums.');
+ 
+			}elseif( $verifiedlocum == 2){
+				$message = "Dear $locumName, <br><br>
+				your profile rejected due to invalid details  verified  by our team,<br> 
+				Please click here to update your profile. <br>
+				<a href='"."$url/locum'> Click here to view your profile </a> <br><br>
+				Regards, <br>
+				Docum. ";
+
+				//echo $message;
+
+				mail($locumemail,'Your profile account rejected by our Docum',$message);
+				$this->flash('success', 'Your rejected current locums.');	
+			}
+
+			
+		}
  
 	}
 

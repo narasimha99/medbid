@@ -7,7 +7,7 @@ $onejobormultiplesessions_array = array(
 	'2'=>'Half Day Rate',
 	'3'=>'Hourly Rate',
 	'4'=>'Duty Doctor',
-	'5'=>'Salaried Position'
+	'5'=>'Salaried'
 	);	
 
 
@@ -18,11 +18,12 @@ if(count($joblists)>0){
 <table class="col-md-12 table-bordered table-striped table-condensed cf">
 <thead class="cf">
 <tr>
-<th>Postcode</th>														
+<th>Zipcode</th>														
 <th>Location</th>
 <th>Dates needed</th>
 <th class="numeric">No of sessions</th>
 <th class="numeric"><span id="trafic_rate">Hourlyrate</span></th>
+<th class="numeric"></th>
 <th class="numeric"></th>
 </tr>
 </thead>
@@ -57,7 +58,7 @@ echo date('D j M Y, H:m', strtotime($job->session_starttime)).' - '.date('H:m', 
  } 
 else
  {
- 	echo "<div> No more Jobs found on your search options..</div>";
+ 	echo "<div style=\" padding:15px; font-weight:bold; border:1px solid #cdcdcd; background-color:#fafafa;\">Sorry!.... No more Jobs found on your search options..</div>";
 }
 ?>
 

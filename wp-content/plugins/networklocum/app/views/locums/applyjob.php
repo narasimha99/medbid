@@ -59,10 +59,20 @@ $templtpath= get_template_directory_uri();
 <div class="midcol">
 <div class="bitbox1">	
 <div class="container">
-	
+
+	<h2> Apply for the job </h2>	
+					
+		<?php if( $Locumobject->verifiedlocum == 0) { ?>					
+			<div class="row">		
+		<div style="padding:15px; border:1px solid #cdcdcd; background-color:#fafafa;">Your profile is not yet approved by our team, before apply to any job it should be valid. <a href="<?php echo  $url.'locums/editprofile/'; ?>">more...</a></div>
+			</div>
+		<?php } else {  ?>
+		
 			
 <form    id="calendarform" action="<?php echo $url.'locums/applyjob/'.$job_id;?>"  onsubmit="javascript:return validateapplyjob();" method="POST">
-		<h2> Apply for the job </h2>						
+		
+		
+ 					
 		 <?php $this->display_flash(); ?>
 
  
@@ -263,6 +273,7 @@ $parking_array = array(
 					</div>
 					</div>
  	</form>	
+<?php } ?>
 </div>
 </div>
 </div>

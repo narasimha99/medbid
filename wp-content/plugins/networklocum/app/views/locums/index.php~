@@ -7,6 +7,9 @@ $templtpath= get_template_directory_uri();
 		<div class="dashbg">
 			<div class="container">
 				<div class="row">
+					<div style="padding:15px; border:1px solid #cdcdcd; background-color:#fafafa;">Your profile is not yet approved by our team, before apply to any job it should be valid.. <a href="#">more...</a></div>
+ 				</div>
+				<div class="row">
 					<div class="col-md-6">
 						<div class="dtextpad">
 						 <h2> Welcome to Docum </h2>

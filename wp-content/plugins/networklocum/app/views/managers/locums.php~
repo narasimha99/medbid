@@ -25,7 +25,7 @@ $templtpath= get_template_directory_uri();
         				<th>Lastname</th>	
 					<th>Email</th>
 					<th>Contact number</th>
-         				<th>Gmc number</th>
+         				<th>Gc number</th>
          				<th class="numeric"></th>
         			</tr>
         		</thead>
@@ -37,7 +37,20 @@ $templtpath= get_template_directory_uri();
 					<td data-title="Code"><?php echo $locum->email;?></td>
 					<td data-title="Code"><?php echo $locum->phone_number;?></td>
 					<td data-title="Code"><?php echo $locum->gmc_number;?></td>
-          				<td data-title="Change %" class="numeric"><a href="<?php echo $url.'/managers/verifylocums/'.$locum->id;?>" class="btn btn-primary aplbtn" title="verify locums">verify locum</a></td>
+          				<td data-title="Change %" class="numeric">
+
+					<?php
+					if( $locum->verifiedlocum == 0) { ?>
+<a href="<?php echo $url.'/managers/verifylocums/'.$locum->id;?>" class="btn btn-primary aplbtn" title="verify locums">verify locum</a>
+					<?php }
+						if ( $locum->verifiedlocum == 1) 
+						 	echo "Varified";
+						else 
+							echo "Rejected";
+					 ?>
+			
+			 
+				</td>
         			</tr>
 			<?php } ?>
         			 

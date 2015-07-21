@@ -17,7 +17,6 @@ jQuery(function () {
 	  detailsAttribute: "data-geo"
 	});
 });
-
 });
 </script>
 <!--middle start here-->
@@ -33,7 +32,8 @@ jQuery(function () {
  <?php $this->display_flash(); ?>
  
 				<input type="hidden" name="data[Locum][id]" id="id" value="<?php echo $Locumobject->id;?>" />
-						
+				<input type="hidden" id="verifiedlocum" name="data[Locum][verifiedlocum]" value="<?php echo $Locumobject->verifiedlocum;?>" />
+		
 
 			<div class="form-group">
 			<label for="password" class="control-label">company name</label><br>
@@ -106,17 +106,11 @@ jQuery(function () {
 <input type="hidden" data-geo="lng" class="form-control ff1"  value="<?php echo $Locumobject->longitude;?>"  id="longitude" name="data[Locum][longitude]" placeholder="longitude">
 
 </div>
-
  
-
-     
- 
-	
-	 
 	
 <div class="form-group">
 <label for="password" class="control-label">City</label><br>
-<input type="text" class="form-control ff1"  data-geo="administrative_area_level_2" id="city" name="data[Locum][city]" value="<?php echo $Locumobject->city;?>"    title="" placeholder="TYPE CITY NAME"/>
+<input type="text" class="form-control ff1"  data-geo="administrative_area_level_2" 	id="city" name="data[Locum][city]" value="<?php echo $Locumobject->city;?>"    title="" placeholder="TYPE CITY NAME"/>
 <span class="errorspan" id="errspan_city"></span>
 </div>
 
@@ -147,7 +141,7 @@ jQuery(function () {
 
   <div class="form-group">
 						  <label for="password" class="control-label">Smartcard</label><br>
-						  <input type="text" class="form-control ff1" id="smartcard" name=data[Locum][smartcard]" value="<?php echo $Locumobject->smartcard;?>"   title="" placeholder="Smart card "/>
+						  <input type="text" class="form-control ff1" id="smartcard" name="data[Locum][smartcard]" value="<?php echo $Locumobject->smartcard;?>"   title="" placeholder="Smart card "/>
 						  <span class="errorspan" id="errspan_smartcard"></span>
 					  </div>				  
 					  
@@ -250,7 +244,7 @@ $nhs_pension_array = array(
 
 
 <div class="form-group">
- <label for="username" class="control-label">GMC number</label>
+ <label for="username" class="control-label">GC number</label>
 <input type="text" class="form-control ff1" id="gmc_number" name="data[Locum][gmc_number]" value="<?php echo $Locumobject->gmc_number;?>"  title="Please enter your gmc number" placeholder="Your enter your  gmc number"/>
 <span class="errorspan" id="errspan_gmc_number"></span>
  </div>

@@ -31,8 +31,8 @@ jQuery( document ).ready(function() {
    
 
 	var onejobormultiplesessions_array = {
-		'1':'Hourly Rate',
-		'2':'Salaried Position'
+		'1':'Hourly',
+		'2':'Salaried'
 	};	
 
 	$("#onejobormultiplesessions").change(function() {
@@ -77,10 +77,10 @@ $templtpath= get_template_directory_uri();
 	
 	<div class="midcol">
 		    <div class="container">
-			<h3>Find Job in Docum</h3>
+			<h1 style="padding:0px; margin:5px;">Find Job in Docum</h1>
 			<div class="row">
 			<?php ////////////////////// Left Side div for search filters /////////////////////?>
-               <div class="col-md-5" style="margin-bottom:20px; margin-top:10px;">
+               <div class="col-md-2" style="background-color:#fafafa; padding:5px;margin-bottom:25px;">
 			   <p>Use these options to filter your requirement as more suitable to you</p>
 			      <form  action="<?php echo $url;?>jobs/findjob" method="post">
 						<input maxlength="10" name="zipcode" id="zipcode" placeholder="Zip Code"  type="text" value="<?php echo $_POST['zipcode'];?>" class="form-control ff1" /> <br/>
@@ -167,9 +167,9 @@ $templtpath= get_template_directory_uri();
 	}
  
  	?>
-	<label for="password" class="control-label">Tariff</label>
+	<label for="password" class="control-label">Job Type</label>
  	<select id="onejobormultiplesessions" name="onejobormultiplesessions" class="form-control ff1" >
-	<option value="">Select</option>
+	<option value=""> Select</option>
 	<?php
 	for($mt=1;$mt<=count($onejobormultiplesessions_array);$mt++){
 	?>
@@ -186,7 +186,7 @@ $templtpath= get_template_directory_uri();
 			   
 			   </div>
 			   <?php ////////////////////// Right Side div for Results/////////////////////?>
-			   <div class="col-md-7">
+			   <div class="col-md-10">
 			      <!----------------ajax loader------------->
 			      <div id="loadingdiv" style="display:none;"><image src="<?php echo $templtpath;?>/images/ajax-loader.gif"/> Updating results... </div>
 			      <!----------------ajax loader------------->
@@ -198,6 +198,7 @@ if(count($joblists)>0){
 								 <table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
         			<tr>
+					    <th>Zipcode</th>	
         				<th>Location</th>
         				<th>Dates needed</th>
         				<th class="numeric">No of sessions</th>
@@ -215,6 +216,7 @@ foreach($joblists as $job){
 //$jobsessions  = count($job->jobsessions);
 ?>
 <tr>
+<td data-title="Code"> <?php echo $job->postcode;?></td>	
 <td data-title="Code"><?php echo $job->location; echo $job->city_id;echo $job->state_id;?></td>
 <td data-title="Company"><?php 
 
