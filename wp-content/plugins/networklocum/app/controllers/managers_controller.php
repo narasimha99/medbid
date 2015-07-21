@@ -2,8 +2,8 @@
 class ManagersController extends MvcPublicController {
 
  	public function index() {
-		$this->set('mylayout', 'client');	
-  	}
+		$this->set('mylayout', 'client');
+   	}
 
 	public function  manageitsystems(){
 
@@ -217,6 +217,12 @@ class ManagersController extends MvcPublicController {
 			$locumName = $Locumobject->firstname.' '.$Locumobject->lastname;
 			$locumemail = $Locumobject->email;
 			 $url = esc_url(home_url('/'));
+			
+			$headers = "MIME-Version: 1.0\r\n";
+			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+			
+
+	
 
 			if( $verifiedlocum == 1 ){
 				
@@ -228,8 +234,12 @@ class ManagersController extends MvcPublicController {
 				Docum. ";
 
 				//echo $message;
+				$headers = "MIME-Version: 1.0 \r\n";
+				$headers .= "Content-type: text/html; charset=\"UTF-8\" \r\n";
+				$headers .= "From: My site<noreply@example.com>\r\n";
 
-				mail($locumemail,'Congratulations your account verified  by Docum',$message);
+
+				sendlocummail($locumemail,'Congratulations your account verified  by Docum',$message,$headers);
 				$this->flash('success', 'You have succesfully varified our locums.');
  
 			}
@@ -242,12 +252,12 @@ class ManagersController extends MvcPublicController {
 				Docum. ";
 
 				//echo $message;
-
-				mail($locumemail,'Your profile account rejected by our Docum',$message);
+				 
+				mail($locumemail,'Your profile account rejected by our Docum',$message,$headers);
 				$this->flash('success', 'Your rejected current locums.');	
 			}
 			
-			$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'locums'));
+		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'locums'));
 	        $this->redirect($url);		
 			
 		}
@@ -255,6 +265,62 @@ class ManagersController extends MvcPublicController {
 	}
 
 	public function jobs(){
+
+	}
+	
+	public function sendlocummail($toEmail,$subject,$message){
+
+	$headers = "";
+	$headers.="MIME-Version: 1.0 \r\n";
+	$headers.="Content-type: text/html; charset=\"UTF-8\" \r\n";
+ 	$headers .= "From: My site<noreply@example.com>\r\n";
+
+	$tmplatemessage  = "<div>";
+	$tmplatemessage .= '<table width="100%" border="0" bgcolor="#fafafa" style=" border:2px solid #cdcdcd;">';
+	$tmplatemessage .= '<tr bgcolor="#62BFE1">';
+	$tmplatemessage .= '<td><img src="http://64.37.52.189/~hashtagf/medbid/wp-content/themes/twentyfifteen/images/medbidlogo.png"></td>';
+	$tmplatemessage .= '</tr>';
+	$tmplatemessage .= '<tr>';
+	$tmplatemessage .= '<td>';
+	$tmplatemessage .=  '<p>Hi Name,</p>';
+	$tmplatemessage .= '<p>Thanks for registered with us.</p>';
+	$tmplatemessage .= '<p>Your Login details as follows.</p>';
+	$tmplatemessage .= '<table width="60%" align="center" bgcolor="#cdcdcd" cellpadding="5" cellspacing="1">';
+	$tmplatemessage .= '<tr bgcolor="#fff">';
+	$tmplatemessage .= '<td><p><strong>Username</strong></p></td>';
+	$tmplatemessage .= '<td>username</td>';
+	$tmplatemessage .= '</tr>';
+	$tmplatemessage .= '<tr bgcolor="#fff">';
+	$tmplatemessage .= '<td><p><strong>Password</strong></p></td>';
+	$tmplatemessage .= '<td>password</td>';
+	$tmplatemessage .= '</tr>';
+	$tmplatemessage .= '</table>';
+	$tmplatemessage .= '<p>Feel free to ask any queries. email us <a href="mailto:info@docum.co.uk">info@docum.co.uk</a></p>';
+	$tmplatemessage .= '<p>Thanks, have a lovely day.</p>';
+	$tmplatemessage .= '</td>';
+	$tmplatemessage .=  '</tr>';
+	$tmplatemessage .= '</table>';
+	$tmplatemessage .= '</div>';
+	$tmplatemessage .= '</td>';
+	$tmplatemessage .= '<td></td>';
+	$tmplatemessage .= '</tr>';
+	$tmplatemessage .= '</table>';
+	$tmplatemessage .= '<table>';
+	$tmplatemessage .= '<tr>';
+	$tmplatemessage .= '<td></td>';
+	$tmplatemessage .= '<td>';
+	$tmplatemessage .= '<div>';
+	$tmplatemessage .= '<table>';
+	$tmplatemessage .= '<tr>';
+	$tmplatemessage .= '<td align="center">';
+	$tmplatemessage .= '<p>Don\'t like these annoying emails? <a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>.';
+	$tmplatemessage .= '</p>';
+	$tmplatemessage .= '</td>';
+	$tmplatemessage .= '</tr>';
+	$tmplatemessage .= '</table>';
+	$tmplatemessage .= '</div>';
+	
+	mail($toEmail,$subject,$tmplatemessage,$headers);
 
 	}
 }
