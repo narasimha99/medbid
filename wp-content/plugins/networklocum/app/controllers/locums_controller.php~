@@ -8,7 +8,7 @@ class LocumsController extends MvcPublicController {
  		$_SESSION['user_id'] =  $user_id;
 		$this->load_model('Locum');
 		$locumObject = $this->Locum->find_by_user_id($user_id);
-		$this->set('locumObject',$locumObject);
+ 		$this->set('locumObject',$locumObject);
 
  		$_SESSION['locum_id'] = $locumObject[0]->id;	
  
@@ -337,9 +337,17 @@ class LocumsController extends MvcPublicController {
 		$this->load_model('Job');
 		$this->load_model('Appliedjob');
 		$this->load_model('Jobsession');
+		$this->load_model('Locum');
 		$job_id = $this->params['id'];
 		$locum_id = $_SESSION['locum_id'];
 		global $wpdb;
+
+			$sqllocum = "select id, verifiedlocum from wp_locums where id= $locum_id"; 
+			$locumdetails = $wpdb->get_results($sqllocum);
+			//echo "<pre>"; print_r($locumdetails);
+			$this->set('locumdetails',$locumdetails);
+
+ 
 
 		$sqlJob = "Select * from wp_jobs where id = $job_id";
 		$jobdetails = $wpdb->get_results($sqlJob);
@@ -765,8 +773,8 @@ class LocumsController extends MvcPublicController {
 	public function sendlocummail($toEmail,$subject,$message){
 
 		$headers = "";
-		$headers.="MIME-Version: 1.0 \r\n";
-		$headers.="Content-type: text/html; charset=\"UTF-8\" \r\n";
+		$headers .= "MIME-Version: 1.0 \r\n";
+		$headers .= "Content-type: text/html; charset=\"UTF-8\" \r\n";
 	 	$headers .= "From: My site<noreply@example.com>\r\n";
 
 		$tmplatemessage  = "<div>";
