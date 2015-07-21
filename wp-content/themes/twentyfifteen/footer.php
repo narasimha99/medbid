@@ -45,11 +45,8 @@ $url = esc_url( home_url( '/' ) );
 					<div class="col-xs-12 col-sm-6 col-md-3">
 						<h3>Address</h3>
 						<img alt="MEDBID Logo" class="img-responsive" src="<?php echo $templtpath;?>/images/medbidlogo2.png">
-<<<<<<< HEAD
-						<p>94 Wolsey Road Middlesex Northwood<br/> London UK <br/>HA6 2EH</p>
-=======
-						<p>94 Wolsey Road Middlesex Northwood London UK HA6 2EH</p>
 
+						<p>94 Wolsey Road Middlesex Northwood<br/> London UK <br/>HA6 2EH</p>
 						<img alt="MEDBID Logo" class="img-responsive" src="<?php echo $templtpath;?>/images/phicon.png">
 						<h4>8888 888 8888</h4>
 					</div>
