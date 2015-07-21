@@ -8,18 +8,17 @@ class LocumsController extends MvcPublicController {
  		$_SESSION['user_id'] =  $user_id;
 		$this->load_model('Locum');
 		$locumObject = $this->Locum->find_by_user_id($user_id);
+		$this->set('locumObject',$locumObject);
+
  		$_SESSION['locum_id'] = $locumObject[0]->id;	
-		
-		 // custom getMyCustomData written by murthy snmurty99@gmail.com
- 	  
+ 
 		$masterDocuments  = array();
 		$this->load_model('Masterdocument');		
 		$masterDocuments = $this->Masterdocument->find();
 		$this->set('masterDocuments',$masterDocuments);
 		
  		// echo "<pre>"; print_r($locumObject); echo "</pre>";
-		
- 	  
+		 
     	}
 
 	function checkdocument($id,$masterDocuments,$location){
