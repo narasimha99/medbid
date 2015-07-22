@@ -223,7 +223,7 @@ $parking_array = array(
 <a href="<?php echo $url.'locums/applyjob/'.$jobdetails[0]->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply for this job</a>
 <?php } else
 	{
-		echo "<span style='color:green; padding:5px; border:1px solid #cdcdcd; background-color:#fafafa; font-weight:bold;'> You already applied this for this job</span>";
+		echo "<span style='color:green; padding:10px; border-radius:5px; border:1px solid #cdcdcd; background-color:#fafafa; font-weight:bold;'> You already applied this for this job</span>";
 	}
  ?>
 </div>
