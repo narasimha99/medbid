@@ -21,9 +21,7 @@ $templtpath= get_template_directory_uri();
  <td colspan="3"> <?php echo $jobdetails[0]->practice_code.', '.$jobdetails[0]->practicename ;?>  &nbsp; <a href="<?php echo $url.'practices/viewpracticer/'.$jobdetails[0]->user_id;?>" target="_blank" title= "Click here to  view more practicers details on newtab"> view more...</a> </td>
 </tr>
 
- 
- 
-<tr>
+ <tr>
  <td>  Job Posted Date: </td> <td colspan="3"><?php echo date('D j M Y, H:m', strtotime($jobdetails[0]->createddate));?> </td> 
 </tr>
 
@@ -220,7 +218,13 @@ $parking_array = array(
 
 <br>
 <div style="text-align:center">
+<?php if(isset($appliedjob) && $appliedjob == 0) { ?>
 <a href="<?php echo $url.'locums/applyjob/'.$jobdetails[0]->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply for this job</a>
+<?php } else
+	{
+		echo "<span style='color:green'> You already applied this job</span>";
+	}
+ ?>
 </div>
 
 

@@ -90,7 +90,7 @@ $templtpath= get_template_directory_uri();
 						<option value="10"  <?php if($_POST['distance'] == 10 ) echo 'selected'?>>10 Miles</option>
 						<option value="25"  <?php if($_POST['distance'] == 25 ) echo 'selected'?>>25 Miles</option>
 						<option value="50"  <?php if($_POST['distance'] == 50) echo 'selected'?>>50 Miles</option>
-						<option value="100"  <?php if($_POST['distance'] == 100 ) echo 'selected'?> >100 Miles</option>
+						<option value="100"  <?php if($_POST['distance'] == 100 ) echo 'selected'?>>100 Miles</option>
 						</select> 
  <br>
 						
@@ -204,7 +204,7 @@ if(count($joblists)>0){
         				<th class="numeric">No of sessions</th>
         				<th class="numeric">Hourly rate</th>
         				<th class="numeric"></th>
-						<th class="numeric"></th>
+						 
         			</tr>
         		</thead>
         		<tbody>
@@ -226,8 +226,7 @@ echo date('D j M Y, H:m', strtotime($job->session_starttime)).' - '.date('H:m', 
 <td data-title="Price" class="nndumeric"><?php echo $job->no_of_sessions;?> sessions</td>
 <td data-title="Change" class="numeric">£ <?php echo $job->hourlyrate;?> </td>
 <td data-title="Change %" class="numeric"><a href="<?php echo $url.'jobs/viewjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="view job">View job</a></td>
-<td data-title="Change %" class="numeric"><a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply</a></td>
-        			</tr>
+</tr>
 <?php 
 	}
 ?>	

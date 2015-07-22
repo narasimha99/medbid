@@ -18,7 +18,7 @@ class LocumsController extends MvcPublicController {
 		$this->set('masterDocuments',$masterDocuments);
 		
  		// echo "<pre>"; print_r($locumObject); echo "</pre>";
-		//sendlocummail('sureshmuggalla79@gmail.com','Your profile account rejected by our Docum','testing');	
+		$this->sendlocummail('snmurty99@gmail.com','Your profile test','testing');	
 		 
     	}
 
@@ -780,8 +780,7 @@ class LocumsController extends MvcPublicController {
 		$tmplatemessage  = "<div>";
 		$tmplatemessage .= '<table width="100%" border="0" bgcolor="#fafafa" style=" border:2px solid #cdcdcd;">';
 		$tmplatemessage .= '<tr bgcolor="#62BFE1">';
-		$tmplatemessage .= '<td>
-		<img src="http://64.37.52.189/~hashtagf/medbid/wp-content/themes/twentyfifteen/images/medbidlogo.png"> </td>';
+		$tmplatemessage .= '<td><img src="http://64.37.52.189/~hashtagf/medbid/wp-content/themes/twentyfifteen/images/medbidlogo.png"> </td>';
 		$tmplatemessage .= '</tr>';
 		$tmplatemessage .= '<tr>';
 		$tmplatemessage .= '<td>';
@@ -822,7 +821,7 @@ class LocumsController extends MvcPublicController {
 		$tmplatemessage .= '</tr>';
 		$tmplatemessage .= '</table>';
 		$tmplatemessage .= '</div>';
-	
+		//echo $tmplatemessage;
 		mail($toEmail,$subject,$tmplatemessage,$headers);
 
 	}

@@ -24,7 +24,6 @@ if(count($joblists)>0){
 <th class="numeric">No of sessions</th>
 <th class="numeric"><span id="trafic_rate">Hourlyrate</span></th>
 <th class="numeric"></th>
-<th class="numeric"></th>
 </tr>
 </thead>
 <tbody>
@@ -47,7 +46,7 @@ echo date('D j M Y, H:m', strtotime($job->session_starttime)).' - '.date('H:m', 
 <td data-title="Change" class="numeric">£ <?php echo $job->hourlyrate;?> </td>
 <td data-title="Change %" class="numeric">
 <a href="<?php echo $url.'jobs/viewjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="view job">View job</a></td>
-<td data-title="Change %" class="numeric"><a href="<?php echo $url.'locums/applyjob/'.$job->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply</a>
+ 
 </tr>
 <?php 
 }

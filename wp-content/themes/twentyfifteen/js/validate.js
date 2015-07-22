@@ -670,3 +670,4 @@ function findajaxcall(){
 function validatevarifydocuments(){
 	return true;
 }
+

@@ -560,11 +560,24 @@ if(jQuery("#location").val() == ""){
     }
 	
 
+if(jQuery("#gender").val() == ""){
+        jQuery("#errspan_gender").text("Please choose your Gender");
+        errstat = 1;       
+    }
+
 if(jQuery("#postcode").val() == ""){
         jQuery("#errspan_postcode").text("Please enter your postalcode");
         errstat = 1;       
     }
+if(jQuery("#headline").val() == ""){
+        jQuery("#errspan_headline").text("Please enter your Headline. This will help you when practices search for Docum");
+        errstat = 1;       
+    }
 
+if(jQuery("#aboutme").val() == ""){
+        jQuery("#errspan_aboutme").text("Please describe about yourself");
+        errstat = 1;       
+    }
 
 if(jQuery("#firstname").val() == ""){
         jQuery("#errspan_firstname").text("Please enter your firstname");
@@ -575,8 +588,51 @@ if(jQuery("#lastname").val() == ""){
         jQuery("#errspan_lastname").text("Please enter your lastname");
         errstat = 1;       
     }
-	
 
+if(jQuery("#smartcard").val() == ""){
+        jQuery("#errspan_smartcard").text("Mention the details about your smartcard");
+        errstat = 1;       
+    }
+
+if(jQuery("#it_systems").val() == ""){
+        jQuery("#errspan_it_systems").text("Choose your IT systems");
+        errstat = 1;       
+    }
+
+if(jQuery("#qualifications").val() == ""){
+        jQuery("#errspan_qualifications").text("Mention the details about your Qualifications");
+        errstat = 1;       
+    }
+
+if(jQuery("#languages_known").val() == ""){
+        jQuery("#errspan_languages_known").text("Choose the languages you known");
+        errstat = 1;       
+    }
+
+if(jQuery("#NHS_Pension").val() == ""){
+        jQuery("#errspan_NHS_Pension").text("Mention the details about your NHS Pension");
+        errstat = 1;       
+    }
+
+if(jQuery("#gmc_number").val() == ""){
+        jQuery("#errspan_gmc_number").text("Please enter your GC Number");
+        errstat = 1;       
+    }
+
+if(jQuery("#email").val() == ""){
+        jQuery("#errspan_email").text("Please enter your email");
+        errstat = 1;       
+    }
+	
+if(jQuery("#phone_number").val() == ""){
+        jQuery("#errspan_phone_number").text("Please enter your Phone Number");
+        errstat = 1;       
+    }
+
+if(jQuery("#howdidyouhear").val() == ""){
+        jQuery("#errspan_howdidyouhear").text("Please tell us how did you hear about us");
+        errstat = 1;       
+    }
 
   if (  errstat == 1 )
 	return false;
@@ -613,5 +669,5 @@ function findajaxcall(){
  
 function validatevarifydocuments(){
 	return true;
-
 }
+
