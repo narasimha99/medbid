@@ -56,7 +56,7 @@ $templtpath= get_template_directory_uri();
 	
 <div class="midcol">
 <div class="bitbox1">	
-<div class="container">
+ <div class="container">
 
 	<h2> Apply for the job </h2>	
 					
@@ -78,7 +78,7 @@ $templtpath= get_template_directory_uri();
 		<div class="col-md-12">
  		<!-- its my code end here -->
 
-		 <table id="<?php echo 'TABLEsessionday'.$i;?>" class="table">
+		 <table class="table">
 
 <tr>
 <td>&nbsp;</td>
@@ -95,7 +95,7 @@ $templtpath= get_template_directory_uri();
 <th>&nbsp;</th>
 <th>Sart Time</th>
 <th>End Time</th>
-<th>Hourly rate Â£</th>
+<th>Hourly rate £</th>
 <th>Hours</th>
 <th>Pay to locum </th>
  
