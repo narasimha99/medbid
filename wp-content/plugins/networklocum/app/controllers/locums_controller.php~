@@ -86,27 +86,37 @@ class LocumsController extends MvcPublicController {
 						      'last_name'    =>    $this->params['data']['Locum']['lastname']));
 
 				  // Set the role
-				  $user = new WP_User($user_id);
-				  $user->set_role('locum');
- 				  $this->params['data']['Locum']['user_id'] = $user_id;
-				  $object = $this->params['data'];
-				  $this->Locum->save($object);
- 	 			  $locum_id = $this->Locum->insert_id;					
+				$user = new WP_User($user_id);
+				$user->set_role('locum');
+				$this->params['data']['Locum']['user_id'] = $user_id;
+				$object = $this->params['data'];
+				$this->Locum->save($object);
+				$locum_id = $this->Locum->insert_id;					
+				$firstname =  $this->params['data']['Locum']['firstname'];
+				$lastname  =  $this->params['data']['Locum']['lastname'];
 
-				  session_start();
-				  $_SESSION['locum_id'] =  $locum_id;
+				session_start();
+				$_SESSION['locum_id'] =  $locum_id;
 
-
- 				//$this->flash('notice', 'Successfully Saved');
-
-				//$headers = "From: " . strip_tags($_POST['req-email']) . "\r\n";
-				//$headers .= "Reply-To: ". strip_tags($_POST['req-email']) . "\r\n";
-				//$headers .= "CC: susan@example.com\r\n";
-				$headers = "MIME-Version: 1.0\r\n";
-				$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-				
-				  // Email the user
-				 wp_mail( $email_address, 'Welcome to Medbid! ', 'Your Password: ' . $password,$headers);
+				$message = "";
+				$message .=  "<p>Hi $firstname $lastname ,</p>";
+				$message .= '<p>Thanks for registered with us.</p>';
+				$message .= '<p>Your Login details as follows.</p>';
+		 		$message .= '<table width="60%" align="center" bgcolor="#cdcdcd" cellpadding="5" cellspacing="1">';
+				$message .= '<tr bgcolor="#fff">';
+				$message .= '<td><p><strong>Username</strong></p></td>';
+				$message .= '<td>'.$email_address.'</td>';
+				$message .= '</tr>';
+				$message .= '<tr bgcolor="#fff">';
+				$message .= '<td><p><strong>Password</strong></p></td>';
+				$message .= '<td> '.$password.'</td>';
+				$message .= '</tr>';
+				$message .= '</table>';
+				$message .= '<p>Feel free to ask any queries. email us <a href="mailto:info@docum.co.uk">info@docum.co.uk</a></p>';
+				$message .= '<p>Thanks, have a lovely day.</p>';
+  				
+ 				 // Email the user
+				sendlocummail($email_address,'Welcome to Docum...',$message);
 		  		
        				$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'locumsignupnext'));
  			        $this->redirect($url);
@@ -635,17 +645,10 @@ class LocumsController extends MvcPublicController {
 					To know more details please use bellow link  here to continue.. <br><br>
 					<a href='"."$url/locum/acceptyourjob/$appliedjobId'>View the Job</a> <br><br>
 					Regards, <br>
-					Medbid. ";
-
-					//echo $message;
-					
-					$headers = "MIME-Version: 1.0\r\n";
-					$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-				
- 
-					mail($email,'Congratulations your job accepted by locum for this job',$message,$headers);
+					Docum. ";
+ 					sendlocummail($email,'Congratulations your job accepted by locum for this job',$message);
 					$this->flash('success', 'You have succesfully accepted our practicers job.');
-	 				}					
+	 			}					
 	
 			}
 
@@ -770,62 +773,6 @@ class LocumsController extends MvcPublicController {
 	 	}
     	}
 	
-	public function sendlocummail($toEmail,$subject,$message){
-
-		$headers = "";
-		$headers .= "MIME-Version: 1.0 \r\n";
-		$headers .= "Content-type: text/html; charset=\"UTF-8\" \r\n";
-	 	$headers .= "From: My site<noreply@example.com>\r\n";
-
-		$tmplatemessage  = "<div>";
-		$tmplatemessage .= '<table width="100%" border="0" bgcolor="#fafafa" style=" border:2px solid #cdcdcd;">';
-		$tmplatemessage .= '<tr bgcolor="#62BFE1">';
-		$tmplatemessage .= '<td>
-		<img src="http://64.37.52.189/~hashtagf/medbid/wp-content/themes/twentyfifteen/images/medbidlogo.png"> </td>';
-		$tmplatemessage .= '</tr>';
-		$tmplatemessage .= '<tr>';
-		$tmplatemessage .= '<td>';
-		$tmplatemessage .=  '<p>Hi Name,</p>';
-		$tmplatemessage .= '<p>Thanks for registered with us.</p>';
-		$tmplatemessage .= '<p>Your Login details as follows.</p>';
-		$tmplatemessage .= '<table width="60%" align="center" bgcolor="#cdcdcd" cellpadding="5" cellspacing="1">';
-		$tmplatemessage .= '<tr bgcolor="#fff">';
-		$tmplatemessage .= '<td><p><strong>Username</strong></p></td>';
-		$tmplatemessage .= '<td>username</td>';
-		$tmplatemessage .= '</tr>';
-		$tmplatemessage .= '<tr bgcolor="#fff">';
-		$tmplatemessage .= '<td><p><strong>Password</strong></p></td>';
-		$tmplatemessage .= '<td>password</td>';
-		$tmplatemessage .= '</tr>';
-		$tmplatemessage .= '</table>';
-		$tmplatemessage .= '<p>Feel free to ask any queries. email us <a href="mailto:info@docum.co.uk">info@docum.co.uk</a></p>';
-		$tmplatemessage .= '<p>Thanks, have a lovely day.</p>';
-		$tmplatemessage .= '</td>';
-		$tmplatemessage .=  '</tr>';
-		$tmplatemessage .= '</table>';
-		$tmplatemessage .= '</div>';
-		$tmplatemessage .= '</td>';
-		$tmplatemessage .= '<td></td>';
-		$tmplatemessage .= '</tr>';
-		$tmplatemessage .= '</table>';
-		$tmplatemessage .= '<table>';
-		$tmplatemessage .= '<tr>';
-		$tmplatemessage .= '<td></td>';
-		$tmplatemessage .= '<td>';
-		$tmplatemessage .= '<div>';
-		$tmplatemessage .= '<table>';
-		$tmplatemessage .= '<tr>';
-		$tmplatemessage .= '<td align="center">';
-		$tmplatemessage .= '<p>Don\'t like these annoying emails? <a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>.';
-		$tmplatemessage .= '</p>';
-		$tmplatemessage .= '</td>';
-		$tmplatemessage .= '</tr>';
-		$tmplatemessage .= '</table>';
-		$tmplatemessage .= '</div>';
-	
-		mail($toEmail,$subject,$tmplatemessage,$headers);
-
-	}
 	
 }
 

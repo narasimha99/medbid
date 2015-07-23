@@ -74,9 +74,30 @@ class PracticesController extends MvcPublicController {
  			
 			  $this->Practice->save($this->params['data']['Practice']);
 			  $this->flash('success', 'Thanks for become our member,Plesase check your email to continue.');
+	
+				$firstname =  $this->params['data']['Practice']['firstname'];
+				$lastname  =  $this->params['data']['Practice']['lastname'];
+
+				$message = "";
+				$message .=  "<p>Hi $firstname  $lastname ,</p>";
+				$message .= '<p>Thanks for registered with us.</p>';
+				$message .= '<p>Your Login details as follows.</p>';
+		 		$message .= '<table width="60%" align="center" bgcolor="#cdcdcd" cellpadding="5" cellspacing="1">';
+				$message .= '<tr bgcolor="#fff">';
+				$message .= '<td><p><strong>Username</strong></p></td>';
+				$message .= '<td>'.$email_address.'</td>';
+				$message .= '</tr>';
+				$message .= '<tr bgcolor="#fff">';
+				$message .= '<td><p><strong>Password</strong></p></td>';
+				$message .= '<td> '.$mpassword.'</td>';
+				$message .= '</tr>';
+				$message .= '</table>';
+				$message .= '<p>Feel free to ask any queries. email us <a href="mailto:info@docum.co.uk">info@docum.co.uk</a></p>';
+				$message .= '<p>Thanks, have a lovely day.</p>';
+  				
 
 			  // Email the user
-			  wp_mail( $email_address, 'Welcome!', 'Your Password: ' . $mpassword);
+			  sendlocummail( $email_address, 'Welcome to Docum!',$message);
 			}
  		} 		
 
@@ -219,9 +240,9 @@ class PracticesController extends MvcPublicController {
   				    Regards, <br>
 				    Medbid. ";
 
- 				 echo $message;
+ 				// echo $message;
 	
- 			mail($email,'Congratulations your selected for this job',$message);
+ 			sendlocummail($email,'Congratulations your selected for this job',$message);
 		  	$this->flash('success', 'You have succesfully accepted your locum.');
 			$url = MvcRouter::public_url(array('controller' =>'jobs', 'action' => 'jobapplications'));
  			$this->redirect($url);

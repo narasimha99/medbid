@@ -78,7 +78,7 @@ $templtpath= get_template_directory_uri();
 		<div class="col-md-12">
  		<!-- its my code end here -->
 
-		 <table id="<?php echo 'TABLEsessionday'.$i;?>" class="table">
+		 <table  class="table">
 
 <tr>
 <td>&nbsp;</td>

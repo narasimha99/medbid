@@ -51,8 +51,8 @@ class JobsController extends MvcPublicController {
 			//echo "Latitude: ".$vallatlong['lat']."<br>";
 			//echo "Longitude: ".$vallatlong['lng']."<br>";
  
- 			 $_POST['latitude']   =  '51.475306';  //  $vallatlong['lat'];; 
-			 $_POST['longitude']  =  '-0.375766'; // $vallatlong['lng'];
+ 			 $_POST['latitude']   =  $practicerDetails[0]->latitude;  //'51.475306';  //  $vallatlong['lat'];; 
+			 $_POST['longitude']  =  $practicerDetails[0]->longitude; //'-0.375766'; // $vallatlong['lng'];
  			
 			$_POST['is_public'] = 1;
  			$this->Job->save($_POST);		
