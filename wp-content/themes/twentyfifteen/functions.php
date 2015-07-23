@@ -361,4 +361,50 @@ echo "<pre>";print_r($wp);
     //  exit;
    //}
 }
-$locumUrls = array('');
+
+
+	  function sendlocummail($toEmail,$subject,$message){
+
+		$headers = "";
+		$headers .= "MIME-Version: 1.0 \r\n";
+		$headers .= "Content-type: text/html; charset=\"UTF-8\" \r\n";
+	 	$headers .= "From: My site<noreply@example.com>\r\n";
+  
+
+		$tmplatemessage  = "<div>";
+		$tmplatemessage .= '<table width="100%" border="0" bgcolor="#fafafa" style=" border:2px solid #cdcdcd;">';
+		$tmplatemessage .= '<tr bgcolor="#62BFE1">';
+		$tmplatemessage .= '<td>
+		<img src="http://64.37.52.189/~hashtagf/medbid/wp-content/themes/twentyfifteen/images/medbidlogo.png"> </td>';
+		$tmplatemessage .= '</tr>';
+		$tmplatemessage .= '<tr>';
+		$tmplatemessage .= '<td>';
+		$tmplatemessage .= $message;
+		$tmplatemessage .= '</td>';
+		$tmplatemessage .=  '</tr>';
+		$tmplatemessage .= '</table>';
+		$tmplatemessage .= '</div>';
+		$tmplatemessage .= '</td>';
+		$tmplatemessage .= '<td></td>';
+		$tmplatemessage .= '</tr>';
+		$tmplatemessage .= '</table>';
+		$tmplatemessage .= '<table>';
+		$tmplatemessage .= '<tr>';
+		$tmplatemessage .= '<td></td>';
+		$tmplatemessage .= '<td>';
+		$tmplatemessage .= '<div>';
+		$tmplatemessage .= '<table>';
+		$tmplatemessage .= '<tr>';
+		$tmplatemessage .= '<td align="center">';
+		$tmplatemessage .= '<p>Don\'t like these annoying emails? <a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>.';
+		$tmplatemessage .= '</p>';
+		$tmplatemessage .= '</td>';
+		$tmplatemessage .= '</tr>';
+		$tmplatemessage .= '</table>';
+		$tmplatemessage .= '</div>';
+		//echo $tmplatemessage; 
+		mail($toEmail,$subject,$tmplatemessage,$headers);
+
+	}
+
+

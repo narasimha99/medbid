@@ -452,9 +452,11 @@ class JobsController extends MvcPublicController {
 		$this->set('mylayout', 'client');
 		$this->load_model('Job');
 	 
-		global $wpdb;	
 		$job_id = $this->params['id'];
-  	 	$params = $this->params;
+  
+		 
+
+		$params = $this->params;
   		$params['joins'][] =  array(  'table' => 'wp_jobsessions',
 							'on' => 'Job.id = Jobsession.job_id',
 							'type' => 'LEFT JOIN',
@@ -471,20 +473,13 @@ class JobsController extends MvcPublicController {
  
  		$params['conditions'] =  array('Job.id' =>$job_id);
  
-		 
-  		$jobdetails = $this->Job->paginate($params);
-  		//echo "<pre>"; print_r($jobdetails); echo"</pre>";
-		$this->set('jobdetails',$jobdetails['objects']);
+		$params['per_page'] = '20';
 
-		$locum_id = $_SESSION['locum_id'];
-		$sqlAppliedjob = "select id from  wp_appliedjobs where locum_id = $locum_id  and job_id = $job_id";
-		$rsaplied =  $wpdb->get_results($sqlAppliedjob);
- 		if(count($rsaplied)>0) 
-			$this->set('appliedjob',1);
-		else
-			$this->set('appliedjob',0);
-		
-	
+  		$jobdetails = $this->Job->paginate($params);
+
+
+ 		//echo "<pre>"; print_r($jobdetails); echo"</pre>";
+		$this->set('jobdetails',$jobdetails['objects']);
 	
 		$this->load_model('cgcode');
 		$cgcodelist = $this->cgcode->find();
@@ -642,7 +637,7 @@ class JobsController extends MvcPublicController {
 			//echo  "zipcodes ";
 		}
 	 
-	  $queryLast = "SELECT job.id, job.postcode,job.location,job.city_id,job.state_id,job.no_of_sessions, jobsession.hourlyrate,jobsession.session_starttime,jobsession.session_endtime FROM wp_jobs AS job JOIN wp_jobsessions AS jobsession ON job.id = jobsession.job_id  $queryConditionString    ORDER BY job.session_date_range, job.state_id, job.city_id, job.latitude, job.longitude ";
+	  $queryLast = "SELECT job.postcode,job.location,job.city_id,job.state_id,job.no_of_sessions, jobsession.hourlyrate,jobsession.session_starttime,jobsession.session_endtime FROM wp_jobs AS job JOIN wp_jobsessions AS jobsession ON job.id = jobsession.job_id  $queryConditionString    ORDER BY job.session_date_range, job.state_id, job.city_id, job.latitude, job.longitude ";
  
 	global $wpdb;
 	$results =  $wpdb->get_results($queryLast);
