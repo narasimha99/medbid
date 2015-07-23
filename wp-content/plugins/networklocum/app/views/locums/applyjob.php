@@ -78,11 +78,11 @@ $templtpath= get_template_directory_uri();
 		<div class="col-md-12">
  		<!-- its my code end here -->
 
-<<<<<<< HEAD
+
 		 <table class="table">
-=======
+
 		 <table  class="table">
->>>>>>> 3966eaf1f985fce46e97d15460c5ec03be6c48c6
+
 
 <tr>
 <td>&nbsp;</td>
@@ -99,7 +99,7 @@ $templtpath= get_template_directory_uri();
 <th>&nbsp;</th>
 <th>Sart Time</th>
 <th>End Time</th>
-<th>Hourly rate £</th>
+<th>Hourly rate &euro;</th>
 <th>Hours</th>
 <th>Pay to locum </th>
  
