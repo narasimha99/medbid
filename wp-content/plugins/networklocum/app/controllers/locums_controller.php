@@ -773,7 +773,7 @@ class LocumsController extends MvcPublicController {
 	 	}
     	}
 	
-<<<<<<< HEAD
+
 	public function sendlocummail($toEmail,$subject,$message){
 
 		$headers = "";
@@ -829,8 +829,7 @@ class LocumsController extends MvcPublicController {
 		mail($toEmail,$subject,$tmplatemessage,$headers);
 
 	}
-=======
->>>>>>> 3966eaf1f985fce46e97d15460c5ec03be6c48c6
+
 	
 }
 
