@@ -22,7 +22,7 @@ $url = esc_url( home_url( '/' ) );
 					<div class="col-xs-12 col-sm-6 col-md-3">
 						<h3>For Doctors</h3>
 						<ul>
-							<li><a class="" href="#">FAQs</a></li>
+							<li><a class="" href="<?php echo $url.'faq';?>">FAQs</a></li>
 							<li><a class="" href="<?php echo $url.'jobs/findjob';?>">View Jobs</a></li>
 							<li><a class="" href="<?php echo $url.'locums/locumsignup';?>">Medi Sign Up</a></li>
 							<li><a class="" href="#">Medi Ts & Cs</a></li>
@@ -82,5 +82,8 @@ $url = esc_url( home_url( '/' ) );
 //		interval:   4000
 //	});
 </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <?php /*?>  <script src="js/bootstrap.min.js"></script><?php */?>
    </body>
 </html>

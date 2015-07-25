@@ -1,6 +1,7 @@
 <?php get_header(); ?>
 <?php
 $templtpath= get_template_directory_uri(); 
+$url = esc_url( home_url( '/' )); 
 ?>
 <!-- Carousel start here-->
     	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">

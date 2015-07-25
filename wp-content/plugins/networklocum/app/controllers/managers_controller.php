@@ -156,10 +156,15 @@ class ManagersController extends MvcPublicController {
 		$sql= "SELECT `Locumdocument`.*, Locum.firstname, Locum.lastname FROM `wp_locumdocuments` `Locumdocument` JOIN wp_locums Locum ON Locum.id = Locumdocument.user_id WHERE Locumdocument.user_id IN ($locum_id)  ";
 		global $wpdb;	
 		$locumDocuments = $wpdb->get_results($sql);
- 
-
 		//echo "<pre>"; print_r($locumDocuments); echo "</pre>";exit;
 		$this->set('locumDocuments',$locumDocuments);
+
+
+		$this->load_model('Locumfile');
+		$locumFiles = $this->Locumfile->find_by_user_id($locum_id);
+		//echo "<pre>"; print_r($locumFiles); echo "</pre>";
+		$this->set('locumFiles',$locumFiles[0]);
+				
 		
 		if (isset($_POST['documentstatus'])){
 		$documentStatus = $_POST['documentstatus'];

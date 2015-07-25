@@ -34,8 +34,10 @@ $templtpath= get_template_directory_uri();
 					<td><?php echo $document->document_title;?>  </td>
  					
 					<?php
-					$downloadUrl = $url."verification_counter/".$locum_id."/".$document->document_filename;
-					$docFilename =  $document->document_filename;
+						$docFilename =  $document->document_filename;
+						$docUrl = $locumFiles->$docFilename;
+					$downloadUrl = $url."verification_counter/".$locum_id."/".$docUrl;
+	
 					// $locumDocuments[0]->$docFilename;
 			
 					if( $locumDocuments[0]->$docFilename == 0 ) {
@@ -43,8 +45,8 @@ $templtpath= get_template_directory_uri();
 					<td>
 						Not uploaded Yet.
 					</td>
-					<td>
-						&nbsp;
+					<td>&nbsp;
+						
 					</td>
 					<?php 
 					}

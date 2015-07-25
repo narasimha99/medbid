@@ -1,5 +1,6 @@
 <?php
  $templtpath= get_template_directory_uri(); 
+ $url = esc_url( home_url( '/' ) );
 ?>
 	<!--top main navbar start here-->
 	<nav class="navbar navbar-default navbar-fixed-top novborder">

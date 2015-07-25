@@ -223,12 +223,12 @@ class LocumsController extends MvcPublicController {
 		mkdir($target_dir, 0777);
 		chmod($upload_dir, 0777);
 
-		}
+	}
 		
 	 	$target_file = $target_dir . basename($selectedfileName);
 	 	$imageFileType = pathinfo($_FILES[$selectedfileName]["name"],PATHINFO_EXTENSION);
 		$target_file =	$target_file.'.'.$imageFileType;
-		//exit; 
+		$ftargetFilename =  basename($selectedfileName).'.'.$imageFileType; 
 
 	    if (move_uploaded_file($_FILES[$selectedfileName]["tmp_name"], $target_file)) {
 		 
@@ -238,14 +238,23 @@ class LocumsController extends MvcPublicController {
  		if($docdetails)
 			{
 				$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
-				$sqlUpdate = "update  wp_locumdocuments set $selectedfileName = 1 where user_id = $useriddir ";
+				$sqlFileUpdate = "update  wp_locumfiles set $selectedfileName = '$ftargetFilename' where user_id = $useriddir ";
 			}
   		else
-
+			{
 			 $sqlUpdate = "INSERT INTO  wp_locumdocuments (user_id,".$selectedfileName.")VALUES(".$useriddir.",1)"; 
+			 
+			 $sqlFileUpdate = "INSERT INTO  wp_locumfiles (user_id,".$selectedfileName.")VALUES($useriddir,'$ftargetFilename')"; 
+			}
+			  
+			 // echo $sqlUpdate;
+			 // echo $sqlFileUpdate;
+			 
  			$wpdb->query($sqlUpdate); 
-  		
-		$this->flash('success', 'Thanks for  Uploading the file we will approve ASAP.');
+			$wpdb->query($sqlFileUpdate); 
+			 
+  		    
+		$this->flash('success', 'Thanks for Uploading the file we will approve ASAP.');
  
 	    } else {
 		$this->flash('error', "Sorry, there was an error uploading your file.");

@@ -18,17 +18,14 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
           <ul class="nav navbar-nav navbar-right ulmargin">
-			<li class="tnav tnav2"><a class="" href="<?php  echo $url.'/locums/myprofile';?>">My Profile</a></li>
-			<li class="tnav tnav2"><a class="" href="<?php  echo $url.'/locums/myjobs';?>">My Jobs</a></li>
-			<li class="tnav tnav2"><a class="" href="#<?php //echo $url.'doctors';?>"">Billing</a></li>
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/findjob';?>">Find a job</a></li>
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'locums/accountdetails';?>">Your Account</a></li>
- 			<li class="tnav tnav2"> <a class="" href="<?php echo wp_logout_url(); ?>">Log out</a></li>
- 	
- 
+			<li class="tnav"><a class="" href="<?php  echo $url.'/locums/myprofile';?>">My Profile</a></li>
+			<li class="tnav"><a class="" href="<?php  echo $url.'/locums/myjobs';?>">My Jobs</a></li>
+			<li class="tnav"><a class="" href="#<?php //echo $url.'doctors';?>">Billing</a></li>
+			<li class="tnav"><a class="" href="<?php echo $url.'jobs/findjob';?>">Find a job</a></li>
+			<li class="tnav"><a class="" href="<?php echo $url.'locums/accountdetails';?>">Your Account</a></li>
+ 			<li class="tnav"> <a class="" href="<?php echo wp_logout_url(); ?>">Log out</a></li>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div> 
       </div>
 	  </div>
-
     </nav>
