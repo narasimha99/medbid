@@ -1,4 +1,5 @@
 <?php
+include("wp-config.php");
 header("HTTP/1.1 200 OK");
 session_start(); //Do not remove this
 //$_SESSION["sitemyurl"];
@@ -35,7 +36,8 @@ if (isset($_POST["filename"]) && file_exists($l_img_location)) {
 	//Scale the image to the thumb_width set above
 	$scale = $thb_width/$w;
 	$cropped = resizeThumbnailImage($thb_img_location, $l_img_location,$w,$h,$x1,$y1,$scale);
-
+	
+ 
  	mysql_connect(DB_HOST,DB_USER,DB_PASSWORD);
 	mysql_select_db(DB_NAME);
 	$user_id=$_SESSION['myuser_id'];
@@ -49,7 +51,7 @@ if (isset($_POST["filename"]) && file_exists($l_img_location)) {
 
 	echo "<p> Your profile picture updated click here to </p> ";
 	echo "<p><a href=\"".$_SESSION["mysitemyurl"]."\">Return to profile screen </a></p>";
- 
+  
 }
  
 

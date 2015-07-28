@@ -14,7 +14,7 @@ if(	$mylayout == 'empty')
 	include('emptypage-layout.php');
 
 if(	$mylayout == 'blankempty')
-	include('emptypage-layout.php');
+	include('blankemptypage-layout.php');
 
 
 

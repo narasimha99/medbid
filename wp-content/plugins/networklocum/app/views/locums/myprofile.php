@@ -56,7 +56,7 @@ $("#locumsignupnext").submit();
 				   </div>
 				   <div class="col-md-5">
 						  <ul style="list-style:none; line-height:25px;">
-						    <li><a href="<?php echo $url.'uploadprofileimage.php';?>">Change Photo</a></li>
+						    <li><a href="<?php echo $url.'locums/uploadprofileimage';?>">Change Photo</a></li>
 							<li><a href="<?php echo $url.'locums/';?>">Upload Documents</a></li>
 							<li><a href="<?php echo $url.'locums/editprofile';?>">Edit Profile</a></li>
 							<li><a href="<?php echo $url.'locums/changepassword';?>">Change Password</a></li>
