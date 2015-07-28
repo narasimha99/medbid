@@ -752,12 +752,17 @@ class LocumsController extends MvcPublicController {
 	}
 
 	public function upload(){
-		$this->set('mylayout', 'empty');
+		$this->set('mylayout', 'blankempty');
 
 	}
+
+	public function test(){
+		$this->set('mylayout','empty');
+		echo "testing";
+	}
 	
-	public function crop_script(){
-		$this->set('mylayout', 'empty');
+	public function cropscript(){
+		$this->set('mylayout', 'blankempty');
 	}
 
 

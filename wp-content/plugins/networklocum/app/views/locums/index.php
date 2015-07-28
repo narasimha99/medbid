@@ -53,7 +53,7 @@ $templtpath= get_template_directory_uri();
 							 </div>
 							  <div class="col-md-6">
 							   <div class="disdate_up">
-							<h3><a href="<?php echo  $url.'uploadprofileimage.php'; ?>">Profile Photo </a> </h3>
+							<h3><a href="<?php echo  $url.'locums/uploadprofileimage'; ?>">Profile Photo </a> </h3>
 								</div>	
 							 </div>
 						 </div>
@@ -65,7 +65,7 @@ $templtpath= get_template_directory_uri();
 						 
 							
 					<p style="padding:5px;"><a href="<?php echo  $url.'locums/uploadmutipledocuments/'; ?>">Upload more documents</a></p>
- 							<p style="padding:5px;"><a href="<?php echo  $url.'uploadprofileimage.php'; ?>">Upload Photo</a></p>
+ 							<p style="padding:5px;"><a href="<?php echo  $url.'locums/uploadprofileimage'; ?>">Upload Photo</a></p>
 							<p style="padding:5px;"><a href="<?php echo  $url.'locums/editprofile/'; ?>">Complete your profile</a></p>
 							<p style="padding:5px;"><a href="<?php echo  $url.'locums/upgradeyourmembership/'; ?>">Upgrade your membership</a></p>
 							
