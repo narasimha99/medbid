@@ -1,36 +1,41 @@
-jQuery(document).ready(createUploader);
-	jQuery(document).ready(function(){
-		var thumb = jQuery(".thumbnails");
+var SITE_ROOT_JS = myJSONObject.JSINFO[0].SITE_ROOT_VAR;
+
+$(document).ready(createUploader);
+	$(document).ready(function(){
+		var thumb = $(".thumbnails");
 		       
-		jQuery('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview});
+		$('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview});
 		
-		jQuery('#save_thumb').click(function() {
-			var x1 = jQuery('#x1').val();
-			var y1 = jQuery('#y1').val();
-			var x2 = jQuery('#x2').val();
-			var y2 = jQuery('#y2').val();
-			var w = jQuery('#w').val();
-			var h = jQuery('#h').val();
+		$('#save_thumb').click(function() {
+			var x1 = $('#x1').val();
+			var y1 = $('#y1').val();
+			var x2 = $('#x2').val();
+			var y2 = $('#y2').val();
+			var w = $('#w').val();
+			var h = $('#h').val();
 			if(x1=="" || y1=="" || x2=="" || y2=="" || w=="" || h==""){
 				alert("You must make a selection first");
 				return false;
 			}
 			else{
-				jQuery.ajax({
+		
+				var purl = SITE_ROOT_JS+'locums/cropscript';
+
+				$.ajax({
 					type : 'POST',
-					url: "crop_script.php",
-					data: "filename="+jQuery('#filename').val()+"&x1="+x1+"&x2="+x2+"&y1="+y1+"&y2="+y2+"&w="+w+"&h="+h,
+					url: purl,
+					data: "filename="+$('#filename').val()+"&x1="+x1+"&x2="+x2+"&y1="+y1+"&y2="+y2+"&w="+w+"&h="+h,
 					success: function(data){
-						thumb.attr('src', 'documpropic/thumb_'+jQuery('#filename').val());
+						thumb.attr('src',  SITE_ROOT_JS+'documpropic/thumb_'+$('#filename').val());
 						thumb.addClass('thumbnail');
-						jQuery('#thumbnail').imgAreaSelect({ hide: true, x1: 0, y1: 0, x2: 0, y2: 0 });
+						$('#thumbnail').imgAreaSelect({ hide: true, x1: 0, y1: 0, x2: 0, y2: 0 });
 						// let's clear the modal
-						jQuery('#thumbnail').attr('src', '');
-						jQuery('#crop-section').hide();
-						jQuery('#uploader-section').show();
-						jQuery('#thumb_preview').attr('src', '');
-						jQuery('#filename').attr('value', '');
-						jQuery("#customSuccessDIV").html(data);
+						$('#thumbnail').attr('src', '');
+						$('#crop-section').hide();
+						$('#uploader-section').show();
+						$('#thumb_preview').attr('src', '');
+						$('#filename').attr('value', '');
+						$("#customSuccessDIV").html(data);
 						//alert(data);
 					}
 				});
@@ -41,10 +46,12 @@ jQuery(document).ready(createUploader);
 	});
 	
     function createUploader(){ 
-    	var button = jQuery('#upload');           
+	var purl = SITE_ROOT_JS+'locums/upload';
+
+    	var button = $('#upload');           
         var uploader = new qq.FileUploaderBasic({
             button: document.getElementById('file-uploader'),
-            action: 'upload.php',
+            action: purl,
             allowedExtensions: ['jpg', 'gif', 'png', 'jpeg'],
             onSubmit: function(id, fileName) {
 				// change button text, when user selects file			
@@ -72,31 +79,31 @@ jQuery(document).ready(createUploader);
     }
         
     function load_original(filename){
-    	jQuery('#thumbnail').attr('src', "documpropic/"+filename);
-		jQuery('#thumb_preview').attr('src', "documpropic/"+filename);
-		jQuery('#filename').attr('value', filename);
-		if ( jQuery.browser.msie ) {
-			jQuery('#thumb_preview_holder').remove();
+    	$('#thumbnail').attr('src',SITE_ROOT_JS+"/documpropic/"+filename);
+		$('#thumb_preview').attr('src', SITE_ROOT_JS+"documpropic/"+filename);
+		$('#filename').attr('value', filename);
+		if ( $.browser.msie ) {
+			$('#thumb_preview_holder').remove();
 		}
-		jQuery('#crop-section').show();
-		jQuery('#uploader-section').hide();
+		$('#crop-section').show();
+		$('#uploader-section').hide();
 	}
 
 	function preview(img, selection) { 
-		var mythumb = jQuery('#thumbnail');
+		var mythumb = $('#thumbnail');
 		var scaleX = 156/selection.width; 
 		var scaleY = 156/selection.height; 
 		
-		jQuery('#thumbnail + div > img').css({ 
+		$('#thumbnail + div > img').css({ 
 			width: Math.round(scaleX * mythumb.outerWidth() ) + 'px', 
 			height: Math.round(scaleY * mythumb.outerHeight()) + 'px',
 			marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px', 
 			marginTop: '-' + Math.round(scaleY * selection.y1) + 'px' 
 		});
-		jQuery('#x1').val(selection.x1);
-		jQuery('#y1').val(selection.y1);
-		jQuery('#x2').val(selection.x2);
-		jQuery('#y2').val(selection.y2);
-		jQuery('#w').val(selection.width);
-		jQuery('#h').val(selection.height);
+		$('#x1').val(selection.x1);
+		$('#y1').val(selection.y1);
+		$('#x2').val(selection.x2);
+		$('#y2').val(selection.y2);
+		$('#w').val(selection.width);
+		$('#h').val(selection.height);
 	}
