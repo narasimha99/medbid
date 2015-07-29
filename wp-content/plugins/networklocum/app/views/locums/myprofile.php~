@@ -56,7 +56,7 @@ $("#locumsignupnext").submit();
 				   </div>
 				   <div class="col-md-5">
 						  <ul style="list-style:none; line-height:25px;">
-						    <li><a href="<?php echo $url.'uploadprofileimage.php';?>">Change Photo</a></li>
+						    <li><a href="<?php echo $url.'locums/uploadprofileimage';?>">Change Photo</a></li>
 							<li><a href="<?php echo $url.'locums/';?>">Upload Documents</a></li>
 							<li><a href="<?php echo $url.'locums/editprofile';?>">Edit Profile</a></li>
 							<li><a href="<?php echo $url.'locums/changepassword';?>">Change Password</a></li>
@@ -78,7 +78,7 @@ $("#locumsignupnext").submit();
 			   </div>
 			   <div style="margin:10px;">
 			     <h3>Verification documents</h3>
-				  <p style="padding:5px;">If you haven't uploaded any documents yet. We need your CV, MDU, GMC, certification of completion of training, passport and CRB. Other documents are not essential, but are useful to help practices verify you. For more help on becoming approved, <a href="#">please see our blog post</a> or <a href="<?php echo  $url.'locums/uploadmutipledocuments/'; ?>">Upload more documents to verfify </a>
+				  <p style="padding:5px;">If you haven't uploaded any documents yet. We need your CV, MDU, GMC, certification of completion of training, passport and CRB. Other documents are not essential, but are useful to help practices verify you. For more help on becoming approved, <a href="#">please see our blog post</a> or <a href="<?php echo  $url.'locums/uploadmutipledocuments/'; ?>">Upload more documents to verfify. </a>
 </p>
 			   </div>
 			   </div>

@@ -13,9 +13,17 @@ if(	$mylayout == 'client')
 if(	$mylayout == 'empty')
 	include('emptypage-layout.php');
 
+<<<<<<< HEAD
 if(	$mylayout == 'newempty')
 
 	include('newemptypage-layout.php');
+=======
+if(	$mylayout == 'blankempty')
+	include('blankemptypage-layout.php');
+
+
+
+>>>>>>> 92707f9c64f816df9e756ca899b018a0eb61e22a
 
 else
 	include('client-layout.php');

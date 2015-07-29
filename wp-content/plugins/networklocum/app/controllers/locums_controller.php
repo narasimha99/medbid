@@ -18,8 +18,11 @@ class LocumsController extends MvcPublicController {
 		$this->set('masterDocuments',$masterDocuments);
 		
  		// echo "<pre>"; print_r($locumObject); echo "</pre>";
-		$this->sendlocummail('snmurty99@gmail.com','Your profile test','testing');	
-		 
+		//$this->sendlocummail('snmurty99@gmail.com','Your profile test','testing');	
+		$url = esc_url( home_url( '/' ));
+		$targetUrl = $url.'locums/myprofile';
+		$_SESSION["mysitemyurl"] = $targetUrl;
+
     	}
 
 	function checkdocument($id,$masterDocuments,$location){
@@ -554,6 +557,10 @@ class LocumsController extends MvcPublicController {
 			
 		$companyStatus = array('I operate as a limited company','I do not operate as a limited company');
 		$this->set('companyStatus', $companyStatus); 
+	
+		$url = esc_url( home_url( '/' ));
+		$targetUrl = $url.'locums/myprofile';
+		$_SESSION["mysitemyurl"] = $targetUrl;
 	}
 
 	
@@ -761,12 +768,26 @@ class LocumsController extends MvcPublicController {
 	}
 
 	public function upload(){
+<<<<<<< HEAD
 	 	$this->set('mylayout', 'newempty');
+=======
+		$this->set('mylayout', 'blankempty');
 
 	}
+>>>>>>> 92707f9c64f816df9e756ca899b018a0eb61e22a
+
+	public function test(){
+		$this->set('mylayout','empty');
+		//echo "testing";
+	}
 	
+<<<<<<< HEAD
 	public function crop_script(){
 	 	$this->set('mylayout', 'newempty');
+=======
+	public function cropscript(){
+		$this->set('mylayout', 'blankempty');
+>>>>>>> 92707f9c64f816df9e756ca899b018a0eb61e22a
 	}
 
 

@@ -19,14 +19,14 @@ $(document).ready(createUploader);
 			}
 			else{
 		
-				var purl = SITE_ROOT_JS+'locums/crop_script';
+				var purl = SITE_ROOT_JS+'locums/cropscript';
 
 				$.ajax({
 					type : 'POST',
 					url: purl,
 					data: "filename="+$('#filename').val()+"&x1="+x1+"&x2="+x2+"&y1="+y1+"&y2="+y2+"&w="+w+"&h="+h,
 					success: function(data){
-						thumb.attr('src', 'documpropic/thumb_'+$('#filename').val());
+						thumb.attr('src',  SITE_ROOT_JS+'documpropic/thumb_'+$('#filename').val());
 						thumb.addClass('thumbnail');
 						$('#thumbnail').imgAreaSelect({ hide: true, x1: 0, y1: 0, x2: 0, y2: 0 });
 						// let's clear the modal
@@ -80,7 +80,11 @@ $(document).ready(createUploader);
     }
         
     function load_original(filename){
+<<<<<<< HEAD
     	$('#thumbnail').attr('src', SITE_ROOT_JS+"/documpropic/"+filename);
+=======
+    	$('#thumbnail').attr('src',SITE_ROOT_JS+"/documpropic/"+filename);
+>>>>>>> 92707f9c64f816df9e756ca899b018a0eb61e22a
 		$('#thumb_preview').attr('src', SITE_ROOT_JS+"documpropic/"+filename);
 		$('#filename').attr('value', filename);
 		if ( $.browser.msie ) {

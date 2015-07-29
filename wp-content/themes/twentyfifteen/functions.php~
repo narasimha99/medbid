@@ -402,9 +402,10 @@ echo "<pre>";print_r($wp);
 		$tmplatemessage .= '</tr>';
 		$tmplatemessage .= '</table>';
 		$tmplatemessage .= '</div>';
-		echo $tmplatemessage;  exit;
+		//echo $tmplatemessage; 
 		mail($toEmail,$subject,$tmplatemessage,$headers);
 
 	}
+
 
 
