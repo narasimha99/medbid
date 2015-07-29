@@ -1,5 +1,4 @@
-var SITE_ROOT_JS = myJSONObject.JSINFO[0].SITE_ROOT_VAR;
-
+var $ = jQuery.noConflict();
 $(document).ready(createUploader);
 	$(document).ready(function(){
 		var thumb = $(".thumbnails");
@@ -18,15 +17,12 @@ $(document).ready(createUploader);
 				return false;
 			}
 			else{
-		
-				var purl = SITE_ROOT_JS+'locums/cropscript';
-
 				$.ajax({
 					type : 'POST',
-					url: purl,
+					url: "crop_script.php",
 					data: "filename="+$('#filename').val()+"&x1="+x1+"&x2="+x2+"&y1="+y1+"&y2="+y2+"&w="+w+"&h="+h,
 					success: function(data){
-						thumb.attr('src',  SITE_ROOT_JS+'documpropic/thumb_'+$('#filename').val());
+						thumb.attr('src', 'documpropic/thumb_'+$('#filename').val());
 						thumb.addClass('thumbnail');
 						$('#thumbnail').imgAreaSelect({ hide: true, x1: 0, y1: 0, x2: 0, y2: 0 });
 						// let's clear the modal
@@ -46,12 +42,10 @@ $(document).ready(createUploader);
 	});
 	
     function createUploader(){ 
-	var purl = SITE_ROOT_JS+'locums/upload';
-
     	var button = $('#upload');           
         var uploader = new qq.FileUploaderBasic({
             button: document.getElementById('file-uploader'),
-            action: purl,
+            action: 'upload.php',
             allowedExtensions: ['jpg', 'gif', 'png', 'jpeg'],
             onSubmit: function(id, fileName) {
 				// change button text, when user selects file			
@@ -79,8 +73,8 @@ $(document).ready(createUploader);
     }
         
     function load_original(filename){
-    	$('#thumbnail').attr('src',SITE_ROOT_JS+"/documpropic/"+filename);
-		$('#thumb_preview').attr('src', SITE_ROOT_JS+"documpropic/"+filename);
+    	$('#thumbnail').attr('src', "documpropic/"+filename);
+		$('#thumb_preview').attr('src', "documpropic/"+filename);
 		$('#filename').attr('value', filename);
 		if ( $.browser.msie ) {
 			$('#thumb_preview_holder').remove();

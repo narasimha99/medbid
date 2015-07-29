@@ -16,9 +16,6 @@ if(	$mylayout == 'empty')
 if(	$mylayout == 'blankempty')
 	include('blankemptypage-layout.php');
 
-
-
-
 else
 	include('client-layout.php');
 ?>

@@ -1,41 +1,36 @@
-var SITE_ROOT_VAR = "http://suresh/medbid/";
-
-$(document).ready(createUploader);
-	$(document).ready(function(){
-		var thumb = $(".thumbnails");
+jQuery(document).ready(createUploader);
+	jQuery(document).ready(function(){
+		var thumb = jQuery(".thumbnails");
 		       
-		$('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview});
+		jQuery('#thumbnail').imgAreaSelect({ aspectRatio: '1:1', onSelectChange: preview});
 		
-		$('#save_thumb').click(function() {
-			var x1 = $('#x1').val();
-			var y1 = $('#y1').val();
-			var x2 = $('#x2').val();
-			var y2 = $('#y2').val();
-			var w = $('#w').val();
-			var h = $('#h').val();
+		jQuery('#save_thumb').click(function() {
+			var x1 = jQuery('#x1').val();
+			var y1 = jQuery('#y1').val();
+			var x2 = jQuery('#x2').val();
+			var y2 = jQuery('#y2').val();
+			var w = jQuery('#w').val();
+			var h = jQuery('#h').val();
 			if(x1=="" || y1=="" || x2=="" || y2=="" || w=="" || h==""){
 				alert("You must make a selection first");
 				return false;
 			}
 			else{
-		
-				var purl = SITE_ROOT_JS+'locums/cropscript';
-
-				$.ajax({
+				jQuery.ajax({
 					type : 'POST',
-					url: purl,
-					data: "filename="+$('#filename').val()+"&x1="+x1+"&x2="+x2+"&y1="+y1+"&y2="+y2+"&w="+w+"&h="+h,
+					url: "crop_script.php",
+					data: "filename="+jQuery('#filename').val()+"&x1="+x1+"&x2="+x2+"&y1="+y1+"&y2="+y2+"&w="+w+"&h="+h,
 					success: function(data){
-						thumb.attr('src',  SITE_ROOT_JS+'documpropic/thumb_'+$('#filename').val());
+						thumb.attr('src', 'documpropic/thumb_'+jQuery('#filename').val());
 						thumb.addClass('thumbnail');
-						$('#thumbnail').imgAreaSelect({ hide: true, x1: 0, y1: 0, x2: 0, y2: 0 });
+						jQuery('#thumbnail').imgAreaSelect({ hide: true, x1: 0, y1: 0, x2: 0, y2: 0 });
 						// let's clear the modal
-						$('#thumbnail').attr('src', '');
-						$('#crop-section').hide();
-						$('#uploader-section').show();
-						$('#thumb_preview').attr('src', '');
-						$('#filename').attr('value', '');
-						$("#customSuccessDIV").html(data);
+						jQuery('#thumbnail').attr('src', '');
+						jQuery('#crop-section').hide();
+						jQuery('#uploader-section').show();
+						jQuery('#thumb_preview').attr('src', '');
+						jQuery('#filename').attr('value', '');
+						jQuery("#customSuccessDIV").html(data);
 						//alert(data);
 					}
 				});
@@ -46,12 +41,10 @@ $(document).ready(createUploader);
 	});
 	
     function createUploader(){ 
-	var purl = SITE_ROOT_JS+'locums/upload';
-
-    	var button = $('#upload');           
+    	var button = jQuery('#upload');           
         var uploader = new qq.FileUploaderBasic({
             button: document.getElementById('file-uploader'),
-            action: purl,
+            action: 'upload.php',
             allowedExtensions: ['jpg', 'gif', 'png', 'jpeg'],
             onSubmit: function(id, fileName) {
 				// change button text, when user selects file			
@@ -67,11 +60,10 @@ $(document).ready(createUploader);
 				}, 200);
 			},
             onComplete: function(id, fileName, responseJSON){
-						 
             	button.text('Change profile picture');
 				window.clearInterval(interval);
 				
-					if(responseJSON['success'])
+            	if(responseJSON['success'])
             	{
             		load_original(responseJSON['filename']);
 					}},
@@ -80,35 +72,31 @@ $(document).ready(createUploader);
     }
         
     function load_original(filename){
-<<<<<<< HEAD
-    	$('#thumbnail').attr('src', SITE_ROOT_JS+"/documpropic/"+filename);
-=======
-    	$('#thumbnail').attr('src',SITE_ROOT_JS+"/documpropic/"+filename);
->>>>>>> 92707f9c64f816df9e756ca899b018a0eb61e22a
-		$('#thumb_preview').attr('src', SITE_ROOT_JS+"documpropic/"+filename);
-		$('#filename').attr('value', filename);
-		if ( $.browser.msie ) {
-			$('#thumb_preview_holder').remove();
+    	jQuery('#thumbnail').attr('src', "documpropic/"+filename);
+		jQuery('#thumb_preview').attr('src', "documpropic/"+filename);
+		jQuery('#filename').attr('value', filename);
+		if ( jQuery.browser.msie ) {
+			jQuery('#thumb_preview_holder').remove();
 		}
-		$('#crop-section').show();
-		$('#uploader-section').hide();
+		jQuery('#crop-section').show();
+		jQuery('#uploader-section').hide();
 	}
 
 	function preview(img, selection) { 
-		var mythumb = $('#thumbnail');
+		var mythumb = jQuery('#thumbnail');
 		var scaleX = 156/selection.width; 
 		var scaleY = 156/selection.height; 
 		
-		$('#thumbnail + div > img').css({ 
+		jQuery('#thumbnail + div > img').css({ 
 			width: Math.round(scaleX * mythumb.outerWidth() ) + 'px', 
 			height: Math.round(scaleY * mythumb.outerHeight()) + 'px',
 			marginLeft: '-' + Math.round(scaleX * selection.x1) + 'px', 
 			marginTop: '-' + Math.round(scaleY * selection.y1) + 'px' 
 		});
-		$('#x1').val(selection.x1);
-		$('#y1').val(selection.y1);
-		$('#x2').val(selection.x2);
-		$('#y2').val(selection.y2);
-		$('#w').val(selection.width);
-		$('#h').val(selection.height);
+		jQuery('#x1').val(selection.x1);
+		jQuery('#y1').val(selection.y1);
+		jQuery('#x2').val(selection.x2);
+		jQuery('#y2').val(selection.y2);
+		jQuery('#w').val(selection.width);
+		jQuery('#h').val(selection.height);
 	}

@@ -33,7 +33,7 @@ $url = esc_url( home_url( '/' ) );
  <!-- facebox -->
  <script type="text/javascript">
 var myJSONObject = {"JSINFO": [
-        {"SITE_ROOT_VAR": "<?php echo esc_url( home_url( '/' ) ); ?>", "SERVER_ROOT_VAR": ""}
+        {"SITE_ROOT_VAR": "<?php echo esc_url( home_url( '/' ) ); ?>"}
     ]
 }; 
  

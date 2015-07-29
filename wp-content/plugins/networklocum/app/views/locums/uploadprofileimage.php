@@ -14,8 +14,7 @@ $templtpath= get_template_directory_uri();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">	 zxllgj12345
- 	
+
 
 	<link href="<?php echo $templtpath;?>/css/bootstrap.css" rel="stylesheet">
 	<link href="<?php echo $templtpath;?>/css/custom.css" rel="stylesheet">

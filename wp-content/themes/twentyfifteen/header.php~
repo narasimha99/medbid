@@ -33,7 +33,7 @@ $url = esc_url( home_url( '/' ) );
  <!-- facebox -->
  <script type="text/javascript">
 var myJSONObject = {"JSINFO": [
-        {"SITE_ROOT_VAR": "<?php echo esc_url( home_url( '/' ) ); ?>", "SERVER_ROOT_VAR": ""}
+        {"SITE_ROOT_VAR": "<?php echo esc_url( home_url( '/' ) ); ?>"}
     ]
 }; 
  
@@ -68,8 +68,7 @@ var myJSONObject = {"JSINFO": [
 $templtpath= get_template_directory_uri(); 
 ?>
 </head>
-
- <body>
+<body>
 <?php 
 $user_id = get_current_user_id();
 if ( $user_id == 0 ) {
