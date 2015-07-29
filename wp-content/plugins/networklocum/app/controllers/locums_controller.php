@@ -768,28 +768,18 @@ class LocumsController extends MvcPublicController {
 	}
 
 	public function upload(){
-<<<<<<< HEAD
-	 	$this->set('mylayout', 'newempty');
-=======
-		$this->set('mylayout', 'blankempty');
+ 		$this->set('mylayout', 'blankempty');
 
 	}
->>>>>>> 92707f9c64f816df9e756ca899b018a0eb61e22a
-
+ 
 	public function test(){
 		$this->set('mylayout','empty');
 		//echo "testing";
 	}
-	
-<<<<<<< HEAD
-	public function crop_script(){
-	 	$this->set('mylayout', 'newempty');
-=======
+ 
 	public function cropscript(){
 		$this->set('mylayout', 'blankempty');
->>>>>>> 92707f9c64f816df9e756ca899b018a0eb61e22a
 	}
-
 
 	public function isvaliduser(){
  		$user_id = get_current_user_id();
