@@ -12,6 +12,11 @@ if(	$mylayout == 'client')
 
 if(	$mylayout == 'empty')
 	include('emptypage-layout.php');
+
+if(	$mylayout == 'newempty')
+
+	include('newemptypage-layout.php');
+
 else
 	include('client-layout.php');
 ?>

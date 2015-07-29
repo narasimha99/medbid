@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Handle file uploads via XMLHttpRequest
  */

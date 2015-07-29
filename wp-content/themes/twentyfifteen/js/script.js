@@ -1,4 +1,4 @@
-var SITE_ROOT_JS = myJSONObject.JSINFO[0].SITE_ROOT_VAR;
+var SITE_ROOT_VAR = "http://suresh/medbid/";
 
 $(document).ready(createUploader);
 	$(document).ready(function(){
@@ -67,10 +67,11 @@ $(document).ready(createUploader);
 				}, 200);
 			},
             onComplete: function(id, fileName, responseJSON){
+						 
             	button.text('Change profile picture');
 				window.clearInterval(interval);
 				
-            	if(responseJSON['success'])
+					if(responseJSON['success'])
             	{
             		load_original(responseJSON['filename']);
 					}},
@@ -79,8 +80,8 @@ $(document).ready(createUploader);
     }
         
     function load_original(filename){
-    	$('#thumbnail').attr('src', "documpropic/"+filename);
-		$('#thumb_preview').attr('src', "documpropic/"+filename);
+    	$('#thumbnail').attr('src', SITE_ROOT_JS+"/documpropic/"+filename);
+		$('#thumb_preview').attr('src', SITE_ROOT_JS+"documpropic/"+filename);
 		$('#filename').attr('value', filename);
 		if ( $.browser.msie ) {
 			$('#thumb_preview_holder').remove();
