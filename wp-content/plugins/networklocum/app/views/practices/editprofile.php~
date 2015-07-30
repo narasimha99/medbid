@@ -61,7 +61,7 @@ $templtpath= get_template_directory_uri();
 					  
 					  <div class="form-group">
 						  <label for="password" class="control-label">Practice code</label><br>
-						  <input type="text" class="form-control ff1" id="practice_code" name="data[Practice][practice_code]" value="<?php echo $practiceobject->practice_code;?>"   title="" placeholder="practice code"/>
+						  <input type="text" class="form-control ff1" id="practice_code" name="data[Practice][practice_code]" value="<?php echo $practiceobject->practice_code;?>"   title="" placeholder="practice code"   <?php  if ($practiceobject->verifiedpracticer == 1 ) echo 'readonly=readonly'; ?>/>
 						 <span class="errorspan" id="errspan_practice_code"></span>
 					  </div>
 					  

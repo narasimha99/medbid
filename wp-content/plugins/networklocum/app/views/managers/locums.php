@@ -43,9 +43,9 @@ $templtpath= get_template_directory_uri();
 					if( $locum->verifiedlocum == 0) { ?>
 <a href="<?php echo $url.'/managers/verifylocums/'.$locum->id;?>" class="btn btn-primary aplbtn" title="verify locums">verify locum</a>
 					<?php }
-						if ( $locum->verifiedlocum == 1) 
+						 if ( $locum->verifiedlocum == 1) 
 						 	echo "Varified";
-						else 
+						 if ( $locum->verifiedlocum == 2) 
 							echo "Rejected";
 					 ?>
 			

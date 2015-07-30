@@ -156,10 +156,15 @@ class ManagersController extends MvcPublicController {
 		$sql= "SELECT `Locumdocument`.*, Locum.firstname, Locum.lastname FROM `wp_locumdocuments` `Locumdocument` JOIN wp_locums Locum ON Locum.id = Locumdocument.user_id WHERE Locumdocument.user_id IN ($locum_id)  ";
 		global $wpdb;	
 		$locumDocuments = $wpdb->get_results($sql);
- 
-
 		//echo "<pre>"; print_r($locumDocuments); echo "</pre>";exit;
 		$this->set('locumDocuments',$locumDocuments);
+
+
+		$this->load_model('Locumfile');
+		$locumFiles = $this->Locumfile->find_by_user_id($locum_id);
+		//echo "<pre>"; print_r($locumFiles); echo "</pre>";
+		$this->set('locumFiles',$locumFiles[0]);
+				
 		
 		if (isset($_POST['documentstatus'])){
 		$documentStatus = $_POST['documentstatus'];
@@ -183,8 +188,7 @@ class ManagersController extends MvcPublicController {
 
 	public function verifylocums(){
 
-		  
-		$this->set('mylayout', 'client'); 
+ 		$this->set('mylayout', 'client'); 
 		$locum_id = $this->params['id'];
 	
 		$this->load_model('Locum');
@@ -216,44 +220,35 @@ class ManagersController extends MvcPublicController {
 
 			$locumName = $Locumobject->firstname.' '.$Locumobject->lastname;
 			$locumemail = $Locumobject->email;
-			 $url = esc_url(home_url('/'));
+			$url = esc_url(home_url('/'));
 			
-			$headers = "MIME-Version: 1.0\r\n";
-			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-			
-
-	
-
+			 
 			if( $verifiedlocum == 1 ){
-				
- 				$message = "Dear $locumName, <br><br>
+				$message  ="<tr><td>";
+ 				$message .= "Dear $locumName, <br><br>
 				Congratulations, your succefully verified  by our team,<br> 
 				Please click here to confirm once to know your availablity. <br>
 				<a href='"."$url/locum'> Click here to view your profile </a> <br><br>
 				Regards, <br>
 				Docum. ";
-
-				//echo $message;
-				$headers = "MIME-Version: 1.0 \r\n";
-				$headers .= "Content-type: text/html; charset=\"UTF-8\" \r\n";
-				$headers .= "From: My site<noreply@example.com>\r\n";
-
-
-				sendlocummail($locumemail,'Congratulations your account verified  by Docum',$message,$headers);
+				$message .= "</td></tr>";
+			 
+				sendlocummail($locumemail,'Congratulations your account verified  by Docum',$message);
 				$this->flash('success', 'You have succesfully varified our locums.');
  
 			}
-				if( $verifiedlocum == 2){
-				$message = "Dear $locumName, <br><br>
+			if( $verifiedlocum == 2){
+				$message  ="<tr><td>";
+				$message .= "Dear $locumName, <br><br>
 				your profile rejected due to invalid details  verified  by our team,<br> 
 				Please click here to update your profile. <br>
 				<a href='"."$url/locum'> Click here to view your profile </a> <br><br>
 				Regards, <br>
 				Docum. ";
-
+				$message .= "</td></tr>";
 				//echo $message;
 				 
-				mail($locumemail,'Your profile account rejected by our Docum',$message,$headers);
+				sendlocummail($locumemail,'Your profile varified by our Docum',$message);
 				$this->flash('success', 'Your rejected current locums.');	
 			}
 			
@@ -264,64 +259,85 @@ class ManagersController extends MvcPublicController {
  
 	}
 
+
+	public function verifypracticer(){
+
+		$this->set('mylayout', 'client'); 
+		$practicer_id = $this->params['id'];
+	
+		$this->load_model('Practice');
+		$practicerobject = $this->Practice->find_by_id($practicer_id);
+		//echo "<pre>"; print_r($practicerobject); echo "</pre>";
+ 		$this->set('practicerobject',$practicerobject); 
+		
+		$this->load_model('itsystem');
+		$itsystemlist = $this->itsystem->find();
+		$this->set('itsystemlist',$itsystemlist);
+
+		$this->load_model('cgcode');
+		$cgcodelist = $this->cgcode->find();
+ 		$this->set('cgcodelist',$cgcodelist);
+
+		$this->load_model('Pctcode');
+		$Pctcodelist = $this->Pctcode->find();
+		$this->set('Pctcodelist',$Pctcodelist);
+
+				//echo "<pre>";print_r($_POST);echo"</pre>";
+		if(isset($_POST['verifiedpracticer'])){
+			
+			$practicer_id = $_POST['id']; 
+			$verifiedpracticer = $_POST['verifiedpracticer'];
+			$this->Practice->update($practicer_id,$_POST);
+
+			$PracticeName = $practicerobject->firstname.' '.$practicerobject->lastname;
+			$Practiceemail = $practicerobject->email;
+			$url = esc_url(home_url('/'));
+			
+			 
+			if( $verifiedpracticer == 1 ){
+				$message  ="<tr><td>";
+ 				$message .= "Dear $PracticeName, <br><br>
+				Congratulations, your succefully verified  by our team,<br> 
+				Please click here to confirm once to know your availablity. <br>
+				<a href='"."$url/practices'> Click here to view your profile </a> <br><br>
+				Regards, <br>
+				Docum. ";
+				$message .= "</td></tr>";
+			 
+				sendlocummail($Practiceemail,'Congratulations your account verified  by Docum',$message);
+				$this->flash('success', 'You have succesfully varified our locums.');
+ 
+			}
+			if( $verifiedpracticer == 2){
+
+				$message  ="<tr><td>";
+				$message .= "Dear $locumName, <br><br>
+				your profile rejected due to invalid details  verified  by our team,<br> 
+				Please click here to update your profile. <br>
+				<a href='"."$url/practices'> Click here to view your profile </a> <br><br>
+				Regards, <br>
+				Docum. ";
+				$message .= "</td></tr>";
+				//echo $message;
+				 
+				sendlocummail($Practiceemail,'Your profile varified by our Docum',$message);
+				$this->flash('success', 'Your rejected current locums.');	
+			}
+			
+			$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'practices'));
+		        $this->redirect($url);		
+			
+		}
+		
+
+		
+ 	}
+
+
 	public function jobs(){
 
 	}
 	
-	public function sendlocummail($toEmail,$subject,$message){
-
-	$headers = "";
-	$headers.="MIME-Version: 1.0 \r\n";
-	$headers.="Content-type: text/html; charset=\"UTF-8\" \r\n";
- 	$headers .= "From: My site<noreply@example.com>\r\n";
-
-	$tmplatemessage  = "<div>";
-	$tmplatemessage .= '<table width="100%" border="0" bgcolor="#fafafa" style=" border:2px solid #cdcdcd;">';
-	$tmplatemessage .= '<tr bgcolor="#62BFE1">';
-	$tmplatemessage .= '<td><img src="http://64.37.52.189/~hashtagf/medbid/wp-content/themes/twentyfifteen/images/medbidlogo.png"></td>';
-	$tmplatemessage .= '</tr>';
-	$tmplatemessage .= '<tr>';
-	$tmplatemessage .= '<td>';
-	$tmplatemessage .=  '<p>Hi Name,</p>';
-	$tmplatemessage .= '<p>Thanks for registered with us.</p>';
-	$tmplatemessage .= '<p>Your Login details as follows.</p>';
-	$tmplatemessage .= '<table width="60%" align="center" bgcolor="#cdcdcd" cellpadding="5" cellspacing="1">';
-	$tmplatemessage .= '<tr bgcolor="#fff">';
-	$tmplatemessage .= '<td><p><strong>Username</strong></p></td>';
-	$tmplatemessage .= '<td>username</td>';
-	$tmplatemessage .= '</tr>';
-	$tmplatemessage .= '<tr bgcolor="#fff">';
-	$tmplatemessage .= '<td><p><strong>Password</strong></p></td>';
-	$tmplatemessage .= '<td>password</td>';
-	$tmplatemessage .= '</tr>';
-	$tmplatemessage .= '</table>';
-	$tmplatemessage .= '<p>Feel free to ask any queries. email us <a href="mailto:info@docum.co.uk">info@docum.co.uk</a></p>';
-	$tmplatemessage .= '<p>Thanks, have a lovely day.</p>';
-	$tmplatemessage .= '</td>';
-	$tmplatemessage .=  '</tr>';
-	$tmplatemessage .= '</table>';
-	$tmplatemessage .= '</div>';
-	$tmplatemessage .= '</td>';
-	$tmplatemessage .= '<td></td>';
-	$tmplatemessage .= '</tr>';
-	$tmplatemessage .= '</table>';
-	$tmplatemessage .= '<table>';
-	$tmplatemessage .= '<tr>';
-	$tmplatemessage .= '<td></td>';
-	$tmplatemessage .= '<td>';
-	$tmplatemessage .= '<div>';
-	$tmplatemessage .= '<table>';
-	$tmplatemessage .= '<tr>';
-	$tmplatemessage .= '<td align="center">';
-	$tmplatemessage .= '<p>Don\'t like these annoying emails? <a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>.';
-	$tmplatemessage .= '</p>';
-	$tmplatemessage .= '</td>';
-	$tmplatemessage .= '</tr>';
-	$tmplatemessage .= '</table>';
-	$tmplatemessage .= '</div>';
-	
-	mail($toEmail,$subject,$tmplatemessage,$headers);
-
-	}
+	 
 }
 ?>

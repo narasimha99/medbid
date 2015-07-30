@@ -8,6 +8,7 @@ class PracticesController extends MvcPublicController {
  		$_SESSION['user_id'] =  $user_id;
 		$this->load_model('Practice');
 		$PracticeObject = $this->Practice->find_by_user_id($user_id);
+		$this->set('PracticeObject',$PracticeObject);
  		$_SESSION['practicer_id'] = $PracticeObject[0]->id;	
 
 		$practicer_id = $_SESSION['practicer_id'];
@@ -143,14 +144,19 @@ class PracticesController extends MvcPublicController {
  		//$temp_file = tempnam(sys_get_temp_dir(), 'Tux');
  		//echo $temp_file;
 
-		
+		/*
 		$target_dir = "uploads/";
 		  $target_file = $target_dir . basename($_FILES['locum_pack']['name']);
   		if(move_uploaded_file($_FILES['locum_pack']["tmp_name"], $target_file)){
 		        echo "The file ". basename($_FILES["'locum_pack"]["name"]). " has been uploaded.";
 			$this->params['data']['Practice']['locum_pack'] =  $_FILES["'locum_pack"]["name"];
 		}
- 		
+ 		*/
+
+			if( $this->params['data']['Practice']['verifiedpracticer'] == 2)
+			$this->params['data']['Practice']['verifiedpracticer'] = 0;
+			
+
 
 		  $this->params['data']['Practice']['it_systems'] =  implode(",",$this->params['data']['Practice']['it_systems']);
  		  $this->Practice->save($this->params['data']['Practice']);	
@@ -306,6 +312,9 @@ class PracticesController extends MvcPublicController {
 		$this->set('Pctcodelist',$Pctcodelist);
 		
  	}
+
+
+	
 
 	public function isvaliduser(){
  		$user_id = get_current_user_id();

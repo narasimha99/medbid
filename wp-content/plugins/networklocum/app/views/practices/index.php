@@ -25,6 +25,17 @@ prettyPrint();
 		
 		<div class="dashbg">
 			<div class="container">
+
+
+			<?php 
+			if ( $PracticeObject[0]->verifiedpracticer == 0  || $PracticeObject[0]->verifiedpracticer == 2 ) {
+			?>
+			<div class="row">
+			<div style="padding:15px; border:1px solid #cdcdcd; background-color:#fafafa;">Your profile is not yet approved by our team, before post any job it should be valid.. <a href="<?php echo  $url.'practices/editprofile/'; ?>">more...</a></div>
+			</div>	
+			<?php } ?>
+
+
 				<div class="row">
 					<div class="col-md-12">
 						<div class="dashmid">

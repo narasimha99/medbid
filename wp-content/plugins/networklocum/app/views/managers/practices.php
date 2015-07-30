@@ -39,7 +39,20 @@ $templtpath= get_template_directory_uri();
 					<td data-title="Code"><?php echo $practice->phone_number;?></td>
 					<td data-title="Code"><?php echo $practice->practice_code;?></td>
 					<td data-title="Code"><?php echo $practice->practicename;?></td>
-          				<td data-title="Change %" class="numeric"><a href="<?php echo $url.'practices/viewpracticer/'.$practice->id; ?>" class="btn btn-primary aplbtn" title="Verify practicer">Verify</a></td>
+          				<td data-title="Change %" class="numeric">
+
+
+
+					<?php
+					if( $practice->verifiedpracticer == 0) { ?>
+<a href="<?php echo $url.'managers/verifypracticer/'.$practice->id;?>" class="btn btn-primary aplbtn" title="verify locums">verify practicer</a>
+					<?php }
+						if ( $practice->verifiedpracticer == 1) 
+						 	echo "Varified";
+						 if ( $practice->verifiedpracticer == 2) 
+							echo "Rejected";
+					 ?>
+			</td>
         			</tr>
 			<?php } ?>
         			 
