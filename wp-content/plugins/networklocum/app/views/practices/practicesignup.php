@@ -39,16 +39,7 @@ $templtpath= get_template_directory_uri();
 						  <input type="text" class="form-control ff1" id="email" name="data[Practice][email]" value="<?php echo $_POST[data][Practice][email];?>"  title="Please enter you email"  placeholder="Please enter you email" />
 						  <span class="errorspan" id="errspan_email"></span>
 					  </div>
-					  <div class="form-group">
-						  <label for="password" class="control-label">Password</label>
-						  <input type="password" class="form-control ff1" id="password" name="data[Practice][password]" value="<?php echo $_POST[data][Practice][password];?>" title="Please enter password"  placeholder="Please enter you password" />
-						    <span class="errorspan" id="errspan_password"></span>	
-					  </div>
-					  <div class="form-group">
-						  <label for="password" class="control-label">Repeat Password</label>
-						  <input type="password" class="form-control ff1" id="password1" name="data[Practice][password1]" value="<?php echo $_POST[data][Practice][password1];?>" title="Please enter repeat password"  placeholder="Please enter your repeat password"/>
-						    <span class="errorspan" id="errspan_password1"></span>
-					  </div>
+
 					  <div class="form-group">
 						  <label for="username" class="control-label">First name</label>
 						  <input type="text" class="form-control ff1" id="firstname" name="data[Practice][firstname]" value="<?php echo $_POST[data][Practice][firstname];?>"  title="Please enter your firstname"    placeholder="Please enter your firstname"/>

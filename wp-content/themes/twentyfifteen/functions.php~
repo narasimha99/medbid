@@ -363,12 +363,12 @@ echo "<pre>";print_r($wp);
 }
 
 
-	  function sendlocummail($toEmail,$subject,$message){
+ function sendlocummail($toEmail,$subject,$message){
 
 		$headers = "";
 		$headers .= "MIME-Version: 1.0 \r\n";
 		$headers .= "Content-type: text/html; charset=\"UTF-8\" \r\n";
-	 	$headers .= "From: My site<noreply@example.com>\r\n";
+	 	$headers .= "From:Docum<noreply@docum.co.uk>\r\n";
   
 
 		$tmplatemessage  = "<div>";
@@ -403,9 +403,9 @@ echo "<pre>";print_r($wp);
 		$tmplatemessage .= '</table>';
 		$tmplatemessage .= '</div>';
 		//echo $tmplatemessage; 
+		//echo $toEmail;
 		mail($toEmail,$subject,$tmplatemessage,$headers);
 
 	}
-
 
 

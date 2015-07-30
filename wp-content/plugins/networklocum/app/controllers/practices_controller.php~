@@ -74,7 +74,7 @@ class PracticesController extends MvcPublicController {
  			
 			  $this->Practice->save($this->params['data']['Practice']);
 			  $this->flash('success', 'Thanks for become our member,Plesase check your email to continue.');
-	
+			
 				$firstname =  $this->params['data']['Practice']['firstname'];
 				$lastname  =  $this->params['data']['Practice']['lastname'];
 
@@ -98,7 +98,10 @@ class PracticesController extends MvcPublicController {
 
 			  // Email the user
 			  sendlocummail( $email_address, 'Welcome to Docum!',$message);
-			}
+			
+				 $url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'landingpage'));
+				 $this->redirect($url);
+ 		 	}
  		} 		
 
 		$this->load_model('cgcode');
@@ -114,7 +117,14 @@ class PracticesController extends MvcPublicController {
 		$this->set('howdidyouhearlist',$howdidyouhearlist);
 		
  	}
+
 	
+	public function landingpage(){
+		$this->set('mylayout', 'client');
+	        $this->flash('success', '  Thanks for Become our practicer, Please check your email to activate account.');
+ 	}
+		
+		
 	 
 
 	public function youraccount(){

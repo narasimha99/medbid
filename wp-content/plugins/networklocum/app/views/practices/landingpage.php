@@ -5,7 +5,7 @@
 		<div class="row">
 		<?php $this->display_flash(); ?>
 
-		welcome Docum!.
+		welcome Medbid!.
 
 			<a href="<?php echo $url;?>/wp-login.php">Login </a> to contine..
 	</div>

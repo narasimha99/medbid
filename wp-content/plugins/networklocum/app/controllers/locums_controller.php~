@@ -79,7 +79,7 @@ class LocumsController extends MvcPublicController {
 
 		if(!empty($this->params['data']['Locum']) ){
 			if(email_exists($email_address)) {
-	 		 	$this->flash('error', '     Email already used please choose another email to continue!');
+	 		 	$this->flash('error', '     Email address already used please choose another email to continue!');
 			}else {
 		
 			  	  $user_id = wp_create_user( $email_address, $password, $email_address );
