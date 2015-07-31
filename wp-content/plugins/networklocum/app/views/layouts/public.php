@@ -1,21 +1,8 @@
 <?php
-/* 
-if( $mylayout == 'locum')
-	include('locum-layout.php');
-
-if(	$mylayout == 'practice')
-	include('practice-layout.php');
-
-if(	$mylayout == 'client')
-	include('client-layout.php');
-*/
-
-if(	$mylayout == 'empty')
+if($mylayout == 'empty')
 	include('emptypage-layout.php');
-
-if(	$mylayout == 'blankempty')
+ if(	$mylayout == 'blankempty')
 	include('blankemptypage-layout.php');
-
-else
+if($mylayout == 'client')
 	include('client-layout.php');
 ?>

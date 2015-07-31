@@ -42,10 +42,19 @@ jQuery(document).ready(function() {
 <!--middle start here-->
 	
 	<div class="midcol">
+	<div class="container">
 	<div class="bitbox1">	
-		<div class="container">
- 		<h2> Create a Job </h2>
-			
+
+	<h2> Create a Job </h2>
+
+		<?php if( $practicerDetails[0]->verifiedpracticer != 1 ) { ?>					
+		<div class="row">		
+		<div style="padding:15px; border:1px solid #cdcdcd; background-color:#FA8056;">Your profile is not yet approved by our team, before apply to any job it should be valid. <a href="<?php echo  $url.'practices/editprofile/'; ?>">more...</a></div>
+		</div>
+		<?php } else {  ?>
+		
+
+ 			
 			<form    id="calendarform" action="<?php echo $url;?>jobs/publicjobcreate"  onsubmit="javascript:return validatepublicjobcreate();"  method="POST">
 							 <?php $this->display_flash(); ?>
 
@@ -186,8 +195,10 @@ $parking_array = array(
 			
  				</div> 
 					</div>
-						</div>
+						
  	</form>	
+<?php } ?>
+</div>
 </div>
 </div>
 	<!--middle end here-->

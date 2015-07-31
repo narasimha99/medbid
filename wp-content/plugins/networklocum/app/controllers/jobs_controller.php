@@ -24,9 +24,8 @@ class JobsController extends MvcPublicController {
  	
 		$practice_created=0;
 		$user_id = get_current_user_id();		
-		$this->load_model('Practice');
-			 
-				 
+ 		$this->load_model('Practice');
+ 
 		if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
 		  
 		if ( $user_id > 0 ) {
@@ -38,7 +37,7 @@ class JobsController extends MvcPublicController {
 			
 
 			 $practicerDetails = $this->Practice->find_by_user_id($user_id);
-			
+			 $this->set('practicerDetails',$practicerDetails);
 			 $_POST['user_id']  = $practicerDetails[0]->id;
    			 $_POST['postcode'] = $practicerDetails[0]->postcode;
 		   	 $_POST['location'] = $practicerDetails[0]->address;

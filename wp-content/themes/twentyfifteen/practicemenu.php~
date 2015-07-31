@@ -3,7 +3,7 @@
  $url = esc_url( home_url( '/' ) );
 ?>
  	<!--top main navbar start here-->
-		<nav class="navbar navbar-default navbar-fixed-top novborder">
+	<nav class="navbar navbar-default navbar-fixed-top novborder">
 	  <div class="topbar">
 		<div class="container">
         <div class="navbar-header"> 
@@ -18,14 +18,14 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
           <ul class="nav navbar-nav navbar-right ulmargin">
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/jobapplications';?>">Job Applications </a></li>
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/mypostedjobs';?>">My Posted Jobs</a></li>
-			<li class="tnav tnav2"><a class="" href="#<?php //echo $url.'practices/billing';?>">Billing</a></li>
-			<li class="tnav tnav2"><a class="" href="#<?php //echo $url.'doctors';?>"">My Midbid Bank</a></li>
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'jobs/publicjobcreate';?>">Create a Job</a></li>
-			<li class="tnav tnav2"><a class="" href="#<?php //echo $url.'doctors';?>">Messages</a></li>
-			<li class="tnav tnav2"><a class="" href="<?php echo $url.'practices/youraccount';?>">Your Account</a></li>
- 			<li class="tnav tnav2"> <a class="" href="<?php echo wp_logout_url(); ?>">Log out</a></li>
+			<li class="tnav"><a class="" href="<?php echo $url.'jobs/jobapplications';?>">Job Applications </a></li>
+			<li class="tnav"><a class="" href="<?php echo $url.'jobs/mypostedjobs';?>">My Posted Jobs</a></li>
+			<li class="tnav"><a class="" href="#<?php //echo $url.'practices/billing';?>">Billing</a></li>
+			<li class="tnav"><a class="" href="#<?php //echo $url.'doctors';?>">My Midbid Bank</a></li>
+			<li class="tnav"><a class="" href="<?php echo $url.'jobs/publicjobcreate';?>">Create a Job</a></li>
+			<li class="tnav"><a class="" href="#<?php //echo $url.'doctors';?>">Messages</a></li>
+			<li class="tnav"><a class="" href="<?php echo $url.'practices/youraccount';?>">Your Account</a></li>
+ 			<li class="tnav"> <a class="" href="<?php echo wp_logout_url(); ?>">Log out</a></li>
  	
  
           </ul>

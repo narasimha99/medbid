@@ -1,7 +1,5 @@
 <?php get_header(); ?>
-I am In Customer Layout
- 
-  <?php $this->render_main_view(); ?>
+<?php $this->render_main_view(); ?>
 
  
 

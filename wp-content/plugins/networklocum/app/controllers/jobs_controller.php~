@@ -24,9 +24,8 @@ class JobsController extends MvcPublicController {
  	
 		$practice_created=0;
 		$user_id = get_current_user_id();		
-		$this->load_model('Practice');
-			 
-				 
+ 		$this->load_model('Practice');
+ 
 		if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
 		  
 		if ( $user_id > 0 ) {
@@ -38,7 +37,7 @@ class JobsController extends MvcPublicController {
 			
 
 			 $practicerDetails = $this->Practice->find_by_user_id($user_id);
-			
+			 $this->set('practicerDetails',$practicerDetails);
 			 $_POST['user_id']  = $practicerDetails[0]->id;
    			 $_POST['postcode'] = $practicerDetails[0]->postcode;
 		   	 $_POST['location'] = $practicerDetails[0]->address;
@@ -452,11 +451,9 @@ class JobsController extends MvcPublicController {
 		$this->set('mylayout', 'client');
 		$this->load_model('Job');
 	 
+		global $wpdb;	
 		$job_id = $this->params['id'];
-  
-		 
-
-		$params = $this->params;
+  	 	$params = $this->params;
   		$params['joins'][] =  array(  'table' => 'wp_jobsessions',
 							'on' => 'Job.id = Jobsession.job_id',
 							'type' => 'LEFT JOIN',
@@ -473,13 +470,20 @@ class JobsController extends MvcPublicController {
  
  		$params['conditions'] =  array('Job.id' =>$job_id);
  
-		$params['per_page'] = '20';
-
+		 
   		$jobdetails = $this->Job->paginate($params);
-
-
- 		//echo "<pre>"; print_r($jobdetails); echo"</pre>";
+  		//echo "<pre>"; print_r($jobdetails); echo"</pre>";
 		$this->set('jobdetails',$jobdetails['objects']);
+
+		$locum_id = $_SESSION['locum_id'];
+		$sqlAppliedjob = "select id from  wp_appliedjobs where locum_id = $locum_id  and job_id = $job_id";
+		$rsaplied =  $wpdb->get_results($sqlAppliedjob);
+ 		if(count($rsaplied)>0) 
+			$this->set('appliedjob',1);
+		else
+			$this->set('appliedjob',0);
+		
+	
 	
 		$this->load_model('cgcode');
 		$cgcodelist = $this->cgcode->find();
@@ -637,7 +641,7 @@ class JobsController extends MvcPublicController {
 			//echo  "zipcodes ";
 		}
 	 
-	  $queryLast = "SELECT job.postcode,job.location,job.city_id,job.state_id,job.no_of_sessions, jobsession.hourlyrate,jobsession.session_starttime,jobsession.session_endtime FROM wp_jobs AS job JOIN wp_jobsessions AS jobsession ON job.id = jobsession.job_id  $queryConditionString    ORDER BY job.session_date_range, job.state_id, job.city_id, job.latitude, job.longitude ";
+	  $queryLast = "SELECT job.id, job.postcode,job.location,job.city_id,job.state_id,job.no_of_sessions, jobsession.hourlyrate,jobsession.session_starttime,jobsession.session_endtime FROM wp_jobs AS job JOIN wp_jobsessions AS jobsession ON job.id = jobsession.job_id  $queryConditionString    ORDER BY job.session_date_range, job.state_id, job.city_id, job.latitude, job.longitude ";
  
 	global $wpdb;
 	$results =  $wpdb->get_results($queryLast);

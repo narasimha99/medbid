@@ -3,9 +3,9 @@
  $url = esc_url( home_url( '/' ) );
 ?>
  	<!--top main navbar start here-->
-		<nav class="navbar navbar-default navbar-fixed-top novborder">
+	<nav class="navbar navbar-default navbar-fixed-top novborder">
 	  <div class="topbar">
-		<div class="container">
+	<div class="container">
         <div class="navbar-header"> 
           <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
             <span class="sr-only">Toggle navigation</span>

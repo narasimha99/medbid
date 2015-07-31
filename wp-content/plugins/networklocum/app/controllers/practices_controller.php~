@@ -8,7 +8,7 @@ class PracticesController extends MvcPublicController {
  		$_SESSION['user_id'] =  $user_id;
 		$this->load_model('Practice');
 		$PracticeObject = $this->Practice->find_by_user_id($user_id);
-		$this->set('PracticeObject',$PracticeObject[0]);
+		$this->set('PracticeObject',$PracticeObject);
  		$_SESSION['practicer_id'] = $PracticeObject[0]->id;	
 
 		$practicer_id = $_SESSION['practicer_id'];
@@ -166,7 +166,7 @@ class PracticesController extends MvcPublicController {
 
 		$user_ID = get_current_user_id();
 		$object = $this->Practice->find_by_user_id($user_ID);
-		// echo "<pre>";	print_r($object); echo "</pre>";
+	// echo "<pre>";	print_r($object); echo "</pre>";
  		$this->set('practiceobject', $object[0]);
 
 

@@ -166,7 +166,7 @@ class PracticesController extends MvcPublicController {
 
 		$user_ID = get_current_user_id();
 		$object = $this->Practice->find_by_user_id($user_ID);
-		// echo "<pre>";	print_r($object); echo "</pre>";
+	// echo "<pre>";	print_r($object); echo "</pre>";
  		$this->set('practiceobject', $object[0]);
 
 

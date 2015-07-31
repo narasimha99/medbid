@@ -9,7 +9,7 @@ $url = esc_url( home_url( '/' ) );
      <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Medbid</title>
+    <title>Docum</title>
 
     <!-- Bootstrap -->
     <link href="<?php echo get_template_directory_uri(); ?>/css/bootstrap.min.css" rel="stylesheet">
@@ -74,6 +74,7 @@ $user_id = get_current_user_id();
 if ( $user_id == 0 ) {
 	include("sitemenu.php"); 
 }
+
 else 
 {   
   global $current_user;
@@ -81,6 +82,7 @@ else
 
 	if ( $current_user->roles[0] == 'administrator')
 		include("adminmenu.php");
+
 	elseif ( $current_user->roles[0] == 'locum')
 		include("locummenu.php");
 	elseif ( $current_user->roles[0] == 'practicer')
