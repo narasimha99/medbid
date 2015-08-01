@@ -4,8 +4,8 @@
 ?>
  	<!--top main navbar start here-->
 	<nav class="navbar navbar-default navbar-fixed-top novborder">
-	  <div class="topbar">
-		<div class="container">
+	<div class="topbar">
+	<div class="container">
         <div class="navbar-header"> 
           <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
             <span class="sr-only">Toggle navigation</span>
@@ -20,24 +20,12 @@
           <ul class="nav navbar-nav navbar-right ulmargin">
 			<li class="tnav"><a class="" href="<?php echo $url.'jobs/jobapplications';?>">Job Applications </a></li>
 			<li class="tnav"><a class="" href="<?php echo $url.'jobs/mypostedjobs';?>">My Posted Jobs</a></li>
-			<li class="tnav"><a class="" href="#<?php //echo $url.'practices/billing';?>">Billing</a></li>
-			<li class="tnav"><a class="" href="#<?php //echo $url.'doctors';?>">My Midbid Bank</a></li>
 			<li class="tnav"><a class="" href="<?php echo $url.'jobs/publicjobcreate';?>">Create a Job</a></li>
-			<li class="tnav"><a class="" href="#<?php //echo $url.'doctors';?>">Messages</a></li>
 			<li class="tnav"><a class="" href="<?php echo $url.'practices/youraccount';?>">Your Account</a></li>
- 			<li class="tnav"> <a class="" href="<?php echo wp_logout_url(); ?>">Log out</a></li>
+ 			<li class="tnav"><a class="" href="<?php echo wp_logout_url(); ?>">Log out</a></li>
  	
- 
           </ul>
-        </div><!--/.nav-collapse -->
+        </div> 
       </div>
 	  </div>
-
     </nav>
-
-
-
-
-
-          	 
-

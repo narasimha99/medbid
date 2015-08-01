@@ -132,7 +132,7 @@ class PracticesController extends MvcPublicController {
 		$this->isvaliduser();	
 		$this->set('mylayout', 'client');
  		$this->load_model('Practice');	
-		echo "<pre>"; print_r($_POST); echo "</pre>";
+		//echo "<pre>"; print_r($_POST); echo "</pre>";
 		if (isset($_POST['data']['Practice'])){
 		// echo "<pre>";print_r($_FILES); echo "</pre>";	
 

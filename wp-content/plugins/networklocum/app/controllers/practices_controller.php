@@ -310,7 +310,9 @@ class PracticesController extends MvcPublicController {
  	}
 
 
-	
+	public function test(){
+	$this->set('mylayout', 'client'); 
+	}	
 
 	public function isvaliduser(){
  		$user_id = get_current_user_id();
