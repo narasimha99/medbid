@@ -1343,3 +1343,129 @@ function findajaxcall(){
 function validatevarifydocuments(){
 	return true;
 }
+
+
+function validatepracticeeditprofile(){
+
+	jQuery("#errspan_practicename").text("");
+	jQuery("#errspan_practice_code").text("");
+	jQuery("#errspan_pct").text("");
+	jQuery("#errspan_ccg_id").text("");
+	jQuery("#errspan_it_systems").text("");
+	jQuery("#errspan_parking").text("");
+	jQuery("#errspan_location").text("");
+	jQuery("#errspan_address").text("");
+	jQuery("#errspan_city").text("");
+	jQuery("#errspan_country").text("");
+	jQuery("#errspan_state").text("");
+	jQuery("#errspan_postcode").text("");
+	jQuery("#errspan_aboutusandourpatients").text("");
+ 	jQuery("#errspan_phone_number").text("");
+
+
+   
+var errstat=0;
+
+    if(jQuery("#practicename").val() == ""){
+         jQuery("#errspan_practicename").text("Please enter practicename");
+       errstat = 1;      
+    }
+	
+   if(jQuery("#practice_code").val() == ""){
+        jQuery("#errspan_practice_code").text("Please enter practice code");
+       errstat = 1;       
+    }
+	
+
+ if(jQuery("#pct").val() == ""){
+        jQuery("#errspan_pct").text("Please select pct");
+        errstat = 1;       
+    }
+	
+  
+
+ if(jQuery("#ccg_id").val() == ""){
+        jQuery("#errspan_ccg_id").text("Please enter ccg id");
+        errstat = 1;       
+    }
+
+ if(jQuery("#it_systems").val() == ""){
+        jQuery("#errspan_it_systems").text("Please enter IT Systems");
+        errstat = 1;       
+    }
+ if(jQuery("#postcode").val() == ""){
+        jQuery("#errspan_postcode").text("Please enter Postcode");
+        errstat = 1;       
+    }
+
+
+if(jQuery("#pct").val() == ""){ 
+         jQuery("#errspan_pct").text("Please select pct");
+        errstat = 1;       
+}
+
+if(jQuery("#practicename").val() == ""){ 
+
+        jQuery("#errspan_practicename").text("Please enter practice name");
+        errstat = 1;       
+    }
+ 
+ if(jQuery("#practice_code").val() == ""){ 
+
+        jQuery("#errspan_practice_code").text("Please enter practice code");
+        errstat = 1;       
+    }
+ if(jQuery("#ccg_id").val() == ""){
+        jQuery("#errspan_ccg_id").text("Please select ccg");
+        errstat = 1;       
+    }
+
+ if(jQuery("#phone_number").val() == ""){
+        jQuery("#errspan_phone_number").text("Please enter phone number");
+        errstat = 1;       
+  }
+
+//alert(jQuery("#it_systems").val());
+ 
+ if(jQuery("#it_systems").val() == ""){
+         jQuery("#errspan_it_systems").text("Please select IT Systems");
+        errstat = 1;       
+  }
+
+
+
+ if(jQuery("#location").val() == ""){
+         jQuery("#errspan_location").text("Please enter location");
+        errstat = 1;       
+  }
+
+
+
+ if(jQuery("#city").val() == ""){
+         jQuery("#errspan_city").text("Please enter city");
+        errstat = 1;       
+  }
+
+
+
+ if(jQuery("#state").val() == ""){
+         jQuery("#errspan_state").text("Please enter state");
+        errstat = 1;       
+  }
+
+
+
+
+ if(jQuery("#postcode").val() == ""){
+         jQuery("#errspan_postcode").text("Please enter postcode");
+        errstat = 1;       
+  }
+
+ 
+if (  errstat == 1 )
+	return false;
+else
+ 	return true;
+
+ 
+}

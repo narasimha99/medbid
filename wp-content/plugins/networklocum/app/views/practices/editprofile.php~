@@ -4,20 +4,37 @@ $templtpath= get_template_directory_uri();
 ?>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
 <script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery.geocomplete.min.js"></script>
+<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery.cookie.js"></script>
 <script>
 jQuery( document ).ready(function() {
 //console.log( "ready!" );
+if( jQuery("#latitude").val() == 0 || jQuery("#longitude").val() == 0 ) {
+     if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+}
+function showPosition(position) {
+     jQuery("#latitude").val(position.coords.latitude);
+     jQuery("#longitude").val(position.coords.longitude);
+}
+ 
 jQuery("#submit").click(function () {
 $("#locumsignupnext").submit();
 });
  
+
+
+ if(jQuery("#location").val() == ""){
+
 jQuery(function () {	
+ 
  	jQuery("#location").geocomplete({
 	  details: ".bitbox1",
 	  detailsAttribute: "data-geo"
 	});
 });
 
+}
 
 });
 </script>
@@ -49,7 +66,7 @@ $templtpath= get_template_directory_uri();
 									<div class="col-md-8 col-md-offset-2 ">
 										<div class="bitbox1">
 						
-<form name="practicesignup" id="practicesignup"   autocomplete="off"  method="post" action="<?php echo $url;?>practices/editprofile" onsubmit="javascript:return validatepracticesignup();" enctype="multipart/form-data">
+<form name="practicesignup" id="practicesignup"   autocomplete="off"  method="post" action="<?php echo $url;?>practices/editprofile" onsubmit="javascript:return validatepracticeeditprofile();" enctype="multipart/form-data">
  <?php $this->display_flash(); ?>
  
 				<input type="hidden" name="data[Practice][id]" id="id" value="<?php echo $practiceobject->id;?>"/>
@@ -196,7 +213,7 @@ if ($key>0){
 
 <input type="hidden" class="form-control ff1"   data-geo="lat"  id="latitude" name="data[Practice][latitude]" value="<?php echo $practiceobject->latitude;?>"  placeholder="latitude"/>
 
-<input type="hidden" data-geo="lng" class="form-control ff1"  value="<?php echo $practiceobject->longitude;?>"  id="longitude" name="data[Practice][longitude]" placeholder="longitude">
+<input type="hidden" data-geo="lng" class="form-control ff1"  value="<?php echo $practiceobject->longitude;?>"  id="longitude" name="data[Practice][longitude]" placeholder="longitude"/>
 
 </div>
 
@@ -226,19 +243,13 @@ if ($key>0){
 
 
 
-  <div class="form-group">
-						  <label for="password" class="control-label">Locum pack</label><br>
-						  <input type="file" class="form-control ff1" id="locum_pack" name=locum_pack" value="<?php echo $practiceobject->locum_pack;?>"   title="" placeholder="locum pack"/>
-						  <span class="errorspan" id="errspan_locum_pack"></span>
-					  </div>				  
-					  
-					  
+ 					  
 
-  <div class="form-group">
-						  <label for="password" class="control-label">Phone Number</label><br>
-						  <input type="text" class="form-control ff1" id="phone_number" name="data[Practice][phone_number]" value="<?php echo $practiceobject->phone_number;?>" title="" placeholder="enter your Phone number"/>
-						 <span class="errorspan" id="errspan_phone_number"></span>
-					  </div>	
+<div class="form-group">
+<label for="password" class="control-label">Phone Number</label><br>
+<input type="text" class="form-control ff1" id="phone_number" name="data[Practice][phone_number]" value="<?php echo $practiceobject->phone_number;?>" title="" placeholder="enter your Phone number"/>
+<span class="errorspan" id="errspan_phone_number"></span>
+</div>	
 
 
  	
@@ -269,7 +280,7 @@ $nhs_pension_array = array(
 '3'=>'Rate is inclusive of NHS pension'
 );
 ?>
-				<select   id="NHS_Pension" name="data[Practice][NHS_Pension]" class="form-control ff1"">	
+				<select   id="NHS_Pension" name="data[Practice][NHS_Pension]" class="form-control ff1">	
 				<option value=""> Select</option>
 				<?php
 				for($mt=1;$mt<count($nhs_pension_array);$mt++){
@@ -297,7 +308,7 @@ $howoftendoyoupaystaffinvoices_array = array(
 <div class="form-group">
 <label for="username" class="control-label">How often do you pay staff invoices?</label>
 <select  id="howoftendoyoupaystaffinvoices" name="data[Practice][howoftendoyoupaystaffinvoices]" class="form-control ff1">	
-<option  > Select</option>			
+<option> Select</option>			
 <option value=""> Select</option>
 <?php
 for($mt=1;$mt<count($howoftendoyoupaystaffinvoices_array);$mt++){

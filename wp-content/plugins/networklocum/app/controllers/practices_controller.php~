@@ -2,32 +2,27 @@
 class PracticesController extends MvcPublicController {
 
  	public function index() {
+		session_start();
 		$this->isvaliduser();	
  		$this->set('mylayout', 'client');
   		$user_id = get_current_user_id();
  		$_SESSION['user_id'] =  $user_id;
 		$this->load_model('Practice');
 		$PracticeObject = $this->Practice->find_by_user_id($user_id);
+		//echo "<pre>";print_r($PracticeObject);	
 		$this->set('PracticeObject',$PracticeObject);
  		$_SESSION['practicer_id'] = $PracticeObject[0]->id;	
-
-		$practicer_id = $_SESSION['practicer_id'];
-
-		$this->load_model('Job');
-		$jobs = $this->Job->find(array('selects' => array('Job.id','Job.session_date_range'),array('conditions' => array('Job.user_id' =>$practicer_id))));
-
-		$session_date_range = array();
-		$i=0;
-		foreach($jobs as $job){
-		  $session_date_range[$i] = $job->session_date_range;
-		  $i = $i+1;
+ 			
+		$practicer_id = $PracticeObject[0]->id;
+  		$sqljobs =  "select count(user_id) as cntjob from wp_jobs where user_id=$practicer_id";
+		global $wpdb;
+		$rs =  $wpdb->get_results($sqljobs);
+		$postedJobscount = 0;
+		if(count($rs)>0) {
+		   $postedJobscount = $rs[0]->cntjob;
 		}
- 		$_POST['session_date_range'] =  implode(",",$session_date_range); 
-		$this->set('postedJobscount',$i);
-
+    		$this->set('postedJobscount',$postedJobscount);
  		//echo "<pre>"; print_r($jobs); echo "</pre>";
-
-
      	}
 
 
@@ -137,8 +132,8 @@ class PracticesController extends MvcPublicController {
 		$this->isvaliduser();	
 		$this->set('mylayout', 'client');
  		$this->load_model('Practice');	
-	
-		if (isset($this->params['data']['Practice'])){
+		echo "<pre>"; print_r($_POST); echo "</pre>";
+		if (isset($_POST['data']['Practice'])){
 		// echo "<pre>";print_r($_FILES); echo "</pre>";	
 
  		//$temp_file = tempnam(sys_get_temp_dir(), 'Tux');
@@ -153,20 +148,21 @@ class PracticesController extends MvcPublicController {
 		}
  		*/
 
-			if( $this->params['data']['Practice']['verifiedpracticer'] == 2)
-			$this->params['data']['Practice']['verifiedpracticer'] = 0;
+			if( $_POST['data']['Practice']['verifiedpracticer'] == 2)
+			$_POST['data']['Practice']['verifiedpracticer'] = 0;
 			
 
 
-		  $this->params['data']['Practice']['it_systems'] =  implode(",",$this->params['data']['Practice']['it_systems']);
- 		  $this->Practice->save($this->params['data']['Practice']);	
+		  $_POST['data']['Practice']['it_systems'] =  implode(",",$_POST['data']['Practice']['it_systems']);
+		  $practicer_id = $_POST['data']['Practice']['id'];
+ 		  $this->Practice->update($practicer_id,$_POST['data']['Practice']);	
 		  $this->flash('success', 'Your details updated successfully.');
 		}
 
 
 		$user_ID = get_current_user_id();
 		$object = $this->Practice->find_by_user_id($user_ID);
-	// echo "<pre>";	print_r($object); echo "</pre>";
+		// echo "<pre>";	print_r($object); echo "</pre>";
  		$this->set('practiceobject', $object[0]);
 
 

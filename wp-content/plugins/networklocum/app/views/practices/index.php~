@@ -40,7 +40,7 @@ prettyPrint();
 					<div class="col-md-12">
 						<div class="dashmid">
 							<div class="dashmidh">
-								<h2>Hello Sample Practise</h2>
+								<h2>Hello <?php echo  $PracticeObject[0]->firstname. ', '.  $PracticeObject[0]->lastname;?> </h2>
 								<button type="button" class="btn btn-default btn-lg pull-right">Job creation guide <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span> </button> 
 			 <a  style="margin-right:5px;" class="btn btn-default btn-lg pull-right"    href="<?php echo $url.'jobs/publicjobcreate/';?>">Create a Job</a> 
 							</div>
@@ -130,7 +130,15 @@ prettyPrint();
 									</div>
 									
 									<div class="col-md-6" style="text-align:center; line-height:30px;   padding-top: 75px;">
-			 						
+			 				<table align="center">
+<tr> <td> Your profile </td> </tr>
+<tr> <td> <a  href="<?php echo $url.'practices';?>">Dashboard</a> </td> </tr>
+<tr> <td> <a  href="<?php echo $url.'practices/editprofile';?>">Edit profile</a> </td> </tr>
+<tr> <td> <a  href="<?php echo $url.'practices/changepassword';?>">Change Password</a>  </td> </tr>
+<tr> <td> Link Bank Account</td> </tr>
+
+</table>
+			
 								 </div>						  
 							</div>
 							<div class="dashmidh2">
