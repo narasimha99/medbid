@@ -22,7 +22,16 @@ class PracticesController extends MvcPublicController {
 		   $postedJobscount = $rs[0]->cntjob;
 		}
     		$this->set('postedJobscount',$postedJobscount);
+
+		$practicer_id = $PracticeObject[0]->id;
+		$_POST['session_date_range'];
  		//echo "<pre>"; print_r($jobs); echo "</pre>";
+		$sqljobs =  "select session_date_range from wp_jobs where user_id=$practicer_id";
+
+		$_POST['session_date_range'];
+ $wpdb->get_results($sqljobs);
+
+
      	}
 
 

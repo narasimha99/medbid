@@ -106,13 +106,13 @@ $sessiondate = $_POST['session_date'][1];
 	<select id="onejobormultiplesessions" name="onejobormultiplesessions" class="form-control ff1" >
 	<option value=""> Select</option>
 	<?php
+		$_POST['onejobormultiplesessions'] = 1;
 	for($mt=1;$mt<=count($onejobormultiplesessions_array);$mt++){
 	?>
 	<option value="<?php echo $mt;?>"  <?php if($_POST['onejobormultiplesessions'] == $mt) echo 'selected'?>><?php echo $onejobormultiplesessions_array[$mt];?></option>
 	<?php
 	}	
 	?>
-
 	</select>
 
 
@@ -142,9 +142,10 @@ $sessiondate = $_POST['session_date'][1];
 
 
 <tr id="sessiontime">
-<td><input type="text"  class="time start" name="session_starttime[<?php echo $i;?>][1]" id="<?php echo 'session_starttime_'.$i.'_1';?>" value="<?php echo $_POST['session_starttime'][$i][1];?>"   /> </td>
-<td> <input type="text"   class="time end" name="session_endtime[<?php echo $i;?>][1]" id="<?php echo 'session_endtime_'.$i.'_1';?>"  value="<?php echo $_POST['session_endtime'][$i][1];?>"    />  </td>
-<td> <input type="text" name="hourlyrate[<?php echo $i;?>][1]" id="<?php echo 'hourlyrate_'.$i.'_1';?>" myid="<?php echo '_'.$i.'_1';?>" value="<?php echo $_POST['hourlyrate'][$i][1];?>"   onblur="gethourlyrate(<?php echo $i;?>,1)"  placeholder='eg: 80.00' /> </td>
+<td><input type="text"  class="time start" name="session_starttime[<?php echo $i;?>][1]" id="<?php echo 'session_starttime_'.$i.'_1';?>" value="<?php echo $_POST['session_starttime'][$i][1];?>"/> <span id="errorspan_session_starttime_1"></span> </td>
+<td> <input type="text"   class="time end" name="session_endtime[<?php echo $i;?>][1]" id="<?php echo 'session_endtime_'.$i.'_1';?>"  value="<?php echo $_POST['session_endtime'][$i][1];?>"/> <span id="errorspan_session_endtime_1"></span>  </td>
+<td> <input type="text" name="hourlyrate[<?php echo $i;?>][1]" id="<?php echo 'hourlyrate_'.$i.'_1';?>" myid="<?php echo '_'.$i.'_1';?>" value="<?php echo $_POST['hourlyrate'][$i][1];?>"   onblur="gethourlyrate(<?php echo $i;?>,1)"  placeholder='eg: 80.00' />  
+ <span id="errspan_hourlyrate_1"></span>  </td>
 
 <td> <input type="text" readonly name="paytolocum[<?php echo $i;?>][1]" id="<?php echo 'paytolocum_'.$i.'_1';?>" value="<?php echo $_POST['paytolocum'][$i][1];?>"  /> 
 

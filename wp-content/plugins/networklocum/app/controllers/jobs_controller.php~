@@ -25,6 +25,9 @@ class JobsController extends MvcPublicController {
 		$practice_created=0;
 		$user_id = get_current_user_id();		
  		$this->load_model('Practice');
+
+			 $practicerDetails = $this->Practice->find_by_user_id($user_id);
+			 $this->set('practicerDetails',$practicerDetails);
  
 		if(isset($_POST['savejob']) && $_POST['savejob'] == 'savejob' ){
 		  
@@ -36,8 +39,6 @@ class JobsController extends MvcPublicController {
 			$NHS_Pension_info = 0;			
 			
 
-			 $practicerDetails = $this->Practice->find_by_user_id($user_id);
-			 $this->set('practicerDetails',$practicerDetails);
 			 $_POST['user_id']  = $practicerDetails[0]->id;
    			 $_POST['postcode'] = $practicerDetails[0]->postcode;
 		   	 $_POST['location'] = $practicerDetails[0]->address;
@@ -145,7 +146,7 @@ class JobsController extends MvcPublicController {
 	public function  settimerates(){
 
 	 	$this->set('mylayout', 'empty');
- 		 
+
 		if (isset($_REQUEST['dateranges']))
 		$dateranges = $_REQUEST['dateranges'];
  		 
@@ -651,7 +652,7 @@ class JobsController extends MvcPublicController {
  	}
 
 	public function findjob(){
- 
+		$this->set('mylayout', 'client');	
 		$this->load_model('Job');
  		$params = $this->params;
 		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
@@ -670,7 +671,7 @@ class JobsController extends MvcPublicController {
 
 		//$params['conditions'] = array('is_public' => true);
 		$collection = $this->Job->paginate($params);
-		//	echo "<pre>"; print_r($collection); echo "</pre>";
+	//	echo "<pre>"; print_r($collection); echo "</pre>";
 
 		$this->set('joblists', $collection['objects']);
 		$this->set_pagination($collection);

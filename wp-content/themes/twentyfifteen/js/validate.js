@@ -423,9 +423,7 @@ function gethourlyrate(i,j){
 		jQuery("#errspan_parking_facilities").text("");
 		jQuery("#errspan_required_it_systems").text("");
 		jQuery("#errspan_session_description").text("");
-
-		
-		jQuery("#errspan_session_date_range").text("");
+ 		jQuery("#errspan_session_date_range").text("");
 		jQuery("#errspan_session_date_1").text("");
 		jQuery("#errspan_email").text("");
  		jQuery("#errspan_firstname").text("");
@@ -433,24 +431,42 @@ function gethourlyrate(i,j){
  		jQuery("#errspan_practicename").text("");
 		jQuery("#errspan_practice_code").text("");
  		jQuery("#errspan_phone_number").text("");
+		jQuery("#errorspan_session_starttime_1").text("");
+		jQuery("#errorspan_session_endtime_1").text("");
+
+	
 	 
+
 
 		var errstat=0;
 	
 		if( jQuery("#savejob").val() == 'savejob' )
 		{
-
- 
-		
+ 		
 			if(jQuery("#session_date_1").val() == ""){
  				jQuery("#errspan_session_date_range").text("Please choose your session date from calendar");
 				errstat = 1;      
 			}
 
-			//if(jQuery("#session_date_range").val() == ""){
-			//	jQuery("#errspan_session_date_range").text("Please choose your session dates from calendar");
-			//	errstat = 1;      
-			//}
+			 if(jQuery("#session_starttime_1_1").val() == ""){
+				jQuery("#errspan_session_starttime_1").text("Please choose your session start time  from timepicker");
+				errstat = 1;      
+		       }
+
+		      if(jQuery("#session_endtime_1_1").val() == ""){
+				jQuery("#errspan_session_endtime_1").text("Please choose your session end time  from timepicker");
+				errstat = 1;      
+		       }
+
+
+
+
+		      if(jQuery("#hourlyrate_1_1").val() == ""){
+				jQuery("#errspan_hourlyrate_1").text("Please enter your hourly rate");
+				errstat = 1;      
+		       }
+
+
 
 			if(jQuery("#parking_facilities").val() == ""){
 			jQuery("#errspan_parking_facilities").text("Please choose your parking facilities");

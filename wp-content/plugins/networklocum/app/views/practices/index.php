@@ -28,7 +28,7 @@ prettyPrint();
 
 
 			<?php 
-			if ( $PracticeObject[0]->verifiedpracticer == 0  || $PracticeObject[0]->verifiedpracticer == 2 ) {
+			if ( $PracticeObject[0]->verifiedpracticer != 1 ) {
 			?>
 			<div class="row">
 			<div style="padding:15px; border:1px solid #cdcdcd; background-color:#fafafa;">Your profile is not yet approved by our team, before post any job it should be valid.. <a href="<?php echo  $url.'practices/editprofile/'; ?>">more...</a></div>
@@ -47,12 +47,14 @@ prettyPrint();
 							</div>
 								
 
+<?php if( $PracticeObject[0]->verifiedpracticer != 1 ) { ?>					
 <div class="col-md-12" style="margin:20px 0px;">
-										<div class="alert alert-danger" role="alert">
-										  We manually review all practices to ensure security. Please call us on 8888 888 8888 or request a callback at a time of your choosing.
-										</div>
-									</div>
- 
+<div class="alert alert-danger" role="alert">
+We manually review all practices to ensure security. Please call us on 8888 888 8888 or request a callback at a time of your choosing.
+</div>
+</div>
+<?php }  ?> 
+
 <div class="row"> 
 <div class="col-md-12">
 

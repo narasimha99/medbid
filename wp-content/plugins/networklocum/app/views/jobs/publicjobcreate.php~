@@ -13,32 +13,26 @@ jQuery(document).ready(function() {
 	jQuery("#submit5").click(function () {
 		$("#savejob").val('savejob');
 	});
- });
+});
 </script>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- 		<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-1.11.1.js"></script>
-		<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-ui-1.11.1.js"></script>
- 		<!-- loads mdp -->
-		<script type="text/javascript" src="<?php echo $templtpath;?>/jquery-ui.multidatespicker.js"></script>
- 		<!-- loads some utilities (not needed for your developments) -->
-		<link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/css/mdp.css">
-		<link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/css/prettify.css">
- 		<script type="text/javascript" src="<?php echo $templtpath;?>/js/prettify.js"></script>
-		<script type="text/javascript" src="<?php echo $templtpath;?>/js/lang-css.js"></script>
-
-  <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.timepicker.js"></script>
-  <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.datepair.js"></script>
-  <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/datepair.js"></script>
-  <script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/lib/site.js"></script>
-
-
-  <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/jquery.timepicker.css" />
-  <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/bootstrap-datepicker.css" />
-  <link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/site.css" />
-	
-   
-
-	 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="<?php echo $templtpath;?>/js/jquery-ui-1.11.1.js"></script>
+<!-- loads mdp -->
+<script type="text/javascript" src="<?php echo $templtpath;?>/jquery-ui.multidatespicker.js"></script>
+<script type="text/javascript" src="<?php echo $templtpath;?>/js/prettify.js"></script>
+<script type="text/javascript" src="<?php echo $templtpath;?>/js/lang-css.js"></script>
+<script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.timepicker.js"></script>
+<script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/jquery.datepair.js"></script>
+<script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/datepair.js"></script>
+<script type="text/javascript" src="<?php echo $templtpath;?>/timepicker/lib/site.js"></script>
+<!-- loads some utilities (not needed for your developments) -->
+<link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/css/mdp.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/css/prettify.css">
+<link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/jquery.timepicker.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/bootstrap-datepicker.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $templtpath;?>/timepicker/lib/site.css" />
+ 	 
 <!--middle start here-->
 	
 	<div class="midcol">
@@ -47,7 +41,9 @@ jQuery(document).ready(function() {
 
 	<h2> Create a Job </h2>
 
-		<?php if( $practicerDetails[0]->verifiedpracticer != 1 ) { ?>					
+		<?php 
+
+if( $practicerDetails[0]->verifiedpracticer != 1 ) { ?>					
 		<div class="row">		
 		<div style="padding:15px; border:1px solid #cdcdcd; background-color:#FA8056;">Your profile is not yet approved by our team, before apply to any job it should be valid. <a href="<?php echo  $url.'practices/editprofile/'; ?>">more...</a></div>
 		</div>
@@ -63,11 +59,7 @@ jQuery(document).ready(function() {
 		<div class="col-md-12">
 		<!-- <div   align="right"> <input type='button' name="add" style="align:right"  value="Join more days" onclick="addmoredays();"/> </div> -->
 
-
-
-
-	 
-
+ 
 
 		<!-- its my code end here -->
 
@@ -202,4 +194,3 @@ $parking_array = array(
 </div>
 </div>
 	<!--middle end here-->
-	 
