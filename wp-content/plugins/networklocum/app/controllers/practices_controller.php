@@ -153,10 +153,14 @@ class PracticesController extends MvcPublicController {
 			
 
 
-		  $_POST['data']['Practice']['it_systems'] =  implode(",",$_POST['data']['Practice']['it_systems']);
-		  $practicer_id = $_POST['data']['Practice']['id'];
- 		  $this->Practice->update($practicer_id,$_POST['data']['Practice']);	
-		  $this->flash('success', 'Your details updated successfully.');
+		$_POST['data']['Practice']['it_systems'] =  implode(",",$_POST['data']['Practice']['it_systems']);
+		$practicer_id = $_POST['data']['Practice']['id'];
+		$this->Practice->update($practicer_id,$_POST['data']['Practice']);	
+		$this->flash('success', 'Your profile updated successfully.');
+		$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'index'));
+		$this->redirect($url);	
+
+
 		}
 
 
@@ -192,9 +196,8 @@ class PracticesController extends MvcPublicController {
 		$this->isvaliduser();	 
 		$this->set('mylayout', 'client');
  		include("wp-includes/pluggable.php");
-
-		if(isset($_POST)){
-
+		//echo "<pre>";print_r($_POST); echo "</pre>";
+		if(isset($_POST['saveform'])){
 			$current_user = wp_get_current_user();
 			$user_id = get_current_user_id();
 	 		$old_password = $_POST['old_password'];
@@ -203,6 +206,9 @@ class PracticesController extends MvcPublicController {
 			if(wp_check_password($old_password, $hash_old_password)){
 	 			wp_set_password($new_password,$user_id);
 				$this->flash('success', 'Your password update with latest password given.');	
+				 $url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'index'));
+				 $this->redirect($url);
+
 			}else{
 				$this->flash('error', 'Please enter valid Old password !');	
 			}

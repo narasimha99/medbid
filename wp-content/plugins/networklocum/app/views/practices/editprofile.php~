@@ -166,7 +166,7 @@ if ($key>0){
 							<?php
 							for($mt=1;$mt<count($parking_array);$mt++){
 							?>
-							<option value="<?php echo $mt;?>"  <?php if($_POST['parking'] == $mt) echo 'selected'?>><?php echo $parking_array[$mt];?></option>	
+							<option value="<?php echo $mt;?>"  <?php if($practiceobject->parking == $mt) echo 'selected'?>><?php echo $parking_array[$mt];?></option>	
 							<?php
 							}	
 							?>

@@ -1,19 +1,27 @@
 <!--middle start here-->
- 	<div class="midcol">
-		<div class="container">
-		<div class="row">
+<div class="midcol">
+<div class="container">
+<div class="row">
 		
-				<div class="aligncenter">
-					<h2 class="text1">My Posted Job Sessions</h2>
-					<div> <?php $this->display_flash(); ?> </div>
+	<div class="aligncenter">
+		<h2 class="text1">My Posted Job Sessions</h2>
+		<div> <?php $this->display_flash(); ?> </div>
 
-				</div>
-				
-				<div class="col-md-12">
-					
-					<div>
-						<div class="container">
+	</div>
+				 
+	<?php
+
+	if ( count($joblists) == 0 ) {
+	?>	
+	<div class="row">
+	<div style="padding:15px; border:1px solid #cdcdcd; background-color:#fafafa;">You have not posted any jobs... <a href="<?php echo  '#'; ?>">Know about...</a></div>
+	</div>	
+	<?php			 
+		} else  {
+	?>
+	<div class="container">
     <div class="row">
+
         <div id="no-more-tables">
             <table class="col-md-12 table-bordered table-striped table-condensed cf">
         		<thead class="cf">
@@ -60,11 +68,10 @@ echo ' - £'.$job->hourlyrate;
 
 <center> <?php echo $this->pagination(); ?> </center>	
 					</div>
-					
-					
-					
-			</div>
-		</div>  
+	 		</div>
+	
+	<?php  } ?>	
+	</div>  
 	</div>
 	</div>
 	

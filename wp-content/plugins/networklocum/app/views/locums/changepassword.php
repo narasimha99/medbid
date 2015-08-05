@@ -30,7 +30,7 @@ $templtpath= get_template_directory_uri();
 							  <li class="active">Change Password</li>
 							</ol>
 							
-							<p><?php $this->display_flash(); ?> </p>
+							<p><?php // $this->display_flash(); ?> </p>
 
 <p>Please enter your old password, for security's sake, and then enter your new password twice so we can verify you typed it in correctly.</p><br>
 								  

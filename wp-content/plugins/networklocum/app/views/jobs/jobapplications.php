@@ -19,6 +19,19 @@
 					<div>
 					<div class="container">
 					    <div class="row">
+						
+
+	<?php
+
+	if ( count($appliedjoblists) == 0 ) {
+	?>	
+	<div class="row">
+	<div style="padding:15px; border:1px solid #cdcdcd; background-color:#fafafa;">You have not received any applications... <a href="<?php echo  '#'; ?>">Know about...</a></div>
+	</div>	
+	<?php			
+
+	}else  {
+	?>
 						<div id="no-more-tables">
 						    <table class="col-md-12 table-bordered table-striped table-condensed cf">
 								<thead class="cf">
@@ -75,6 +88,7 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date
         	</table>
 
 <center> <?php echo $this->pagination(); ?> </center>	
+<?php } ?>
         </div>
     </div>
 
