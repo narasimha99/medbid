@@ -2,28 +2,35 @@
  $templtpath= get_template_directory_uri(); 
  $url = esc_url( home_url( '/' ) );
 ?>
- 
 <script>
 jQuery( document ).ready(function() {
-
-//console.log( "ready!" );
-jQuery("#home-tab").click(function () {
-
-var purl = SITE_ROOT_JS+'locums/myinvitejobs';
-$.ajax({
-	 url:purl,
-	dataType: 'text',
-	data:{}
-}).done(function( data ) {
-
-$("#myinvitejobs").html( data );
-
-});
-
-
-
-});
  
+jQuery("#home-tab").click(function () {
+ var purl = SITE_ROOT_JS+'locums/myinvitejobs';
+	$.ajax({
+		 url:purl,
+		dataType: 'text',
+		data:{}
+	}).done(function( data ) {
+
+	$("#myinvitejobs").html( data );
+
+	})
+
+});
+jQuery("#booked-tab").click(function () {
+
+		var purl = SITE_ROOT_JS+'locums/bookedjobs';
+	$.ajax({
+		 url:purl,
+		dataType: 'text',
+		data:{}
+	}).done(function( data ) {
+
+		$("#booked").html( data );
+	});
+
+ });
 
 });
 </script>
@@ -50,7 +57,7 @@ $("#myinvitejobs").html( data );
 
 			  <?php $this->display_flash(); ?>
 
-		  	<div class="bs-docs-section" style="margin-top:20px;">
+		  <div class="bs-docs-section" style="margin-top:20px;">
 		  <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 			<ul id="myTab" class="nav nav-tabs" role="tablist">
 			  <li role="presentation" class="active" ><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">My Invites</a></li>
@@ -97,27 +104,31 @@ $jobsessions  = count($job->jobsessions);
 </td>
 <td data-title="Company"><?php 
 echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime)).' - '.date('H:ma', strtotime($jobsession->session_endtime));
- 
 ?> </td>
 
 <td data-title="Change" class="numeric">£ <?php echo $jobsession->hourlyrate;?> </td>
 <td data-title="Change" class="numeric"><?php 
-				if( $jobsession->practicer_accepted == 1) echo "Accepted";
+				if( $jobsession->practicer_accepted == 1) echo "Accepted by practicer";
 				else if($jobsession->practicer_rejected == 1) echo  "Rejected"; 
 				else if($jobsession->practicer_accepted == 0) echo  "Waiting..";
 ?> 
-</td>
+</td>				
 <td data-title="Change %" class="numeric">
 <?php 
 	if( $jobsession->practicer_accepted == 1 && $jobsession->locum_accepted == 0 ) {
 ?>
-<a href="<?php echo $url.'locums/acceptyourjob/'.$jobsession->id;?>" class="btn btn-primary aplbtn" title="Accept the job">Accept</a>
-<a href="<?php echo $url.'locums/acceptyourjob/'.$jobsession->id?>" class="btn btn-primary aplbtn" title="Reject job">Reject</a>
-<?php } ?>
+<a href="<?php echo $url.'locums/applyedjobdetails/'.$jobsession->AppliedjobID;?>" class="btn btn-primary aplbtn" title="Accept the job">Accept</a>
+<a href="<?php echo $url.'locums/applyedjobdetails/'.$jobsession->AppliedjobID?>" class="btn btn-primary aplbtn" title="Reject job">Reject</a>
+<?php }else
+if($jobsession->locum_accepted == 1){
+	echo "Accepted by locum";
+}
+ ?>
+
 </td>
 </tr>
 <?php 
-  	}
+  }
 ?>	
         		</tbody>
         	</table>
@@ -143,7 +154,7 @@ else
             <div id="push"></div>
 				
 				
-		</div>  
+	</div>  
 	</div>
 	</div>
 	

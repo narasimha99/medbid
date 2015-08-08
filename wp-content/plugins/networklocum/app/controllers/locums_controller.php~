@@ -27,7 +27,7 @@ class LocumsController extends MvcPublicController {
 
 	function checkdocument($id,$masterDocuments,$location){
 		$this->isvaliduser();	 
-		 $id = $id - 1;
+		$id = $id - 1;
  		$locum_id  = $_SESSION['locum_id']; 
 		$this->load_model('Locumdocument');
 	
@@ -376,15 +376,14 @@ class LocumsController extends MvcPublicController {
 		//echo "<pre>";print_r($jobdetails); echo "</pre>";
  		$this->set('jobdetails',$jobdetails[0]);
 		$practicer_id = $jobdetails[0]->user_id;
-		$sqlpracticer = "select user_id, practice_code,practicename,firstname,lastname,address,city,state from wp_practices where user_id=$practicer_id";
+		$sqlpracticer = "select user_id, practice_code,practicename,firstname,lastname,address,city,state from wp_practices where id=$practicer_id";
 		$practicerdetails = $wpdb->get_results($sqlpracticer);
  		$this->set('practicerdetails',$practicerdetails[0]);
 
  
 		$jobsessions = $this->Jobsession->find(array('conditions' => array('Jobsession.job_id' =>$job_id)));
-		//echo "<pre>"; print_r($jobsessions); echo "</pre>";
-		 
-		$this->set('jobsessions',$jobsessions);
+		//	echo "<pre>"; print_r($jobsessions); echo "</pre>";
+ 		$this->set('jobsessions',$jobsessions);
 		
  
 		$this->load_model('cgcode');
@@ -408,21 +407,18 @@ class LocumsController extends MvcPublicController {
 		$_POST['locum_id'] = $locum_id;
 		$_POST['practicer_id'] = $practicer_id;
 		 
-		 $this->Appliedjob->save($_POST);
+	
+ 		$_POST['session_date'] = $_POST['session_date'][$job_id]; 
+ 		$_POST['jobsession_id'] = $_POST['jobsessions'][$job_id]; 
+		$_POST['hourlyrate'] = $_POST['hourlyrate'][$job_id];
+		$_POST['paytolocum'] = $_POST['paytolocum'][$job_id]; 
+		$_POST['session_starttime'] = $_POST['session_starttime'][$job_id];
+		$_POST['session_endtime'] = $_POST['session_endtime'][$job_id];
+		$_POST['timediff'] = $_POST['timediff'][$job_id];
+	
+		//echo "<pre>";print_r($_POST);exit;
+	 	 $this->Appliedjob->save($_POST);
 
- 			
- 		$jobsessions = $_POST['jobsessions']; 
-		$hourlyrate = $_POST['hourlyrate'];
-		$paytolocum = $_POST['paytolocum'];
-		$session_starttime = $_POST['session_starttime'];
-		$session_endtime = $_POST['session_endtime'];
-	 
-		foreach ($jobsessions as $key => $value){
-
- 		 
-		     $sql_jobsessions = "INSERT INTO  wp_appliedsessions(locum_id,job_id,practicer_id,jobsession_id,hourlyrate,paytolocum,session_starttime,session_endtime)VALUES($locum_id,$job_id,$practicer_id,$key,$hourlyrate[$key],$paytolocum[$key],'$session_starttime[$key]','$session_starttime[$key]')";
-				$wpdb->query($sql_jobsessions);
- 			}
 
 			$this->flash('success', 'You have successfully aplied for the job we will get back you soon..'); 		
 			$url = MvcRouter::public_url(array('controller' => $this->name, 'action' => 'myjobs'));
@@ -445,13 +441,7 @@ class LocumsController extends MvcPublicController {
 		$params = array(); 
 		$params = $this->params;
     		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
-  
-
- 		$params['joins'][] =   array('table' =>'wp_appliedsessions',
-					     'on' => 'Appliedjob.job_id = appliedsession.job_id ',
-			 	  	    'type'=> 'JOIN',
-				  	   'alias'=>'appliedsession');
-
+   		 
 		$params['joins'][] =   array('table' =>'wp_practices',
 					     'on' => 'Appliedjob.practicer_id = practicer.id ',
 			 	  	    'type'=> 'JOIN',
@@ -463,14 +453,13 @@ class LocumsController extends MvcPublicController {
 				  	   'alias'=>'job');
 
    		
-  		$params['additional_selects'] = array('Appliedjob.id AS AppliedjobID,appliedsession.session_date,appliedsession.session_starttime',
-						   'appliedsession.session_endtime','appliedsession.hourlyrate','appliedsession.paytolocum',
-					   		 						'practicer.id','practicer.lastname','practicer.practice_code','practicer.practicename','practicer.email',
+  		$params['additional_selects'] = array('Appliedjob.id AS AppliedjobID',
+					'practicer.id','practicer.lastname','practicer.practice_code','practicer.practicename','practicer.email',
 					'job.no_of_sessions','job.session_description','job.onejobormultiplesessions','job.required_it_systems','job.parking_facilities');
 						
  
- 		 $params['conditions'] = array('Appliedjob.locum_id' =>$locum_id);
-		 $params['group'] = 'Appliedjob.id';
+ 		$params['conditions'] = array('Appliedjob.locum_id' =>$locum_id,'Appliedjob.locum_accepted'=>0);
+		$params['group'] = 'Appliedjob.id';
 		$params['per_page'] = '20';
 
 		$collection = $this->Appliedjob->paginate($params);
@@ -510,7 +499,45 @@ class LocumsController extends MvcPublicController {
 
 	}
 
-	public function mybookedjobs(){
+	public function bookedjobs(){
+	
+		$this->isvaliduser();	
+ 		$this->set('mylayout', 'empty');
+  		
+		$locum_id = $_SESSION['locum_id'];
+  
+		$this->load_model('Appliedjob');
+		 
+		global $wpdb;
+
+		$params = array(); 
+		$params = $this->params;
+    		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
+   	 
+		$params['joins'][] =   array('table' =>'wp_practices',
+					     'on' => 'Appliedjob.practicer_id = practicer.id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'practicer');
+
+		$params['joins'][] =   array('table' =>'wp_jobs',
+					     'on' => 'Appliedjob.job_id = job.id ',
+			 	  	    'type'=> 'JOIN',
+				  	   'alias'=>'job');
+
+   		
+  		$params['additional_selects'] = array('Appliedjob.id AS AppliedjobID', 			   		 						'practicer.id','practicer.lastname','practicer.practice_code','practicer.practicename','practicer.email',
+					'job.no_of_sessions','job.session_description','job.onejobormultiplesessions','job.required_it_systems','job.parking_facilities');
+						
+ 
+ 		$params['conditions'] = array('Appliedjob.locum_id' =>$locum_id,'Appliedjob.locum_accepted'=>1);
+		$params['group'] = 'Appliedjob.id';
+		$params['per_page'] = '20';
+
+		$collection = $this->Appliedjob->paginate($params);
+		//echo "<pre>";print_r($objects); echo "</pre>";
+ 		$this->set('appliedjoblists', $collection['objects']);
+ 	 	$this->set_pagination($collection);		
+		
 
 	}
 	
@@ -691,11 +718,7 @@ class LocumsController extends MvcPublicController {
 		$appliedjobId = $this->params['id'];
  		$this->set('appliedjobId',$appliedjobId); 
 		$params = array(); 
- 		$params['joins'][] =   array('table' =>'wp_appliedsessions',
-					     'on' => 'Appliedjob.job_id = appliedsession.job_id ',
-			 	  	    'type'=> 'JOIN',
-				  	   'alias'=>'appliedsession');
-
+ 		 
 		$params['joins'][] =   array('table' =>'wp_practices',
 					     'on' => 'Appliedjob.practicer_id = practicer.id ',
 			 	  	    'type'=> 'JOIN',
@@ -706,11 +729,10 @@ class LocumsController extends MvcPublicController {
 			 	  	    'type'=> 'JOIN',
 				  	   'alias'=>'job');
 
-   		
-  		$params['additional_selects'] = array('appliedsession.session_date,appliedsession.session_starttime',
-						   'appliedsession.session_endtime','appliedsession.hourlyrate','appliedsession.paytolocum',
-					   		 						'practicer.firstname','practicer.lastname','practicer.practice_code','practicer.practicename','practicer.email',
-					'job.no_of_sessions','job.session_description','job.onejobormultiplesessions','job.required_it_systems','job.parking_facilities');
+   		$params['additional_selects'] = array('practicer.firstname','practicer.lastname','practicer.practice_code',
+						'practicer.practicename','practicer.email',
+						'job.no_of_sessions','job.session_description','job.onejobormultiplesessions',
+						'job.required_it_systems','job.parking_facilities');
 						
  
  		$params['conditions'] = array('Appliedjob.id' =>$appliedjobId);

@@ -14,18 +14,15 @@ jQuery( document ).ready(function() {
  
 });
 </script>
-
 <?php
  $templtpath= get_template_directory_uri(); 
 ?>
 <?php
 $url = esc_url( home_url( '/' )); 
 $templtpath= get_template_directory_uri(); 
-//echo "<pre>"; print_r($practicerdetails); echo "</pre>";
+//echo "<pre>"; print_r($jobdetails); echo "</pre>";
 ?>
- 
 <!--middle start here-->
-	
 <div class="midcol">
 <div class="bitbox1">	
 <div class="container">
@@ -43,10 +40,10 @@ $templtpath= get_template_directory_uri();
 		 <table id="<?php echo 'TABLEsessionday'.$i;?>" class="table" >
 
 <tr>
-<td>&nbsp;</td>
-<td> Practicer details :   <?php echo $jobdetails->practice_code.','.$jobdetails->practicename; ?> </td>
-<td>&nbsp; </td>
-<td> No of sessions : 1 <?php echo $jobdetails->no_of_sessions; ?> </td>
+<td> Practicer details :   <?php echo $jobdetails->practice_code.','.$jobdetails->practicename; ?>   &nbsp; 
+<a href="<?php echo $url.'practices/viewpracticer/'.$jobdetails->practicer_id;?>" target="_blank" title="Click here to  view more practicers details on newtab"> view more...</a> 
+</td>
+<td> No of sessions :  <?php echo $jobdetails->no_of_sessions; ?> </td>
 </tr>
   
 <tr>
@@ -182,11 +179,11 @@ $parking_array = array(
 					 <input type="hidden"  name="appliedjobId" value="<?php echo $jobdetails->id;?>"/>
 					 <div align="center">
 		  		<?php
-				if( $jobdetails->practicer_accepted == 1 && $jobdetails->locum_rejected == 0 && $jobdetails->locum_rejected!=1) {
+				if( $jobdetails->practicer_accepted == 1 && $jobdetails->locum_rejected == 0 && $jobdetails->locum_rejected!=1 &&  $jobdetails->locum_accepted==0 ) {
 				?>
-					<button class="btn btn-info sbtn" id="submit1">Accept this Job</button>
-					<button class="btn btn-info sbtn" id="submit2">Reject this Job</button>
-				<?php } ?>
+					<button class="btn btn-info sbtn" id="submit1">Accept this job</button>
+					<button class="btn btn-info sbtn" id="submit2">Reject this job</button>
+		 		<?php } ?>
 					 </div>
 			  </div> 
 					 

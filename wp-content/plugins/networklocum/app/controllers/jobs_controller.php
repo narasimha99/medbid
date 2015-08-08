@@ -513,28 +513,17 @@ class JobsController extends MvcPublicController {
  
 		$params = $this->params;
  		$params['page'] = empty($this->params['page']) ? 1 : $this->params['page'];
- 		$params['joins'][] =   array('table' =>'wp_appliedsessions',
-					     'on' => 'Appliedjob.job_id = appliedsession.job_id ',
-			 	  	    'type'=> 'LEFT JOIN',
-				  	   'alias'=>'appliedsession');
-
+ 		 
 		$params['joins'][] =   array('table' =>'wp_locums',
 					     'on' => 'Appliedjob.locum_id = locum.id ',
 			 	  	    'type'=> 'LEFT JOIN',
 				  	   'alias'=>'locum');
    		
-  		$params['additional_selects'] = array('appliedsession.session_date,appliedsession.session_starttime',
-						   'appliedsession.session_endtime','appliedsession.hourlyrate','appliedsession.paytolocum',
-						   'referrals','home_visits','bloods','pension_included',
-						 'locum.firstname','locum.lastname');
+  		$params['additional_selects'] = array('locum.firstname','locum.lastname');
  
- 		$params['conditions'] = array('Appliedjob.practicer_id' =>$practicer_id,
-						'Appliedjob.practicer_rejected' =>0,
-						 'Appliedjob.locum_rejected'=>0,
-						 'Appliedjob.practicer_accepted'=>0,
- 					 );
-		 $params['per_page'] = '20';
+ 		$params['conditions'] = array('Appliedjob.practicer_id'=>$practicer_id);
 
+		$params['per_page'] = '20';
 		$params['order'] = "Appliedjob.applieddate ASC";
  		$collection = $this->Appliedjob->paginate($params);
  		$this->set('appliedjoblists', $collection['objects']);

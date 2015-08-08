@@ -8,7 +8,8 @@ $templtpath= get_template_directory_uri();
 <div class="row">	 
 <div class="col-md-12">
  
-<h2> View Job Details </h2>						
+<h2> View Job Details </h2>		
+				
 <?php  $this->display_flash(); ?>
 
  
@@ -222,14 +223,32 @@ $parking_array = array(
 <a href="<?php echo $url.'locums/applyjob/'.$jobdetails[0]->id;?>" class="btn btn-primary aplbtn" title="Apply for job">Apply for this job</a>
 <?php } else
 	{
-		echo "<span style='color:green'> You already applied this job</span>";
+		echo "<span style='color:green; padding:10px; border-radius:5px; border:1px solid #cdcdcd; background-color:#fafafa; font-weight:bold;'> You already applied this for this job</span>";
 	}
  ?>
 </div>
 
 
+
+<div class="row">
+<table>
+<tr>
+<td> Total 7 Proposals</td>
+</tr>
+
+<tr>
+<td>
+
+
+</td>
+</tr>
+	
+</table>
+
 </div> 
 </div>
+</div>
+
 </div>
 </div>
 <!--middle end here-->

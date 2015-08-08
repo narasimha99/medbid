@@ -31,7 +31,7 @@ jQuery( document ).ready(function() {
 			//alert("This input field has lost its focus.");
 	});
 
-	//console.log( "ready!" );
+		//console.log( "ready!" );
 	jQuery("#submit1").click(function () {
 		$("#calendarform").submit();
  	});
@@ -81,8 +81,7 @@ $templtpath= get_template_directory_uri();
 
 		 <table class="table">
 
-		 <table  class="table">
-
+		
 
 <tr>
 <td>&nbsp;</td>
@@ -130,6 +129,8 @@ echo date('D j M Y, H:ma', strtotime($jobsession->session_starttime));
 </td>
  
 <td> <?php echo date('H:ma', strtotime($jobsession->session_endtime)); ?> 
+
+ <input type="hidden" data_id="<?php echo $jobsession->id;?>"   id="session_date_<?php echo $jobsession->id;?>" name="session_date[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->session_date;?>"   /> 
 
  <input type="hidden" data_id="<?php echo $jobsession->id;?>"   id="session_starttime_<?php echo $jobsession->id;?>" name="session_starttime[<?php echo $jobsession->id;?>]" value="<?php echo $jobsession->session_starttime;?>"   /> 
 

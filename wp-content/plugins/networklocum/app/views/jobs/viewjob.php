@@ -229,8 +229,26 @@ $parking_array = array(
 </div>
 
 
+
+<div class="row">
+<table>
+<tr>
+<td> Total 7 Proposals</td>
+</tr>
+
+<tr>
+<td>
+
+
+</td>
+</tr>
+	
+</table>
+	
 </div> 
 </div>
+</div>
+
 </div>
 </div>
 <!--middle end here-->
